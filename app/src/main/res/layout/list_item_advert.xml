@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="10dp"
+    android:background="@android:color/background_light"
+    android:elevation="4dp">
+
+    <ImageView
+        android:id="@+id/list_deal_thumbnail"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        app:srcCompat="@drawable/dog_img"
+        android:background="@android:color/darker_gray"
+        android:padding="2dp"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true"
+        android:cropToPadding="true"
+        android:layout_marginTop="5dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp">
+        <TextView
+            android:id="@+id/list_deal_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:ellipsize="end"
+            tools:text="2 german shepard dogs for Sale"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@android:color/holo_blue_dark"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_location_on_black_24dp"
+                android:scaleX=".8"
+                android:scaleY=".8"/>
+            <TextView
+                android:id="@+id/list_deal_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Location city, country"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1.5dp"
+            android:layout_margin="5dp"
+            android:background="@android:color/darker_gray"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp">
+            <TextView
+                android:id="@+id/list_deal_price"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                tools:text="$5,000"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/primaryText"
+                android:layout_weight="1"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_access_time_black_24dp"
+                android:scaleX=".8"
+                android:scaleY=".8"
+                android:paddingStart="1dp"
+                android:paddingEnd="1dp"/>
+            <TextView
+                android:id="@+id/list_deal_date"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                tools:text="01/12/2016"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textSize="16sp" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:rowCount="4"
+    android:columnCount="2"
+    android:layout_gravity="center"
+    tools:context="com.ahmedbass.mypetfriend.MainActivity">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_row="0"
+        android:layout_column="0"
+        android:orientation="vertical"
+        android:layout_margin="40dp">
+        <ImageButton
+            android:id="@+id/my_pets_btn"
+            style="@style/iconStyle_MainScreen"
+            android:src="@drawable/ic_my_pets"
+            android:paddingTop="8dp"
+            android:paddingBottom="12dp"
+            android:layout_marginBottom="2dp"
+            android:onClick="moveToActivity"
+            android:elevation="4dp" />
+        <TextView
+            android:text="My Pets"
+            android:typeface="serif"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView1"
+            android:layout_gravity="center|bottom" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_row="0"
+        android:layout_column="1"
+        android:orientation="vertical"
+        android:layout_margin="40dp">
+        <ImageButton
+            android:id="@+id/pet_places_btn"
+            style="@style/iconStyle_MainScreen"
+            android:src="@drawable/ic_find_pet_places"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:layout_marginBottom="2dp"
+            android:onClick="moveToActivity"
+            android:elevation="4dp"/>
+        <TextView
+            android:text="Pets Places"
+            android:typeface="serif"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView2"
+            android:layout_gravity="center|bottom" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_row="1"
+        android:layout_column="0"
+        android:orientation="vertical"
+        android:layout_margin="40dp">
+        <ImageButton
+            android:id="@+id/vets_btn"
+            style="@style/iconStyle_MainScreen"
+            android:src="@drawable/ic_vets"
+            android:paddingTop="10dp"
+            android:paddingBottom="15dp"
+            android:layout_marginBottom="2dp"
+            android:onClick="moveToActivity"
+            android:elevation="4dp"/>
+        <TextView
+            android:text="Veterinarians"
+            android:typeface="serif"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView3"
+            android:layout_gravity="center|bottom" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_row="1"
+        android:layout_column="1"
+        android:orientation="vertical"
+        android:layout_margin="40dp">
+        <ImageButton
+            android:id="@+id/pet_shop_btn"
+            style="@style/iconStyle_MainScreen"
+            android:src="@drawable/ic_pet_shop"
+            android:padding="15dp"
+            android:layout_marginBottom="2dp"
+            android:onClick="moveToActivity"
+            android:elevation="4dp"/>
+        <TextView
+            android:text="Pet Shop"
+            android:typeface="serif"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView4"
+            android:layout_gravity="center|bottom" />
+    </LinearLayout>
+
+</GridLayout>
