@@ -17,7 +17,7 @@
 
         <ImageView
             android:id="@+id/advert_images"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="200dp"
             android:src="@drawable/dog_img"
             android:background="@android:color/darker_gray"

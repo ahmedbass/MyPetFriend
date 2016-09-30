@@ -4,7 +4,7 @@
     android:id="@+id/shop_deals_listview"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
+    android:padding="5dp"
     android:drawSelectorOnTop="true"
     android:divider="@android:color/transparent"
     android:dividerHeight="10dp"

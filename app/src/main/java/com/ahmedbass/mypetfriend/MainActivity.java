@@ -21,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
         myPets_btn = (ImageButton) findViewById(R.id.pet_places_btn);
         myPets_btn = (ImageButton) findViewById(R.id.pet_shop_btn);
         myPets_btn = (ImageButton) findViewById(R.id.vets_btn);
-
     }
 
     public void moveToActivity(View view) {
