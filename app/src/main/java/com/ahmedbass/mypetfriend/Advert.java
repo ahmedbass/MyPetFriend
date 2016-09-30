@@ -22,6 +22,7 @@ class Advert implements Serializable {
     private boolean isMicroChipped;
     private boolean isNeutered;
     private boolean isVaccinated;
+    private boolean isSold;
 
     private String loc;//TODO remove this later
 
