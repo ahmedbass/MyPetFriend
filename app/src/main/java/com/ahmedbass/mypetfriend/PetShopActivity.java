@@ -44,7 +44,7 @@ public class PetShopActivity extends AppCompatActivity {
         adapter = new MyAdvertsAdapter(this, listOfAdverts);
 
         //handle listview and assign adapter
-        dealsList = (ListView)findViewById(R.id.shop_deals_listview);
+        dealsList = (ListView)findViewById(R.id.listview_petShopDeals);
         dealsList.setAdapter(adapter);
         //when click on existing pet, move to its profile
         dealsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {

@@ -15,9 +15,10 @@ class Pet implements Serializable{
     private int weight;
     private String kind;
     private String breed;
+    private String microchip;
     private String[] vaccines; //TODO maybe change to type vaccines after gathering information
 
-    public Pet(String name, long birthDate, int gender, int weight, String kind, String breed) {
+    Pet(String name, long birthDate, int gender, int weight, String kind, String breed) {
         this.name = name;
         this.birthDate = birthDate;
         this.gender = gender;
@@ -26,7 +27,7 @@ class Pet implements Serializable{
         this.breed = breed;
     }
 
-    Pet(Bitmap photo, String name, long birthDate, int gender, int weight, String kind, String breed) {
+    Pet(String name, long birthDate, int gender, int weight, String kind, String breed, Bitmap photo) {
         this.allPhotos.add(photo);
         this.name = name;
         this.birthDate = birthDate;

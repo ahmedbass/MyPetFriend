@@ -17,8 +17,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
-public class MyListOfPetsActivity extends AppCompatActivity {
+public class MyPetsActivity extends AppCompatActivity {
 
     private ArrayList<Pet> myListOfPets = new ArrayList<>();
     ListView myPetsList;
@@ -33,8 +34,13 @@ public class MyListOfPetsActivity extends AppCompatActivity {
     }
 
     private void generateList() {
+        Calendar today = Calendar.getInstance();
+        int year = today.get(Calendar.YEAR);
+        int month = today.get(Calendar.MONTH);
+        int day = today.get(Calendar.DAY_OF_MONTH);
+        today.set(year - 3, month - 3, day);
         //generate fake list
-        myListOfPets.add(new Pet("Snow White",System.currentTimeMillis(),2,5,"Cat","Siamese"));
+        myListOfPets.add(new Pet("Snow White", today.getTimeInMillis(),2,5,"Cat","Siamese"));
         myListOfPets.add(new Pet("Fluffy", System.currentTimeMillis(),1,7,"Cat", "Persian"));
         myListOfPets.add(new Pet("كلب البحر",System.currentTimeMillis(),1,25,"Dog","Golden Retriever"));
 
@@ -67,7 +73,7 @@ public class MyListOfPetsActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_add:
                 //startActivity(new Intent(this, AddNewPetActivity.class));
-                Toast.makeText(this, "TODO: this should open a new activity to create a new pet profile" +
+                Toast.makeText(this, "TODO: Open a new activity to create a new pet profile" +
                         "but for now it just adds dummy data", Toast.LENGTH_SHORT).show();
                 myListOfPets.add(new Pet("Pet Name",System.currentTimeMillis(),0,5,"Pet Kind","Pet Breed"));
                 myPetsList.setAdapter(adapter);

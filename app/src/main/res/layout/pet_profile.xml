@@ -1,155 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:paddingTop="10dp"
-    android:paddingStart="10dp"
-    android:paddingEnd="10dp"
     android:paddingBottom="5dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:id="@+id/advert_images"
-        android:src="@drawable/dog_img"
-        android:background="@android:color/darker_gray"
-        android:padding="3dp"
-        android:cropToPadding="true"
-        android:scaleType="fitCenter"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:contentDescription="Pet profile picture" />
-
-    <GridLayout
-        android:layout_width="wrap_content"
+    <FrameLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/advert_images"
-        android:rowCount="5"
-        android:columnCount="2"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:id="@+id/pet_image"
+            android:src="@drawable/dog_img"
+            android:background="@android:color/darker_gray"
+            android:scaleType="centerCrop"
+            android:contentDescription="Pet profile picture" />
 
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/petInfo_lout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Name: "
-            android:layout_margin="10dp"
-            android:textStyle="bold"
-            android:layout_row="0"
-            android:layout_column="0"
-            android:layout_gravity="fill_horizontal" />
+            android:layout_gravity="bottom"
+            android:gravity="start"
+            android:padding="2dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:background="#99000000"
+            android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Birthday:"
-            android:id="@+id/textView5"
-            android:layout_margin="10dp"
-            android:textStyle="bold"
-            android:layout_row="1"
-            android:layout_column="0"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Gender:"
-            android:id="@+id/textView6"
-            android:layout_margin="10dp"
-            android:textStyle="bold"
-            android:layout_row="2"
-            android:layout_column="0" />
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Breed:"
-            android:id="@+id/textView7"
-            android:layout_margin="10dp"
-            android:textStyle="bold"
-            android:layout_row="3"
-            android:layout_column="0"/>
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Weight:"
-            android:id="@+id/textView8"
-            android:layout_margin="10dp"
-            android:textStyle="bold"
-            android:layout_row="4"
-            android:layout_column="0"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/pet_name_txt"
-            android:text="Enter Pet Name"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:gravity="center"
-            android:layout_margin="10dp"
-            android:layout_row="0"
-            android:layout_column="1"
-            android:layout_gravity="center"
-            android:maxLines="1"
-            android:maxEms="10"
-            android:ellipsize="end"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/pet_bdate_txt"
-            android:text="Enter Pet Birthday"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:gravity="center"
-            android:layout_margin="10dp"
-            android:layout_row="1"
-            android:layout_column="1"
-            android:layout_gravity="center"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/pet_gender_txt"
-            android:text="Enter Pet Gender"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:gravity="center"
-            android:layout_margin="10dp"
-            android:layout_row="2"
-            android:layout_column="1"
-            android:layout_gravity="center"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/pet_breed_txt"
-            android:text="Enter Pet Breed"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:gravity="center"
-            android:layout_margin="10dp"
-            android:layout_row="3"
-            android:layout_column="1"
-            android:layout_gravity="center"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/pet_weight_txt"
-            android:text="Enter Pet Weight"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:gravity="center"
-            android:layout_margin="10dp"
-            android:layout_row="4"
-            android:layout_column="1"
-            android:layout_gravity="center"/>
-    </GridLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:id="@+id/pet_gender_txtv"
+                android:text="Pet Gender"
+                android:textColor="@color/primaryTextWhite"
+                android:fontFamily="cursive"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:id="@+id/pet_breed_txtv"
+                android:text="Pet Breed"
+                android:textColor="@color/primaryTextWhite"
+                android:fontFamily="cursive"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:id="@+id/pet_birthdate_txtv"
+                android:text="Pet Birthday"
+                android:textColor="@color/primaryTextWhite"
+                android:fontFamily="cursive"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:id="@+id/pet_weight_txtv"
+                android:text="Pet Weight"
+                android:textColor="@color/primaryTextWhite"
+                android:fontFamily="cursive"/>
+            </LinearLayout>
+    </FrameLayout>
 
     <LinearLayout
         android:id="@+id/linearlayout"
@@ -164,8 +79,6 @@
             android:text="Schedule"
             android:id="@+id/button"
             android:layout_weight="1"
-            android:layout_margin="5dp"
-            android:background="@color/colorAccent"
             android:textColor="@color/primaryTextWhite"/>
 
         <Button
@@ -174,8 +87,6 @@
             android:text="Vaccines"
             android:id="@+id/button2"
             android:layout_weight="1"
-            android:layout_margin="5dp"
-            android:background="@color/colorAccent"
             android:textColor="@android:color/background_light"/>
     </LinearLayout>
 
@@ -183,6 +94,7 @@
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="@android:color/darker_gray"
-        android:layout_above="@id/linearlayout"/>
+        android:layout_above="@id/linearlayout"
+        android:id="@+id/imageView" />
 
 </RelativeLayout>

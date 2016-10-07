@@ -4,7 +4,7 @@
     android:id="@+id/activity_main"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:rowCount="4"
+    android:rowCount="2"
     android:columnCount="2"
     android:layout_gravity="center"
     tools:context="com.ahmedbass.mypetfriend.MainActivity">
@@ -31,6 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textView1"
+            android:textAppearance="?android:attr/textAppearanceSmall"
             android:layout_gravity="center|bottom" />
     </LinearLayout>
 
@@ -45,17 +46,18 @@
             android:id="@+id/pet_places_btn"
             style="@style/iconStyle_MainScreen"
             android:src="@drawable/ic_find_pet_places"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
             android:layout_marginBottom="2dp"
             android:onClick="moveToActivity"
             android:elevation="4dp"/>
         <TextView
-            android:text="Pets Places"
+            android:text="Pet Places"
             android:typeface="serif"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textView2"
+            android:textAppearance="?android:attr/textAppearanceSmall"
             android:layout_gravity="center|bottom" />
     </LinearLayout>
 
@@ -67,20 +69,21 @@
         android:orientation="vertical"
         android:layout_margin="40dp">
         <ImageButton
-            android:id="@+id/vets_btn"
+            android:id="@+id/petServices_btn"
             style="@style/iconStyle_MainScreen"
-            android:src="@drawable/ic_vets"
+            android:src="@drawable/ic_pet_services"
             android:paddingTop="10dp"
             android:paddingBottom="15dp"
             android:layout_marginBottom="2dp"
             android:onClick="moveToActivity"
             android:elevation="4dp"/>
         <TextView
-            android:text="Veterinarians"
+            android:id="@+id/textView3"
             android:typeface="serif"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textView3"
+            android:text="PetCare Service"
+            android:textAppearance="?android:attr/textAppearanceSmall"
             android:layout_gravity="center|bottom" />
     </LinearLayout>
 
@@ -105,6 +108,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textView4"
+            android:textAppearance="?android:attr/textAppearanceSmall"
             android:layout_gravity="center|bottom" />
     </LinearLayout>
 

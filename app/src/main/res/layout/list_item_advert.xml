@@ -18,7 +18,7 @@
         android:scaleType="centerCrop"
         android:adjustViewBounds="true"
         android:cropToPadding="true"
-        android:layout_marginTop="5dp"/>
+        android:layout_margin="5dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -34,27 +34,19 @@
             android:ellipsize="end"
             tools:text="2 german shepard dogs for Sale"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@android:color/holo_blue_dark"/>
+            android:textColor="@color/colorPrimaryDark"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/list_deal_location"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_location_on_black_24dp"
-                android:scaleX=".8"
-                android:scaleY=".8"/>
-            <TextView
-                android:id="@+id/list_deal_location"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="Location city, country"
-                android:maxLines="1"
-                android:ellipsize="end"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-        </LinearLayout>
+            tools:text="Location city, country"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:drawableStart="@drawable/ic_location_on_black_24dp"
+            android:drawableLeft="@drawable/ic_location_on_black_24dp"
+            android:drawablePadding="3dp"/>
 
         <ImageView
             android:layout_width="match_parent"
@@ -75,21 +67,16 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/primaryText"
                 android:layout_weight="1"/>
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_access_time_black_24dp"
-                android:scaleX=".8"
-                android:scaleY=".8"
-                android:paddingStart="1dp"
-                android:paddingEnd="1dp"/>
             <TextView
                 android:id="@+id/list_deal_date"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 tools:text="01/12/2016"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:drawableStart="@drawable/ic_access_time_black_24dp"
+                android:drawableLeft="@drawable/ic_access_time_black_24dp"
+                android:drawablePadding="3dp" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

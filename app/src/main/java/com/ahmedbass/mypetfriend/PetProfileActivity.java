@@ -2,6 +2,7 @@ package com.ahmedbass.mypetfriend;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,8 +14,11 @@ import java.util.Locale;
 
 public class PetProfileActivity extends AppCompatActivity {
 
-    TextView nameTV, birthdateTV, genderTV, breedTV, weightTV;
+    TextView gender_txtv, breed_txtv, birthdate_txtv, weight_txtv;
     String name, birthdate, gender, breed, weight;
+    int ageInMonth;
+    int ageInYear;
+    ActionBar actionBar;
 
     private final static int GENDER_MALE = 1;
     private final static int GENDER_FEMALE = 2;
@@ -23,25 +27,30 @@ public class PetProfileActivity extends AppCompatActivity {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pet_profile);
+
         initializeMyViews();
 
         //get the pet information from the passed intent
         Pet petInfo = (Pet) getIntent().getSerializableExtra("petInfo");
 
+        //assign the pet info into variables to display them on UI
+        name = petInfo.getName();
         //format the birthDate in millies
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-        birthdate = sdf.format(petInfo.getBirthDate());
-        name = petInfo.getName();
-        gender = getGender(petInfo.getGender());
-        breed = petInfo.getKind() + " - " + petInfo.getBreed();
-        weight = petInfo.getWeight()+" kg";
+        //calculating the age in years and months
+        ageInYear = (int)((System.currentTimeMillis() - petInfo.getBirthDate())/1000)/60/60/24/30/12;
+        ageInMonth = (int)(((System.currentTimeMillis() - petInfo.getBirthDate())/1000)/60/60/24/30/12)%12;
+        birthdate = "Age: " + ageInYear + " years and " + ageInMonth + " months\nBirthday: " + sdf.format(petInfo.getBirthDate());
+        gender = getGender(petInfo.getGender()) + " " + petInfo.getBreed() + " " + petInfo.getKind();;
+        breed = petInfo.getBreed() + " " + petInfo.getKind();
+        weight = "Weight: " + petInfo.getWeight()+" kg";
 
         //set pet info on the UI
-        nameTV.setText(name);
-        birthdateTV.setText(birthdate);
-        genderTV.setText(gender);
-        breedTV.setText(breed);
-        weightTV.setText(weight);
+        actionBar.setTitle(name);
+        gender_txtv.setText(gender);
+//        breed_txtv.setText(breed);
+        birthdate_txtv.setText(birthdate);
+        weight_txtv.setText(weight);
     }
 
     private String getGender(int gender){
@@ -62,11 +71,11 @@ public class PetProfileActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_edit:
-                Toast.makeText(this, "TODO: it should allow to modify the pet profile.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "TODO: modify the pet profile.", Toast.LENGTH_SHORT).show();
                 return true;
 
             case R.id.action_delete:
-                Toast.makeText(this, "TODO: it should allow to display a dialog to confirm deletion.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "TODO: display a dialog to confirm deletion.", Toast.LENGTH_SHORT).show();
                 return true;
 
             default:
@@ -75,11 +84,13 @@ public class PetProfileActivity extends AppCompatActivity {
     }
 
     private void initializeMyViews(){
-        nameTV = (TextView) findViewById(R.id.pet_name_txt);
-        birthdateTV = (TextView) findViewById(R.id.pet_bdate_txt);
-        genderTV = (TextView) findViewById(R.id.pet_gender_txt);
-        breedTV = (TextView) findViewById(R.id.pet_breed_txt);
-        weightTV = (TextView) findViewById(R.id.pet_weight_txt);
+        //set the title of the advert on the actionbar
+        actionBar = getSupportActionBar();
+
+        birthdate_txtv = (TextView) findViewById(R.id.pet_birthdate_txtv);
+        gender_txtv = (TextView) findViewById(R.id.pet_gender_txtv);
+        breed_txtv = (TextView) findViewById(R.id.pet_breed_txtv);
+        weight_txtv = (TextView) findViewById(R.id.pet_weight_txtv);
     }
 }
 

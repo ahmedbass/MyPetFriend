@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_registration"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.ahmedbass.mypetfriend.RegistrationActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:id="@+id/firstname_etxt"
+                android:hint="First name"
+                android:layout_weight="1"/>
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:id="@+id/lastname_etxt"
+                android:hint="Last name"
+                android:layout_weight="1"/>
+        </LinearLayout>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:id="@+id/email_etxt"
+            android:hint="Email"
+            android:layout_marginTop="10dp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:fontFamily="sans-serif"
+            android:id="@+id/password_etxt"
+            android:hint="Password (at least 6 characters)"
+            android:layout_marginTop="10dp"/>
+
+        <AutoCompleteTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textAutoComplete"
+            android:id="@+id/location_etxt"
+            android:hint="Location: City, Country"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Date of Birth:"
+            android:layout_gravity="start"
+            android:layout_marginTop="12dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp">
+            <Spinner
+                android:id="@+id/monthPick_spr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:entries="@array/months"
+                android:layout_weight="2"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="/"
+                android:layout_marginStart="3dp"
+                android:layout_marginEnd="3dp"/>
+
+            <EditText
+                android:id="@+id/dayPick_etxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:hint="Day"
+                android:ems="2"
+                android:layout_weight="1"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="/"
+                android:layout_marginStart="3dp"
+                android:layout_marginEnd="3dp"/>
+
+            <EditText
+                android:id="@+id/yearPick_etxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:hint="Year"
+                android:ems="4"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gender:"/>
+
+            <RadioGroup
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_weight="1"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp">
+                <RadioButton
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Male"
+                    android:layout_weight="1"/>
+                <RadioButton
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Female"
+                    android:layout_weight="1"/>
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="User Type:"
+                android:id="@+id/usertype_txt"
+                android:layout_gravity="start"/>
+
+            <RadioGroup
+                android:id="@+id/usertype_rgrp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1">
+
+                <RadioButton
+                    android:id="@+id/petOwner_rbtn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Pet Owner"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"/>
+                <RadioButton
+                    android:id="@+id/petCareProvider_rbtn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Pet Care Provider"
+                    android:layout_weight="1"/>
+            </RadioGroup>
+        </LinearLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sign Up"
+            android:id="@+id/register_btn"
+            android:layout_margin="10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Already have an account?"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
+            android:onClick="moveToSignIn"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/colorPrimaryDark"/>
+    </LinearLayout>
+</ScrollView>

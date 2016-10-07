@@ -5,7 +5,20 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
         <item name="editTextColor">@color/primaryText</item>
+        <item name="android:textViewStyle">@style/myTextViewStyle</item>
+        <item name="colorButtonNormal">@color/colorAccent</item>
+        <item name="buttonStyle">@style/myButtonStyle</item>
+    </style>
+
+    <style name="myTextViewStyle" parent="@android:style/Widget.TextView">
+        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+    </style>
+
+    <style name="myButtonStyle" parent="Base.Widget.AppCompat.Button">
+        <item name="android:textColor">@color/primaryTextWhite</item>
+        <item name="android:padding">20dp</item>
     </style>
 
     <style name="iconStyle_MainScreen">

@@ -36,7 +36,9 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="1.5dp"
-            android:background="@android:color/darker_gray"/>
+            android:background="@android:color/darker_gray"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -45,14 +47,14 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="20sp"
             android:fontFamily="serif"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="5dp"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"/>
 
         <GridLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:rowCount="6"
+            android:rowCount="7"
             android:columnCount="2"
             android:layout_gravity="center"
             android:background="@android:color/background_light"
@@ -61,15 +63,24 @@
             android:layout_margin="5dp">
 
             <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Price: "
+                android:layout_margin="5dp"
+                android:layout_row="0"
+                android:layout_column="0" />
+
+            <TextView
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Pet Type: "
                 android:layout_margin="5dp"
-                android:layout_row="0"
-                android:layout_column="0"
-                android:layout_gravity="fill_horizontal" />
+                android:layout_row="1"
+                android:layout_column="0" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -78,7 +89,7 @@
                 android:text="Pet Breed:"
                 android:id="@+id/textView5"
                 android:layout_margin="5dp"
-                android:layout_row="1"
+                android:layout_row="2"
                 android:layout_column="0"/>
 
             <TextView
@@ -88,7 +99,7 @@
                 android:text="Pets Age:"
                 android:id="@+id/textView6"
                 android:layout_margin="5dp"
-                android:layout_row="2"
+                android:layout_row="3"
                 android:layout_column="0" />
 
 
@@ -99,7 +110,7 @@
                 android:text="Microchipped:"
                 android:id="@+id/textView7"
                 android:layout_margin="5dp"
-                android:layout_row="3"
+                android:layout_row="4"
                 android:layout_column="0"/>
 
             <TextView
@@ -109,7 +120,7 @@
                 android:text="Neutered:"
                 android:id="@+id/textView8"
                 android:layout_margin="5dp"
-                android:layout_row="4"
+                android:layout_row="5"
                 android:layout_column="0"/>
 
             <TextView
@@ -119,8 +130,19 @@
                 android:text="Vaccinations:"
                 android:id="@+id/textView9"
                 android:layout_margin="5dp"
-                android:layout_row="5"
+                android:layout_row="6"
                 android:layout_column="0"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/price_txt"
+                android:text="Enter Price"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_margin="5dp"
+                android:layout_row="0"
+                android:layout_column="1"
+                android:ellipsize="end"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -129,7 +151,7 @@
                 android:text="Enter Pet Type"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:layout_margin="5dp"
-                android:layout_row="0"
+                android:layout_row="1"
                 android:layout_column="1"
                 android:ellipsize="end"/>
 
@@ -140,7 +162,7 @@
                 android:text="Enter Pet Breed"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:layout_margin="5dp"
-                android:layout_row="1"
+                android:layout_row="2"
                 android:layout_column="1"/>
 
             <TextView
@@ -150,7 +172,7 @@
                 android:text="Enter Pets Age"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:layout_margin="5dp"
-                android:layout_row="2"
+                android:layout_row="3"
                 android:layout_column="1"/>
 
             <TextView
@@ -160,7 +182,7 @@
                 android:text="Is Microchipped?"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:layout_margin="5dp"
-                android:layout_row="3"
+                android:layout_row="4"
                 android:layout_column="1"/>
 
             <TextView
@@ -170,7 +192,7 @@
                 android:text="Is Neutered?"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:layout_margin="5dp"
-                android:layout_row="4"
+                android:layout_row="5"
                 android:layout_column="1"/>
 
             <TextView
@@ -180,7 +202,7 @@
                 android:text="Is Vaccinated?"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:layout_margin="5dp"
-                android:layout_row="5"
+                android:layout_row="6"
                 android:layout_column="1"/>
         </GridLayout>
 
@@ -191,7 +213,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="20sp"
             android:fontFamily="serif"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"/>
         <TextView
@@ -211,7 +233,9 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="1.5dp"
-            android:background="@android:color/darker_gray"/>
+            android:background="@android:color/darker_gray"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -220,7 +244,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="20sp"
             android:fontFamily="serif"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="5dp"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"/>
 
@@ -236,44 +260,38 @@
                 android:id="@+id/seller_username_txtv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Seller Username"
+                android:text="Seller Name"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textStyle="bold"
                 android:layout_marginBottom="10dp"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"/>
-            <LinearLayout
+
+            <TextView
+                android:id="@+id/seller_location_txtv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_location_on_black_24dp"
-                    android:layout_gravity="center"/>
-                <TextView
-                    android:id="@+id/seller_location_txtv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="City, Country"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-            </LinearLayout>
+                android:text="City, Country"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:drawableStart="@drawable/ic_location_on_black_24dp"
+                android:drawableLeft="@drawable/ic_location_on_black_24dp"
+                android:drawablePadding="3dp"/>
 
             <Button
                 android:id="@+id/call_seller_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:onClick="contactSeller"
                 android:text="Phone: +966123456789"
-                android:background="@color/colorAccent"
-                android:textColor="@color/primaryTextWhite"
-                android:layout_margin="10dp"/>
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp" />
             <Button
                 android:id="@+id/email_seller_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:onClick="contactSeller"
                 android:text="Email: selleremail@email.com"
-                android:background="@color/colorAccent"
-                android:textColor="@color/primaryTextWhite"
                 android:layout_margin="10dp"/>
         </LinearLayout>
 
