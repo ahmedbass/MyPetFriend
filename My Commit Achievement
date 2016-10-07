@@ -1,0 +1,3 @@
+I added registeration and login activities (without functionality yet) and "forgot your password" activity that sends an email to the user's email with their password.
+I made some modifications on various parts of my design from my previous commit.
+I made a change in the plan of my application goal: instead of having a veterinarian actor, it will be pet care provider for broader benifit for both, pet owners and for people who are looking for pet care jobs.
