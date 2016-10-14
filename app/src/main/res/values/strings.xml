@@ -52,5 +52,9 @@
         <item>45</item>
         <item>50+</item>
     </string-array>
+    <string-array name="availability">
+        <item>FULL-TIME</item>
+        <item>PART-TIME</item>
+    </string-array>
 
 </resources>

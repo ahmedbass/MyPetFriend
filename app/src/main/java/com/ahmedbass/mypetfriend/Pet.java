@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 class Pet implements Serializable{
 
+    private int petId;
     private ArrayList<Bitmap> allPhotos = new ArrayList<>();
     private String name;
     private long birthDate; //in milliseconds
@@ -15,7 +16,9 @@ class Pet implements Serializable{
     private int weight;
     private String kind;
     private String breed;
-    private String microchip;
+    private String microchipNumber;
+    private boolean isNeutered;
+    private boolean isVaccinated;
     private String[] vaccines; //TODO maybe change to type vaccines after gathering information
 
     Pet(String name, long birthDate, int gender, int weight, String kind, String breed) {
@@ -39,6 +42,10 @@ class Pet implements Serializable{
 
     public void addPhoto(Bitmap photo){
         this.allPhotos.add(photo);
+    }
+
+    public int getPetId() {
+        return petId;
     }
 
     public ArrayList<Bitmap> getAllPhotos() {
@@ -67,6 +74,18 @@ class Pet implements Serializable{
 
     public String getBreed() {
         return breed;
+    }
+
+    public String getMicrochipNumber() {
+        return microchipNumber;
+    }
+
+    public boolean isNeutered() {
+        return isNeutered;
+    }
+
+    public boolean isVaccinated() {
+        return isVaccinated;
     }
 
     public String[] getVaccines() {

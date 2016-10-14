@@ -1,24 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#2196F3</color>
-    <color name="colorPrimaryDark">#1976D2</color>
-    <color name="colorPrimaryLight">#BBDEFB</color>
+    <color name="colorPrimary">#FF5722</color>
+    <color name="colorPrimaryDark">#E64A19</color>
+    <color name="colorPrimaryLight">#FFCCBC</color>
 
-    <color name="colorAccent">#4CAF50</color>
-    <color name="colorAccentDark">#1a7f1e</color>
-    <color name="colorAccentLight">#91DC5A</color>
+    <color name="colorAccent">#2196F3</color>
+    <color name="colorAccentDark">#1976D2</color>
+    <color name="colorAccentLight">#BBDEFB</color>
 
     <color name="primaryText">#212121</color>
     <color name="primaryTextWhite">#ffffff</color>
     <color name="secondaryText">#757575</color>
 
-    <color name="icon_bright">@color/colorAccentLight</color>
+    <color name="icon_bright">@color/nice_red</color>
     <color name="icon_dark">@color/colorAccent</color>
-    <color name="icon_border">#1a7f1e</color>
 
-    <color name="nice_gray">#ffd6d7d7</color>
-    <color name="little_darker_gray">#BDBDBD</color>
+    <color name="nice_blue">#2196F3</color>
+    <color name="nice_green">#4CAF50</color>
     <color name="nice_red">#D80027</color>
     <color name="nice_purple">#933EC5</color>
     <color name="nice_yellow">#FFDA44</color>
+    <color name="nice_orange">#FF9800</color>
+    <color name="nice_blue_gray">#607D8B</color>
+    <color name="nice_dark_blue_gray">#455A64</color>
+    <color name="nice_light_gray">#CFD8DC</color>
+    <color name="nice_dark_gray">#9E9E9E</color>
 </resources>

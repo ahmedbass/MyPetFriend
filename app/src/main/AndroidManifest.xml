@@ -51,27 +51,38 @@
             android:screenOrientation="sensorPortrait" />
         <activity
             android:name=".RegistrationActivity"
+            android:label="Registration"
             android:screenOrientation="sensorPortrait"
-            android:windowSoftInputMode="stateHidden">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:windowSoftInputMode="stateHidden"
+            android:parentActivityName=".WelcomeActivity"/>
         <activity
             android:name=".LoginActivity"
             android:label="Login"
-            android:screenOrientation="sensorPortrait" />
+            android:screenOrientation="sensorPortrait"
+            android:parentActivityName=".WelcomeActivity"/>
         <activity
             android:name=".ForgotPasswordActivity"
             android:label="Forgot your password"
             android:parentActivityName=".LoginActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".PetCareProviderRegisterationActivity"
+        <activity
+            android:name=".PetCareProviderRegisterationActivity"
             android:label="Tell us about yourself"
             android:parentActivityName=".RegistrationActivity"
             android:screenOrientation="sensorPortrait"
-            android:windowSoftInputMode="stateHidden"/>
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".PetCareProviderProfileActivity"
+            android:parentActivityName=".PetCareServiceActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".WelcomeActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

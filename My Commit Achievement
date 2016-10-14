@@ -1,10 +1,15 @@
----first week---
+---FIRST WEEK---
 I made the style of the app and worked on design. 
 I created a simple drawable file for icons background.
 I created some of the app's activities. 
 the app doesn't have any functionality at this point (except for moving between activities, and contacting the advertiser in one of the activities).
 
----second week---
-I added registeration and login activities (without functionality yet) and "forgot your password" activity that sends an email to the user's email with their password.
+---SECOND WEEK---
+I added registration and login activities (without functionality yet) and "forgot your password" activity that sends an email to the user's email with their password.
 I made some modifications on various parts of my design from my previous commit.
-I made a change in the plan of my application goal: instead of having a veterinarian actor, it will be pet care provider for broader benifit for both, pet owners and for people who are looking for pet care jobs.
+I made a change in the plan of my application goal: instead of having a veterinarian actor, it will be pet care provider for broader benefit for both, pet owners and for people who are looking for pet care jobs.
+
+---THIRD WEEK---
+I created few more activities (welcome first screen, pet care services list, pet care provider's profile). yet the application still doesn't have any functionality.
+I created one class to hold the pet care provider objects, but it may need some updates.
+I also added the logo of my application.

@@ -37,7 +37,8 @@ public class AdvertActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_advert);
 
-        advert = (Advert) getIntent().getSerializableExtra("petInfo"); //get advert information from intent with advert object
+        //get advert information from intent with advert object
+        advert = (Advert) getIntent().getSerializableExtra("advertInfo");
 
         //set the title of the advert on the actionbar
         ActionBar actionBar = getSupportActionBar();
@@ -70,7 +71,6 @@ public class AdvertActivity extends AppCompatActivity {
     }
 
     // when user clicks on the advert image, it opens this dialog to show it bigger
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT_WATCH)
     public void showImage() {
         Dialog builder = new Dialog(this);
         builder.requestWindowFeature(Window.FEATURE_SWIPE_TO_DISMISS);

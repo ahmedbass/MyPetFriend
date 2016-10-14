@@ -53,7 +53,7 @@
             android:layout_weight="1"
             android:text="Forgot your password?"
             android:id="@+id/moveToResetPassword_txtv"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/colorAccentDark"
             android:clickable="true"
             android:layout_gravity="center_vertical"
             android:gravity="end"

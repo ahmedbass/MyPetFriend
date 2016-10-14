@@ -51,7 +51,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                 } else {
                     List<String> toEmailList = Arrays.asList(toEmails.split("\\s*,\\s*"));
                     String emailSubject = "My PetFriend: Retrieve Your Password";
-                    String emailBody = "Hello Mr. Someone, you requested your password, here it is:\n" + "password";
+                    String emailBody = "Hello Mr. Someone, you requested your password, here it is:\n" + "password"; //TODO change this to send proper password
                     new SendMailTask(ForgotPasswordActivity.this).execute(fromEmail, fromPassword, toEmailList, emailSubject, emailBody);
                 }
             }
