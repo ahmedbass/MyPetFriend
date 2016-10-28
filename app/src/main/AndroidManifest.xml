@@ -18,71 +18,72 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:screenOrientation="sensorPortrait" />
+            android:theme="@style/AppTheme.Explode"/>
         <activity
             android:name=".MyPetsActivity"
             android:label="My Pets"
             android:parentActivityName=".MainActivity"
-            android:screenOrientation="sensorPortrait" />
+            android:theme="@style/AppTheme.SlideRight" />
         <activity
             android:name=".PetProfileActivity"
             android:label="My Pet"
             android:parentActivityName=".MyPetsActivity"
-            android:screenOrientation="sensorPortrait" />
+            android:theme="@style/AppTheme.NoActionbar_SlideBottom"/>
         <activity
             android:name=".PetPlacesActivity"
             android:label="Pet Places"
-            android:parentActivityName=".MainActivity"
-            android:screenOrientation="sensorPortrait" />
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".PetShopActivity"
             android:label="Pet Shop"
-            android:parentActivityName=".MainActivity"
-            android:screenOrientation="sensorPortrait" />
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".PetCareServiceActivity"
             android:label="Pet Care Services"
-            android:parentActivityName=".MainActivity"
-            android:screenOrientation="sensorPortrait" />
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".AdvertActivity"
             android:label="Advert"
-            android:parentActivityName=".PetShopActivity"
-            android:screenOrientation="sensorPortrait" />
+            android:parentActivityName=".PetShopActivity" />
         <activity
             android:name=".RegistrationActivity"
             android:label="Registration"
-            android:screenOrientation="sensorPortrait"
-            android:windowSoftInputMode="stateHidden"
-            android:parentActivityName=".WelcomeActivity"/>
+            android:parentActivityName=".WelcomeActivity"
+            android:theme="@style/AppTheme.SlideRight"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".LoginActivity"
             android:label="Login"
-            android:screenOrientation="sensorPortrait"
-            android:parentActivityName=".WelcomeActivity"/>
+            android:parentActivityName=".WelcomeActivity"
+            android:theme="@style/AppTheme.SlideRight" />
         <activity
             android:name=".ForgotPasswordActivity"
             android:label="Forgot your password"
             android:parentActivityName=".LoginActivity"
-            android:screenOrientation="portrait" />
+            android:theme="@style/AppTheme.SlideRight" />
         <activity
             android:name=".PetCareProviderRegisterationActivity"
             android:label="Tell us about yourself"
             android:parentActivityName=".RegistrationActivity"
-            android:screenOrientation="sensorPortrait"
+            android:theme="@style/AppTheme.SlideRight"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".PetCareProviderProfileActivity"
-            android:parentActivityName=".PetCareServiceActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name=".WelcomeActivity"
-            android:screenOrientation="portrait">
+            android:parentActivityName=".PetCareServiceActivity" />
+        <activity
+            android:name=".WelcomeActivity"
+            android:theme="@style/AppTheme.SlideRight">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".AddNewPetActivity"
+            android:windowSoftInputMode="stateHidden"
+            android:parentActivityName=".MyPetsActivity"
+            android:theme="@style/AppTheme.SlideTop"/>
     </application>
 
 </manifest>

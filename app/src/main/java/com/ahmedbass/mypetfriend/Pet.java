@@ -5,47 +5,57 @@ import android.graphics.Bitmap;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 class Pet implements Serializable{
 
-    private int petId;
-    private ArrayList<Bitmap> allPhotos = new ArrayList<>();
-    private String name;
-    private long birthDate; //in milliseconds
-    private int gender; //0=unknown, 1=male, 2=female
-    private int weight;
-    private String kind;
-    private String breed;
-    private String microchipNumber;
-    private boolean isNeutered;
-    private boolean isVaccinated;
-    private String[] vaccines; //TODO maybe change to type vaccines after gathering information
+    final static int GENDER_MALE=1;
+    final static int GENDER_FEMALE=2;
+    final static int TYPE_CAT=1;
+    final static int TYPE_DOG=2;
 
-    Pet(String name, long birthDate, int gender, int weight, String kind, String breed) {
+    protected int petId;
+    protected int ownerId;
+    protected ArrayList<Bitmap> allPhotos = new ArrayList<>();
+    protected String name;
+    protected long birthDate; //in milliseconds
+    protected int gender; //0=unknown, 1=male, 2=female
+    protected int type; //1=cat, 2=dog
+    protected String breed;
+    protected int weight;
+    protected String microchipNumber;
+    protected boolean isNeutered;
+    protected Vaccine[] vaccines;
+
+    public Pet(){}
+
+    public Pet(String name, long birthDate, int gender, int type, String breed, int weight) {
         this.name = name;
         this.birthDate = birthDate;
         this.gender = gender;
-        this.weight = weight;
-        this.kind = kind;
+        this.type = type;
         this.breed = breed;
+        this.weight = weight;
     }
 
-    Pet(String name, long birthDate, int gender, int weight, String kind, String breed, Bitmap photo) {
-        this.allPhotos.add(photo);
-        this.name = name;
-        this.birthDate = birthDate;
-        this.gender = gender;
-        this.weight = weight;
-        this.kind = kind;
-        this.breed = breed;
+    public int getPetAgeInYear(){
+        Calendar birth = Calendar.getInstance();
+        birth.setTimeInMillis(birthDate);
+        return Calendar.getInstance().get(Calendar.YEAR) - birth.get(Calendar.YEAR);
     }
 
-    public void addPhoto(Bitmap photo){
-        this.allPhotos.add(photo);
+    public int getPetAgeInMonth(){
+        Calendar birth = Calendar.getInstance();
+        birth.setTimeInMillis(birthDate);
+        return Calendar.getInstance().get(Calendar.MONTH) - birth.get(Calendar.MONTH);
     }
 
     public int getPetId() {
         return petId;
+    }
+
+    public int getOwnerId() {
+        return ownerId;
     }
 
     public ArrayList<Bitmap> getAllPhotos() {
@@ -64,16 +74,16 @@ class Pet implements Serializable{
         return gender;
     }
 
-    public int getWeight() {
-        return weight;
-    }
-
-    public String getKind() {
-        return kind;
+    public int getType() {
+        return type;
     }
 
     public String getBreed() {
         return breed;
+    }
+
+    public int getWeight() {
+        return weight;
     }
 
     public String getMicrochipNumber() {
@@ -84,11 +94,7 @@ class Pet implements Serializable{
         return isNeutered;
     }
 
-    public boolean isVaccinated() {
-        return isVaccinated;
-    }
-
-    public String[] getVaccines() {
+    public Vaccine[] getVaccines() {
         return vaccines;
     }
 }

@@ -1,34 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="horizontal"
-    android:layout_margin="10dp"
-    android:background="@drawable/mypets_list_background">
+    android:gravity="center"
+    android:padding="24dp">
 
-    <ImageView
-        android:id="@+id/list_pet_thumbnail"
-        android:layout_width="75dp"
-        android:layout_height="70dp"
-        app:srcCompat="@drawable/dog_img"
-        android:background="@android:color/darker_gray"
-        android:scaleType="centerCrop"
-        android:adjustViewBounds="true"
-        android:cropToPadding="true" />
+    <android.support.v7.widget.CardView
+        android:id="@+id/pet_item_crdv"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        card_view:cardCornerRadius="10dp"
+        android:elevation="4dp"
+        android:background="?android:attr/selectableItemBackground">
 
-    <TextView
-        android:id="@+id/list_pet_name"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:text="Fluffy"
-        android:textColor="@color/primaryTextWhite"
-        android:typeface="normal"
-        android:fontFamily="sans-serif"
-        android:textStyle="bold"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:gravity="center_vertical"
-        android:paddingStart="15dp"
-        android:paddingEnd="15dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:background="@drawable/mypets_list_background"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:minHeight="400dp">
+
+            <TextView
+                android:id="@+id/pet_name_txtv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="My Pet Name"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_gravity="center_horizontal"/>
+
+            <ImageButton
+                android:id="@+id/pet_picture_img"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:src="@drawable/dog_img"
+                android:adjustViewBounds="true"
+                android:maxWidth="600dp"
+                android:minWidth="250dp"
+                android:scaleType="centerCrop"
+                android:layout_margin="5dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:contentDescription="profile picture"/>
+            <TextView
+                android:id="@+id/pet_breed_and_type_txtv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="My Pet Breed and Kind"
+                android:textColor="@color/primaryTextWhite"/>
+            <TextView
+                android:id="@+id/pet_age_txtv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="My Pet Age"
+                android:textColor="@color/primaryTextWhite"/>
+
+            <TextView
+                android:id="@+id/pet_weight_txtv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="My Pet weight"
+                android:textColor="@color/primaryTextWhite"/>
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
 </LinearLayout>

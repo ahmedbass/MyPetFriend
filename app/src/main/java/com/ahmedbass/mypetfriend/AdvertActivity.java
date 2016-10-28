@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -86,6 +88,7 @@ public class AdvertActivity extends AppCompatActivity {
     }
 
     //possible ways of contacting the seller (phone call, email)
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void contactSeller(View view) {
         switch (view.getId()) {
             case R.id.call_seller_btn:
@@ -138,6 +141,24 @@ public class AdvertActivity extends AppCompatActivity {
             imageview.setLayoutParams(new Gallery.LayoutParams(200, 150));
             imageview.setBackgroundResource(itemBackground);
             return imageview;
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.user_actions_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home: // Respond to the action bar's Up/Home button
+                supportFinishAfterTransition();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 }

@@ -2,8 +2,13 @@ package com.ahmedbass.mypetfriend;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -30,27 +35,52 @@ public class PetProfileActivity extends AppCompatActivity {
 
         initializeMyViews();
 
+        ViewPager myPager = (ViewPager) findViewById(R.id.pager);
+        myPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
+            String[] tabTitles = {"Overview", "Schedule", "Vaccinations"};
+            @Override
+            public Fragment getItem(int position) {
+                return new PetInfoFragment();
+//                switch (position) {
+//                    case 0: return new PetInfoFragment();
+//                    case 1: return new ;
+//                    default: return null ;
+//                }
+            }
+
+            @Override
+            public int getCount() { return tabTitles.length; }
+
+            public String getPageTitle(int position) { return tabTitles[position]; }
+        });
+
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
+        tabLayout.setupWithViewPager(myPager);
+
         //get the pet information from the passed intent
-        Pet petInfo = (Pet) getIntent().getSerializableExtra("petInfo");
+        if (getIntent() != null && getIntent().getSerializableExtra("petInfo") != null) {
 
-        //assign the pet info into variables to display them on UI
-        name = petInfo.getName();
-        //format the birthDate in millies
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-        //calculating the age in years and months
-        ageInYear = (int)((System.currentTimeMillis() - petInfo.getBirthDate())/1000)/60/60/24/30/12;
-        ageInMonth = (int)(((System.currentTimeMillis() - petInfo.getBirthDate())/1000)/60/60/24/30/12)%12;
-        birthdate = "Age: " + ageInYear + " years and " + ageInMonth + " months\nBirthday: " + sdf.format(petInfo.getBirthDate());
-        gender = getGender(petInfo.getGender()) + " " + petInfo.getBreed() + " " + petInfo.getKind();;
-        breed = petInfo.getBreed() + " " + petInfo.getKind();
-        weight = "Weight: " + petInfo.getWeight()+" kg";
+            Pet petInfo = (Pet) getIntent().getSerializableExtra("petInfo");
 
-        //set pet info on the UI
-        actionBar.setTitle(name);
-        gender_txtv.setText(gender);
-//        breed_txtv.setText(breed);
-        birthdate_txtv.setText(birthdate);
-        weight_txtv.setText(weight);
+            //assign the pet info into variables to display them on UI
+            name = petInfo.getName();
+            //format the birthDate in millies
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+            //calculating the age in years and months
+            ageInYear = petInfo.getPetAgeInYear();
+            ageInMonth = petInfo.getPetAgeInMonth();
+            birthdate = "Age: " + ageInYear + " years and " + ageInMonth + " months\nBirthday: " + sdf.format(petInfo.getBirthDate());
+            gender = getGender(petInfo.getGender()) + " " + petInfo.getBreed() + " " + petInfo.getType();
+            breed = petInfo.getBreed() + " " + petInfo.getType();
+            weight = "Weight: " + petInfo.getWeight() + " kg";
+
+            //set pet info on the UI
+//            actionBar.setTitle(name);
+//            gender_txtv.setText(gender);
+//          breed_txtv.setText(breed);
+//            birthdate_txtv.setText(birthdate);
+//            weight_txtv.setText(weight);
+        }
     }
 
     private String getGender(int gender){
@@ -78,6 +108,10 @@ public class PetProfileActivity extends AppCompatActivity {
                 Toast.makeText(this, "TODO: display a dialog to confirm deletion.", Toast.LENGTH_SHORT).show();
                 return true;
 
+            case android.R.id.home: // Respond to the action bar's Up/Home button
+                supportFinishAfterTransition();
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -85,12 +119,17 @@ public class PetProfileActivity extends AppCompatActivity {
 
     private void initializeMyViews(){
         //set the title of the advert on the actionbar
-        actionBar = getSupportActionBar();
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(R.drawable.arrow_left);
+        toolbar.setTitle("what's up");
 
-        birthdate_txtv = (TextView) findViewById(R.id.pet_birthdate_txtv);
-        gender_txtv = (TextView) findViewById(R.id.pet_gender_txtv);
-        breed_txtv = (TextView) findViewById(R.id.pet_breed_txtv);
-        weight_txtv = (TextView) findViewById(R.id.pet_weight_txtv);
+        ActionBar actionBar = getSupportActionBar();
+//
+//        birthdate_txtv = (TextView) findViewById(R.id.pet_birthdate_txtv);
+//        gender_txtv = (TextView) findViewById(R.id.pet_gender_txtv);
+////        breed_txtv = (TextView) findViewById(R.id.pet_breed_txtv);
+//        weight_txtv = (TextView) findViewById(R.id.pet_weight_txtv);
     }
 }
 

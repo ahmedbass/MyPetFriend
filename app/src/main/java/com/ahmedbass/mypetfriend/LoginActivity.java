@@ -1,12 +1,16 @@
 package com.ahmedbass.mypetfriend;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -33,17 +37,22 @@ public class LoginActivity extends AppCompatActivity {
 
     ConnectivityManager connectivityManager;
     NetworkInfo networkInfo;
+    Bundle bundle;
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
         initializeMyViews();
+        bundle = ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
 
         login_btn.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View v) {
+
                 connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
                 networkInfo = connectivityManager.getActiveNetworkInfo();
                 if(networkInfo != null && networkInfo.isConnected()) {
@@ -61,16 +70,16 @@ public class LoginActivity extends AppCompatActivity {
                     }
 
                     if (!email.isEmpty() && !password.isEmpty()) {
-                        startActivity(new Intent(getBaseContext(), MainActivity.class)); //TODO remove this
+                        startActivity(new Intent(getBaseContext(), MainActivity.class), bundle); //TODO remove this
 //                        BackgroundWorker backgroundWorker = new BackgroundWorker(Login.this);
 //                        backgroundWorker.execute(taskType, username, password);
                     } else{
-                        startActivity(new Intent(getBaseContext(), MainActivity.class)); //TODO remove this
-                        finish();
+                        startActivity(new Intent(getBaseContext(), MainActivity.class), bundle); //TODO remove this
                         Toast.makeText(LoginActivity.this, "Please enter username and password", Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     Toast.makeText(LoginActivity.this, "Error: Cannot connect to the internet", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(getBaseContext(), MainActivity.class), bundle); //TODO remove this
                 }
             }
         });
@@ -85,7 +94,7 @@ public class LoginActivity extends AppCompatActivity {
         moveToResetPassword_txtv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getBaseContext(), ForgotPasswordActivity.class));
+                startActivity(new Intent(getBaseContext(), ForgotPasswordActivity.class), bundle);
             }
         });
     }
@@ -109,5 +118,22 @@ public class LoginActivity extends AppCompatActivity {
         if(!isRememberMe) {
             getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit().clear().apply();
         }
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home: // Respond to the action bar's Up/Home button
+                supportFinishAfterTransition();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        finish();
     }
 }

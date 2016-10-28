@@ -28,6 +28,10 @@ public class PetPlacesActivity extends AppCompatActivity {
                 Toast.makeText(this, "TODO: popup dialog for search refinement", Toast.LENGTH_SHORT).show();
                 return true;
 
+            case android.R.id.home: // Respond to the action bar's Up/Home button
+                supportFinishAfterTransition();
+                return true;
+
             default:
                 // If we got here, the user's action was not recognized. Invoke the superclass to handle it.
                 return super.onOptionsItemSelected(item);

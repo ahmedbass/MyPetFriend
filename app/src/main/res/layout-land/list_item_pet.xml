@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:padding="24dp">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/pet_item_crdv"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        card_view:cardCornerRadius="10dp"
+        android:elevation="4dp"
+        android:background="?android:attr/selectableItemBackground">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:background="@drawable/mypets_list_background"
+            android:paddingTop="5dp"
+            android:paddingBottom="10dp"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:minWidth="450dp">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <ImageButton
+                    android:id="@+id/pet_picture_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:maxWidth="600dp"
+                    android:src="@drawable/petcareprovider_profilepicture"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    android:layout_margin="5dp"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:contentDescription="profile picture"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/smooth_background_protection"
+                    android:layout_margin="5dp"
+                    android:rotation="180"/>
+
+                <TextView
+                        android:id="@+id/pet_name_txtv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="My Pet Name"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="@color/primaryTextWhite"
+                        android:gravity="center"
+                        android:layout_margin="5dp"
+                        android:padding="1dp"/>
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/pet_breed_and_type_txtv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="My Pet Breed and Kind"
+                    android:textColor="@color/primaryTextWhite"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" - "/>
+                <TextView
+                    android:id="@+id/pet_age_txtv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="My Pet Age"
+                    android:textColor="@color/primaryTextWhite"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" - "/>
+                <TextView
+                    android:id="@+id/pet_weight_txtv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="My Pet weight"
+                    android:textColor="@color/primaryTextWhite"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>

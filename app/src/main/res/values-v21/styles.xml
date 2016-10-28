@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:windowEnterTransition">@transition/my_transition</item>
+        <item name="android:windowTransitionBackgroundFadeDuration">900</item>
+
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="editTextColor">@color/primaryText</item>
+        <item name="android:textViewStyle">@style/myTextViewStyle</item>
+        <item name="colorButtonNormal">@color/colorAccent</item>
+        <item name="buttonStyle">@style/myButtonStyle</item>
+    </style>
+
+    <style name="AppTheme.NoSlide">
+        <item name="android:windowEnterTransition">@null</item>
+    </style>
+
+    <style name="AppTheme.SlideRight">
+        <item name="android:windowEnterTransition">@transition/my_transition1</item>
+    </style>
+
+    <style name="AppTheme.SlideTop">
+        <item name="android:windowEnterTransition">@transition/my_transition2</item>
+    </style>
+
+    <style name="AppTheme.Explode" parent="AppTheme">
+        <item name="android:windowEnterTransition">@transition/my_transition3</item>
+    </style>
+
+    <style name="AppTheme.NoActionbar_SlideBottom" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowEnterTransition">@transition/my_transition</item>
+
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="editTextColor">@color/primaryText</item>
+        <item name="android:textViewStyle">@style/myTextViewStyle</item>
+        <item name="colorButtonNormal">@color/colorAccent</item>
+        <item name="buttonStyle">@style/myButtonStyle</item>
+        <item name="android:toolbarStyle">@style/myToolbarStyle</item>
+    </style>
+
+    <style name="myToolbarStyle">
+        <item name="selectableItemBackground">?android:selectableItemBackground</item>
+        <item name="selectableItemBackgroundBorderless">?android:selectableItemBackground</item>
+
+        <!--<item name="android:colorControlActivated">@color/colorAccent</item>-->
+        <!--<item name="android:colorControlNormal">@android:color/white</item>-->
+        <!--<item name="android:textColorSecondary">@android:color/white</item>-->
+
+        <!--<item name="colorControlNormal">@color/colorAccent</item>-->
+        <!--<item name="colorControlActivated">@color/colorAccent</item>-->
+        <!--<item name="colorControlHighlight">@color/nice_blue_gray</item>-->
+    </style>
+</resources>

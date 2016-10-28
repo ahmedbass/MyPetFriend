@@ -1,10 +1,14 @@
 package com.ahmedbass.mypetfriend;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -26,14 +30,19 @@ public class RegistrationActivity extends AppCompatActivity {
     ConnectivityManager connectivityManager;
     NetworkInfo networkInfo;
 
+    Bundle bundle;
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
         initializeMyViews();
+        bundle = ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
 
         register_btn.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View v) {
                 connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
@@ -49,24 +58,21 @@ public class RegistrationActivity extends AppCompatActivity {
                             (usertype_rgrp.getCheckedRadioButtonId() == petCareProvider_rbtn.getId() ? 2 : 0));
                     String taskType = "register";
 
-                    if(firstName.isEmpty()|| lastName.isEmpty()|| password.isEmpty()|| email.isEmpty()||
-                            location.isEmpty()|| usertype==0) {
+                    if(firstName.isEmpty()|| lastName.isEmpty()|| password.isEmpty()|| email.isEmpty()|| location.isEmpty()|| usertype==0) {
                         Toast.makeText(getBaseContext(), "Please fill-in all fields", Toast.LENGTH_SHORT).show();
 
                         //TODO remove this
                         if(usertype == 1){
-                            startActivity(new Intent(getBaseContext(), MainActivity.class));
-                            finish();
+                            startActivity(new Intent(getBaseContext(), MainActivity.class), bundle);
                         } else if(usertype == 2){
-                            startActivity(new Intent(getBaseContext(), PetCareProviderRegisterationActivity.class));
+                            startActivity(new Intent(getBaseContext(), PetCareProviderRegisterationActivity.class), bundle);
                         }
                     } else {
                         //TODO use the background worker instead
                         if(usertype == 1){
-                            startActivity(new Intent(getBaseContext(), MainActivity.class));
-                            finish();
+                            startActivity(new Intent(getBaseContext(), MainActivity.class), bundle);
                         } else if(usertype == 2){
-                            startActivity(new Intent(getBaseContext(), PetCareProviderRegisterationActivity.class));
+                            startActivity(new Intent(getBaseContext(), PetCareProviderRegisterationActivity.class), bundle);
                         }
 //                        BackgroundWorker backgroundWorker = new BackgroundWorker(getBaseContext());
 //                        backgroundWorker.execute(taskType, firstName, password, lastName, usertype);
@@ -76,10 +82,9 @@ public class RegistrationActivity extends AppCompatActivity {
 
                     //TODO remove this
                     if(usertype == 2){
-                        startActivity(new Intent(getBaseContext(), PetCareProviderRegisterationActivity.class));
+                        startActivity(new Intent(getBaseContext(), PetCareProviderRegisterationActivity.class), bundle);
                     } else {
-                        startActivity(new Intent(getBaseContext(), MainActivity.class)); //TODO remove this
-                        finish();
+                        startActivity(new Intent(getBaseContext(), MainActivity.class), bundle); //TODO remove this
                     }
                 }
             }
@@ -100,6 +105,26 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     public void moveToSignIn(View view) {
-        startActivity(new Intent(this, LoginActivity.class));
+        startActivity(new Intent(this, LoginActivity.class), bundle);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+
+            case android.R.id.home: // Respond to the action bar's Up/Home button
+                supportFinishAfterTransition();
+                return true;
+
+            default:
+                // If we got here, the user's action was not recognized. Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        finish();
     }
 }

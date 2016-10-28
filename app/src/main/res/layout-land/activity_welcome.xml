@@ -17,29 +17,34 @@
         android:layout_weight="1"
         android:id="@+id/app_logo_img"
         android:layout_gravity="center"
-        android:layout_margin="5dp"
+        android:layout_margin="10dp"
         android:src="@drawable/mypetfriend_logo"/>
 
-    <Button
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Login"
-        android:id="@+id/moveToLogin_btn"
-        android:layout_gravity="center"
-        android:layout_marginTop="50dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:onClick="moveToActivity"/>
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="10dp">
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Register"
-        android:id="@+id/moveToRegister_btn"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_gravity="center"
-        android:onClick="moveToActivity"/>
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Register"
+            android:id="@+id/moveToRegister_btn"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:onClick="moveToActivity"/>
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Login"
+            android:id="@+id/moveToLogin_btn"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:onClick="moveToActivity"/>
+    </LinearLayout>
+
 </LinearLayout>

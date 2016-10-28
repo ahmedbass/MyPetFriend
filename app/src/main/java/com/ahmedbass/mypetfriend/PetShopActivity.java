@@ -1,9 +1,12 @@
 package com.ahmedbass.mypetfriend;
 
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -87,11 +90,12 @@ public class PetShopActivity extends AppCompatActivity {
         dealsList.setAdapter(adapter);
         //when click on existing pet, move to its profile
         dealsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent moveToPetProfile = new Intent(getBaseContext(), AdvertActivity.class);
                 moveToPetProfile.putExtra("advertInfo", adapter.getItem(position));
-                startActivity(moveToPetProfile);
+                startActivity(moveToPetProfile, ActivityOptions.makeSceneTransitionAnimation(PetShopActivity.this).toBundle());
             }
         });
     }
@@ -108,6 +112,10 @@ public class PetShopActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_search:
                 Toast.makeText(this, "TODO: popup dialog for search refinement", Toast.LENGTH_SHORT).show();
+                return true;
+
+            case android.R.id.home: // Respond to the action bar's Up/Home button
+                supportFinishAfterTransition();
                 return true;
 
             default:

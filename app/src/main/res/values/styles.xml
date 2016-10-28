@@ -16,6 +16,12 @@
         <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
     </style>
 
+    <style name="myTextViewStyle.myTitleStyle">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
     <style name="myButtonStyle" parent="Base.Widget.AppCompat.Button">
         <item name="android:textColor">@color/primaryTextWhite</item>
         <item name="android:padding">20dp</item>
