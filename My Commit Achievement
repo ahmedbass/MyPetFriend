@@ -13,3 +13,15 @@ I made a change in the plan of my application goal: instead of having a veterina
 I created few more activities (welcome first screen, pet care services list, pet care provider's profile). yet the application still doesn't have any functionality.
 I created one class to hold the pet care provider objects, but it may need some updates.
 I also added the logo of my application.
+
+---FORTH AND FIFTH WEEK---
+for this time I combined two weeks because I was very busy and I thought I didn't make much production. However, in this iteration there're actually some interesting things.
+I created some objects classes (still not complete in their final form)
+I made few improvements on some of my previous activities.
+I worked on the style and added transitions when enter and exit between activities, which gives the application a nice smooth and elegent look and feel.
+For the list of pets that user has, i made a huge effort on this.. I wanted to make it like a horizontal scrolling listview, for the sake of good design, but unfortunatily listviews only scroll vertically. so i had to search and search till i finally found a solution to use a RecyclerView instead, which is an improved version of listview but more complicated. after i finally set it up to work correctly, i realized that's not how i want it to be! so i had to delete all that and make my current sulotion which is to use ViewPager with Fragments.
+I'm currently working on the "Pet Profile", I made some nice visuals with the new material design CollapsingToolBar, and i made a class that makes a relative ImageView size (3:4) which gives consistancy over different devices devices. and for different sections of pet's information, they are in a ViewPager with different Fragments.
+Even in this step of course i had some small problem that was bugging me, which is, inside one fragment in viewpager, i have a ListView and above it is a GridLayout, only the listview scrolls while GridLayout is taking a fixed size almost covering the whole screen. after a long search for a sulotion, i finally found one, is to make the GridLayout as a header for the listview.
+There are some simple little things here and there to acheive some little goals, such as protecting background, by making a drawable layer xml file that's almost transparent at top but with little shade at bottom, so whenever there's an image with a text (title or so) on the top of it, that drawable layer comes between them so the text is clear to read.
+I worked on making the application look as nice as possible in landscape mode too (previously, i was setting it to work only in portrait mode).
+At this point, all my progress is on the design and the visual side, code is minimal. Next step plan after finishing "Pet Profile", is working on the database.
