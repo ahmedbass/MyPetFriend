@@ -6,7 +6,7 @@
     <!--e77919 FFCCBC-->
 
     <color name="colorAccent">#2196f3</color>
-    <color name="colorAccentDark">#1976D2</color>
+    <color name="colorAccentDark">#1976d2</color>
     <color name="colorAccentLight">#BBDEFB</color>
 
     <color name="primaryText">#212121</color>

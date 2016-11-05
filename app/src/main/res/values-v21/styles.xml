@@ -17,6 +17,7 @@
 
     <style name="AppTheme.NoSlide">
         <item name="android:windowEnterTransition">@null</item>
+        <item name="android:windowTransitionBackgroundFadeDuration">500</item>
     </style>
 
     <style name="AppTheme.SlideRight">
@@ -56,4 +57,5 @@
         <!--<item name="colorControlActivated">@color/colorAccent</item>-->
         <!--<item name="colorControlHighlight">@color/nice_blue_gray</item>-->
     </style>
+
 </resources>

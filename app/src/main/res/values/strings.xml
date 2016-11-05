@@ -13,6 +13,17 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
     <string name="title_activity_login2">login screen</string>
 
+    <string-array name="pet_types">
+        <item>Cat</item>
+        <item>Dog</item>
+        <item>Horse</item>
+        <item>Rabbit</item>
+        <item>Bird</item>
+        <item>Fish</item>
+        <item>Reptile</item>
+        <item>Other</item>
+    </string-array>
+
     <string-array name="months">
         <item>January</item>
         <item>February</item>

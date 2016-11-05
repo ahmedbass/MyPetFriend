@@ -11,7 +11,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import static com.ahmedbass.mypetfriend.WelcomeActivity.MY_PREFS_NAME;
+
 public class MainActivity extends AppCompatActivity {
+
+    public static final String PREF_BACK_PRESSED = "MainActivityOnBackPressed";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,13 +53,15 @@ public class MainActivity extends AppCompatActivity {
 //                startActivity(new Intent(this, SettingsActivity.class));
                 return true;
 
-            case android.R.id.home: // Respond to the action bar's Up/Home button
-                supportFinishAfterTransition();
-                return true;
-
             default:
                 // If we got here, the user's action was not recognized. Invoke the superclass to handle it.
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit().putBoolean(PREF_BACK_PRESSED, true).apply();
     }
 }

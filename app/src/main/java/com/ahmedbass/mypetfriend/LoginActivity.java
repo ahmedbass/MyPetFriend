@@ -17,7 +17,8 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import static com.ahmedbass.mypetfriend.WelcomeActivity.MY_PREFS_NAME;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -30,7 +31,6 @@ public class LoginActivity extends AppCompatActivity {
 
     //save login information in preferences when user checks "remember me"
     SharedPreferences pref;
-    public static final String PREFS_NAME = "MyLoginPrefs";
     private static final String PREF_USERNAME = "username";
     private static final String PREF_PASSWORD = "password";
     private static final String PREF_REMEMBERME = "rememberme";
@@ -49,38 +49,41 @@ public class LoginActivity extends AppCompatActivity {
         bundle = ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
 
         login_btn.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View v) {
 
-                connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
-                networkInfo = connectivityManager.getActiveNetworkInfo();
-                if(networkInfo != null && networkInfo.isConnected()) {
-                    email = email_etxt.getText().toString().trim();
-                    password = password_etxt.getText().toString().trim();
-                    taskType = "login";
-                    if (isRememberMe) { //if "remember me" is checked, save the login info
-                        getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit()
-                                .putString(PREF_USERNAME, email)
-                                .putString(PREF_PASSWORD, password)
-                                .putBoolean(PREF_REMEMBERME, isRememberMe)
-                                .apply();
-                    } else{ //else clear login info
-                        getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit().clear().apply();
-                    }
+//                connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+//                networkInfo = connectivityManager.getActiveNetworkInfo();
+//                if(networkInfo != null && networkInfo.isConnected()) {
+//                    email = email_etxt.getText().toString().trim();
+//                    password = password_etxt.getText().toString().trim();
+//                    taskType = "login";
+//                    if (isRememberMe) { //if "remember me" is checked, save the login info
+//                        getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit()
+//                                .putString(PREF_USERNAME, email)
+//                                .putString(PREF_PASSWORD, password)
+//                                .putBoolean(PREF_REMEMBERME, isRememberMe)
+//                                .apply();
+//                    } else{ //else clear login info
+//                        getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit().clear().apply();
+//                    }
+//
+//                    if (!email.isEmpty() && !password.isEmpty()) {
+//                        startActivity(new Intent(getBaseContext(), MainActivity.class), bundle); //TODO remove this
+////                        BackgroundWorker backgroundWorker = new BackgroundWorker(Login.this);
+////                        backgroundWorker.execute(taskType, username, password);
+//                    } else{
+//                        Toast.makeText(LoginActivity.this, "Please enter username and password", Toast.LENGTH_SHORT).show();
+//                    }
+//                } else {
+//                    Toast.makeText(LoginActivity.this, "Error: Cannot connect to the internet", Toast.LENGTH_SHORT).show();
+//                    startActivity(new Intent(getBaseContext(), MainActivity.class), bundle); //TODO remove this
+//                }
 
-                    if (!email.isEmpty() && !password.isEmpty()) {
-                        startActivity(new Intent(getBaseContext(), MainActivity.class), bundle); //TODO remove this
-//                        BackgroundWorker backgroundWorker = new BackgroundWorker(Login.this);
-//                        backgroundWorker.execute(taskType, username, password);
-                    } else{
-                        startActivity(new Intent(getBaseContext(), MainActivity.class), bundle); //TODO remove this
-                        Toast.makeText(LoginActivity.this, "Please enter username and password", Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    Toast.makeText(LoginActivity.this, "Error: Cannot connect to the internet", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(getBaseContext(), MainActivity.class), bundle); //TODO remove this
-                }
+                Intent intent = new Intent(getBaseContext(), MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent); //TODO remove this
+
             }
         });
 
@@ -106,7 +109,7 @@ public class LoginActivity extends AppCompatActivity {
         moveToResetPassword_txtv = (TextView) findViewById(R.id.moveToResetPassword_txtv);
         rememberMe_chk = (CheckBox) findViewById(R.id.rememberMe_chk);
 
-        pref = getSharedPreferences(PREFS_NAME,MODE_PRIVATE);
+        pref = getSharedPreferences(MY_PREFS_NAME,MODE_PRIVATE);
         email = pref.getString(PREF_USERNAME, null);
         password = pref.getString(PREF_PASSWORD, null);
         isRememberMe = pref.getBoolean(PREF_REMEMBERME, false);
@@ -116,7 +119,7 @@ public class LoginActivity extends AppCompatActivity {
         }
         rememberMe_chk.setChecked(isRememberMe);
         if(!isRememberMe) {
-            getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit().clear().apply();
+            getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit().clear().apply();
         }
     }
 
@@ -129,11 +132,5 @@ public class LoginActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        finish();
     }
 }

@@ -84,7 +84,9 @@ public class RegistrationActivity extends AppCompatActivity {
                     if(usertype == 2){
                         startActivity(new Intent(getBaseContext(), PetCareProviderRegisterationActivity.class), bundle);
                     } else {
-                        startActivity(new Intent(getBaseContext(), MainActivity.class), bundle); //TODO remove this
+                        Intent intent = new Intent(getBaseContext(), MainActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent); //TODO implement this above
                     }
                 }
             }
@@ -120,11 +122,5 @@ public class RegistrationActivity extends AppCompatActivity {
                 // If we got here, the user's action was not recognized. Invoke the superclass to handle it.
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        finish();
     }
 }

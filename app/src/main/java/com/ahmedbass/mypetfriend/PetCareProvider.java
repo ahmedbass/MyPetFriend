@@ -31,7 +31,7 @@ class PetCareProvider implements Serializable {
     private ArrayList servicesProvidedFor;
     private ArrayList servicesProvided;
 
-    private ArrayList reviews; //this will be of type review? which contains the review message, date, rating, and sender?
+    private ArrayList reviews; //this will be of type review? which contains the review message, currentDate, rating, and sender?
 
 
     PetCareProvider(){}

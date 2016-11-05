@@ -1,0 +1,62 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+
+    tools:context="com.ahmedbass.mypetfriend.PetScheduleFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:background="@color/primaryTextWhite"
+        android:paddingTop="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:layout_marginBottom="5dp"
+        android:elevation="2dp">
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="32dp"
+            android:src="@drawable/calendar1"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"/>
+        <TextView
+            android:id="@+id/scheduleDate_txtv"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="Activities of Today"
+            style="@style/myTextViewStyle.myTitleStyle"
+            android:padding="10dp"/>
+    </LinearLayout>
+    <!--color e64a19-->
+
+    <CalendarView
+        android:id="@+id/calendarview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
+
+    <ListView
+        android:id="@+id/activitiesOfDay_listview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:drawSelectorOnTop="true"/>
+
+    <TextView
+        android:id="@+id/emptyList_txtv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="No Activities On This Day."
+        android:visibility="gone"/>
+
+</LinearLayout>

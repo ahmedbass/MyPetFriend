@@ -45,7 +45,6 @@ public class ItemPetFragment extends Fragment {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -72,6 +71,7 @@ public class ItemPetFragment extends Fragment {
         return rootView;
     }
 
+    //instead of my normal way of defining anonymous class for onClick, i defined it here to implement it for two views
     class HandleMyViewsClicks implements View.OnClickListener {
         @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
         @Override

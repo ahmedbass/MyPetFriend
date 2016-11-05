@@ -1,6 +1,8 @@
 package com.ahmedbass.mypetfriend;
 
 import android.content.Context;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
@@ -27,8 +29,15 @@ public class ThreeFourImageView extends ImageView {
     @Override //this is the key part
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         // super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        int threeTwoHeight = MeasureSpec.getSize(widthMeasureSpec) * 3/4;
-        int threeTwoHeightSpec = MeasureSpec.makeMeasureSpec(threeTwoHeight, MeasureSpec.EXACTLY);
-        super.onMeasure(widthMeasureSpec, threeTwoHeightSpec);
+
+        if (getContext().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            int threeForthHeightSpec = MeasureSpec
+                    .makeMeasureSpec(MeasureSpec.getSize(widthMeasureSpec) * 3/4, MeasureSpec.EXACTLY);
+            super.onMeasure(widthMeasureSpec, threeForthHeightSpec);
+        } else {
+            int fullScreenHeightSpec = MeasureSpec
+                    .makeMeasureSpec(Resources.getSystem().getDisplayMetrics().heightPixels, MeasureSpec.EXACTLY);
+            super.onMeasure(widthMeasureSpec, fullScreenHeightSpec);
+        }
     }
 }

@@ -11,6 +11,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -26,18 +27,18 @@ public class MyPetsActivity extends AppCompatActivity {
 
         generateList();
 
-        ViewPager myPetsViewPager = (ViewPager) findViewById(R.id.myPets_viewpager);
+        final ViewPager myPetsViewPager = (ViewPager) findViewById(R.id.myPets_viewpager);
         myPetsViewPager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
                 return ItemPetFragment.newInstance(myListOfPets.get(position));
             }
-
             @Override
             public int getCount() {
-                return  myListOfPets.size();
+                return myListOfPets.size();
             }
         });
+
     }
 
     private void generateList() {
@@ -50,7 +51,6 @@ public class MyPetsActivity extends AppCompatActivity {
         myListOfPets.add(new Pet("Fluffy", System.currentTimeMillis(),Pet.GENDER_FEMALE,Pet.TYPE_DOG, "German Shepherd",15));
         myListOfPets.add(new Pet("Snowball", birthdate.getTimeInMillis(), Pet.GENDER_FEMALE, Pet.TYPE_CAT,"Siamese",4));
         myListOfPets.add(new Pet("Milo", System.currentTimeMillis(), Pet.GENDER_MALE, Pet.TYPE_DOG, "German Shepherd",17));
-        myListOfPets.add(new Pet("كلب البحر",System.currentTimeMillis(), Pet.GENDER_MALE, Pet.TYPE_DOG,"Golden Retriever", 25));
         myListOfPets.add(new Pet("Tintin",System.currentTimeMillis(), Pet.GENDER_MALE, Pet.TYPE_DOG, "Golden Retriever", 28));
         myListOfPets.add(new Pet("garfield",System.currentTimeMillis(), Pet.GENDER_MALE, Pet.TYPE_CAT,"Persian", 10));
     }
@@ -66,9 +66,13 @@ public class MyPetsActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_add:
-                Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
-                startActivity(new Intent(this, AddNewPetActivity.class), bundle);
-                return true;
+                try {
+                    Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
+                    startActivity(new Intent(this, AddNewPetActivity.class), bundle);
+                    return true;
+                } catch (Exception e) {
+                    Toast.makeText(this, "Minor error just happened, but it's handled!", Toast.LENGTH_SHORT).show();
+                }
 
             case android.R.id.home: // Respond to the action bar's Up/Home button
                 supportFinishAfterTransition();

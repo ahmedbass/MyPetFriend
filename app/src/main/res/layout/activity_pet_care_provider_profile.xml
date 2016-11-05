@@ -29,7 +29,7 @@
                 android:layout_width="130dp"
                 android:layout_height="130dp"
                 app:srcCompat="@drawable/petcareprovider_profilepicture"
-                android:id="@+id/imageView3"
+                android:id="@+id/providerPic_img"
                 android:background="@color/nice_light_gray"
                 android:padding="2dp"
                 android:cropToPadding="true"
