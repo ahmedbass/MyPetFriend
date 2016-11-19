@@ -40,53 +40,53 @@ public class PetShopActivity extends AppCompatActivity {
     private void generateDummyList() {
         //generate fake list
         ArrayList<Advert> listOfAdverts = new ArrayList<>();
-        listOfAdverts.add(new Advert(1,"sellerMe","Beautiful White German Shepherd puppies ", 2500, System.currentTimeMillis(),
-                 "This is description of the deal I want to offer", 1, 1, "german shepard", 26, true, false, true, "city, country"));
-        listOfAdverts.add(new Advert(2,"sellerMe2","Persian cat for sale", 500, System.currentTimeMillis(),
-                "This is description of the deal I want to offer", 1, 2, "persian", 26, false, false, true, "location"));
-        listOfAdverts.add(new Advert(1,"sellerMe","Beautiful White German Shepherd puppies ", 2500, System.currentTimeMillis(),
-                "This is description of the deal I want to offer", 1, 1, "german shepard", 26, true, false, true, "city, country"));
-        listOfAdverts.add(new Advert(2,"sellerMe2","Persian cat for sale", 500, System.currentTimeMillis(),
-                "This is description of the deal I want to offer", 1, 2, "persian", 26, false, false, true, "location"));
-        listOfAdverts.add(new Advert(1,"sellerMe","Beautiful White German Shepherd puppies ", 2500, System.currentTimeMillis(),
-                "This is description of the deal I want to offer", 1, 1, "german shepard", 26, true, false, true, "my city, country"));
-        listOfAdverts.add(new Advert(2,"sellerMe2","Persian cat for sale", 500, System.currentTimeMillis(),
-                "This is description of the deal I want to offer", 1, 2, "persian", 26, false, false, true, "location"));
-        listOfAdverts.add(new Advert(1,"sellerMe","Beautiful White German Shepherd puppies ", 2500, System.currentTimeMillis(),
-                "This is description of the deal I want to offer", 1, 1, "german shepard", 26, true, false, true, "city, country"));
-        listOfAdverts.add(new Advert(2,"sellerMe2","Persian cat for sale", 500, System.currentTimeMillis(),
-                "This is description of the deal I want to offer", 1, 2, "persian", 26, false, false, true, "location"));
-        listOfAdverts.add(new Advert(1,"sellerMe","Beautiful White German Shepherd puppies ", 2500, System.currentTimeMillis(),
-                "This is description of the deal I want to offer", 1, 1, "german shepard", 26, true, false, true, "city, country"));
-        listOfAdverts.add(new Advert(2,"sellerMe2","Persian cat for sale", 500, System.currentTimeMillis(),
-                "This is description of the deal I want to offer", 1, 2, "persian", 26, false, false, true, "location"));
-        listOfAdverts.add(new Advert(1,"sellerMe","Beautiful White German Shepherd puppies ", 2500, System.currentTimeMillis(),
-                "This is description of the deal I want to offer", 1, 1, "german shepard", 26, true, false, true, "city, country"));
-        listOfAdverts.add(new Advert(2,"sellerMe2","Persian cat for sale", 500, System.currentTimeMillis(),
-                "This is description of the deal I want to offer", 1, 2, "persian", 26, false, false, true, "location"));
-        listOfAdverts.add(new Advert(1,"sellerMe","Beautiful White German Shepherd puppies ", 2500, System.currentTimeMillis(),
-                "This is description of the deal I want to offer", 1, 1, "german shepard", 26, true, false, true, "city, country"));
-        listOfAdverts.add(new Advert(2,"sellerMe2","Persian cat for sale", 500, System.currentTimeMillis(),
-                "This is description of the deal I want to offer", 1, 2, "persian", 26, false, false, true, "location"));
-        listOfAdverts.add(new Advert(1,"sellerMe","Beautiful White German Shepherd puppies ", 2500, System.currentTimeMillis(),
-                "This is description of the deal I want to offer", 1, 1, "german shepard", 26, true, false, true, "my city, country"));
-        listOfAdverts.add(new Advert(2,"sellerMe2","Persian cat for sale", 500, System.currentTimeMillis(),
-                "This is description of the deal I want to offer", 1, 2, "persian", 26, false, false, true, "location"));
-        listOfAdverts.add(new Advert(1,"sellerMe","Beautiful White German Shepherd puppies ", 2500, System.currentTimeMillis(),
-                "This is description of the deal I want to offer", 1, 1, "german shepard", 26, true, false, true, "city, country"));
-        listOfAdverts.add(new Advert(2,"sellerMe2","Persian cat for sale", 500, System.currentTimeMillis(),
-                "This is description of the deal I want to offer", 1, 2, "persian", 26, false, false, true, "location"));
-        listOfAdverts.add(new Advert(1,"sellerMe","Beautiful White German Shepherd puppies ", 2500, System.currentTimeMillis(),
-                "This is description of the deal I want to offer", 1, 1, "german shepard", 26, true, false, true, "city, country"));
-        listOfAdverts.add(new Advert(2,"sellerMe2","Persian cat for sale", 500, System.currentTimeMillis(),
-                "This is description of the deal I want to offer", 1, 2, "persian", 26, false, false, true, "location"));
-
+//        listOfAdverts.add(new Advert(1, "sellerMe", "Beautiful White German Shepherd puppies ", 2500, System.currentTimeMillis(),
+//                "This is description of the deal I want to offer", 1, 1, "german shepard", 26, true, false, true, "city, country"));
+//        listOfAdverts.add(new Advert(2, "sellerMe2", "Persian cat for sale", 500, System.currentTimeMillis(),
+//                "This is description of the deal I want to offer", 1, 2, "persian", 26, false, false, true, "location"));
+//        listOfAdverts.add(new Advert(1, "sellerMe", "Beautiful White German Shepherd puppies ", 2500, System.currentTimeMillis(),
+//                "This is description of the deal I want to offer", 1, 1, "german shepard", 26, true, false, true, "city, country"));
+//        listOfAdverts.add(new Advert(2, "sellerMe2", "Persian cat for sale", 500, System.currentTimeMillis(),
+//                "This is description of the deal I want to offer", 1, 2, "persian", 26, false, false, true, "location"));
+//        listOfAdverts.add(new Advert(1, "sellerMe", "Beautiful White German Shepherd puppies ", 2500, System.currentTimeMillis(),
+//                "This is description of the deal I want to offer", 1, 1, "german shepard", 26, true, false, true, "my city, country"));
+//        listOfAdverts.add(new Advert(2, "sellerMe2", "Persian cat for sale", 500, System.currentTimeMillis(),
+//                "This is description of the deal I want to offer", 1, 2, "persian", 26, false, false, true, "location"));
+//        listOfAdverts.add(new Advert(1, "sellerMe", "Beautiful White German Shepherd puppies ", 2500, System.currentTimeMillis(),
+//                "This is description of the deal I want to offer", 1, 1, "german shepard", 26, true, false, true, "city, country"));
+//        listOfAdverts.add(new Advert(2, "sellerMe2", "Persian cat for sale", 500, System.currentTimeMillis(),
+//                "This is description of the deal I want to offer", 1, 2, "persian", 26, false, false, true, "location"));
+//        listOfAdverts.add(new Advert(1, "sellerMe", "Beautiful White German Shepherd puppies ", 2500, System.currentTimeMillis(),
+//                "This is description of the deal I want to offer", 1, 1, "german shepard", 26, true, false, true, "city, country"));
+//        listOfAdverts.add(new Advert(2, "sellerMe2", "Persian cat for sale", 500, System.currentTimeMillis(),
+//                "This is description of the deal I want to offer", 1, 2, "persian", 26, false, false, true, "location"));
+//        listOfAdverts.add(new Advert(1, "sellerMe", "Beautiful White German Shepherd puppies ", 2500, System.currentTimeMillis(),
+//                "This is description of the deal I want to offer", 1, 1, "german shepard", 26, true, false, true, "city, country"));
+//        listOfAdverts.add(new Advert(2, "sellerMe2", "Persian cat for sale", 500, System.currentTimeMillis(),
+//                "This is description of the deal I want to offer", 1, 2, "persian", 26, false, false, true, "location"));
+//        listOfAdverts.add(new Advert(1, "sellerMe", "Beautiful White German Shepherd puppies ", 2500, System.currentTimeMillis(),
+//                "This is description of the deal I want to offer", 1, 1, "german shepard", 26, true, false, true, "city, country"));
+//        listOfAdverts.add(new Advert(2, "sellerMe2", "Persian cat for sale", 500, System.currentTimeMillis(),
+//                "This is description of the deal I want to offer", 1, 2, "persian", 26, false, false, true, "location"));
+//        listOfAdverts.add(new Advert(1, "sellerMe", "Beautiful White German Shepherd puppies ", 2500, System.currentTimeMillis(),
+//                "This is description of the deal I want to offer", 1, 1, "german shepard", 26, true, false, true, "my city, country"));
+//        listOfAdverts.add(new Advert(2, "sellerMe2", "Persian cat for sale", 500, System.currentTimeMillis(),
+//                "This is description of the deal I want to offer", 1, 2, "persian", 26, false, false, true, "location"));
+//        listOfAdverts.add(new Advert(1, "sellerMe", "Beautiful White German Shepherd puppies ", 2500, System.currentTimeMillis(),
+//                "This is description of the deal I want to offer", 1, 1, "german shepard", 26, true, false, true, "city, country"));
+//        listOfAdverts.add(new Advert(2, "sellerMe2", "Persian cat for sale", 500, System.currentTimeMillis(),
+//                "This is description of the deal I want to offer", 1, 2, "persian", 26, false, false, true, "location"));
+//        listOfAdverts.add(new Advert(1, "sellerMe", "Beautiful White German Shepherd puppies ", 2500, System.currentTimeMillis(),
+//                "This is description of the deal I want to offer", 1, 1, "german shepard", 26, true, false, true, "city, country"));
+//        listOfAdverts.add(new Advert(2, "sellerMe2", "Persian cat for sale", 500, System.currentTimeMillis(),
+//                "This is description of the deal I want to offer", 1, 2, "persian", 26, false, false, true, "location"));
+//
 
         //instantiate custom adapter
         adapter = new MyAdvertsAdapter(this, listOfAdverts);
 
         //handle listview and assign adapter
-        dealsList = (ListView)findViewById(R.id.petShopDeals_listview);
+        dealsList = (ListView) findViewById(R.id.petShopDeals_listview);
         dealsList.setAdapter(adapter);
         //when click on existing pet, move to its profile
         dealsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -129,7 +129,7 @@ public class PetShopActivity extends AppCompatActivity {
     class MyAdvertsAdapter extends ArrayAdapter<Advert> {
 
         MyAdvertsAdapter(Context context, ArrayList<Advert> adverts) {
-            super(context,0, adverts);
+            super(context, 0, adverts);
         }
 
         @NonNull
@@ -155,11 +155,11 @@ public class PetShopActivity extends AppCompatActivity {
             dealTitle.setText(currentAdvert.getTitle());
 
             TextView dealLocation = (TextView) listItemView.findViewById(R.id.list_deal_location);
-            dealLocation.setText(currentAdvert.getLoc());
+            dealLocation.setText(currentAdvert.getLocation()+"");
 
             TextView dealDate = (TextView) listItemView.findViewById(R.id.list_deal_date);
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-            dealDate.setText(sdf.format(currentAdvert.getDate()));
+            dealDate.setText(sdf.format(currentAdvert.getCreateDate()));
 
             TextView dealPrice = (TextView) listItemView.findViewById(R.id.list_deal_price);
             dealPrice.setText(NumberFormat.getCurrencyInstance(Locale.getDefault()).format(currentAdvert.getPrice()));

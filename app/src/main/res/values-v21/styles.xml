@@ -2,7 +2,7 @@
 <resources>
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="android:windowEnterTransition">@transition/my_transition</item>
+        <item name="android:windowEnterTransition">@transition/my_transition0</item>
         <item name="android:windowTransitionBackgroundFadeDuration">900</item>
 
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -13,6 +13,7 @@
         <item name="android:textViewStyle">@style/myTextViewStyle</item>
         <item name="colorButtonNormal">@color/colorAccent</item>
         <item name="buttonStyle">@style/myButtonStyle</item>
+        <item name="popupMenuStyle">@style/myPopupMenuStyle</item>
     </style>
 
     <style name="AppTheme.NoSlide">
@@ -20,20 +21,24 @@
         <item name="android:windowTransitionBackgroundFadeDuration">500</item>
     </style>
 
-    <style name="AppTheme.SlideRight">
+    <style name="AppTheme.SlideTop">
         <item name="android:windowEnterTransition">@transition/my_transition1</item>
     </style>
 
-    <style name="AppTheme.SlideTop">
+    <style name="AppTheme.SlideStart">
         <item name="android:windowEnterTransition">@transition/my_transition2</item>
     </style>
 
-    <style name="AppTheme.Explode" parent="AppTheme">
+    <style name="AppTheme.SlideEnd">
         <item name="android:windowEnterTransition">@transition/my_transition3</item>
     </style>
 
+    <style name="AppTheme.Explode" parent="AppTheme">
+        <item name="android:windowEnterTransition">@transition/my_transition4</item>
+    </style>
+
     <style name="AppTheme.NoActionbar_SlideBottom" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowEnterTransition">@transition/my_transition</item>
+        <item name="android:windowEnterTransition">@transition/my_transition0</item>
 
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>

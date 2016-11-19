@@ -46,8 +46,8 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                 String fromEmail = "dummy@gmail.com";
                 String fromPassword = "123456";
                 String toEmails = ((TextView) findViewById(R.id.email_etxt)).getText().toString();
-                if(!toEmails.contains("@") || toEmails.startsWith("@") || !(toEmails.endsWith(".com") || toEmails.endsWith(".net")
-                        || toEmails.endsWith(".edu") || toEmails.endsWith(".org") || toEmails.endsWith(".gov"))){
+                if (!toEmails.contains("@") || toEmails.startsWith("@") || !(toEmails.endsWith(".com") || toEmails.endsWith(".net")
+                        || toEmails.endsWith(".edu") || toEmails.endsWith(".org") || toEmails.endsWith(".gov"))) {
                     Toast.makeText(ForgotPasswordActivity.this, "Please enter a valid email address", Toast.LENGTH_SHORT).show();
                 } else {
                     List<String> toEmailList = Arrays.asList(toEmails.split("\\s*,\\s*"));
@@ -72,7 +72,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         }
     }
 
-//------------------------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------
     //---In SendMailTask.java – AsyncTask for Sending Email---
     //SendMailTask interacts with GMail.java by passing parameters to and publishing mail sending status using ProgressDialog.
     private class SendMailTask extends AsyncTask {
@@ -121,27 +121,32 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         public void onProgressUpdate(Object... values) {
             try {
                 statusDialog.setMessage(values[0].toString());
-            } catch (Exception e) { }
+            } catch (Exception ignored) {
+            }
         }
 
         @Override
         public void onPostExecute(final Object result) {
             statusDialog.setCancelable(true);
-            if(result instanceof Boolean && result.equals(true)) {
+            if (result instanceof Boolean && result.equals(true)) {
                 statusDialog.setMessage("Email sent successfully to " + emailTo);
             } else {
-                if(result instanceof String) {
+                if (result instanceof String) {
                     statusDialog.setMessage("Error: " + result + "\nPlease try again");
                 }
             }
 
             // Hide dialog after some seconds
-            final Handler handler  = new Handler();
+            final Handler handler = new Handler();
             final Runnable runnable = new Runnable() {
                 @Override
                 public void run() {
-                    if (statusDialog.isShowing()) { statusDialog.dismiss(); }
-                    if(result instanceof Boolean && result.equals(true)) { sendMailActivity.finish(); }
+                    if (statusDialog.isShowing()) {
+                        statusDialog.dismiss();
+                    }
+                    if (result instanceof Boolean && result.equals(true)) {
+                        sendMailActivity.finish();
+                    }
                 }
             };
             statusDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
@@ -153,7 +158,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             handler.postDelayed(runnable, 2500);
         }
     }
-}
 
 //------------------------------------------------------------------------------------------------
 //---In GMail.java – GMail Email Sender using JavaMail---
@@ -162,72 +166,76 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 //Constructs the MimeMessage using which the email will be sent.
 //Sends email using Transport API.
 
-class GMail {
+    class GMail {
 
-    private final String emailPort = "587";// gmail's SMTP port
-    private final String smtpAuth = "true";
-    private final String starttls = "true";
-    private final String emailHost = "smtp.gmail.com";
+        private final String emailPort = "587";// gmail's SMTP port
+        private final String smtpAuth = "true";
+        private final String starttls = "true";
+        private final String emailHost = "smtp.gmail.com";
 
-    private String fromEmail;
-    private String fromPassword;
-    private List<String> toEmailList;
-    private String emailSubject;
-    private String emailBody;
+        private String fromEmail;
+        private String fromPassword;
+        private List<String> toEmailList;
+        private String emailSubject;
+        private String emailBody;
 
-    private Properties emailProperties;
-    private Session mailSession;
-    private MimeMessage emailMessage;
+        private Properties emailProperties;
+        private Session mailSession;
+        private MimeMessage emailMessage;
 
-    public GMail() { }
-
-    GMail(String fromEmail, String fromPassword, List<String> toEmailList, String emailSubject, String emailBody) {
-        this.fromEmail = "mypetfriendapp@gmail.com";
-        this.fromPassword = "123456_Mypetfriend";
-        this.toEmailList = toEmailList;
-        this.emailSubject = emailSubject;
-        this.emailBody = emailBody;
-
-        emailProperties = System.getProperties();
-        emailProperties.put("mail.smtp.port", emailPort);
-        emailProperties.put("mail.smtp.auth", smtpAuth);
-        emailProperties.put("mail.smtp.starttls.enable", starttls);
-    }
-
-    MimeMessage createEmailMessage() throws MessagingException, UnsupportedEncodingException {
-        mailSession = Session.getInstance(emailProperties, new GMailAuthenticator(fromEmail, fromPassword));
-        emailMessage = new MimeMessage(mailSession);
-        emailMessage.setFrom(new InternetAddress(fromEmail, fromEmail));
-
-        for (String toEmail : toEmailList) {
-            emailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));
+        public GMail() {
         }
 
-        emailMessage.setSubject(emailSubject);
-        emailMessage.setContent(emailBody, "text/html"); //for a html email
-        //emailMessage.setText(emailBody); //for a text email
-        return emailMessage;
-    }
+        GMail(String fromEmail, String fromPassword, List<String> toEmailList, String emailSubject, String emailBody) {
+            this.fromEmail = "mypetfriendapp@gmail.com";
+            this.fromPassword = "123456_Mypetfriend";
+            this.toEmailList = toEmailList;
+            this.emailSubject = emailSubject;
+            this.emailBody = emailBody;
 
-    void sendEmail() throws MessagingException {
-        Transport transport = mailSession.getTransport("smtp");
-        transport.connect(emailHost, fromEmail, fromPassword);
-        transport.sendMessage(emailMessage, emailMessage.getAllRecipients());
-        transport.close();
-    }
-
-
-    //---We need to implement this class for security reasons--- (i think?)
-    private class GMailAuthenticator extends Authenticator {
-        private String user;
-        private String password;
-        GMailAuthenticator(String username, String password) {
-            super();
-            this.user = username;
-            this.password = password;
+            emailProperties = System.getProperties();
+            emailProperties.put("mail.smtp.port", emailPort);
+            emailProperties.put("mail.smtp.auth", smtpAuth);
+            emailProperties.put("mail.smtp.starttls.enable", starttls);
         }
-        public PasswordAuthentication getPasswordAuthentication() {
-            return new PasswordAuthentication(user, password);
+
+        MimeMessage createEmailMessage() throws MessagingException, UnsupportedEncodingException {
+            mailSession = Session.getInstance(emailProperties, new GMailAuthenticator(fromEmail, fromPassword));
+            emailMessage = new MimeMessage(mailSession);
+            emailMessage.setFrom(new InternetAddress(fromEmail, fromEmail));
+
+            for (String toEmail : toEmailList) {
+                emailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));
+            }
+
+            emailMessage.setSubject(emailSubject);
+            emailMessage.setContent(emailBody, "text/html"); //for a html email
+            //emailMessage.setText(emailBody); //for a text email
+            return emailMessage;
+        }
+
+        void sendEmail() throws MessagingException {
+            Transport transport = mailSession.getTransport("smtp");
+            transport.connect(emailHost, fromEmail, fromPassword);
+            transport.sendMessage(emailMessage, emailMessage.getAllRecipients());
+            transport.close();
+        }
+
+
+        //---We need to implement this class for security reasons--- (i think?)
+        private class GMailAuthenticator extends Authenticator {
+            private String user;
+            private String password;
+
+            GMailAuthenticator(String username, String password) {
+                super();
+                this.user = username;
+                this.password = password;
+            }
+
+            public PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(user, password);
+            }
         }
     }
 }

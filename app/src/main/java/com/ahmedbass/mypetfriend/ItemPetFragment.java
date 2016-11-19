@@ -7,14 +7,20 @@ import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
+import android.transition.TransitionInflater;
+import android.transition.TransitionManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import static android.app.Activity.RESULT_OK;
+
 public class ItemPetFragment extends Fragment {
     private static final String ARG_PET = "myPet";
+    final static int REQUEST_CODE_OPEN_PET_PROFILE = 111;
 
     private Pet currentPet;
     CardView myPetItem_crdv;
@@ -59,10 +65,11 @@ public class ItemPetFragment extends Fragment {
         petWeight_txtv = (TextView) rootView.findViewById(R.id.pet_weight_txtv);
 
         //assign values to views
+//        petPicture_img.setImageBitmap();
         petName_txtv.setText(currentPet.getName());
-        petBreedAndType_txtv.setText(currentPet.getBreed() + " " + (currentPet.getType() == Pet.TYPE_CAT ? "Cat" : "Dog"));
+        petBreedAndType_txtv.setText(currentPet.getBreed() + " " + (currentPet.getType()));
         petAge_txtv.setText(currentPet.getPetAgeInYear() + " years and " + currentPet.getPetAgeInMonth() + " months old");
-        petWeight_txtv.setText(currentPet.getWeight() + " kg");
+        petWeight_txtv.setText(currentPet.getCurrentWeight() == -1 ? "Weigh not set" : currentPet.getCurrentWeight() + " kg");
 
         //set onclick listener
         myPetItem_crdv.setOnClickListener(new HandleMyViewsClicks());
@@ -79,7 +86,33 @@ public class ItemPetFragment extends Fragment {
             Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle();
             Intent moveToPetProfile = new Intent(getActivity(), PetProfileActivity.class);
             moveToPetProfile.putExtra("petInfo", currentPet);
-            startActivity(moveToPetProfile, bundle);
+            startActivityForResult(moveToPetProfile, REQUEST_CODE_OPEN_PET_PROFILE, bundle);
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_CODE_OPEN_PET_PROFILE && resultCode == RESULT_OK) {
+            //if we get here, it means we either modified or deleted the pet (because that's only where we make result ok)
+            if (data.getBooleanExtra("petDeleted", false)) {
+                //when deleting, we read database and set the viewpager
+                ((MyPetsActivity) getActivity()).getPetListFromDB();
+                TransitionManager.beginDelayedTransition((FrameLayout) getActivity().findViewById(R.id.container),
+                        TransitionInflater.from(getContext()).inflateTransition(R.transition.my_transition5));
+                ((MyPetsActivity) getActivity()).setViewPager();
+            }
+
+            if (data.getSerializableExtra("petModified") != null) {
+                //when modifying, we start activity with passing the modified pet object,
+                // then read from database, and set viewpager (to make changes real)
+                Intent moveToPetProfile = new Intent(getContext(), PetProfileActivity.class);
+                moveToPetProfile.putExtra("petInfo", data.getSerializableExtra("petModified"));
+                startActivityForResult(moveToPetProfile, REQUEST_CODE_OPEN_PET_PROFILE);
+
+                ((MyPetsActivity)getActivity()).getPetListFromDB();
+                ((MyPetsActivity) getActivity()).setViewPager();
+            }
         }
     }
 }

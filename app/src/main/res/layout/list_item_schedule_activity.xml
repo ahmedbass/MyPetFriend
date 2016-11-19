@@ -15,7 +15,7 @@
         android:layout_marginEnd="5dp"
         android:layout_marginTop="2dp"
         android:layout_marginBottom="2dp"
-        android:src="@drawable/paw_default"/>
+        android:src="@drawable/paw_default" />
 
     <TextView
         android:id="@+id/scheduleActivityType_txtv"
@@ -32,14 +32,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|center_vertical"
-        android:text="7:00 PM"/>
+        android:text="7:00 PM" />
 
     <ImageView
         android:id="@+id/scheduleActivityNotificationIcon_img"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:src="@drawable/notification_on"
-        android:layout_margin="5dp"/>
+        android:layout_margin="5dp" />
 
 
 </LinearLayout>

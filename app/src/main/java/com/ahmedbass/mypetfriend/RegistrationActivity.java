@@ -47,7 +47,7 @@ public class RegistrationActivity extends AppCompatActivity {
             public void onClick(View v) {
                 connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
                 networkInfo = connectivityManager.getActiveNetworkInfo();
-                if(networkInfo != null && networkInfo.isConnected()) {
+                if (networkInfo != null && networkInfo.isConnected()) {
                     firstName = firstName_etxt.getText().toString().trim();
                     lastName = lastName_etxt.getText().toString().trim();
                     password = password_etxt.getText().toString().trim();
@@ -58,20 +58,20 @@ public class RegistrationActivity extends AppCompatActivity {
                             (usertype_rgrp.getCheckedRadioButtonId() == petCareProvider_rbtn.getId() ? 2 : 0));
                     String taskType = "register";
 
-                    if(firstName.isEmpty()|| lastName.isEmpty()|| password.isEmpty()|| email.isEmpty()|| location.isEmpty()|| usertype==0) {
+                    if (firstName.isEmpty() || lastName.isEmpty() || password.isEmpty() || email.isEmpty() || location.isEmpty() || usertype == 0) {
                         Toast.makeText(getBaseContext(), "Please fill-in all fields", Toast.LENGTH_SHORT).show();
 
                         //TODO remove this
-                        if(usertype == 1){
+                        if (usertype == 1) {
                             startActivity(new Intent(getBaseContext(), MainActivity.class), bundle);
-                        } else if(usertype == 2){
+                        } else if (usertype == 2) {
                             startActivity(new Intent(getBaseContext(), PetCareProviderRegisterationActivity.class), bundle);
                         }
                     } else {
                         //TODO use the background worker instead
-                        if(usertype == 1){
+                        if (usertype == 1) {
                             startActivity(new Intent(getBaseContext(), MainActivity.class), bundle);
-                        } else if(usertype == 2){
+                        } else if (usertype == 2) {
                             startActivity(new Intent(getBaseContext(), PetCareProviderRegisterationActivity.class), bundle);
                         }
 //                        BackgroundWorker backgroundWorker = new BackgroundWorker(getBaseContext());
@@ -81,7 +81,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     Toast.makeText(getBaseContext(), "Error: Cannot connect to the internet", Toast.LENGTH_SHORT).show();
 
                     //TODO remove this
-                    if(usertype == 2){
+                    if (usertype == 2) {
                         startActivity(new Intent(getBaseContext(), PetCareProviderRegisterationActivity.class), bundle);
                     } else {
                         Intent intent = new Intent(getBaseContext(), MainActivity.class);

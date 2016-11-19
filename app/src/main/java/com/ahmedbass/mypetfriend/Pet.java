@@ -7,46 +7,50 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-class Pet implements Serializable{
+class Pet implements Serializable {
 
-    final static String GENDER_MALE = "Male";
-    final static String GENDER_FEMALE = "Female";
-    final static String TYPE_CAT = "Cat";
-    final static String TYPE_DOG = "Dog";
 
-    private int ownerId;
+
     private int petId;
-    private ArrayList<Bitmap> allPhotos = new ArrayList<>();
+    private int ownerId;
+    private long createDate;
     private String name;
     private long birthDate; //in milliseconds
     private String gender;
     private String type;
     private String breed;
-    private int weight;
+    private int currentWeight;
     private boolean isNeutered;
     private String microchipNumber;
-    private ArrayList<ScheduleActivity> scheduleActivities = new ArrayList<>();
-    private ArrayList<Vaccine> vaccines = new ArrayList<>();
-    private long createDate;
 
-    public Pet(){}
+    private ArrayList<Integer> petWeightList = new ArrayList<>();
+    private ArrayList<Bitmap> petPhotos = new ArrayList<>();
+    private ArrayList<ScheduleActivity> petScheduleActivities = new ArrayList<>();
+    private ArrayList<Vaccine> petVaccines = new ArrayList<>();
 
-    public Pet(String name, long birthDate, String gender, String type, String breed, int weight) {
+    public Pet() {}
+
+    public Pet(int petId, int ownerId, long createDate, String name, long birthDate, String gender, String type, String breed, int currentWeight, boolean isNeutered, String microchipNumber) {
+        this.petId = petId;
+        this.ownerId = ownerId;
+        this.createDate = createDate;
         this.name = name;
         this.birthDate = birthDate;
         this.gender = gender;
         this.type = type;
         this.breed = breed;
-        this.weight = weight;
+        this.currentWeight = currentWeight;
+        this.isNeutered = isNeutered;
+        this.microchipNumber = microchipNumber;
     }
 
-    public int getPetAgeInYear(){
+    public int getPetAgeInYear() {
         Calendar birth = Calendar.getInstance();
         birth.setTimeInMillis(birthDate);
         return Calendar.getInstance().get(Calendar.YEAR) - birth.get(Calendar.YEAR);
     }
 
-    public int getPetAgeInMonth(){
+    public int getPetAgeInMonth() {
         Calendar birth = Calendar.getInstance();
         birth.setTimeInMillis(birthDate);
         return Calendar.getInstance().get(Calendar.MONTH) - birth.get(Calendar.MONTH);
@@ -61,7 +65,7 @@ class Pet implements Serializable{
     }
 
     public ArrayList<Bitmap> getAllPhotos() {
-        return allPhotos;
+        return petPhotos;
     }
 
     public String getName() {
@@ -84,8 +88,12 @@ class Pet implements Serializable{
         return breed;
     }
 
-    public int getWeight() {
-        return weight;
+    public int getCurrentWeight() {
+        return currentWeight;
+    }
+
+    public ArrayList<Integer> getPetWeightList() {
+        return petWeightList;
     }
 
     public boolean isNeutered() {
@@ -96,12 +104,12 @@ class Pet implements Serializable{
         return microchipNumber;
     }
 
-    public ArrayList<ScheduleActivity> getScheduleActivities() {
-        return scheduleActivities;
+    public ArrayList<ScheduleActivity> getPetScheduleActivities() {
+        return petScheduleActivities;
     }
 
-    public ArrayList<Vaccine> getVaccines() {
-        return vaccines;
+    public ArrayList<Vaccine> getPetVaccines() {
+        return petVaccines;
     }
 
     public long getCreateDate() {
@@ -136,11 +144,12 @@ class Pet implements Serializable{
         this.breed = breed;
     }
 
-    public void setWeight(int weight) {
-        this.weight = weight;
+    public void setCurrentWeight(int weight) {
+        currentWeight = weight;
+        this.petWeightList.add(weight);
     }
 
-    public void setNeutered(boolean neutered) {
+    public void setIsNeutered(boolean neutered) {
         isNeutered = neutered;
     }
 
@@ -148,17 +157,27 @@ class Pet implements Serializable{
         this.microchipNumber = microchipNumber;
     }
 
-    public void addNewScheduleActivity(String type, Calendar createDate, int frequency, String notes, int notificationStatus){
-        scheduleActivities.add(new ScheduleActivity(type, createDate, frequency, notes, notificationStatus));
+    public void addNewScheduleActivity(int scheduleActivityId, int petId, String scheduleType, long scheduleCreateDate, int hourOfDay, int minuteOfDay, int frequency, String notes, int notificationStatus) {
+        petScheduleActivities.add(
+                new ScheduleActivity(scheduleActivityId, petId, scheduleType, scheduleCreateDate, hourOfDay, minuteOfDay, frequency, notes, notificationStatus));
     }
 
-    public void addNewVaccines(ArrayList<Vaccine> vaccines) {
-        this.vaccines = vaccines;
+    public void removeScheduleActivity(int scheduleActivityIndex) {
+        petScheduleActivities.remove(scheduleActivityIndex);
     }
+
+    public void addNewVaccine(Vaccine newVaccine) {
+        this.petVaccines.add(newVaccine);
+    }
+
+    public void removeVaccine(int vaccineIndex) {
+        this.petVaccines.remove(vaccineIndex);
+    }
+
 
     //----------------------------------------------------------------------------------------------
 
-    class ScheduleActivity {
+    class ScheduleActivity implements Serializable{
 
         final static String TYPE_BREAKFAST = "Breakfast";
         final static String TYPE_DINNER = "Dinner";
@@ -170,14 +189,15 @@ class Pet implements Serializable{
         final static String TYPE_TRAINING = "Training";
         final static String TYPE_WEIGHING = "Weighing";
         final static String TYPE_VACCINATION = "Vaccination";
-        final static String TYPE_MEDICAL_CHECKUP= "Medical Checkup";
+        final static String TYPE_MEDICAL_CHECKUP = "Medical Checkup";
         final static String TYPE_BIRTHDAY = "Birthday";
 
         final static int NOTIFICATION_STATUS_OFF = 0;
-        final static int NOTIFICATION_STATUS_ON= 1;
+        final static int NOTIFICATION_STATUS_ON = 1;
         final static int NOTIFICATION_STATUS_ALARM = 2;
 
         private int scheduleId;
+        private int petId;
         private int icon;
         private String type; //has to be one the defined types
         private long createDate; //when pet first registered in millis
@@ -188,12 +208,13 @@ class Pet implements Serializable{
         private int notificationStatus; //0=off, 1=On, 2=Alarm
         private int notificationStatusIcon; //based on the notificationStatus
 
-        public ScheduleActivity(String type, Calendar createDate, int frequency, String notes, int notificationStatus) {
-            scheduleId = 1; //TODO change this to get it later from database primary key
+        public ScheduleActivity(int scheduleId, int petId, String type, long createDate, int hourOfDay, int minuteOfDay, int frequency, String notes, int notificationStatus) {
+            this.scheduleId = scheduleId;
+            this.petId = petId;
             this.type = type;
-            this.createDate = createDate.getTimeInMillis();
-            this.hourOfDay = createDate.get(Calendar.HOUR_OF_DAY);
-            this.minuteOfDay = createDate.get(Calendar.MINUTE);
+            this.createDate = createDate;
+            this.hourOfDay = hourOfDay;
+            this.minuteOfDay = minuteOfDay;
             this.frequency = frequency;
             this.notificationStatus = notificationStatus;
             setIcon();
@@ -203,6 +224,10 @@ class Pet implements Serializable{
 
         public int getScheduleId() {
             return scheduleId;
+        }
+
+        public int getPetId() {
+            return petId;
         }
 
         public int getIcon() {
@@ -225,9 +250,9 @@ class Pet implements Serializable{
             return minuteOfDay;
         }
 
-        public String getDisplayTime(){
+        public String getDisplayTime() {
             String displayTime = "";
-            if(getHourOfDay() > 12) {
+            if (getHourOfDay() > 12) {
                 displayTime += (getHourOfDay() - 12) + ":";
             } else {
                 displayTime += getHourOfDay() + ":";
@@ -237,7 +262,7 @@ class Pet implements Serializable{
             } else {
                 displayTime += getMinuteOfDay();
             }
-            if(getHourOfDay() < 12) {
+            if (getHourOfDay() < 12) {
                 displayTime += " AM";
             } else {
                 displayTime += " PM";
@@ -262,6 +287,10 @@ class Pet implements Serializable{
             return notificationStatusIcon;
         }
 
+        public void setCreateDate(long createDate) {
+            this.createDate = createDate;
+        }
+
         public void setHourOfDay(int hourOfDay) {
             this.hourOfDay = hourOfDay;
         }
@@ -276,7 +305,8 @@ class Pet implements Serializable{
 
         private void setIcon() {
             switch (type) {
-                case TYPE_BREAKFAST:case TYPE_DINNER:
+                case TYPE_BREAKFAST:
+                case TYPE_DINNER:
                     icon = R.drawable.food;
                     break;
                 case TYPE_BATHING:
@@ -337,37 +367,43 @@ class Pet implements Serializable{
                     break;
                 //...
 
-                default: this.notes = notes;
+                default:
+                    this.notes = notes;
             }
         }
     }
 
     //----------------------------------------------------------------------------------------------
 
-    class Vaccine {
+    class Vaccine implements Serializable{
 
         final static int DOG_TURNING_AGE = 4; //4 months, below is a puppy, above is an adult dog
-        final static int CORE_VACCINE = 1;
-        final static int NON_CORE_VACCINE = 2;
+        final static int CATEGORY_CORE = 1; //core petVaccines should be given to every dog
+        //noncore petVaccines are recommended only for some dogs, depending on the dog situation:
+        // e.g. age, breed, health status, and the potential exposure to a diseased animal.
+        // the type of vaccine and how common the disease is in the geographical area where the dog lives or may visit.
+        final static int CATEGORY_NON_CORE = 2;
+
+        //TODO list all possible petVaccines for cats(about6) and dogs(about 11) here as final static
 
         private int vaccineId;
-        private String vaccineName;
+        private String name;
         private int category; //1=core, 2=non-core
+        private long createDate;
+        private int frequency; //means: take another dose after ? days
+        private String notes;
         private int initialPuppyDoses; //how many doses to take at first time
         private int initialAdultDoses;
-        private long lastTimeTaken; //currentDate in milliseconds
-        private int frequency; //means: take another dose after ? days
-        private String comments;
 
-        public Vaccine(int vaccineId, String vaccineName, int category, int initialPuppyDoses, int initialAdultDoses, long lastTimeTaken, int frequency, String comments) {
+        public Vaccine(int vaccineId, String name, int category, int initialPuppyDoses, int initialAdultDoses, long createDate, int frequency, String notes) {
             this.vaccineId = vaccineId;
-            this.vaccineName = vaccineName;
+            this.name = name;
             this.category = category;
             this.initialPuppyDoses = initialPuppyDoses;
             this.initialAdultDoses = initialAdultDoses;
-            this.lastTimeTaken = lastTimeTaken;
+            this.createDate = createDate;
             this.frequency = frequency;
-            this.comments = comments;
+            this.notes = notes;
         }
 
         public int getVaccineId() {
@@ -378,12 +414,12 @@ class Pet implements Serializable{
             this.vaccineId = vaccineId;
         }
 
-        public String getVaccineName() {
-            return vaccineName;
+        public String getName() {
+            return name;
         }
 
-        public void setVaccineName(String vaccineName) {
-            this.vaccineName = vaccineName;
+        public void setName(String name) {
+            this.name = name;
         }
 
         public int getCategory() {
@@ -410,12 +446,12 @@ class Pet implements Serializable{
             this.initialAdultDoses = initialAdultDoses;
         }
 
-        public long getLastTimeTaken() {
-            return lastTimeTaken;
+        public long getCreateDate() {
+            return createDate;
         }
 
-        public void setLastTimeTaken(long lastTimeTaken) {
-            this.lastTimeTaken = lastTimeTaken;
+        public void setCreateDate(long createDate) {
+            this.createDate = createDate;
         }
 
         public int getFrequency() {
@@ -426,12 +462,12 @@ class Pet implements Serializable{
             this.frequency = frequency;
         }
 
-        public String getComments() {
-            return comments;
+        public String getNotes() {
+            return notes;
         }
 
-        public void setComments(String comments) {
-            this.comments = comments;
+        public void setNotes(String notes) {
+            this.notes = notes;
         }
     }
 

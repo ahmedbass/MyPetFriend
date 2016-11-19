@@ -7,15 +7,12 @@
 
     <color name="colorAccent">#2196f3</color>
     <color name="colorAccentDark">#1976d2</color>
-    <color name="colorAccentLight">#BBDEFB</color>
+    <color name="colorAccentLight">#5daeff</color>
 
     <color name="primaryText">#212121</color>
-    <color name="primaryTextWhite">#ffffff</color>
     <color name="secondaryText">#757575</color>
 
-    <color name="icon_bright">@color/nice_red</color>
-    <color name="icon_dark">@color/colorAccent</color>
-
+    <color name="white">#ffffff</color>
     <color name="nice_blue">#2196f3</color>
     <color name="nice_green">#4CAF50</color>
     <color name="nice_red">#D80027</color>

@@ -32,7 +32,7 @@ public class ThreeFourImageView extends ImageView {
 
         if (getContext().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             int threeForthHeightSpec = MeasureSpec
-                    .makeMeasureSpec(MeasureSpec.getSize(widthMeasureSpec) * 3/4, MeasureSpec.EXACTLY);
+                    .makeMeasureSpec(MeasureSpec.getSize(widthMeasureSpec) * 3 / 4, MeasureSpec.EXACTLY);
             super.onMeasure(widthMeasureSpec, threeForthHeightSpec);
         } else {
             int fullScreenHeightSpec = MeasureSpec

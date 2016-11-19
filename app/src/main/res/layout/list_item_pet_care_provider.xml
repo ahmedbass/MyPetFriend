@@ -30,6 +30,7 @@
         android:orientation="vertical"
         android:paddingStart="5dp"
         android:paddingEnd="5dp">
+
         <TextView
             android:id="@+id/petCareProvider_name_txtv"
             android:layout_width="wrap_content"
@@ -37,7 +38,7 @@
             android:maxLines="1"
             android:ellipsize="end"
             android:text="Title or Name"
-            android:textColor="@color/colorPrimaryDark"/>
+            android:textColor="@color/colorPrimaryDark" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -45,35 +46,35 @@
             android:layout_marginTop="2dp"
             android:gravity="center_vertical">
 
-        <TextView
-            android:id="@+id/petCareProvider_location_txtv"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="city, country"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:scaleX=".9"
-            android:scaleY=".9"
-            android:drawableStart="@drawable/ic_location_on_black_24dp"
-            android:drawableLeft="@drawable/ic_location_on_black_24dp" />
+            <TextView
+                android:id="@+id/petCareProvider_location_txtv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="city, country"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:scaleX=".9"
+                android:scaleY=".9"
+                android:drawableStart="@drawable/ic_location_on_black_24dp"
+                android:drawableLeft="@drawable/ic_location_on_black_24dp" />
 
             <RatingBar
                 android:id="@+id/reviews_rtng"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style = "?android:attr/ratingBarStyleSmall"
+                style="?android:attr/ratingBarStyleSmall"
                 android:numStars="5"
                 android:rating="3"
                 android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp"/>
+                android:layout_marginEnd="5dp" />
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1.5dp"
             android:layout_margin="5dp"
-            android:background="@android:color/darker_gray"/>
+            android:background="@android:color/darker_gray" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -87,12 +88,12 @@
                 android:text="AVAIL."
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:layout_weight="1"
-                android:gravity="center"/>
+                android:gravity="center" />
 
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:background="@android:color/darker_gray"/>
+                android:background="@android:color/darker_gray" />
 
             <TextView
                 android:layout_width="0dp"
@@ -100,12 +101,12 @@
                 android:text="YRS EXP."
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:layout_weight="1"
-                android:gravity="center"/>
+                android:gravity="center" />
 
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:background="@android:color/darker_gray"/>
+                android:background="@android:color/darker_gray" />
 
             <TextView
                 android:layout_width="0dp"
@@ -116,11 +117,13 @@
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingStart="5dp"
             android:paddingEnd="5dp">
+
             <TextView
                 android:id="@+id/petCareProvider_availability_txtv"
                 android:layout_width="0dp"
@@ -128,12 +131,12 @@
                 android:text="FULL-TIME"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:layout_weight="1"
-                android:gravity="center"/>
+                android:gravity="center" />
 
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:background="@android:color/darker_gray"/>
+                android:background="@android:color/darker_gray" />
 
             <TextView
                 android:id="@+id/petCareProvider_experienceYears_txtv"
@@ -142,12 +145,12 @@
                 android:text="0"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:layout_weight="1"
-                android:gravity="center"/>
+                android:gravity="center" />
 
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:background="@android:color/darker_gray"/>
+                android:background="@android:color/darker_gray" />
 
             <TextView
                 android:id="@+id/petCareProvider_payRate_txtv"
@@ -156,7 +159,7 @@
                 android:layout_weight="1"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="$10-15/hr"
-                android:gravity="center"/>
+                android:gravity="center" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

@@ -18,7 +18,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import static com.ahmedbass.mypetfriend.WelcomeActivity.MY_PREFS_NAME;
+import static com.ahmedbass.mypetfriend.LauncherActivity.MY_APP_PREFS;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -30,11 +30,11 @@ public class LoginActivity extends AppCompatActivity {
     boolean isRememberMe;
 
     //save login information in preferences when user checks "remember me"
-    SharedPreferences pref;
-    private static final String PREF_USERNAME = "username";
+    private static final String PREF_EMAIL = "email";
     private static final String PREF_PASSWORD = "password";
     private static final String PREF_REMEMBERME = "rememberme";
 
+    SharedPreferences pref;
     ConnectivityManager connectivityManager;
     NetworkInfo networkInfo;
     Bundle bundle;
@@ -59,13 +59,13 @@ public class LoginActivity extends AppCompatActivity {
 //                    password = password_etxt.getText().toString().trim();
 //                    taskType = "login";
 //                    if (isRememberMe) { //if "remember me" is checked, save the login info
-//                        getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit()
-//                                .putString(PREF_USERNAME, email)
+//                        getSharedPreferences(MY_APP_PREFS, MODE_PRIVATE).edit()
+//                                .putString(PREF_EMAIL, email)
 //                                .putString(PREF_PASSWORD, password)
 //                                .putBoolean(PREF_REMEMBERME, isRememberMe)
 //                                .apply();
 //                    } else{ //else clear login info
-//                        getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit().clear().apply();
+//                        getSharedPreferences(MY_APP_PREFS, MODE_PRIVATE).edit().clear().apply();
 //                    }
 //
 //                    if (!email.isEmpty() && !password.isEmpty()) {
@@ -109,8 +109,8 @@ public class LoginActivity extends AppCompatActivity {
         moveToResetPassword_txtv = (TextView) findViewById(R.id.moveToResetPassword_txtv);
         rememberMe_chk = (CheckBox) findViewById(R.id.rememberMe_chk);
 
-        pref = getSharedPreferences(MY_PREFS_NAME,MODE_PRIVATE);
-        email = pref.getString(PREF_USERNAME, null);
+        pref = getSharedPreferences(MY_APP_PREFS, MODE_PRIVATE);
+        email = pref.getString(PREF_EMAIL, null);
         password = pref.getString(PREF_PASSWORD, null);
         isRememberMe = pref.getBoolean(PREF_REMEMBERME, false);
         if (email != null && password != null) {
@@ -118,8 +118,8 @@ public class LoginActivity extends AppCompatActivity {
             password_etxt.setText(password);
         }
         rememberMe_chk.setChecked(isRememberMe);
-        if(!isRememberMe) {
-            getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit().clear().apply();
+        if (!isRememberMe) {
+            getSharedPreferences(MY_APP_PREFS, MODE_PRIVATE).edit().clear().apply();
         }
     }
 

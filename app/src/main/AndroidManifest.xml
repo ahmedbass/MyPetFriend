@@ -2,10 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ahmedbass.mypetfriend">
 
-    <!-- To auto-complete the email text field in the login form with the user's emails -->
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="android.permission.READ_PROFILE" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
@@ -17,8 +13,8 @@
         android:theme="@style/AppTheme"
         android:largeHeap="true">
         <activity
-            android:name=".WelcomeActivity"
-            android:theme="@style/AppTheme.SlideRight">
+            android:name=".LauncherActivity"
+            android:theme="@style/AppTheme.SlideEnd">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,40 +24,40 @@
         <activity
             android:name=".RegistrationActivity"
             android:label="Registration"
-            android:parentActivityName=".WelcomeActivity"
-            android:theme="@style/AppTheme.SlideRight"
+            android:parentActivityName=".LauncherActivity"
+            android:theme="@style/AppTheme.SlideEnd"
             android:windowSoftInputMode="stateHidden"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop" />
         <activity
             android:name=".PetCareProviderRegisterationActivity"
             android:label="Tell Us About Yourself"
             android:parentActivityName=".RegistrationActivity"
-            android:theme="@style/AppTheme.SlideRight"
+            android:theme="@style/AppTheme.SlideEnd"
             android:windowSoftInputMode="stateHidden"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop" />
         <activity
             android:name=".LoginActivity"
             android:label="Login"
-            android:parentActivityName=".WelcomeActivity"
-            android:theme="@style/AppTheme.SlideRight"
-            android:launchMode="singleTop"/>
+            android:parentActivityName=".LauncherActivity"
+            android:theme="@style/AppTheme.SlideEnd"
+            android:launchMode="singleTop" />
         <activity
             android:name=".ForgotPasswordActivity"
             android:label="Forgot Your Password"
             android:parentActivityName=".LoginActivity"
-            android:theme="@style/AppTheme.SlideRight"
-            android:launchMode="singleTop"/>
+            android:theme="@style/AppTheme.SlideEnd"
+            android:launchMode="singleTop" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoSlide"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop" />
         <activity
             android:name=".MyPetsActivity"
             android:label="My Pets"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.SlideRight"
-            android:launchMode="singleTop"/>
+            android:theme="@style/AppTheme.SlideEnd"
+            android:launchMode="singleTop" />
         <activity
             android:name=".PetProfileActivity"
             android:label="My Pet"
@@ -72,33 +68,33 @@
             android:name=".PetPlacesActivity"
             android:label="Pet Places"
             android:parentActivityName=".MainActivity"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop" />
         <activity
             android:name=".PetCareServiceActivity"
             android:label="Pet Care Services"
             android:parentActivityName=".MainActivity"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop" />
         <activity
             android:name=".PetCareProviderProfileActivity"
             android:parentActivityName=".PetCareServiceActivity"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop" />
         <activity
             android:name=".PetShopActivity"
             android:label="Pet Shop"
             android:parentActivityName=".MainActivity"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop" />
         <activity
             android:name=".AdvertActivity"
             android:label="Advert"
             android:parentActivityName=".PetShopActivity"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop" />
         <activity
-            android:name=".AddNewPetActivity"
+            android:name=".AddEditPetActivity"
             android:label="Add New Pet"
             android:windowSoftInputMode="stateHidden"
             android:parentActivityName=".MyPetsActivity"
             android:theme="@style/AppTheme.SlideTop"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop" />
     </application>
 
 </manifest>

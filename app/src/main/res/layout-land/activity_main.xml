@@ -16,6 +16,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_weight="1">
+
         <ImageButton
             android:id="@+id/my_pets_btn"
             style="@style/iconStyle_MainScreen"
@@ -29,6 +30,7 @@
             android:adjustViewBounds="true"
             android:cropToPadding="true"
             android:contentDescription="My Pets" />
+
         <TextView
             android:text="My Pets"
             android:typeface="serif"
@@ -44,6 +46,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:orientation="vertical">
+
         <ImageButton
             android:id="@+id/pet_places_btn"
             style="@style/iconStyle_MainScreen"
@@ -57,6 +60,7 @@
             android:adjustViewBounds="true"
             android:cropToPadding="true"
             android:contentDescription="Pet Places" />
+
         <TextView
             android:text="Pet Places"
             android:typeface="serif"
@@ -72,6 +76,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:orientation="vertical">
+
         <ImageButton
             android:id="@+id/petServices_btn"
             style="@style/iconStyle_MainScreen"
@@ -85,6 +90,7 @@
             android:adjustViewBounds="true"
             android:cropToPadding="true"
             android:contentDescription="Pet Care Services" />
+
         <TextView
             android:id="@+id/textView3"
             android:typeface="serif"
@@ -100,6 +106,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:orientation="vertical">
+
         <ImageButton
             android:id="@+id/pet_shop_btn"
             style="@style/iconStyle_MainScreen"
@@ -112,6 +119,7 @@
             android:adjustViewBounds="true"
             android:cropToPadding="true"
             android:contentDescription="Pet Market" />
+
         <TextView
             android:text="Pet Market"
             android:typeface="serif"

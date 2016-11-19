@@ -88,7 +88,6 @@ public class AdvertActivity extends AppCompatActivity {
     }
 
     //possible ways of contacting the seller (phone call, email)
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void contactSeller(View view) {
         switch (view.getId()) {
             case R.id.call_seller_btn:
@@ -103,7 +102,7 @@ public class AdvertActivity extends AppCompatActivity {
                 String sellerEmail = "jon@example.com";
                 Intent emailIntent = new Intent(Intent.ACTION_SEND);
                 emailIntent.setType("message/rfc822");
-                emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[] {sellerEmail});
+                emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{sellerEmail});
                 emailIntent.putExtra(Intent.EXTRA_SUBJECT, "My PetFriend Advert: " + advert.getTitle());
                 if (emailIntent.resolveActivity(getPackageManager()) != null) {
                     startActivity(emailIntent);
@@ -113,7 +112,7 @@ public class AdvertActivity extends AppCompatActivity {
     }
 
     //adapter for the gallery
-    public class ImageAdapter extends BaseAdapter{
+    public class ImageAdapter extends BaseAdapter {
 
         private Context context;
         private int itemBackground;
@@ -128,11 +127,17 @@ public class AdvertActivity extends AppCompatActivity {
         }
 
         //---returns the number of images---
-        public int getCount() { return advertPhotos.length; }
+        public int getCount() {
+            return advertPhotos.length;
+        }
 
-        public Object getItem(int position) { return position; }
+        public Object getItem(int position) {
+            return position;
+        }
 
-        public long getItemId(int position) { return position; }
+        public long getItemId(int position) {
+            return position;
+        }
 
         //---returns an ImageView view---
         public View getView(int position, View convertView, ViewGroup parent) {

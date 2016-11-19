@@ -14,19 +14,15 @@ public class Cat extends Pet {
     private int minLifeExpectancy;
     private int maxLifeExpectancy;
     private int feedingAmountPerDay;
+    private int mealsPerDay;
 
     //breed characteristics
     private int familyAffectionateLevel;
     private int kidFriendlyLevel;
     private int petFriendlyLevel;
     private int strangerFriendlyLevel;
-    private int IntelligenceLevel;
     private int amountOfSheddingLevel;
     private int easeOfGroomingLevel;
     private int generalHealthLevel;
-    private int playfulnessPotentialLevel;
-
-    //schedule information
-    private int mealsPerMonth;
 
 }

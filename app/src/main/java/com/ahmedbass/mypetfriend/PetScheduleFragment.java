@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.transition.TransitionManager;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CalendarView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -26,12 +28,29 @@ import java.util.Locale;
 import static com.ahmedbass.mypetfriend.R.id.activitiesOfDay_listview;
 
 public class PetScheduleFragment extends Fragment {
+    private static final String ARG_PET = "myPet";
 
     ArrayList<Pet.ScheduleActivity> activitiesOfTheDay = new ArrayList<>();
     ListView activitiesOfDay_lv;
     ListAdapter myAdapter;
-    Pet pet = new Pet();
+    Pet currentPet;
     Calendar currentDate;
+
+    public static PetScheduleFragment newInstance(Pet pet) {
+        PetScheduleFragment fragment = new PetScheduleFragment();
+        Bundle args = new Bundle();
+        args.putSerializable(ARG_PET, pet);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if(getArguments() != null) {
+            currentPet = (Pet) getArguments().getSerializable(ARG_PET);
+        }
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -39,46 +58,41 @@ public class PetScheduleFragment extends Fragment {
         // Inflate the layout for this fragment
         final View rootView = inflater.inflate(R.layout.fragment_pet_schedule, container, false);
 
+        final LinearLayout scheduleDate_lout = (LinearLayout) rootView.findViewById(R.id.scheduleDate_lout);
         final TextView scheduleDate_txtv = (TextView) rootView.findViewById(R.id.scheduleDate_txtv);
         final CalendarView calendarView = (CalendarView) rootView.findViewById(R.id.calendarview);
         activitiesOfDay_lv = (ListView) rootView.findViewById(activitiesOfDay_listview);
 
+        //set Calendar Min Date to choose from (starts from pet create date, max is no limits)
+        calendarView.setMinDate(currentPet.getCreateDate());
+        currentDate = Calendar.getInstance();
+
         //TODO remove this dummy data
         Calendar date = Calendar.getInstance();
-        date.set(2016,11,4,9,0);
-        pet.addNewScheduleActivity(Pet.ScheduleActivity.TYPE_BREAKFAST, date, 1, "notes", Pet.ScheduleActivity.NOTIFICATION_STATUS_OFF);
-        date.set(2016,11,4,11,30);
-        pet.addNewScheduleActivity(Pet.ScheduleActivity.TYPE_GROOMING, date, 5, "notes", Pet.ScheduleActivity.NOTIFICATION_STATUS_ON);
-        date.set(2016,11,4,19,45);
-        pet.addNewScheduleActivity(Pet.ScheduleActivity.TYPE_DINNER, date, 1, "notes", Pet.ScheduleActivity.NOTIFICATION_STATUS_OFF);
-        date.set(2016,11,4,14,30);
-        pet.addNewScheduleActivity(Pet.ScheduleActivity.TYPE_MEDICAL_CHECKUP, date, 100, "notes", Pet.ScheduleActivity.NOTIFICATION_STATUS_ALARM);
-        date.set(2016,11,4,16,0);
-        pet.addNewScheduleActivity(Pet.ScheduleActivity.TYPE_TRAINING, date, 3, "notes", Pet.ScheduleActivity.NOTIFICATION_STATUS_ON);
-        date.set(2016,11,4,15,30);
-        pet.addNewScheduleActivity(Pet.ScheduleActivity.TYPE_WEIGHING, date, 30, "notes", Pet.ScheduleActivity.NOTIFICATION_STATUS_ON);
-        date.set(2016,11,4,19,0);
-        pet.addNewScheduleActivity(Pet.ScheduleActivity.TYPE_BIRTHDAY, date, 363, "notes", Pet.ScheduleActivity.NOTIFICATION_STATUS_ALARM);
-        date.set(2016,11,4,10,0);
-        pet.addNewScheduleActivity(Pet.ScheduleActivity.TYPE_EXERCISING, date, 363, "notes", Pet.ScheduleActivity.NOTIFICATION_STATUS_ON);
-        date.set(2016,11,4,11,0);
-        pet.addNewScheduleActivity(Pet.ScheduleActivity.TYPE_BATHING, date, 363, "notes", Pet.ScheduleActivity.NOTIFICATION_STATUS_ALARM);
+        date.set(2016, 11, 4, 9, 0);
+        currentPet.addNewScheduleActivity(1,1,Pet.ScheduleActivity.TYPE_BREAKFAST, date.getTimeInMillis(), date.get(Calendar.HOUR_OF_DAY), date.get(Calendar.MINUTE), 1, "notes", Pet.ScheduleActivity.NOTIFICATION_STATUS_OFF);
+        date.set(2016, 11, 4, 11, 30);
+        currentPet.addNewScheduleActivity(1,1,Pet.ScheduleActivity.TYPE_GROOMING, date.getTimeInMillis(), date.get(Calendar.HOUR_OF_DAY), date.get(Calendar.MINUTE),  2, "notes", Pet.ScheduleActivity.NOTIFICATION_STATUS_ON);
+        date.set(2016, 11, 4, 19, 45);
+        currentPet.addNewScheduleActivity(1,1,Pet.ScheduleActivity.TYPE_DINNER, date.getTimeInMillis(), date.get(Calendar.HOUR_OF_DAY), date.get(Calendar.MINUTE),  5, "notes", Pet.ScheduleActivity.NOTIFICATION_STATUS_OFF);
+        date.set(2016, 11, 4, 14, 30);
+        currentPet.addNewScheduleActivity(1,1,Pet.ScheduleActivity.TYPE_MEDICAL_CHECKUP, date.getTimeInMillis(), date.get(Calendar.HOUR_OF_DAY), date.get(Calendar.MINUTE),  10, "notes", Pet.ScheduleActivity.NOTIFICATION_STATUS_ALARM);
+        date.set(2016, 11, 4, 16, 0);
+        currentPet.addNewScheduleActivity(1,1,Pet.ScheduleActivity.TYPE_TRAINING, date.getTimeInMillis(), date.get(Calendar.HOUR_OF_DAY), date.get(Calendar.MINUTE),  4, "notes", Pet.ScheduleActivity.NOTIFICATION_STATUS_ON);
+        date.set(2016, 11, 4, 15, 30);
+        currentPet.addNewScheduleActivity(1,1,Pet.ScheduleActivity.TYPE_WEIGHING, date.getTimeInMillis(), date.get(Calendar.HOUR_OF_DAY), date.get(Calendar.MINUTE),  30, "notes", Pet.ScheduleActivity.NOTIFICATION_STATUS_ON);
+        date.set(2016, 11, 4, 19, 0);
+        currentPet.addNewScheduleActivity(1,1,Pet.ScheduleActivity.TYPE_BIRTHDAY, date.getTimeInMillis(), date.get(Calendar.HOUR_OF_DAY), date.get(Calendar.MINUTE),  363,"notes", Pet.ScheduleActivity.NOTIFICATION_STATUS_ALARM);
+        date.set(2016, 11, 4, 10, 0);
+        currentPet.addNewScheduleActivity(1,1,Pet.ScheduleActivity.TYPE_EXERCISING, date.getTimeInMillis(), date.get(Calendar.HOUR_OF_DAY), date.get(Calendar.MINUTE), 7, "notes", Pet.ScheduleActivity.NOTIFICATION_STATUS_ON);
+        date.set(2016, 11, 4, 11, 0);
+        currentPet.addNewScheduleActivity(1,1,Pet.ScheduleActivity.TYPE_BATHING, date.getTimeInMillis(), date.get(Calendar.HOUR_OF_DAY), date.get(Calendar.MINUTE), 6, "notes", Pet.ScheduleActivity.NOTIFICATION_STATUS_ALARM);
 
-        myAdapter = new MyAdapter(getContext(), getActivitiesOfSelectedDate(Calendar.getInstance()));
+        myAdapter = new MyAdapter(getContext(), getActivitiesOfSelectedDate(currentDate));
         activitiesOfDay_lv.setAdapter(myAdapter);
         activitiesOfDay_lv.setEmptyView(rootView.findViewById(R.id.emptyList_txtv));
 
-
-        //set Calendar Min & Max currentDate to choose from (after one year)
-        currentDate = Calendar.getInstance();
-        currentDate.set(Calendar.YEAR, currentDate.get(Calendar.YEAR)-1); //TODO set this to the startDate of pet registration
-        calendarView.setMinDate(currentDate.getTimeInMillis());
-        currentDate.set(Calendar.YEAR, currentDate.get(Calendar.YEAR)+2);
-        calendarView.setMaxDate(currentDate.getTimeInMillis());
-        currentDate.setTimeInMillis(Calendar.getInstance().getTimeInMillis());
-
-
-        scheduleDate_txtv.setOnClickListener(new View.OnClickListener() {
+        scheduleDate_lout.setOnClickListener(new View.OnClickListener() {
             //show/hide the calendarview
             @Override
             public void onClick(View v) {
@@ -87,11 +101,12 @@ public class PetScheduleFragment extends Fragment {
             }
         });
 
-        scheduleDate_txtv.setOnLongClickListener(new View.OnLongClickListener() {
+        scheduleDate_lout.setOnLongClickListener(new View.OnLongClickListener() {
             //on long click reset to the currentDate of today
             @Override
             public boolean onLongClick(View v) {
-                if(currentDate.get(Calendar.DAY_OF_YEAR) != Calendar.getInstance().get(Calendar.DAY_OF_YEAR)) {
+                if (!(currentDate.get(Calendar.DAY_OF_YEAR) == Calendar.getInstance().get(Calendar.DAY_OF_YEAR)
+                        && currentDate.get(Calendar.YEAR) == Calendar.getInstance().get(Calendar.YEAR))) {
                     currentDate.setTimeInMillis(System.currentTimeMillis());
                     calendarView.setDate(System.currentTimeMillis());
                     scheduleDate_txtv.setText("Activities of Today");
@@ -107,7 +122,6 @@ public class PetScheduleFragment extends Fragment {
             int tomorrow, yesterday;
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-
                 tomorrow = today.get(Calendar.DAY_OF_YEAR) + 1;
                 yesterday = today.get(Calendar.DAY_OF_YEAR) - 1;
                 currentDate.set(year, month, dayOfMonth);
@@ -122,9 +136,17 @@ public class PetScheduleFragment extends Fragment {
                 } else if (currentDate.get(Calendar.DAY_OF_YEAR) == yesterday &&
                         ((currentDate.get(Calendar.YEAR) == today.get(Calendar.YEAR)))) {
                     scheduleDate_txtv.setText("Activities of Yesterday");
+                } else if (currentDate.get(Calendar.DAY_OF_YEAR) >= today.get(Calendar.DAY_OF_YEAR) &&
+                        currentDate.get(Calendar.DAY_OF_YEAR) <= today.get(Calendar.DAY_OF_YEAR) + 7 &&
+                        ((currentDate.get(Calendar.YEAR) == today.get(Calendar.YEAR)))) {
+                    scheduleDate_txtv.setText("Activities of Next " + currentDate.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault()));
+                } else if (currentDate.get(Calendar.DAY_OF_YEAR) <= today.get(Calendar.DAY_OF_YEAR) &&
+                        currentDate.get(Calendar.DAY_OF_YEAR) >= today.get(Calendar.DAY_OF_YEAR) - 7 &&
+                        ((currentDate.get(Calendar.YEAR) == today.get(Calendar.YEAR)))) {
+                    scheduleDate_txtv.setText("Activities of Last " + currentDate.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault()));
                 } else {
                     scheduleDate_txtv.setText("Activities of " + dayOfMonth + " " +
-                            currentDate.getDisplayName(Calendar.MONTH,Calendar.LONG, Locale.getDefault()) + ", " + year);
+                            currentDate.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault()) + ", " + year);
                 }
                 getActivitiesOfSelectedDate(currentDate);
 
@@ -137,30 +159,28 @@ public class PetScheduleFragment extends Fragment {
     }
 
     // Here is the IMPORTANT METHOD that calculates which days have which activities
-    public ArrayList<Pet.ScheduleActivity> getActivitiesOfSelectedDate(Calendar currentDate){
-        activitiesOfTheDay.clear(); //clear so it displays only the activities of that day
+    public ArrayList<Pet.ScheduleActivity> getActivitiesOfSelectedDate(Calendar currentDate) {
+        activitiesOfTheDay.clear(); //clear so it displays only the activities of that day (rather than accumulate on old replicate entries)
         Calendar createDate = Calendar.getInstance();
-//        createDate.setTimeInMillis(pet.getCreateDate()); //TODO change to get the pet createDate
+        createDate.setTimeInMillis(currentPet.getCreateDate());
 
         //count the difference of days between the two dates
         int createDay = createDate.get(Calendar.DAY_OF_YEAR);
         int currentDay = currentDate.get(Calendar.DAY_OF_YEAR);
-
-        if(currentDate.get(Calendar.YEAR) > createDate.get(Calendar.YEAR) ){
+        //if years are different add or subtract number of days in year to current day value
+        if (currentDate.get(Calendar.YEAR) > createDate.get(Calendar.YEAR)) {
             //number of days in that year (mostly 365, but could be 366) * number of years difference
-            currentDay += (currentDate.getActualMaximum(Calendar.DAY_OF_YEAR) * (currentDate.get(Calendar.YEAR) - createDate.get(Calendar.YEAR))) ;
-        }
-        else if( currentDate.get(Calendar.YEAR) < createDate.get(Calendar.YEAR)){
+            currentDay += (currentDate.getActualMaximum(Calendar.DAY_OF_YEAR) * (currentDate.get(Calendar.YEAR) - createDate.get(Calendar.YEAR)));
+        } else if (currentDate.get(Calendar.YEAR) < createDate.get(Calendar.YEAR)) {
             currentDay -= (currentDate.getActualMaximum(Calendar.DAY_OF_YEAR) * (createDate.get(Calendar.YEAR) - currentDate.get(Calendar.YEAR)));
         }
 
-        //if( (current - start) % frequency == 0) { //activity would happen on that day! so add it to the list of the day's activities.}
-        for(int i = 0; i < pet.getScheduleActivities().size(); i++ ) {
-            if((currentDay - createDay) % pet.getScheduleActivities().get(i).getFrequency() == 0){
-                activitiesOfTheDay.add(pet.getScheduleActivities().get(i));
+        //if( (current - create) % frequency == 0) { //activity would happen on that day! so add it to the list of the day's activities.}
+        for (int i = 0; i < currentPet.getPetScheduleActivities().size(); i++) {
+            if ((currentDay - createDay) % currentPet.getPetScheduleActivities().get(i).getFrequency() == 0) {
+                activitiesOfTheDay.add(currentPet.getPetScheduleActivities().get(i));
             }
         }
-
         //arrange the activities based on their hour of the day
         Collections.sort(activitiesOfTheDay, new Comparator<Pet.ScheduleActivity>() {
             @Override
@@ -189,7 +209,7 @@ public class PetScheduleFragment extends Fragment {
         public View getView(int position, View convertView, @NonNull ViewGroup parent) {
             // Check if the existing view is being reused, otherwise inflate the view
             View listItemView = convertView;
-            if(listItemView == null) {
+            if (listItemView == null) {
                 listItemView = LayoutInflater.from(getContext()).inflate(R.layout.list_item_schedule_activity, parent, false);
             }
 

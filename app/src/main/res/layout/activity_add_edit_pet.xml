@@ -4,7 +4,7 @@
     android:id="@+id/activity_add_new_pet"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ahmedbass.mypetfriend.AddNewPetActivity">
+    tools:context="com.ahmedbass.mypetfriend.AddEditPetActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,12 +17,14 @@
         android:orientation="vertical">
 
         <FrameLayout
+            android:id="@+id/uploadPhoto_lout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/colorAccent"
             android:layout_marginBottom="10dp"
             android:layout_gravity="center"
             android:elevation="2dp">
+
             <ImageButton
                 android:id="@+id/uploadPhoto_btn"
                 android:layout_width="110dp"
@@ -31,6 +33,7 @@
                 android:scaleType="centerInside"
                 android:padding="30dp"
                 android:background="?android:attr/selectableItemBackground" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -38,7 +41,7 @@
                 android:layout_marginBottom="5dp"
                 android:text="Upload photo"
                 android:fontFamily="sans-serif-condensed"
-                android:textColor="@color/primaryTextWhite"/>
+                android:textColor="@color/white" />
         </FrameLayout>
 
 
@@ -57,16 +60,17 @@
                 android:layout_column="0"
                 android:layout_gravity="center_vertical"
                 android:text="Name:"
-                android:layout_margin="5dp"/>
+                android:layout_margin="5dp" />
+
             <EditText
                 android:id="@+id/petName_etxt"
-                android:layout_width="200dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_row="1"
                 android:layout_column="1"
-                android:hint="e.g. Fluffy"
+                android:hint="Pet name"
                 android:layout_gravity="fill"
-                android:inputType="textAutoComplete|textAutoCorrect|textCapWords"/>
+                android:inputType="textAutoComplete|textAutoCorrect|textCapWords" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -75,7 +79,7 @@
                 android:layout_column="0"
                 android:layout_gravity="center_vertical"
                 android:text="Birth Date:"
-                android:layout_margin="5dp"/>
+                android:layout_margin="5dp" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -93,22 +97,26 @@
                     android:ems="2"
                     android:inputType="number"
                     android:selectAllOnFocus="true" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="/"/>
+                    android:text="/" />
+
                 <Spinner
-                    android:id="@+id/monthPick_spr"
+                    android:id="@+id/monthPick_spnr"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:entries="@array/months"
                     style="@android:style/Widget.Material.Light.Spinner.Underlined"
                     tools:targetApi="lollipop" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="/"/>
+                    android:text="/" />
+
                 <EditText
                     android:id="@+id/yearPick_etxt"
                     android:layout_width="wrap_content"
@@ -121,80 +129,88 @@
             </LinearLayout>
 
 
-                <TextView
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="3"
+                android:layout_column="0"
+                android:text="Gender:"
+                android:layout_margin="5dp"
+                android:layout_gravity="center_vertical" />
+
+            <RadioGroup
+                android:id="@+id/genderPick_rgrb"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_row="3"
+                android:layout_column="1"
+                android:orientation="horizontal"
+                android:layout_margin="5dp"
+                android:layout_gravity="fill"
+                android:gravity="center">
+
+                <RadioButton
+                    android:id="@+id/genderMale_rbtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_row="3"
-                    android:layout_column="0"
-                    android:text="Gender:"
-                    android:layout_margin="5dp"
-                    android:layout_gravity="center_vertical"/>
+                    android:text="Male"
+                    android:layout_weight="1" />
 
-                <RadioGroup
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:layout_row="3"
-                    android:layout_column="1"
-                    android:orientation="horizontal"
-                    android:layout_margin="5dp"
-                    android:layout_gravity="fill"
-                    android:gravity="center">
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Male"
-                        android:layout_weight="1"/>
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Female"
-                        android:layout_weight="1"/>
-                </RadioGroup>
-
-                <TextView
+                <RadioButton
+                    android:id="@+id/genderFemale_rbtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_row="4"
-                    android:layout_column="0"
-                    android:layout_gravity="center_vertical"
-                    android:text="Type:"
-                    android:layout_margin="5dp"/>
-                <Spinner
-                    android:id="@+id/petType_spnr"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:layout_row="4"
-                    android:layout_column="1"
-                    android:layout_gravity="fill"
-                    android:entries="@array/pet_types"
-                    style="@android:style/Widget.Material.Spinner.Underlined"
-                    tools:targetApi="lollipop" />
+                    android:text="Female"
+                    android:layout_weight="1" />
+            </RadioGroup>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_row="5"
-                    android:layout_column="0"
-                    android:layout_margin="5dp"
-                    android:text="Breed:" />
-                <AutoCompleteTextView
-                    android:id="@+id/petBreed_spnr"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:layout_row="5"
-                    android:layout_column="1"
-                    android:layout_gravity="fill"
-                    android:inputType="textAutoComplete|textCapWords"
-                    android:selectAllOnFocus="true"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="4"
+                android:layout_column="0"
+                android:layout_gravity="center_vertical"
+                android:text="Type:"
+                android:layout_margin="5dp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_row="6"
-                    android:layout_column="0"
-                    android:layout_gravity="center_vertical"
-                    android:layout_margin="5dp"
-                    android:text="Weight:"/>
+            <Spinner
+                android:id="@+id/typePick_spnr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="4"
+                android:layout_column="1"
+                android:layout_gravity="fill"
+                android:entries="@array/pet_types"
+                style="@android:style/Widget.Material.Spinner.Underlined"
+                tools:targetApi="lollipop" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="5"
+                android:layout_column="0"
+                android:layout_margin="5dp"
+                android:text="Breed:" />
+
+            <AutoCompleteTextView
+                android:id="@+id/petBreed_atxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="5"
+                android:layout_column="1"
+                android:layout_gravity="fill"
+                android:hint="Pet breed"
+                android:inputType="textAutoComplete|textCapWords"
+                android:selectAllOnFocus="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="6"
+                android:layout_column="0"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="5dp"
+                android:text="Weight:" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -202,20 +218,22 @@
                 android:layout_row="6"
                 android:layout_column="1"
                 android:layout_gravity="fill">
+
                 <EditText
                     android:id="@+id/petWeight_etxt"
-                    android:layout_width="150dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:inputType="number"
                     android:selectAllOnFocus="true"
-                    android:hint="Current weight"/>
+                    android:hint="Current weight" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="2dp"
                     android:layout_marginStart="2dp"
-                    android:text="kg"/>
+                    android:text="kg" />
             </LinearLayout>
 
 
@@ -226,25 +244,31 @@
                 android:layout_column="0"
                 android:layout_margin="5dp"
                 android:layout_gravity="center_vertical"
-                android:text="Neutered:"/>
+                android:text="Neutered:" />
+
             <RadioGroup
-                android:layout_width="200dp"
+                android:id="@+id/isNeutered_rgrp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_row="7"
                 android:layout_column="1"
                 android:layout_margin="5dp"
                 android:orientation="horizontal"
                 android:layout_gravity="fill">
+
                 <RadioButton
+                    android:id="@+id/neutered_rbtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Yes"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1" />
+
                 <RadioButton
+                    android:id="@+id/notNeutered_rbtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="No"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1" />
             </RadioGroup>
 
             <TextView
@@ -254,9 +278,11 @@
                 android:layout_column="0"
                 android:layout_gravity="center_vertical"
                 android:layout_margin="5dp"
-                android:text="Microchip:"/>
+                android:text="Microchip:" />
+
             <EditText
-                android:layout_width="200dp"
+                android:id="@+id/microchipNumber_etxt"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_row="8"
                 android:layout_column="1"
@@ -264,17 +290,28 @@
                 android:hint="Microchip number"
                 android:inputType="number"
                 android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp"/>
+                android:layout_marginLeft="10dp" />
         </GridLayout>
 
         <Button
             android:id="@+id/savePetProfile_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Create"
-            android:layout_marginTop="10dp"
+            android:text="Save"
+            android:layout_marginTop="15dp"
             android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:onClick="SavePetProfile"/>
+            android:layout_marginEnd="10dp"/>
+
+        <Button
+            android:id="@+id/deletePet_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Delete Pet"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="13dp"
+            android:layout_marginEnd="13dp"
+            android:padding="0dp"
+            android:background="@color/nice_red"
+            android:visibility="gone"/>
     </LinearLayout>
 </ScrollView>

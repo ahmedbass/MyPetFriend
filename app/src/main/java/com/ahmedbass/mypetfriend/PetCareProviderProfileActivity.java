@@ -29,9 +29,9 @@ public class PetCareProviderProfileActivity extends AppCompatActivity {
                 "This Pet sitter is great", "I'd recommend working with this caregiver again. ", "blablablablabla",
                 "This Pet sitter is great", "I'd recommend working with this caregiver again. ", "blablablablabla"};
 
-        for (int i  = 0; i < tv.length; i++) {
+        for (int i = 0; i < tv.length; i++) {
             TextView singleReview = new TextView(this);
-            singleReview.setText((i+1) + ". " + tv[i]);
+            singleReview.setText((i + 1) + ". " + tv[i]);
 
             View separateLine = new View(this);
             separateLine.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 1));

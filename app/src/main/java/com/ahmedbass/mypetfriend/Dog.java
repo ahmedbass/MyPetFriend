@@ -2,6 +2,14 @@ package com.ahmedbass.mypetfriend;
 
 public class Dog extends Pet {
 
+    //Group of Breed
+    final static String GROUP_COMPANION = "Companion";
+    final static String GROUP_HERDING = "Herding";
+    final static String GROUP_HOUND = "Hound";
+    final static String GROUP_SPORTING = "Sporting";
+    final static String GROUP_TERRIER = "Terrier";
+    final static String GROUP_WORKING = "Working";
+
     //dog size
     final static int SIZE_TOY = 1;
     final static int SIZE_SMALL = 2;
@@ -9,27 +17,20 @@ public class Dog extends Pet {
     final static int SIZE_LARGE = 4;
     final static int SIZE_GIANT = 5;
 
-    //Group of Breed
-    final static int GROUP_COMPANION = 1;
-    final static int GROUP_HERDING = 2;
-    final static int GROUP_HOUND = 3;
-    final static int GROUP_SPORTING = 4;
-    final static int GROUP_TERRIER = 5;
-    final static int GROUP_WORKING = 6;
-
     //levels of characteristics
     final static int LEVEL_LOW = 1;
     final static int LEVEL_MEDIUM = 2;
     final static int LEVEL_HIGH = 3;
 
     //basic information
-    private int breedGroup;
+    private String breedGroup;
     private int size;
     private int minWeight;
     private int maxWeight;
     private int minLifeExpectancy;
     private int maxLifeExpectancy;
     private int feedingAmountPerDay;
+    private int mealsPerDay;
 
     //breed characteristics
     private int adaptability; //calculate average of following attributes
@@ -65,8 +66,5 @@ public class Dog extends Pet {
     private int energyLevel;
     private int exerciseNeedsLevel;
     private int playfulnessPotentialLevel;
-
-    //schedule information
-    private int mealsPerMonth;
 
 }

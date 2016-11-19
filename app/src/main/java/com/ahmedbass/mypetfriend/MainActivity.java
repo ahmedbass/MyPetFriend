@@ -11,7 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import static com.ahmedbass.mypetfriend.WelcomeActivity.MY_PREFS_NAME;
+import static com.ahmedbass.mypetfriend.LauncherActivity.MY_APP_PREFS;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,14 +26,18 @@ public class MainActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void moveToActivity(View view) {
         Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
-        switch (view.getId()){
-            case R.id.my_pets_btn: startActivity(new Intent(this, MyPetsActivity.class),bundle);
+        switch (view.getId()) {
+            case R.id.my_pets_btn:
+                startActivity(new Intent(this, MyPetsActivity.class), bundle);
                 break;
-            case R.id.pet_places_btn: startActivity(new Intent(this, PetPlacesActivity.class),bundle);
+            case R.id.pet_places_btn:
+                startActivity(new Intent(this, PetPlacesActivity.class), bundle);
                 break;
-            case R.id.pet_shop_btn: startActivity(new Intent(this, PetShopActivity.class),bundle);
+            case R.id.pet_shop_btn:
+                startActivity(new Intent(this, PetShopActivity.class), bundle);
                 break;
-            case R.id.petServices_btn: startActivity(new Intent(this, PetCareServiceActivity.class),bundle);
+            case R.id.petServices_btn:
+                startActivity(new Intent(this, PetCareServiceActivity.class), bundle);
                 break;
         }
     }
@@ -62,6 +66,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit().putBoolean(PREF_BACK_PRESSED, true).apply();
+        getSharedPreferences(MY_APP_PREFS, MODE_PRIVATE).edit().putBoolean(PREF_BACK_PRESSED, true).apply();
     }
 }

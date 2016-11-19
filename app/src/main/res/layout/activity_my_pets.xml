@@ -1,8 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/myPets_viewpager"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:id="@+id/container">
 
-</android.support.v4.view.ViewPager>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/myPets_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </android.support.v4.view.ViewPager>
+
+    <TextView
+        android:id="@+id/emptyView_txtv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="You don't have any pets yet.\nAdd a new pet from the menu."
+        android:gravity="center"
+        android:padding="16dp"
+        android:visibility="gone"/>
+</FrameLayout>

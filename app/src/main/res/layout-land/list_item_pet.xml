@@ -43,25 +43,25 @@
                     android:scaleType="centerCrop"
                     android:layout_margin="5dp"
                     android:background="?android:attr/selectableItemBackground"
-                    android:contentDescription="profile picture"/>
+                    android:contentDescription="profile picture" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/smooth_background_protection"
                     android:layout_margin="5dp"
-                    android:rotation="180"/>
+                    android:rotation="180" />
 
                 <TextView
-                        android:id="@+id/pet_name_txtv"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="My Pet Name"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:textColor="@color/primaryTextWhite"
-                        android:gravity="center"
-                        android:layout_margin="5dp"
-                        android:padding="1dp"/>
+                    android:id="@+id/pet_name_txtv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="My Pet Name"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/white"
+                    android:gravity="center"
+                    android:layout_margin="5dp"
+                    android:padding="1dp" />
             </FrameLayout>
 
             <LinearLayout
@@ -73,27 +73,31 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="My Pet Breed and Kind"
-                    android:textColor="@color/primaryTextWhite"/>
+                    android:textColor="@color/white" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=" - "/>
+                    android:text=" - " />
+
                 <TextView
                     android:id="@+id/pet_age_txtv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="My Pet Age"
-                    android:textColor="@color/primaryTextWhite"/>
+                    android:textColor="@color/white" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=" - "/>
+                    android:text=" - " />
+
                 <TextView
                     android:id="@+id/pet_weight_txtv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="My Pet weight"
-                    android:textColor="@color/primaryTextWhite"/>
+                    android:textColor="@color/white" />
             </LinearLayout>
 
         </LinearLayout>

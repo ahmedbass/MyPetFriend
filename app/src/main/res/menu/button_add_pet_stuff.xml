@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_add_photo"
+        android:title="Add new photo" />
+    <item
+        android:id="@+id/action_add_schedule_activity"
+        android:title="Add new schedule activity"/>
+    <item
+        android:id="@+id/action_add_timeline_event"
+        android:title="Add new timeline event"/>
+</menu>
