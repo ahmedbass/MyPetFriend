@@ -25,3 +25,10 @@ Even in this step of course i had some small problem that was bugging me, which 
 There are some simple little things here and there to acheive some little goals, such as protecting background, by making a drawable layer xml file that's almost transparent at top but with little shade at bottom, so whenever there's an image with a text (title or so) on the top of it, that drawable layer comes between them so the text is clear to read.
 I worked on making the application look as nice as possible in landscape mode too (previously, i was setting it to work only in portrait mode).
 At this point, all my progress is on the design and the visual side, code is minimal. Next step plan after finishing "Pet Profile", is working on the database.
+
+---SIXTH WEEK---
+Made an aesthetic part, that is, in pet profile it has a slideshow of the pet's pictures
+Worked on the calendar and schedule activities. 
+Learnt and applied the best practises for loading bitmaps in application.
+Found a solution for preventing returning to login/registeration screens after loging in.
+Minor improvements here and there.
