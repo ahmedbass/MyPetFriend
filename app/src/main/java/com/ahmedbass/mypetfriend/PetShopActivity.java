@@ -145,8 +145,8 @@ public class PetShopActivity extends AppCompatActivity {
             Advert currentAdvert = getItem(position);
 
 //        ImageView petPhoto = (ImageView) listItemView.findViewById(R.id.list_pet_thumbnail);
-//        if (!currentPet.getAllPhotos().contains(currentPet)) {
-//            petPhoto.setImageBitmap(currentPet.getAllPhotos().get(0));
+//        if (!currentPet.getPetPhotos().contains(currentPet)) {
+//            petPhoto.setImageBitmap(currentPet.getPetPhotos().get(0));
 //            Toast.makeText(getContext(), "TODO: should change the thumbnail based on pet's top photo", Toast.LENGTH_SHORT).show();
 //        }
 

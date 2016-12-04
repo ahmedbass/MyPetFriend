@@ -71,7 +71,6 @@ public class MyDBHelper extends SQLiteOpenHelper {
                 values.put(columnNames[i], ((byte) columnValues[i]));
             }
         }
-
         return db.insert(table, null, values);
     }
 
@@ -99,8 +98,8 @@ public class MyDBHelper extends SQLiteOpenHelper {
     }
 
     //---delete a particular record---
-    public boolean deleteRecord(String table, String selection, long rowId) {
-        return db.delete(table, selection + "=" + rowId, null) > 0;
+    public boolean deleteRecord(String table, String selection, String selectionArgs) {
+        return db.delete(table, selection + "=?", new String[]{selectionArgs}) > 0;
     }
 
     //---retrieve all the records---
@@ -109,8 +108,8 @@ public class MyDBHelper extends SQLiteOpenHelper {
     }
 
     //---retrieve a particular record(s)---
-    public Cursor getRecord(String table, String[] columns, String selection, long rowId) {
-        return db.query(true, table, columns, selection + "=" + rowId, null, null, null, null, null);
+    public Cursor getRecord(String table, String[] columns, String selection, String selectionArgs) {
+        return db.query(true, table, columns, selection + "=?", new String[]{selectionArgs}, null, null, null, null);
     }
 
     public String[] getColumnNames(String table) {
@@ -131,9 +130,9 @@ public class MyDBHelper extends SQLiteOpenHelper {
     }
 
     //---copy database file from the project(in assets folder) to android device---
-    public static void copyDB(Context context) throws IOException {
-        // get destination path, to copy database to it using OutputStream, by reading my pre-made database in assets using InputStream
-        String destPath = context.getApplicationInfo().dataDir + "/databases/" + DATABASE_NAME;
+    public static void copyDB(Context context, String destPath) throws IOException {
+
+        // get destination path(passed), to copy database to it using OutputStream, by reading my pre-made database in assets using InputStream
         InputStream inputStream = context.getAssets().open(DATABASE_NAME);
         OutputStream outputStream = new FileOutputStream(destPath);
 
@@ -143,7 +142,8 @@ public class MyDBHelper extends SQLiteOpenHelper {
         while ((length = inputStream.read(buffer)) > 0) {
             outputStream.write(buffer, 0, length);
         }
-        inputStream.close();
+        outputStream.flush();
         outputStream.close();
+        inputStream.close();
     }
 }

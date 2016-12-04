@@ -120,7 +120,6 @@ public class MyPetFriendContract {
     }
 
     public static final class AdvertPhotosEntry implements BaseColumns {
-
         public final static String TABLE_NAME = "AdvertPhotos";
 
         public final static String _ID = BaseColumns._ID;
@@ -129,7 +128,6 @@ public class MyPetFriendContract {
     }
 
     public static final class PetsEntry implements BaseColumns {
-
         public final static String TABLE_NAME = "Pets";
 
         public final static String _ID = BaseColumns._ID;
@@ -141,25 +139,21 @@ public class MyPetFriendContract {
         public final static String COLUMN_PET_TYPE = "type";
         public final static String COLUMN_PET_BREED = "breed";
         public final static String COLUMN_PET_CURRENT_WEIGHT = "currentWeight";
-        public final static String COLUMN_PET_MICROCHIP = "microchip";
-        public final static String COLUMN_PET_NEUTERED = "neutered";
+        public final static String COLUMN_PET_NEUTERED = "isNeutered";
+        public final static String COLUMN_PET_MICROCHIP = "microchipNumber";
+        public final static String COLUMN_PET_MIN_WEIGHT = "minWeight";
+        public final static String COLUMN_PET_MAX_WEIGHT = "maxWeight";
+        public final static String COLUMN_PET_FEEDING_AMOUNT = "dailyFeedingAmountInCups";
+        public final static String COLUMN_PET_TRAINING_SESSION = "trainingSessionInMinutes";
+        public final static String COLUMN_PET_EXERCISE_NEEDS = "exerciseNeedsInMinutes";
 
         public final static String COLUMN_PET_WEIGHTS = "weightList";
         public final static String COLUMN_PET_PHOTOS = "photos";
         public final static String COLUMN_PET_SCHEDULES = "schedules";
         public final static String COLUMN_PET_VACCINES = "vaccines";
-
-        public final static String GENDER_MALE = "Male";
-        public final static String GENDER_FEMALE = "Female";
-        public final static String TYPE_CAT = "Cat";
-        public final static String TYPE_DOG = "Dog";
-        public final static int NEUTERED = 1;
-        public final static int NOT_NEUTERED = 0;
-
     }
 
     public static final class PetWeightListEntry implements BaseColumns {
-
         public final static String TABLE_NAME = "PetWeightList";
 
         public final static String WEIGHT_ID = BaseColumns._ID;
@@ -169,7 +163,6 @@ public class MyPetFriendContract {
     }
 
     public static final class PetPhotosEntry implements BaseColumns {
-
         public final static String TABLE_NAME = "PetPhotos";
 
         public final static String _ID = BaseColumns._ID;
@@ -177,27 +170,23 @@ public class MyPetFriendContract {
         public final static String PHOTO = "photo";
         public final static String PHOTO_DATE = "photoDate";
         public final static String PHOTO_DESCRIPTION = "photoDescription";
-
     }
 
     public static final class PetScheduleActivitiesEntry implements BaseColumns {
-
-    public final static String TABLE_NAME = "PetScheduleActivities";
+        public final static String TABLE_NAME = "PetScheduleActivities";
 
         public final static String _ID = BaseColumns._ID;
         public final static String PET_ID = "petId";
         public final static String TYPE = "type";
         public final static String CREATE_DATE = "createDate";
+        public final static String FREQUENCY = "frequency";
         public final static String HOUR_OF_DAY = "hourOfDay";
         public final static String MINUTE_OF_DAY = "minuteOfDay";
-        public final static String FREQUENCY = "frequency";
         public final static String NOTES = "notes";
         public final static String NOTIFICATION_STATUS = "notificationStatus";
-
     }
 
     public static final class PetVaccinesEntry implements BaseColumns {
-
         public final static String TABLE_NAME = "PetVaccines";
 
         public final static String _ID = BaseColumns._ID;
@@ -205,100 +194,47 @@ public class MyPetFriendContract {
         public final static String NAME = "name";
         public final static String CATEGORY = "category";
         public final static String CREATE_DATE = "createDate";
-        public final static String BOOSTER_FREQUENCY = "boosterFrequency";
+        public final static String FREQUENCY_IN_YEARS = "frequencyInYears"; //in years
         public final static String NOTES = "notes";
-
     }
 
+    public static final class StoredVaccinesEntry implements BaseColumns {
+        public final static String TABLE_NAME = "StoredVaccines";
+
+        public final static String _ID = BaseColumns._ID;
+        public final static String PET_TYPE = "petType";
+        public final static String NAME = "name";
+        public final static String CATEGORY = "category";
+        public final static String FREQUENCY_IN_YEARS = "frequencyInYears";
+        public final static String NOTES = "notes";
+    }
 
     //to be filled by me, as general information about different breeds
-    public static final class DogBreeds implements BaseColumns {
-
-        public final static String TABLE_NAME = "DogBreeds";
+    public static final class StoredDogBreedsEntry implements BaseColumns {
+        public final static String TABLE_NAME = "StoredDogBreeds";
 
         public final static String _ID = BaseColumns._ID;
-        //basic information
         public final static String NAME = "name";
-        public final static String BREAD_GROUP = "breedGroup";
-        public final static String SIZE = "size";
-        public final static String MIN_WEIGHT = "minWeight";
-        public final static String MAX_WEIGHT = "maxWeight";
-        public final static String MIN_LIFE_EXPECTANCY = "minLifeExpectancy";
-        public final static String MAX_LIFE_EXPECTANCY = "maxLifeExpectancy";
-        public final static String FEEDING_AMOUNT_PER_DAY = "feedingAmountPerDay";
-        public final static String MEALS_PER_DAY = "mealsPerDay";
-
-        //breed characteristics
-        public final static String ADAPTABILITY = "adaptability"; //calculate average of following attributes
-        public final static String APARTMENT_LIVING_ADAPTABILITY = "apartmentLivingAdaptabilityLevel";
-        public final static String GOOD_FOR_NOVICE_OWNERS_LEVEL = "goodForNoviceOwnersLevel";
-        public final static String SENSITIVITY_LEVEL = "sensitivityLevel";
-        public final static String BEING_ALONE_TOLERANCE_LEVEL = "beingAloneToleranceLevel";
-        public final static String COLD_WEATHER_TOLERANCE_LEVEL = "coldWeatherToleranceLevel";
-        public final static String HOT_WEATHER_TOLERANCE_LEVEL = "hotWeatherToleranceLevel";
-
-        public final static String FRIENDLINESS = "friendliness"; //calculate average of following attributes
-        public final static String FAMILY_AFFECTIONATE_LEVEL = "familyAffectionateLevel";
-        public final static String KID_FRIENDLY_LEVEL = "kidFriendlyLevel";
-        public final static String PET_FRIENDLY_LEVEL = "petFriendlyLevel";
-        public final static String STRANGER_FRIENDLY_LEVEL = "strangerFriendlyLevel";
-
-        public final static String MAINTENANCE = "maintenance"; //calculate average of following attributes
-        public final static String AMOUNT_OF_SHEDDING_LEVEL = "amountOfSheddingLevel";
-        public final static String EASE_OF_GROOMING_LEVEL = "easeOfGroomingLevel";
-        public final static String DROOLING_POTENTIAL_LEVEL = "droolingPotentialLevel";
-        public final static String WEIGHT_GAIN_POTENTIAL_LEVEL = "weightGainPotentialLevel";
-        public final static String GENERAL_HEALTH_LEVEL = "generalHealthLevel";
-
-        public final static String TRAINABILITY = "trainability"; //calculate average of following attributes
-        public final static String EASE_OF_TRAINING_LEVEL = "easeOfTrainingLevel";
-        public final static String INTELLIGENCE_LEVEL = "IntelligenceLevel";
-        public final static String BARKING_LEVEL = "barkingLevel";
-        public final static String MOUTHINESS_POTENTIAL_LEVEL = "mouthinessPotentialLevel";
-        public final static String PREY_DRIVE_LEVEL = "preyDriveLevel";
-        public final static String WANDERLUST_POTENTIAL_LEVEL = "wanderlustPotentialLevel";
-
-        public final static String EXERCING = "exercising"; //calculate average of following attributes
-        public final static String ENERGY_LEVEL = "energyLevel";
-        public final static String EXERCISE_NEEDS_LEVEL = "exerciseNeedsLevel";
+        public final static String DAILY_FEEDING_AMOUNT_IN_CUPS = "dailyFeedingAmountInCups"; //for amounts to have in overall meals
+        public final static String EASE_OF_GROOMING_LEVEL = "easeOfGroomingLevel"; //for grooming (bathing, nails, teeth?)
+        public final static String GENERAL_HEALTH_LEVEL = "generalHealthLevel"; //for medical checkup
+        public final static String EASE_OF_TRAINING_LEVEL = "easeOfTrainingLevel"; //for training
+        public final static String EXERCISE_NEEDS_LEVEL = "exerciseNeedsLevel"; //for exercise
+        public final static String MIN_WEIGHT = "minWeight"; //in kg
+        public final static String MAX_WEIGHT = "maxWeight"; //in kg
     }
 
-    public static final class CatBreeds implements BaseColumns {
-
-        public final static String TABLE_NAME = "CatBreeds";
+    public static final class StoredCatBreedsEntry implements BaseColumns {
+        public final static String TABLE_NAME = "StoredCatBreeds";
 
         public final static String _ID = BaseColumns._ID;
-        //basic information
         public final static String NAME = "name";
-        public final static String SIZE = "size";
-        public final static String MIN_WEIGHT = "minWeight";
-        public final static String MAX_WEIGHT = "maxWeight";
-        public final static String MIN_LIFE_EXPECTANCY = "minLifeExpectancy";
-        public final static String MAX_LIFE_EXPECTANCY = "maxLifeExpectancy";
-        public final static String FEEDING_AMOUNT_PER_DAY = "feedingAmountPerDay";
-        public final static String MEALS_PER_DAY = "mealsPerDay";
-
-        //breed characteristics
-        public final static String FAMILY_AFFECTINATE_LEVEL = "familyAffectionateLevel";
-        public final static String KID_FRIENDLY_LEVEL = "kidFriendlyLevel";
-        public final static String PET_FRIENDLY_LEVEL = "petFriendlyLevel";
-        public final static String STRANGER_FRIENDLY_LEVEL = "strangerFriendlyLevel";
-        public final static String INTELLIGENCE_LEVEL = "IntelligenceLevel";
-        public final static String AMOUNT_OF_SHEDDING_LEVEL = "amountOfSheddingLevel";
         public final static String EASE_OF_GROOMING_LEVEL = "easeOfGroomingLevel";
         public final static String GENERAL_HEALTH_LEVEL = "generalHealthLevel";
+        public final static String MIN_WEIGHT = "minWeight";
+        public final static String MAX_WEIGHT = "maxWeight";
     }
 }
-
-
-
-
-
-
-
-
-
-
 
 
 

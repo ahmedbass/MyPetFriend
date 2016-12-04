@@ -2,11 +2,6 @@ package com.ahmedbass.mypetfriend;
 
 public class Cat extends Pet {
 
-    //levels of characteristics
-    final static int LEVEL_LOW = 1;
-    final static int LEVEL_MEDIUM = 2;
-    final static int LEVEL_HIGH = 3;
-
     //basic information
     private int size;
     private int minWeight;

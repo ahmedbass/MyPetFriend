@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,7 +22,7 @@ public class LauncherActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_welcome);
+        setContentView(R.layout.activity_launcher);
 
         //check if activity is launching after pressing back from MainActivity, to move directly to it
         SharedPreferences pref = getSharedPreferences(MY_APP_PREFS, MODE_PRIVATE);
@@ -35,15 +34,19 @@ public class LauncherActivity extends AppCompatActivity {
         }
 
         try {
-            String destPath = getApplicationInfo().dataDir + "/databases/" + DATABASE_NAME;
+            String destPath = getDatabasePath(DATABASE_NAME).getPath();
             File file = new File(destPath);
             if (!file.exists()) {
-                MyDBHelper.copyDB(this);
+                //this opening before copying db, is the solution to unable to copy db
+                MyDBHelper dbHelper = new MyDBHelper(this);
+                dbHelper.open();
+                dbHelper.close();
+                MyDBHelper.copyDB(this, destPath);
             }
         } catch (IOException e) {
             e.printStackTrace();
-            Toast.makeText(this, "Error: Cannot Build Database", Toast.LENGTH_SHORT).show();
         }
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)

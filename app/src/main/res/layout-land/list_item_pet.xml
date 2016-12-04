@@ -42,7 +42,7 @@
                     android:adjustViewBounds="true"
                     android:scaleType="centerCrop"
                     android:layout_margin="5dp"
-                    android:background="?android:attr/selectableItemBackground"
+                    android:background="@android:color/transparent"
                     android:contentDescription="profile picture" />
 
                 <View

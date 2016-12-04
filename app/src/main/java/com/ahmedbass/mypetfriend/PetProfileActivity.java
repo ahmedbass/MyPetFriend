@@ -67,7 +67,9 @@ public class PetProfileActivity extends AppCompatActivity {
         if (getIntent() != null && getIntent().getSerializableExtra("petInfo") != null) {
             myPet = (Pet) getIntent().getSerializableExtra("petInfo");
             setViewPager();
-            createMySlideShow();
+            createMySlideShow(null);
+        } else {
+            Toast.makeText(this, "Error: Cannot Retrieve Pet Information", Toast.LENGTH_SHORT).show();
         }
 
         add_fab.setOnClickListener(new View.OnClickListener() {
@@ -91,10 +93,9 @@ public class PetProfileActivity extends AppCompatActivity {
                         return true;
                     }
                 });
-                popupMenu.show(); //showing popup menu
+                popupMenu.show();
             }
         });
-
     }
 
     private void addNewPhoto() {
@@ -133,7 +134,7 @@ public class PetProfileActivity extends AppCompatActivity {
         dbHelper.insetRecord(MyPetFriendContract.PetPhotosEntry.TABLE_NAME, columnNames, columnValues);
         dbHelper.close();
 
-        createMySlideShow();
+        createMySlideShow(bitmap);
     }
 
     private void setViewPager() {
@@ -168,17 +169,21 @@ public class PetProfileActivity extends AppCompatActivity {
     }
 
     //make slideshow of pet pictures using ViewSwitcher with just two ImageViews by scheduling the switch through background thread. perfect!
-    private void createMySlideShow() {
-
-        MyDBHelper dbHelper = new MyDBHelper(this);
-        dbHelper.open();
-        Cursor cursor = dbHelper.getRecord(MyPetFriendContract.PetPhotosEntry.TABLE_NAME, null,
-                MyPetFriendContract.PetPhotosEntry.PET_ID, myPet.getPetId());
-        while (cursor.moveToNext()) {
-            petPhotos.add(BitmapFactory.decodeByteArray(cursor.getBlob(2), 0, cursor.getBlob(2).length));
+    private void createMySlideShow(Bitmap receivedBitmap) {
+        if (receivedBitmap == null) {
+            petPhotos.clear();
+            MyDBHelper dbHelper = new MyDBHelper(this);
+            dbHelper.open();
+            Cursor petPhotosCursor = dbHelper.getRecord(MyPetFriendContract.PetPhotosEntry.TABLE_NAME, null,
+                    MyPetFriendContract.PetPhotosEntry.PET_ID, String.valueOf(myPet.getPetId()));
+            while (petPhotosCursor.moveToNext()) {
+                petPhotos.add(BitmapFactory.decodeByteArray(petPhotosCursor.getBlob(2), 0, petPhotosCursor.getBlob(2).length));
+            }
+            petPhotosCursor.close();
+            dbHelper.close();
+        } else {
+            petPhotos.add(receivedBitmap);
         }
-        cursor.close();
-        dbHelper.close();
 
         //switch between two ImageViews (with nice fading animation)
         viewSwitcher = (ViewSwitcher) this.findViewById(R.id.viewSwitcher);
@@ -191,14 +196,21 @@ public class PetProfileActivity extends AppCompatActivity {
                 int index = 0;
                 @Override
                 public void run() {
-                    //index = index < petPhotos.size() - 1 ? index += 1 : 0; //increment index linearly
-                    index = (int) (Math.random() * petPhotos.size()); //pick image index randomly
+                    if (petPhotos.size() > 5) {
+                        index = (int) (Math.random() * petPhotos.size()); //pick image index randomly (shuffle)
+                    } else {
+                        index = index < petPhotos.size() - 1 ? index += 1 : 0; //change image linearly (no shuffle)
+                    }
                     //resize image in background thread before loading it to avoid OutOfMemory Exception & blocking the UI thread
                     loadBitmap(petPhotos.get(index), petProfilePic_img1, petProfilePic_img2);
                 }
             }, 0, 3000);
         } else if (petPhotos.size() == 1){
             loadBitmap(petPhotos.get(0), petProfilePic_img1, petProfilePic_img2);
+        }
+        else if (petPhotos.size() <= 0) {
+            petProfilePic_img1.setImageResource(R.drawable.pet_paw);
+            petProfilePic_img1.setBackgroundColor(getResources().getColor(R.color.white));
         }
     }
 
@@ -226,12 +238,13 @@ public class PetProfileActivity extends AppCompatActivity {
         final int width = options.outWidth;
         final int height = options.outHeight;
         int inSampleSize = 1;
-        try {
-            // Calculate the largest power of 2 inSampleSize value and keep both w & h larger than requested w & h /2.
-            while ((width / inSampleSize) >= reqWidth && (height / inSampleSize) >= reqHeight) {
+        if (width > reqWidth || height > reqHeight) {
+            final int halfWidth = width / 2;
+            final int halfHeight = height / 2;
+            // Calculate the largest power of 2 inSampleSize value and keep both w & h larger than requested w & h.
+            while ((halfWidth / inSampleSize) >= reqWidth && (halfHeight / inSampleSize) >= reqHeight) {
                 inSampleSize *= 2;
             }
-        } catch (ArithmeticException ignored) {
         }
         return inSampleSize;
     }
@@ -295,7 +308,6 @@ public class PetProfileActivity extends AppCompatActivity {
             if (data.getSerializableExtra("petModified") != null) {
                 setResult(RESULT_OK, data);
                 finish();
-                Toast.makeText(this, "Changes saved", Toast.LENGTH_SHORT).show();
             } else if (data.getSerializableExtra("petDeleted") != null) {
                 setResult(RESULT_OK, data);
                 finish();

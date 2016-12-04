@@ -60,34 +60,27 @@ public class RegistrationActivity extends AppCompatActivity {
 
                     if (firstName.isEmpty() || lastName.isEmpty() || password.isEmpty() || email.isEmpty() || location.isEmpty() || usertype == 0) {
                         Toast.makeText(getBaseContext(), "Please fill-in all fields", Toast.LENGTH_SHORT).show();
-
-                        //TODO remove this
-                        if (usertype == 1) {
-                            startActivity(new Intent(getBaseContext(), MainActivity.class), bundle);
-                        } else if (usertype == 2) {
-                            startActivity(new Intent(getBaseContext(), PetCareProviderRegisterationActivity.class), bundle);
-                        }
                     } else {
                         //TODO use the background worker instead
-                        if (usertype == 1) {
-                            startActivity(new Intent(getBaseContext(), MainActivity.class), bundle);
-                        } else if (usertype == 2) {
-                            startActivity(new Intent(getBaseContext(), PetCareProviderRegisterationActivity.class), bundle);
-                        }
+//                        if (usertype == 1) {
+//                            startActivity(new Intent(getBaseContext(), MainActivity.class), bundle);
+//                        } else if (usertype == 2) {
+//                            startActivity(new Intent(getBaseContext(), PetCareProviderRegisterationActivity.class), bundle);
+//                        }
 //                        BackgroundWorker backgroundWorker = new BackgroundWorker(getBaseContext());
 //                        backgroundWorker.execute(taskType, firstName, password, lastName, usertype);
                     }
                 } else {
                     Toast.makeText(getBaseContext(), "Error: Cannot connect to the internet", Toast.LENGTH_SHORT).show();
+                }
 
-                    //TODO remove this
-                    if (usertype == 2) {
-                        startActivity(new Intent(getBaseContext(), PetCareProviderRegisterationActivity.class), bundle);
-                    } else {
-                        Intent intent = new Intent(getBaseContext(), MainActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent); //TODO implement this above
-                    }
+                //TODO remove this
+                if (usertype == 2) {
+                    startActivity(new Intent(getBaseContext(), PetCareProviderRegisterationActivity.class), bundle);
+                } else {
+                    Intent intent = new Intent(getBaseContext(), MainActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent); //TODO implement this above
                 }
             }
         });

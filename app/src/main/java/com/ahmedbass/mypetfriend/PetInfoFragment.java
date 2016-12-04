@@ -62,7 +62,7 @@ public class PetInfoFragment extends Fragment {
         timeline_lv.addHeaderView(petInfo_header);
         timeline_lv.setAdapter(myAdapter);
 
-        petInfo_header.setOnClickListener(null);
+        petInfo_header.setOnClickListener(null); //to prevent that ripple effect when clicking it
 
         birthDate_txtv = (TextView) rootView.findViewById(R.id.birthDate_txtv);
         gender_txtv = (TextView) rootView.findViewById(R.id.gender_txtv);
@@ -75,8 +75,8 @@ public class PetInfoFragment extends Fragment {
         //assign the pet info into variables to display them on UI
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MMM/yyyy", Locale.getDefault());
         //calculating the age in years and months
-        ageInYear = currentPet.getPetAgeInYear();
-        ageInMonth = currentPet.getPetAgeInMonth();
+        ageInYear = currentPet.getPetAgeInYear(0);
+        ageInMonth = currentPet.getPetAgeInMonth(0);
         birthDate = sdf.format(currentPet.getBirthDate()) +
                 "\n(" + ageInYear + " years, " + ageInMonth + " months)";
         gender = currentPet.getGender();

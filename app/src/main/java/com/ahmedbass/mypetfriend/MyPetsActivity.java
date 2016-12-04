@@ -20,6 +20,8 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import static com.ahmedbass.mypetfriend.ItemPetFragment.REQUEST_CODE_OPEN_PET_PROFILE;
+
 public class MyPetsActivity extends AppCompatActivity {
 
 //    public static final String MY_PETS_PREFS = "com.ahmedbass.mypetfriend.PREFERENCE_KEY_PETS";
@@ -43,10 +45,46 @@ public class MyPetsActivity extends AppCompatActivity {
             //read pets from database and create pet objects from it
             MyDBHelper dbHelper = new MyDBHelper(this);
             dbHelper.open();
-            Cursor cursor = dbHelper.getAllRecords(MyPetFriendContract.PetsEntry.TABLE_NAME, null);
-            while(cursor.moveToNext()) {
-                myListOfPets.add(new Pet(cursor.getInt(0), cursor.getInt(1), cursor.getLong(2), cursor.getString(3), cursor.getLong(4),
-                        cursor.getString(5), cursor.getString(6), cursor.getString(7), cursor.getInt(8), (cursor.getInt(9) != 0), cursor.getString(10)));
+            //TODO read only pets owned by current pet owner (where petOwnerId)
+            Cursor petsCursor = dbHelper.getAllRecords(MyPetFriendContract.PetsEntry.TABLE_NAME, null);
+            Cursor petPhotosCursor, petScheduleActivitiesCursor, petVaccinesCursor, petWeightListCursor;
+            while(petsCursor.moveToNext()) {
+                myListOfPets.add(new Pet(petsCursor.getInt(0), petsCursor.getInt(1), petsCursor.getLong(2), petsCursor.getString(3), petsCursor.getLong(4),
+                        petsCursor.getString(5), petsCursor.getString(6), petsCursor.getString(7), petsCursor.getInt(8), (petsCursor.getInt(9) == 1),
+                        petsCursor.getString(10), petsCursor.getInt(11), petsCursor.getInt(12), petsCursor.getInt(13), petsCursor.getInt(14), petsCursor.getInt(15)));
+//
+//                petPhotosCursor = dbHelper.getRecord(MyPetFriendContract.PetPhotosEntry.TABLE_NAME, new String[]{MyPetFriendContract.PetPhotosEntry.PHOTO},
+//                        MyPetFriendContract.PetPhotosEntry.PET_ID, String.valueOf(petsCursor.getInt(0)));
+//                while (petPhotosCursor.moveToNext()) {
+//                    myListOfPets.get(myListOfPets.size() - 1).
+//                            addPhoto(BitmapFactory.decodeByteArray(petPhotosCursor.getBlob(0), 0, petPhotosCursor.getBlob(0).length));
+//                }
+//
+//                petScheduleActivitiesCursor = dbHelper.getRecord(MyPetFriendContract.PetScheduleActivitiesEntry.TABLE_NAME, null,
+//                        MyPetFriendContract.PetPhotosEntry.PET_ID, String.valueOf(petsCursor.getInt(0)));
+//                Toast.makeText(this, "hi!", Toast.LENGTH_SHORT).show();
+//                while (petScheduleActivitiesCursor.moveToNext()) {
+//                    myListOfPets.get(petsCursor.getPosition()).
+//                            addNewScheduleActivity(petScheduleActivitiesCursor.getInt(0), petScheduleActivitiesCursor.getInt(1),
+//                                    petScheduleActivitiesCursor.getString(2), petScheduleActivitiesCursor.getLong(3),
+//                                    petScheduleActivitiesCursor.getInt(4), petScheduleActivitiesCursor.getInt(5),
+//                                    petScheduleActivitiesCursor.getInt(6), petScheduleActivitiesCursor.getString(7), petScheduleActivitiesCursor.getInt(8));
+//                }
+//
+//                petVaccinesCursor = dbHelper.getRecord(MyPetFriendContract.PetVaccinesEntry.TABLE_NAME, null,
+//                        MyPetFriendContract.PetVaccinesEntry.PET_ID, String.valueOf(petsCursor.getInt(0)));
+//                while (petVaccinesCursor.moveToNext()) {
+//                    myListOfPets.get(myListOfPets.size() - 1).
+//                            addNewVaccine(petVaccinesCursor.getInt(0), petVaccinesCursor.getInt(1), petVaccinesCursor.getString(2),
+//                                    petVaccinesCursor.getInt(3), petVaccinesCursor.getInt(4), petVaccinesCursor.getInt(5),
+//                                    petVaccinesCursor.getString(6), this);
+//                }
+//
+//                petWeightListCursor = dbHelper.getRecord(MyPetFriendContract.PetWeightListEntry.TABLE_NAME, null,
+//                        MyPetFriendContract.PetWeightListEntry.PET_ID, String.valueOf(petsCursor.getInt(0)));
+//                while (petWeightListCursor.moveToNext()) {
+//                    myListOfPets.get(myListOfPets.size() - 1).setCurrentWeight(petWeightListCursor.getInt(2));
+//                }
             }
             dbHelper.close();
         } catch (Exception e) {
@@ -94,9 +132,7 @@ public class MyPetsActivity extends AppCompatActivity {
                     intent.putExtra("AddPetProfile", true);
                     startActivityForResult(intent, REQUEST_CODE_ADD_PET, bundle);
                     return true;
-                } catch (Exception e) {
-                    Toast.makeText(this, "Minor error just happened, but it's handled!", Toast.LENGTH_SHORT).show();
-                }
+                } catch (Exception e) {}
 
             case android.R.id.home: // Respond to the action bar's Up/Home button
                 supportFinishAfterTransition();
@@ -116,6 +152,28 @@ public class MyPetsActivity extends AppCompatActivity {
             TransitionManager.beginDelayedTransition((FrameLayout) findViewById(R.id.container),
                     TransitionInflater.from(this).inflateTransition(R.transition.my_transition5));
             setViewPager();
+        }
+
+        if (requestCode == REQUEST_CODE_OPEN_PET_PROFILE && resultCode == RESULT_OK) {
+            //if we get here, it means we either modified or deleted the pet (because that's only where we make result ok)
+            if (data.getBooleanExtra("petDeleted", false)) {
+                getPetListFromDB();
+                TransitionManager.beginDelayedTransition((FrameLayout) findViewById(R.id.container),
+                        TransitionInflater.from(this).inflateTransition(R.transition.my_transition5));
+                setViewPager();
+                Toast.makeText(this, "Pet Deleted Successfully", Toast.LENGTH_SHORT).show();
+            }
+
+            if (data.getSerializableExtra("petModified") != null) {
+                getPetListFromDB();
+                setViewPager();
+                //when modifying, we start activity with passing the modified pet object,
+                // then read from database, and set viewpager (to make changes real)
+                Intent moveToPetProfile = new Intent(this, PetProfileActivity.class);
+                moveToPetProfile.putExtra("petInfo", data.getSerializableExtra("petModified"));
+                startActivityForResult(moveToPetProfile, REQUEST_CODE_OPEN_PET_PROFILE);
+                Toast.makeText(this, "Changes Saved Successfully", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }

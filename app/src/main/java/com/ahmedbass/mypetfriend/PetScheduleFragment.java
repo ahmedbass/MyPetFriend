@@ -1,6 +1,7 @@
 package com.ahmedbass.mypetfriend;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -18,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -67,6 +69,14 @@ public class PetScheduleFragment extends Fragment {
         calendarView.setMinDate(currentPet.getCreateDate());
         currentDate = Calendar.getInstance();
 
+        MyDBHelper dbHelper = new MyDBHelper(getContext());
+        dbHelper.open();
+        Cursor cursor = dbHelper.getRecord(MyPetFriendContract.PetScheduleActivitiesEntry.TABLE_NAME, null,
+                MyPetFriendContract.PetScheduleActivitiesEntry.PET_ID, String.valueOf(currentPet.getPetId()));
+        Toast.makeText(getContext(), "count: " + cursor.getCount(), Toast.LENGTH_SHORT).show();
+        while (cursor.moveToNext()) {
+
+        }
         //TODO remove this dummy data
         Calendar date = Calendar.getInstance();
         date.set(2016, 11, 4, 9, 0);

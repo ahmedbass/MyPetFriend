@@ -92,7 +92,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:text="Current Weight:"
+            android:text="Weight:"
             android:textColor="@color/primaryText"
             android:layout_gravity="fill" />
 
@@ -209,7 +209,7 @@
         <ImageView
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:src="@drawable/timeline1"
+            android:src="@drawable/timeline"
             android:layout_marginStart="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginBottom="8dp"

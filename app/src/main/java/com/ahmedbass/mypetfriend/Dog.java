@@ -2,26 +2,6 @@ package com.ahmedbass.mypetfriend;
 
 public class Dog extends Pet {
 
-    //Group of Breed
-    final static String GROUP_COMPANION = "Companion";
-    final static String GROUP_HERDING = "Herding";
-    final static String GROUP_HOUND = "Hound";
-    final static String GROUP_SPORTING = "Sporting";
-    final static String GROUP_TERRIER = "Terrier";
-    final static String GROUP_WORKING = "Working";
-
-    //dog size
-    final static int SIZE_TOY = 1;
-    final static int SIZE_SMALL = 2;
-    final static int SIZE_MEDIUM = 3;
-    final static int SIZE_LARGE = 4;
-    final static int SIZE_GIANT = 5;
-
-    //levels of characteristics
-    final static int LEVEL_LOW = 1;
-    final static int LEVEL_MEDIUM = 2;
-    final static int LEVEL_HIGH = 3;
-
     //basic information
     private String breedGroup;
     private int size;
