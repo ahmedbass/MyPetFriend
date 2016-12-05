@@ -27,7 +27,8 @@
             android:paddingBottom="10dp"
             android:paddingStart="5dp"
             android:paddingEnd="5dp"
-            android:minHeight="400dp">
+            android:minHeight="400dp"
+            android:minWidth="300dp">
 
             <TextView
                 android:id="@+id/pet_name_txtv"
@@ -36,17 +37,16 @@
                 android:text="My Pet Name"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/colorPrimaryDark"
-                android:layout_gravity="center_horizontal" />
+                android:layout_gravity="center_horizontal|top" />
 
             <ImageButton
                 android:id="@+id/pet_picture_img"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:src="@drawable/dog_img"
+                android:src="@drawable/pet_paw"
                 android:adjustViewBounds="true"
                 android:maxWidth="600dp"
-                android:minWidth="250dp"
                 android:scaleType="centerCrop"
                 android:layout_margin="5dp"
                 android:background="@android:color/transparent"

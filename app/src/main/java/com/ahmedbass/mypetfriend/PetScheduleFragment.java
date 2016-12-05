@@ -1,7 +1,6 @@
 package com.ahmedbass.mypetfriend;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -68,35 +67,6 @@ public class PetScheduleFragment extends Fragment {
         //set Calendar Min Date to choose from (starts from pet create date, max is no limits)
         calendarView.setMinDate(currentPet.getCreateDate());
         currentDate = Calendar.getInstance();
-
-        MyDBHelper dbHelper = new MyDBHelper(getContext());
-        dbHelper.open();
-        Cursor cursor = dbHelper.getRecord(MyPetFriendContract.PetScheduleActivitiesEntry.TABLE_NAME, null,
-                MyPetFriendContract.PetScheduleActivitiesEntry.PET_ID, String.valueOf(currentPet.getPetId()));
-        Toast.makeText(getContext(), "count: " + cursor.getCount(), Toast.LENGTH_SHORT).show();
-        while (cursor.moveToNext()) {
-
-        }
-        //TODO remove this dummy data
-        Calendar date = Calendar.getInstance();
-        date.set(2016, 11, 4, 9, 0);
-        currentPet.addNewScheduleActivity(1,1,Pet.ScheduleActivity.TYPE_BREAKFAST, date.getTimeInMillis(), date.get(Calendar.HOUR_OF_DAY), date.get(Calendar.MINUTE), 1, "notes", Pet.ScheduleActivity.NOTIFICATION_STATUS_OFF);
-        date.set(2016, 11, 4, 11, 30);
-        currentPet.addNewScheduleActivity(1,1,Pet.ScheduleActivity.TYPE_GROOMING, date.getTimeInMillis(), date.get(Calendar.HOUR_OF_DAY), date.get(Calendar.MINUTE),  2, "notes", Pet.ScheduleActivity.NOTIFICATION_STATUS_ON);
-        date.set(2016, 11, 4, 19, 45);
-        currentPet.addNewScheduleActivity(1,1,Pet.ScheduleActivity.TYPE_DINNER, date.getTimeInMillis(), date.get(Calendar.HOUR_OF_DAY), date.get(Calendar.MINUTE),  5, "notes", Pet.ScheduleActivity.NOTIFICATION_STATUS_OFF);
-        date.set(2016, 11, 4, 14, 30);
-        currentPet.addNewScheduleActivity(1,1,Pet.ScheduleActivity.TYPE_MEDICAL_CHECKUP, date.getTimeInMillis(), date.get(Calendar.HOUR_OF_DAY), date.get(Calendar.MINUTE),  10, "notes", Pet.ScheduleActivity.NOTIFICATION_STATUS_ALARM);
-        date.set(2016, 11, 4, 16, 0);
-        currentPet.addNewScheduleActivity(1,1,Pet.ScheduleActivity.TYPE_TRAINING, date.getTimeInMillis(), date.get(Calendar.HOUR_OF_DAY), date.get(Calendar.MINUTE),  4, "notes", Pet.ScheduleActivity.NOTIFICATION_STATUS_ON);
-        date.set(2016, 11, 4, 15, 30);
-        currentPet.addNewScheduleActivity(1,1,Pet.ScheduleActivity.TYPE_WEIGHING, date.getTimeInMillis(), date.get(Calendar.HOUR_OF_DAY), date.get(Calendar.MINUTE),  30, "notes", Pet.ScheduleActivity.NOTIFICATION_STATUS_ON);
-        date.set(2016, 11, 4, 19, 0);
-        currentPet.addNewScheduleActivity(1,1,Pet.ScheduleActivity.TYPE_BIRTHDAY, date.getTimeInMillis(), date.get(Calendar.HOUR_OF_DAY), date.get(Calendar.MINUTE),  363,"notes", Pet.ScheduleActivity.NOTIFICATION_STATUS_ALARM);
-        date.set(2016, 11, 4, 10, 0);
-        currentPet.addNewScheduleActivity(1,1,Pet.ScheduleActivity.TYPE_EXERCISING, date.getTimeInMillis(), date.get(Calendar.HOUR_OF_DAY), date.get(Calendar.MINUTE), 7, "notes", Pet.ScheduleActivity.NOTIFICATION_STATUS_ON);
-        date.set(2016, 11, 4, 11, 0);
-        currentPet.addNewScheduleActivity(1,1,Pet.ScheduleActivity.TYPE_BATHING, date.getTimeInMillis(), date.get(Calendar.HOUR_OF_DAY), date.get(Calendar.MINUTE), 6, "notes", Pet.ScheduleActivity.NOTIFICATION_STATUS_ALARM);
 
         myAdapter = new MyAdapter(getContext(), getActivitiesOfSelectedDate(currentDate));
         activitiesOfDay_lv.setAdapter(myAdapter);
@@ -187,8 +157,13 @@ public class PetScheduleFragment extends Fragment {
 
         //if( (current - create) % frequency == 0) { //activity would happen on that day! so add it to the list of the day's activities.}
         for (int i = 0; i < currentPet.getPetScheduleActivities().size(); i++) {
-            if ((currentDay - createDay) % currentPet.getPetScheduleActivities().get(i).getFrequency() == 0) {
-                activitiesOfTheDay.add(currentPet.getPetScheduleActivities().get(i));
+            try {
+                if ((currentDay - createDay) % currentPet.getPetScheduleActivities().get(i).getFrequency() == 0) {
+                    activitiesOfTheDay.add(currentPet.getPetScheduleActivities().get(i));
+                }
+            } catch (ArithmeticException e) {
+                Toast.makeText(getContext(), "Schedule activity \"" +
+                        currentPet.getPetScheduleActivities().get(i).getType() + "\" is not set properly", Toast.LENGTH_SHORT).show();
             }
         }
         //arrange the activities based on their hour of the day

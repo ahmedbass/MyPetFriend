@@ -98,8 +98,8 @@ public class MyDBHelper extends SQLiteOpenHelper {
     }
 
     //---delete a particular record---
-    public boolean deleteRecord(String table, String selection, String selectionArgs) {
-        return db.delete(table, selection + "=?", new String[]{selectionArgs}) > 0;
+    public boolean deleteRecord(String table, String selection, String selectionArg) {
+        return db.delete(table, selection + "=?", new String[]{selectionArg}) > 0;
     }
 
     //---retrieve all the records---
@@ -108,8 +108,8 @@ public class MyDBHelper extends SQLiteOpenHelper {
     }
 
     //---retrieve a particular record(s)---
-    public Cursor getRecord(String table, String[] columns, String selection, String selectionArgs) {
-        return db.query(true, table, columns, selection + "=?", new String[]{selectionArgs}, null, null, null, null);
+    public Cursor getRecord(String table, String[] columns, String selection, String selectionArg) {
+        return db.query(true, table, columns, selection + "=?", new String[]{selectionArg}, null, null, null, null);
     }
 
     public String[] getColumnNames(String table) {

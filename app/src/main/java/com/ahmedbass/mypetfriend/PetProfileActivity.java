@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -67,7 +66,7 @@ public class PetProfileActivity extends AppCompatActivity {
         if (getIntent() != null && getIntent().getSerializableExtra("petInfo") != null) {
             myPet = (Pet) getIntent().getSerializableExtra("petInfo");
             setViewPager();
-            createMySlideShow(null);
+            createMySlideShow();
         } else {
             Toast.makeText(this, "Error: Cannot Retrieve Pet Information", Toast.LENGTH_SHORT).show();
         }
@@ -134,7 +133,8 @@ public class PetProfileActivity extends AppCompatActivity {
         dbHelper.insetRecord(MyPetFriendContract.PetPhotosEntry.TABLE_NAME, columnNames, columnValues);
         dbHelper.close();
 
-        createMySlideShow(bitmap);
+        myPet.addPetPhoto(0, myPet.getPetId(), bitmap, System.currentTimeMillis(), "");
+        petPhotos = myPet.getPetPhotosExtract();
     }
 
     private void setViewPager() {
@@ -169,21 +169,8 @@ public class PetProfileActivity extends AppCompatActivity {
     }
 
     //make slideshow of pet pictures using ViewSwitcher with just two ImageViews by scheduling the switch through background thread. perfect!
-    private void createMySlideShow(Bitmap receivedBitmap) {
-        if (receivedBitmap == null) {
-            petPhotos.clear();
-            MyDBHelper dbHelper = new MyDBHelper(this);
-            dbHelper.open();
-            Cursor petPhotosCursor = dbHelper.getRecord(MyPetFriendContract.PetPhotosEntry.TABLE_NAME, null,
-                    MyPetFriendContract.PetPhotosEntry.PET_ID, String.valueOf(myPet.getPetId()));
-            while (petPhotosCursor.moveToNext()) {
-                petPhotos.add(BitmapFactory.decodeByteArray(petPhotosCursor.getBlob(2), 0, petPhotosCursor.getBlob(2).length));
-            }
-            petPhotosCursor.close();
-            dbHelper.close();
-        } else {
-            petPhotos.add(receivedBitmap);
-        }
+    private void createMySlideShow() {
+        petPhotos = myPet.getPetPhotosExtract();
 
         //switch between two ImageViews (with nice fading animation)
         viewSwitcher = (ViewSwitcher) this.findViewById(R.id.viewSwitcher);

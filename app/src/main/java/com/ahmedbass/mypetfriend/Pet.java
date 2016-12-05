@@ -1,9 +1,7 @@
 package com.ahmedbass.mypetfriend;
 
 
-import android.content.Context;
 import android.graphics.Bitmap;
-import android.widget.Toast;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -23,8 +21,8 @@ class Pet implements Serializable {
     final static int LEVEL_MEDIUM = 2;
     final static int LEVEL_HIGH = 3;
 
-    private int petId;
-    private int ownerId;
+    private long petId;
+    private long ownerId;
     private long createDate;
     private String name;
     private long birthDate; //in milliseconds
@@ -41,14 +39,14 @@ class Pet implements Serializable {
     private int trainingSessionInMinutes;
     private int exerciseNeedsInMinutes;
 
-    private ArrayList<Bitmap> petPhotos = new ArrayList<>();
     private ArrayList<ScheduleActivity> petScheduleActivities = new ArrayList<>();
     private ArrayList<Vaccine> petVaccines = new ArrayList<>();
+    private ArrayList<PetPhoto> petPhotos = new ArrayList<>();
     private ArrayList<Integer> petWeightList = new ArrayList<>();
 
     public Pet() {}
 
-    public Pet(int petId, int ownerId, long createDate, String name, long birthDate, String gender, String type, String breed, int currentWeight, boolean isNeutered, String microchipNumber, int minWeight, int maxWeight, double dailyFeedingAmountInCups, int trainingSessionInMinutes, int exerciseNeedsInMinutes) {
+    public Pet(long petId, long ownerId, long createDate, String name, long birthDate, String gender, String type, String breed, int currentWeight, boolean isNeutered, String microchipNumber, int minWeight, int maxWeight, double dailyFeedingAmountInCups, int trainingSessionInMinutes, int exerciseNeedsInMinutes) {
         this.petId = petId;
         this.ownerId = ownerId;
         this.createDate = createDate;
@@ -81,12 +79,16 @@ class Pet implements Serializable {
         return Calendar.getInstance().get(Calendar.MONTH) - birth.get(Calendar.MONTH);
     }
 
-    public int getPetId() {
+    public long getPetId() {
         return petId;
     }
 
-    public int getOwnerId() {
+    public long getOwnerId() {
         return ownerId;
+    }
+
+    public long getCreateDate() {
+        return createDate;
     }
 
     public String getName() {
@@ -125,8 +127,16 @@ class Pet implements Serializable {
         return microchipNumber;
     }
 
-    public ArrayList<Bitmap> getPetPhotos() {
+    public ArrayList<PetPhoto> getPetPhotos() {
         return petPhotos;
+    }
+
+    public ArrayList<Bitmap> getPetPhotosExtract() {
+        ArrayList<Bitmap> petPhotosExtract = new ArrayList<>();
+        for (PetPhoto petPhoto : petPhotos) {
+            petPhotosExtract.add(petPhoto.getPhoto());
+        }
+        return petPhotosExtract;
     }
 
     public ArrayList<ScheduleActivity> getPetScheduleActivities() {
@@ -135,10 +145,6 @@ class Pet implements Serializable {
 
     public ArrayList<Vaccine> getPetVaccines() {
         return petVaccines;
-    }
-
-    public long getCreateDate() {
-        return createDate;
     }
 
     public void setName(String name) {
@@ -166,26 +172,29 @@ class Pet implements Serializable {
         this.petWeightList.add(weight);
     }
 
-    public void setIsNeutered(boolean neutered) {
-        isNeutered = neutered;
+    public void setIsNeutered(boolean isNeutered) {
+        this.isNeutered = isNeutered;
     }
 
     public void setMicrochipNumber(String microchipNumber) {
         this.microchipNumber = microchipNumber;
     }
 
-    public void addNewScheduleActivity(int scheduleActivityId, int petId, String scheduleType, long scheduleCreateDate, int hourOfDay, int minuteOfDay, int frequency, String notes, int notificationStatus) {
-        petScheduleActivities.add(
-                new ScheduleActivity(scheduleActivityId, petId, scheduleType, scheduleCreateDate, hourOfDay, minuteOfDay, frequency, notes, notificationStatus));
+    public void addPetPhoto(long id, long petId, Bitmap photo, long photoDate, String photoDescription) {
+        petPhotos.add(new PetPhoto(id, petId, photo, photoDate, photoDescription));
+    }
+
+    public void addNewScheduleActivity(long scheduleActivityId, long petId, String scheduleType, long scheduleCreateDate, int frequency, int hourOfDay, int minuteOfDay, String notes, int notificationStatus) {
+        this.petScheduleActivities.add(
+                new ScheduleActivity(scheduleActivityId, petId, scheduleType, scheduleCreateDate, frequency, hourOfDay, minuteOfDay, notes, notificationStatus));
     }
 
     public void removeScheduleActivity(int scheduleActivityIndex) {
-        petScheduleActivities.remove(scheduleActivityIndex);
+        this.petScheduleActivities.remove(scheduleActivityIndex);
     }
 
-    public void addNewVaccine(int vaccineId, int petId, String name, int category, long createDate, int frequency, String notes, Context context) {
+    public void addNewVaccine(long vaccineId, long petId, String name, int category, long createDate, int frequency, String notes) {
         this.petVaccines.add(new Vaccine(vaccineId, petId, name, category, createDate, frequency, notes));
-        Toast.makeText(context, "HII", Toast.LENGTH_SHORT).show();
     }
 
     public void removeVaccine(int vaccineIndex) {
@@ -216,8 +225,20 @@ class Pet implements Serializable {
         return exerciseNeedsInMinutes;
     }
 
-    public void addPhoto(Bitmap bitmap) {
-        petPhotos.add(bitmap);
+    public void setMinWeight(int minWeight) {
+        this.minWeight = minWeight;
+    }
+
+    public void setMaxWeight(int maxWeight) {
+        this.maxWeight = maxWeight;
+    }
+
+    public void setTrainingSessionInMinutes(int trainingSessionInMinutes) {
+        this.trainingSessionInMinutes = trainingSessionInMinutes;
+    }
+
+    public void setExerciseNeedsInMinutes(int exerciseNeedsInMinutes) {
+        this.exerciseNeedsInMinutes = exerciseNeedsInMinutes;
     }
 
     //----------------------------------------------------------------------------------------------
@@ -247,36 +268,36 @@ class Pet implements Serializable {
         final static int NOTIFICATION_STATUS_ON = 1;
         final static int NOTIFICATION_STATUS_ALARM = 2;
 
-        private int scheduleId;
-        private int petId;
+        private long scheduleId;
+        private long petId;
         private int icon;
         private String type; //has to be one the defined types
         private long createDate; //when pet first registered in millis
+        private int frequency; //means: activity happens once every ? days
         private int hourOfDay; //extract from Calendar createDate
         private int minuteOfDay; //extract from Calendar createDate
-        private int frequency; //means: activity happens once every ? days
         private String notes; //some information to show the user about that pet activity
         private int notificationStatus; //0=off, 1=On, 2=Alarm
         private int notificationStatusIcon; //based on the notificationStatus
 
-        public ScheduleActivity(int scheduleId, int petId, String type, long createDate, int hourOfDay, int minuteOfDay, int frequency, String notes, int notificationStatus) {
+        public ScheduleActivity(long scheduleId, long petId, String type, long createDate, int frequency, int hourOfDay, int minuteOfDay, String notes, int notificationStatus) {
             this.scheduleId = scheduleId;
             this.petId = petId;
             this.type = type;
             this.createDate = createDate;
+            this.frequency = frequency;
             this.hourOfDay = hourOfDay;
             this.minuteOfDay = minuteOfDay;
-            this.frequency = frequency;
             setNotificationStatus(notificationStatus);
             setNotes(notes);
             setIcon(type);
         }
 
-        public int getScheduleId() {
+        public long getScheduleId() {
             return scheduleId;
         }
 
-        public int getPetId() {
+        public long getPetId() {
             return petId;
         }
 
@@ -427,10 +448,7 @@ class Pet implements Serializable {
 
     class Vaccine implements Serializable{
 
-        //4 months, below is a puppy, above is an adult dog
-        final static int DOG_TURNING_AGE = 4;
-        //core petVaccines should be given to every dog
-        final static int CATEGORY_CORE = 1;
+        final static int CATEGORY_CORE = 1; //core petVaccines should be given to every dog
         //noncore petVaccines are recommended only for some dogs, depending on the dog situation:
         // e.g. age, breed, health status, and the potential exposure to a diseased animal.
         // the type of vaccine and how common the disease is in the geographical area where the dog lives or may visit.
@@ -438,15 +456,15 @@ class Pet implements Serializable {
 
         //TODO list all possible petVaccines for cats(about6) and dogs(about 11) here as final static
 
-        private int vaccineId;
-        private int petId;
+        private long vaccineId;
+        private long petId;
         private String name;
         private int category; //1=core, 2=non-core
         private long createDate;
         private int frequency; //means: take another dose after ? days
         private String notes;
 
-        public Vaccine(int vaccineId, int petId, String name, int category, long createDate, int frequency, String notes) {
+        public Vaccine(long vaccineId, long petId, String name, int category, long createDate, int frequency, String notes) {
             this.vaccineId = vaccineId;
             this.petId = petId;
             this.name = name;
@@ -456,11 +474,11 @@ class Pet implements Serializable {
             this.notes = notes;
         }
 
-        public int getVaccineId() {
+        public long getVaccineId() {
             return vaccineId;
         }
 
-        public int getPetId() {
+        public long getPetId() {
             return petId;
         }
 
@@ -502,6 +520,48 @@ class Pet implements Serializable {
 
         public void setNotes(String notes) {
             this.notes = notes;
+        }
+    }
+
+    //----------------------------------------------------------------------------------------------
+
+    class PetPhoto implements Serializable{
+        private long id;
+        private long petId;
+        private Bitmap photo;
+        private long photoDate;
+        private String photoDescription;
+
+        public PetPhoto(long id, long petId, Bitmap photo, long photoDate, String photoDescription) {
+            this.id = id;
+            this.petId = petId;
+            this.photo = photo;
+            this.photoDate = photoDate;
+            this.photoDescription = photoDescription;
+        }
+
+        public long getId() {
+            return id;
+        }
+
+        public long getPetId() {
+            return petId;
+        }
+
+        public Bitmap getPhoto() {
+            return photo;
+        }
+
+        public long getPhotoDate() {
+            return photoDate;
+        }
+
+        public String getPhotoDescription() {
+            return photoDescription;
+        }
+
+        public void setPhotoDescription(String photoDescription) {
+            this.photoDescription = photoDescription;
         }
     }
 

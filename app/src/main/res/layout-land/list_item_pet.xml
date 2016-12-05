@@ -38,19 +38,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:maxWidth="600dp"
-                    android:src="@drawable/petcareprovider_profilepicture"
+                    android:src="@drawable/pet_paw"
                     android:adjustViewBounds="true"
-                    android:scaleType="centerCrop"
+                    android:scaleType="centerInside"
                     android:layout_margin="5dp"
                     android:background="@android:color/transparent"
                     android:contentDescription="profile picture" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/smooth_background_protection"
-                    android:layout_margin="5dp"
-                    android:rotation="180" />
 
                 <TextView
                     android:id="@+id/pet_name_txtv"
@@ -58,7 +51,7 @@
                     android:layout_height="wrap_content"
                     android:text="My Pet Name"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textColor="@color/white"
+                    android:textColor="@color/colorPrimary"
                     android:gravity="center"
                     android:layout_margin="5dp"
                     android:padding="1dp" />
