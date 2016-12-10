@@ -4,7 +4,6 @@ import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -16,10 +15,6 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.io.ByteArrayOutputStream;
-import java.lang.ref.WeakReference;
 
 public class ItemPetFragment extends Fragment {
     private static final String ARG_PET = "myPet";
@@ -69,17 +64,17 @@ public class ItemPetFragment extends Fragment {
         petWeight_txtv = (TextView) rootView.findViewById(R.id.pet_weight_txtv);
 
         //assign values to views
-        if(!currentPet.getPetPhotos().isEmpty()) {
+        if(currentPet.getCurrentPhoto() != null) {
             petPicture_img.setScaleType(ImageView.ScaleType.CENTER_CROP);
-//            petPicture_img.setImageBitmap(currentPet.getPetPhotos().get(currentPet.getPetPhotos().size() - 1).getPhoto());
-            loadBitmap(currentPet.getPetPhotos().get(currentPet.getPetPhotos().size() - 1).getPhoto(), petPicture_img);
+            petPicture_img.setImageBitmap(decodeSampledBitmapFromResource(currentPet.getCurrentPhoto(), 800, 800));
         } else {
             petPicture_img.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
             petPicture_img.setImageResource(R.drawable.pet_paw);
         }
         petName_txtv.setText(currentPet.getName());
         petBreedAndType_txtv.setText(currentPet.getBreed() + " " + (currentPet.getType()));
-        petAge_txtv.setText(currentPet.getPetAgeInYear(0) + " years and " + currentPet.getPetAgeInMonth(0) + " months old");
+        int ageInMonth = currentPet.getPetAgeInMonth(0) * 10 /12;
+        petAge_txtv.setText(currentPet.getPetAgeInYear(0) + (ageInMonth == 0 ? "" : "." + +ageInMonth) + " years old");
         petWeight_txtv.setText(currentPet.getCurrentWeight() == -1 ? "Weigh not set" : currentPet.getCurrentWeight() + " kg");
 
         //set onclick listener
@@ -96,19 +91,12 @@ public class ItemPetFragment extends Fragment {
         public void onClick(View v) {
             Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle();
             Intent moveToPetProfile = new Intent(getActivity(), PetProfileActivity.class);
+            currentPet.setCurrentPhoto(null);
             moveToPetProfile.putExtra("petInfo", currentPet);
-            try {
-                getActivity().startActivityForResult(moveToPetProfile, REQUEST_CODE_OPEN_PET_PROFILE, bundle);
-            } catch (RuntimeException e) {
-                Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
+            getActivity().startActivityForResult(moveToPetProfile, REQUEST_CODE_OPEN_PET_PROFILE, bundle);
         }
     }
 
-    public void loadBitmap(Bitmap bitmap, ImageView imageView) {
-        BitmapWorkerTask task = new BitmapWorkerTask(imageView);
-        task.execute(bitmap);
-    }
     public static Bitmap decodeSampledBitmapFromResource(byte[] data, int reqWidth, int reqHeight) {
         // First decode with inJustDecodeBounds=true to check dimensions, and pass the options
         final BitmapFactory.Options options = new BitmapFactory.Options();
@@ -138,29 +126,5 @@ public class ItemPetFragment extends Fragment {
             }
         }
         return inSampleSize;
-    }
-
-    //-------------------------------------------------------------------
-    class BitmapWorkerTask extends AsyncTask<Bitmap, Void, Bitmap> {
-        private final WeakReference<ImageView> imageViewReference;
-
-        BitmapWorkerTask(ImageView imageView) {
-            // Use a WeakReference to ensure the ImageView can be garbage collected
-            imageViewReference = new WeakReference<>(imageView);
-        }
-
-        @Override // Decode image in background.
-        protected Bitmap doInBackground(Bitmap... params) {
-            Bitmap data = params[0];
-            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-            data.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-            return decodeSampledBitmapFromResource(bytes.toByteArray(), 1000, 1000);
-        }
-        @Override // Once complete, see if ImageView is still around and set bitmap.
-        protected void onPostExecute(final Bitmap bitmap) {
-            if (bitmap != null) {
-                imageViewReference.get().setImageBitmap(bitmap);
-            }
-        }
     }
 }

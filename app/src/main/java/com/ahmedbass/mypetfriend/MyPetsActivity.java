@@ -3,7 +3,6 @@ package com.ahmedbass.mypetfriend;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -48,20 +47,20 @@ public class MyPetsActivity extends AppCompatActivity {
             dbHelper.open();
             //TODO read only pets owned by current pet owner (where petOwnerId)
             Cursor petsCursor = dbHelper.getAllRecords(MyPetFriendContract.PetsEntry.TABLE_NAME, null);
-            Cursor petPhotosCursor, petScheduleActivitiesCursor, petVaccinesCursor, petWeightListCursor;
+            Cursor petScheduleActivitiesCursor, petVaccinesCursor, petWeightListCursor;
             while(petsCursor.moveToNext()) {
                 myListOfPets.add(new Pet(petsCursor.getLong(0), petsCursor.getLong(1), petsCursor.getLong(2), petsCursor.getString(3),
                         petsCursor.getLong(4),petsCursor.getString(5), petsCursor.getString(6), petsCursor.getString(7),
                         petsCursor.getInt(8), (petsCursor.getInt(9) == 1), petsCursor.getString(10), petsCursor.getInt(11),
-                        petsCursor.getInt(12), petsCursor.getInt(13), petsCursor.getInt(14), petsCursor.getInt(15)));
+                        petsCursor.getInt(12), petsCursor.getInt(13), petsCursor.getInt(14), petsCursor.getInt(15),
+                        petsCursor.getString(16), petsCursor.getString(17), petsCursor.getString(18), petsCursor.getString(19),
+                        petsCursor.getString(20), petsCursor.getString(21)));
 
-                petPhotosCursor = dbHelper.getRecord(MyPetFriendContract.PetPhotosEntry.TABLE_NAME, null,
+                Cursor petPhotosCursor = dbHelper.getRecord(MyPetFriendContract.PetPhotosEntry.TABLE_NAME,
+                        new String[]{MyPetFriendContract.PetPhotosEntry.PHOTO},
                         MyPetFriendContract.PetPhotosEntry.PET_ID, String.valueOf(petsCursor.getInt(0)));
-                while (petPhotosCursor.moveToNext()) {
-                    myListOfPets.get(myListOfPets.size() - 1).
-                            addPetPhoto(petPhotosCursor.getLong(0), petPhotosCursor.getLong(1),
-                                    BitmapFactory.decodeByteArray(petPhotosCursor.getBlob(2), 0, petPhotosCursor.getBlob(2).length),
-                                    petPhotosCursor.getLong(3), petPhotosCursor.getString(4));
+                if (petPhotosCursor.moveToLast()) {
+                    myListOfPets.get(myListOfPets.size() - 1).setCurrentPhoto(petPhotosCursor.getBlob(0));
                 }
 
                 petScheduleActivitiesCursor = dbHelper.getRecord(MyPetFriendContract.PetScheduleActivitiesEntry.TABLE_NAME, null,
@@ -91,6 +90,7 @@ public class MyPetsActivity extends AppCompatActivity {
             }
             dbHelper.close();
         } catch (Exception e) {
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
             Toast.makeText(this, "Error: Cannot Retrieve Data", Toast.LENGTH_SHORT).show();
         }
     }
@@ -168,7 +168,6 @@ public class MyPetsActivity extends AppCompatActivity {
                 setViewPager();
                 Toast.makeText(this, "Pet Deleted Successfully", Toast.LENGTH_SHORT).show();
             }
-
             if (data.getSerializableExtra("petModified") != null) {
                 getPetListFromDB();
                 setViewPager();

@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -54,21 +55,26 @@ public class MyDBHelper extends SQLiteOpenHelper {
     public long insetRecord(String table, String[] columnNames, Object[] columnValues) {
         //using a ContentValues object to store key/value pairs
         ContentValues values = new ContentValues();
-        for(int i = 1; i < columnNames.length; i++) {
-            if(columnValues[i] instanceof String) {
-                values.put(columnNames[i], columnValues[i].toString());
-            } else if (columnValues[i] instanceof Integer) {
-                values.put(columnNames[i], ((int) columnValues[i]));
-            } else if (columnValues[i] instanceof Long) {
-                values.put(columnNames[i], ((long) columnValues[i]));
-            } else if (columnValues[i] instanceof Double) {
-                values.put(columnNames[i], ((Double) columnValues[i]));
-            } else if (columnValues[i] instanceof Boolean) {
-                values.put(columnNames[i], ((boolean) columnValues[i]));
-            } else if (columnValues[i] instanceof Byte[] || columnValues[i].getClass().getName().equals("[B")) {
-                values.put(columnNames[i], ((byte[]) columnValues[i]));
-            } else if (columnValues[i] instanceof Byte) {
-                values.put(columnNames[i], ((byte) columnValues[i]));
+        for (int i = 1; i < columnNames.length; i++) {
+            try {
+                if (columnValues[i] instanceof String) {
+                    values.put(columnNames[i], columnValues[i].toString());
+                } else if (columnValues[i] instanceof Integer) {
+                    values.put(columnNames[i], ((int) columnValues[i]));
+                } else if (columnValues[i] instanceof Long) {
+                    values.put(columnNames[i], ((long) columnValues[i]));
+                } else if (columnValues[i] instanceof Double) {
+                    values.put(columnNames[i], ((Double) columnValues[i]));
+                } else if (columnValues[i] instanceof Boolean) {
+                    values.put(columnNames[i], ((boolean) columnValues[i]));
+                } else if (columnValues[i] instanceof Byte[] || columnValues[i].getClass().getName().equals("[B")) {
+                    values.put(columnNames[i], ((byte[]) columnValues[i]));
+                } else if (columnValues[i] instanceof Byte) {
+                    values.put(columnNames[i], ((byte) columnValues[i]));
+                }
+            }
+            catch (Exception e) {
+                Toast.makeText(context, columnValues[i].toString(), Toast.LENGTH_SHORT).show();
             }
         }
         return db.insert(table, null, values);

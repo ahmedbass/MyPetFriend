@@ -34,7 +34,7 @@ public class PetScheduleFragment extends Fragment {
     ArrayList<Pet.ScheduleActivity> activitiesOfTheDay = new ArrayList<>();
     ListView activitiesOfDay_lv;
     ListAdapter myAdapter;
-    Pet currentPet;
+    Pet myPet;
     Calendar currentDate;
 
     public static PetScheduleFragment newInstance(Pet pet) {
@@ -49,7 +49,7 @@ public class PetScheduleFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if(getArguments() != null) {
-            currentPet = (Pet) getArguments().getSerializable(ARG_PET);
+            myPet = (Pet) getArguments().getSerializable(ARG_PET);
         }
     }
 
@@ -65,7 +65,7 @@ public class PetScheduleFragment extends Fragment {
         activitiesOfDay_lv = (ListView) rootView.findViewById(activitiesOfDay_listview);
 
         //set Calendar Min Date to choose from (starts from pet create date, max is no limits)
-        calendarView.setMinDate(currentPet.getCreateDate());
+        calendarView.setMinDate(myPet.getCreateDate());
         currentDate = Calendar.getInstance();
 
         myAdapter = new MyAdapter(getContext(), getActivitiesOfSelectedDate(currentDate));
@@ -142,7 +142,7 @@ public class PetScheduleFragment extends Fragment {
     public ArrayList<Pet.ScheduleActivity> getActivitiesOfSelectedDate(Calendar currentDate) {
         activitiesOfTheDay.clear(); //clear so it displays only the activities of that day (rather than accumulate on old replicate entries)
         Calendar createDate = Calendar.getInstance();
-        createDate.setTimeInMillis(currentPet.getCreateDate());
+        createDate.setTimeInMillis(myPet.getCreateDate());
 
         //count the difference of days between the two dates
         int createDay = createDate.get(Calendar.DAY_OF_YEAR);
@@ -156,14 +156,14 @@ public class PetScheduleFragment extends Fragment {
         }
 
         //if( (current - create) % frequency == 0) { //activity would happen on that day! so add it to the list of the day's activities.}
-        for (int i = 0; i < currentPet.getPetScheduleActivities().size(); i++) {
+        for (int i = 0; i < myPet.getPetScheduleActivities().size(); i++) {
             try {
-                if ((currentDay - createDay) % currentPet.getPetScheduleActivities().get(i).getFrequency() == 0) {
-                    activitiesOfTheDay.add(currentPet.getPetScheduleActivities().get(i));
+                if ((currentDay - createDay) % myPet.getPetScheduleActivities().get(i).getFrequency() == 0) {
+                    activitiesOfTheDay.add(myPet.getPetScheduleActivities().get(i));
                 }
             } catch (ArithmeticException e) {
                 Toast.makeText(getContext(), "Schedule activity \"" +
-                        currentPet.getPetScheduleActivities().get(i).getType() + "\" is not set properly", Toast.LENGTH_SHORT).show();
+                        myPet.getPetScheduleActivities().get(i).getType() + "\" is not set properly", Toast.LENGTH_SHORT).show();
             }
         }
         //arrange the activities based on their hour of the day

@@ -1,40 +1,26 @@
 package com.ahmedbass.mypetfriend;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
-import android.widget.ListView;
+import android.widget.GridLayout;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Locale;
 
 public class PetInfoFragment extends Fragment {
     private static final String ARG_PET = "myPet";
+    Pet myPet;
 
-    ArrayList<String> timeLineEvents = new ArrayList<>(Arrays.asList(
-            "hello", "world", "what's up", "how's my list?", "hopefully this works", "okay see ya"
-            , "hello", "world", "what's up", "how's my list?", "hopefully this works", "okay see ya"
-            , "hello", "world", "what's up", "how's my list?", "hopefully this works", "okay see ya"
-            , "hello", "world", "what's up", "how's my list?", "hopefully this works", "okay see ya"
-            , "hello", "world", "what's up", "how's my list?", "hopefully this works", "okay see ya"
-            , "hello", "world", "what's up", "how's my list?", "hopefully this works", "okay see ya"
-            , "hello", "world", "what's up", "how's my list?", "hopefully this works", "okay see ya"));
-
-    Pet currentPet;
+    View rootView;
     TextView birthDate_txtv, gender_txtv, type_txtv, breed_txtv, weight_txtv, isNeutered_txtv, microchipNumber_txtv;
-    String name, birthDate, gender, type, breed, weight, isNeutered, microchipNumber;
-    int ageInMonth;
-    int ageInYear;
+    TextView personalInformation_txtv, breedHighlights_txtv, breedPersonality_txtv, breedHealth_txtv,breedCare_txtv, breedFeeding_txtv, breedHistory_txtv;
+    GridLayout personalInformation_gridLout;
+    int ageInMonth, ageInYear;
 
     public static PetInfoFragment newInstance(Pet pet) {
         PetInfoFragment fragment = new PetInfoFragment();
@@ -47,7 +33,7 @@ public class PetInfoFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if(getArguments() != null) {
-            currentPet = (Pet) getArguments().getSerializable(ARG_PET);
+            myPet = (Pet) getArguments().getSerializable(ARG_PET);
         }
     }
 
@@ -55,15 +41,10 @@ public class PetInfoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View rootView = inflater.inflate(R.layout.fragment_pet_info, container, false);
-        final ListView timeline_lv = (ListView) rootView.findViewById(R.id.timeline_listview);
-        final ListAdapter myAdapter = new MyAdapter(getContext(), timeLineEvents);
+        this.rootView = rootView;
 
-        final View petInfo_header = inflater.inflate(R.layout.fragment_pet_info_header, null);
-        timeline_lv.addHeaderView(petInfo_header);
-        timeline_lv.setAdapter(myAdapter);
-
-        petInfo_header.setOnClickListener(null); //to prevent that ripple effect when clicking it
-
+        personalInformation_gridLout = (GridLayout) rootView.findViewById(R.id.personalInformation_gridLout);
+        personalInformation_txtv = (TextView) rootView.findViewById(R.id.personalInformation_txtv);
         birthDate_txtv = (TextView) rootView.findViewById(R.id.birthDate_txtv);
         gender_txtv = (TextView) rootView.findViewById(R.id.gender_txtv);
         type_txtv = (TextView) rootView.findViewById(R.id.type_txtv);
@@ -72,55 +53,138 @@ public class PetInfoFragment extends Fragment {
         isNeutered_txtv = (TextView) rootView.findViewById(R.id.isNeutered_txtv);
         microchipNumber_txtv = (TextView) rootView.findViewById(R.id.microchipNumber_txtv);
 
+        breedHighlights_txtv = (TextView) rootView.findViewById(R.id.breedHighlights_txtv);
+        breedPersonality_txtv = (TextView) rootView.findViewById(R.id.breedPersonality_txtv);
+        breedHealth_txtv = (TextView) rootView.findViewById(R.id.breedHealth_txtv);
+        breedCare_txtv = (TextView) rootView.findViewById(R.id.breedCare_txtv);
+        breedFeeding_txtv = (TextView) rootView.findViewById(R.id.breedFeeding_txtv);
+        breedHistory_txtv = (TextView) rootView.findViewById(R.id.breedHistory_txtv);
+
         //assign the pet info into variables to display them on UI
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MMM/yyyy", Locale.getDefault());
         //calculating the age in years and months
-        ageInYear = currentPet.getPetAgeInYear(0);
-        ageInMonth = currentPet.getPetAgeInMonth(0);
-        birthDate = sdf.format(currentPet.getBirthDate()) +
-                "\n(" + ageInYear + " years, " + ageInMonth + " months)";
-        gender = currentPet.getGender();
-        type = currentPet.getType();
-        breed = currentPet.getBreed();
-        weight = currentPet.getCurrentWeight() == -1 ? "Not set" : currentPet.getCurrentWeight() + " kg";
-        isNeutered = currentPet.isNeutered() ? "Yes" : "No";
-        microchipNumber = currentPet.getMicrochipNumber().isEmpty() ? "Not set" :currentPet.getMicrochipNumber();
+        ageInYear = myPet.getPetAgeInYear(0);
+        ageInMonth = myPet.getPetAgeInMonth(0) * 10 / 12;
+        birthDate_txtv.setText(sdf.format(myPet.getBirthDate()) +
+                "\n(" + ageInYear + (ageInMonth == 0 ? "" : "." + ageInMonth) + " years old)");
+        gender_txtv.setText(myPet.getGender());
+        type_txtv.setText(myPet.getType());
+        breed_txtv.setText( myPet.getBreed());
+        weight_txtv.setText(myPet.getCurrentWeight() == -1 ? "Not set" : myPet.getCurrentWeight() + " kg");
+        isNeutered_txtv.setText(myPet.isNeutered() ? "Yes" : "No");
+        microchipNumber_txtv.setText(myPet.getMicrochipNumber().isEmpty() ? "Not set" : myPet.getMicrochipNumber());
 
-        //set pet info on the UI
-        birthDate_txtv.setText(birthDate);
-        gender_txtv.setText(gender);
-        type_txtv.setText(type);
-        breed_txtv.setText(breed);
-        weight_txtv.setText(weight);
-        isNeutered_txtv.setText(isNeutered);
-        microchipNumber_txtv.setText(microchipNumber);
+        breedHighlights_txtv.setVisibility(myPet.getBreedHighlights().trim().isEmpty() ? View.GONE : View.VISIBLE);
+        breedPersonality_txtv.setVisibility(myPet.getBreedPersonality().trim().isEmpty() ? View.GONE : View.VISIBLE);
+        breedHealth_txtv.setVisibility(myPet.getBreedHealth().trim().isEmpty() ? View.GONE : View.VISIBLE);
+        breedCare_txtv.setVisibility(myPet.getBreedCare().trim().isEmpty() ? View.GONE : View.VISIBLE);
+        breedFeeding_txtv.setVisibility(myPet.getBreedFeeding().trim().isEmpty() ? View.GONE : View.VISIBLE);
+        breedHistory_txtv.setVisibility(myPet.getBreedHistory().trim().isEmpty() ? View.GONE : View.VISIBLE);
+
+        personalInformation_txtv.setOnClickListener(new View.OnClickListener() {
+            boolean isDetailsShown;
+            @Override
+            public void onClick(View view) {
+                if (isDetailsShown) {
+                    personalInformation_gridLout.setVisibility(View.GONE);
+                    isDetailsShown = false;
+                } else {
+                    personalInformation_gridLout.setVisibility(View.VISIBLE);
+                    isDetailsShown = true;
+                }
+            }
+        });
+
+        breedHighlights_txtv.setOnClickListener(new HandleMyViewsClicks());
+        breedPersonality_txtv.setOnClickListener(new HandleMyViewsClicks());
+        breedHealth_txtv.setOnClickListener(new HandleMyViewsClicks());
+        breedCare_txtv.setOnClickListener(new HandleMyViewsClicks());
+        breedFeeding_txtv.setOnClickListener(new HandleMyViewsClicks());
+        breedHistory_txtv.setOnClickListener(new HandleMyViewsClicks());
 
         return rootView;
     }
 
-    //-----------------------------------------------------
-    private class MyAdapter extends ArrayAdapter<String> {
-
-        MyAdapter(Context context, ArrayList<String> list) {
-            super(context, 0, list);
-        }
-
-        @NonNull
+    //for showing/hiding different pet information
+    class HandleMyViewsClicks implements View.OnClickListener {
+        boolean isDetailsShown;
         @Override
-        public View getView(int position, View convertView, @NonNull ViewGroup parent) {
-            // Check if the existing view is being reused, otherwise inflate the view
-            View listItemView = convertView;
-            if (listItemView == null) {
-                listItemView = LayoutInflater.from(getContext()).inflate(R.layout.list_item_timeline, parent, false);
+        public void onClick(View view) {
+            switch (view.getId()) {
+                case R.id.breedHighlights_txtv:
+                    if (isDetailsShown) {
+                        breedHighlights_txtv.setText("HighLights");
+                        breedHighlights_txtv.setTextAppearance(getContext(), R.style.myTextViewStyle_myTitleStyle);
+                        isDetailsShown = false;
+                    } else {
+                        breedHighlights_txtv.setText(myPet.getBreedHighlights());
+                        breedHighlights_txtv.setTextSize(16);
+                        breedHighlights_txtv.setTextColor(getResources().getColor(R.color.primaryText));
+                        isDetailsShown = true;
+                    }
+                    break;
+                case R.id.breedPersonality_txtv:
+                    if (isDetailsShown) {
+                        breedPersonality_txtv.setText("Personality");
+                        breedPersonality_txtv.setTextAppearance(getContext(), R.style.myTextViewStyle_myTitleStyle);
+                        isDetailsShown = false;
+                    } else {
+                        breedPersonality_txtv.setText(myPet.getBreedPersonality());
+                        breedPersonality_txtv.setTextSize(16);
+                        breedPersonality_txtv.setTextColor(getResources().getColor(R.color.primaryText));
+                        isDetailsShown = true;
+                    }
+                    break;
+                case R.id.breedHealth_txtv:
+                    if (isDetailsShown) {
+                        breedHealth_txtv.setText("Health");
+                        breedHealth_txtv.setTextAppearance(getContext(), R.style.myTextViewStyle_myTitleStyle);
+                        isDetailsShown = false;
+                    } else {
+                        breedHealth_txtv.setText(myPet.getBreedHealth());
+                        breedHealth_txtv.setTextSize(16);
+                        breedHealth_txtv.setTextColor(getResources().getColor(R.color.primaryText));
+                        isDetailsShown = true;
+                    }
+                    break;
+                case R.id.breedCare_txtv:
+                    if (isDetailsShown) {
+                        breedCare_txtv.setText("Care");
+                        breedCare_txtv.setTextAppearance(getContext(), R.style.myTextViewStyle_myTitleStyle);
+                        isDetailsShown = false;
+                    } else {
+                        breedCare_txtv.setText(myPet.getBreedCare());
+                        breedCare_txtv.setTextSize(16);
+                        breedCare_txtv.setTextColor(getResources().getColor(R.color.primaryText));
+                        isDetailsShown = true;
+                    }
+                    break;
+                case R.id.breedFeeding_txtv:
+                    if (isDetailsShown) {
+                        breedFeeding_txtv.setText("Feeding");
+                        breedFeeding_txtv.setTextAppearance(getContext(), R.style.myTextViewStyle_myTitleStyle);
+                        isDetailsShown = false;
+                    } else {
+                        breedFeeding_txtv.setText(myPet.getBreedFeeding());
+                        breedFeeding_txtv.setTextSize(16);
+                        breedFeeding_txtv.setTextColor(getResources().getColor(R.color.primaryText));
+                        isDetailsShown = true;
+                    }
+                    break;
+                case R.id.breedHistory_txtv:
+                    if (isDetailsShown) {
+                        breedHistory_txtv.setText("History");
+                        breedHistory_txtv.setTextAppearance(getContext(), R.style.myTextViewStyle_myTitleStyle);
+                        isDetailsShown = false;
+                    } else {
+                        breedHistory_txtv.setText(myPet.getBreedHistory());
+                        breedHistory_txtv.setTextSize(16);
+                        breedHistory_txtv.setTextColor(getResources().getColor(R.color.primaryText));
+                        isDetailsShown = true;
+                    }
+                    break;
             }
-
-            // Get the object located at this position in the list
-            String currentRowItem = getItem(position);
-
-            TextView text = (TextView) listItemView.findViewById(R.id.textView);
-            text.setText(currentRowItem);
-
-            return listItemView;
         }
     }
+
 }

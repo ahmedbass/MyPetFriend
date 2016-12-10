@@ -41,19 +41,14 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical"
-                android:layout_margin="5dp">
+                android:layout_margin="5dp"
+                android:layout_gravity="center">
 
                 <TextView
+                    android:id="@+id/petCareProvider_location_txtv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Name"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textAppearance="?android:attr/textAppearanceLarge" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="New York, NY"
+                    android:text="City, Country"
                     android:textColor="@color/primaryText"
                     android:layout_marginTop="5dp"
                     android:scaleX=".9"
@@ -62,14 +57,16 @@
                     android:drawableLeft="@drawable/ic_location_on_black_24dp" />
 
                 <TextView
+                    android:id="@+id/petCareProvider_availability_txtv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Part-Time pet sitter"
+                    android:text="PART-TIME pet sitter"
                     android:textColor="@color/primaryText"
                     android:layout_marginTop="5dp"
                     android:textSize="16sp" />
 
                 <TextView
+                    android:id="@+id/petCareProvider_experienceYears_txtv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="5 YRS EXP."
@@ -78,9 +75,19 @@
                     android:textSize="16sp" />
 
                 <TextView
+                    android:id="@+id/petCareProvider_payRate_txtv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="$10-15 HOURLY RATE"
+                    android:textColor="@color/primaryText"
+                    android:layout_marginTop="5dp"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/petCareProvider_createDate_txtv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Joined In 12/12/2012"
                     android:textColor="@color/primaryText"
                     android:layout_marginTop="5dp"
                     android:textSize="16sp" />
@@ -95,7 +102,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Meet 'PetCareProvider Name'"
+            android:text="Meet 'Name'"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="20sp"
             android:fontFamily="serif"
@@ -104,6 +111,7 @@
             android:layout_marginLeft="10dp" />
 
         <TextView
+            android:id="@+id/petCareProvider_profileDescription_txtv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
@@ -114,6 +122,7 @@
             android:text="hello everyone, \nI'm a pet sitter, I provider care for dogs and cats. blabla..." />
 
         <TextView
+            android:id="@+id/petCareProvider_serviceProvidedFor_txtv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Provides Care For"
@@ -125,6 +134,7 @@
             android:layout_marginLeft="10dp" />
 
         <TextView
+            android:id="@+id/petCareProvider_serviceProvided_txtv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
@@ -140,7 +150,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Services Provided"
+            android:text="Care Services Provided"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="20sp"
             android:fontFamily="serif"
@@ -170,45 +180,41 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Reviews"
+            android:text="Contact Pet Care Provider"
+            android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="20sp"
             android:fontFamily="serif"
-            android:layout_marginTop="15dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginLeft="10dp" />
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center">
-
-            <RatingBar
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/reviews_rtng"
-                style="?android:attr/ratingBarStyleIndicator"
-                android:numStars="5"
-                android:rating="3"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp" />
-
-            <TextView
-                android:id="@+id/reviews_txtv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="(0 reviews)" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/reviews_lout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:layout_margin="10dp"
-            android:background="@color/white"
-            android:orientation="vertical" />
+            android:layout_margin="5dp"
+            android:background="@android:color/background_light"
+            android:elevation="2dp"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/call_pcp_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="contactSeller"
+                android:text="Phone: +966123456789"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp" />
+
+            <Button
+                android:id="@+id/email_pcp_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="contactSeller"
+                android:text="Email: selleremail@email.com"
+                android:layout_margin="10dp" />
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>

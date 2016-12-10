@@ -56,6 +56,7 @@ public class AddEditPetActivity extends AppCompatActivity {
     long petCreateDate, birthDate;
     long petId, ownerId;
     int weight, isNeutered, minWeight, maxWeight, trainingSessionInMinutes, exerciseNeedsInMinutes;
+    String breedHighlights, breedPersonality, breedHealth, breedCare, breedFeeding, breedHistory;
     double dailyFeedingAmountInCups;
 
     String previousSelectedBreed, receivedBreedFromEditing;
@@ -164,7 +165,9 @@ public class AddEditPetActivity extends AppCompatActivity {
                     } else {
                         breedAdapter.clear();
                         petBreed_atxt.setAdapter(breedAdapter);
-                        Toast.makeText(AddEditPetActivity.this, "Warning: only cats and dogs are currently supported. You can still save other pet types, but it won't have vaccinations or activities schedule.", Toast.LENGTH_SHORT).show();
+                        if (receivedBreedFromEditing == null) {
+                            Toast.makeText(AddEditPetActivity.this, "Warning: only cats and dogs are currently supported. You can still save other pet types, but it won't have vaccinations or activities schedule.", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
                 previousItemSelected = position;
@@ -189,7 +192,8 @@ public class AddEditPetActivity extends AppCompatActivity {
                     dbHelper.open();
                     String[] columnNamesPets = dbHelper.getColumnNames(MyPetFriendContract.PetsEntry.TABLE_NAME);
                     Object[] columnValuesPets = {petId, ownerId, petCreateDate, name, birthDate, gender, type, breed, weight, isNeutered,
-                            microchipNumber, minWeight, maxWeight, dailyFeedingAmountInCups, trainingSessionInMinutes, exerciseNeedsInMinutes};
+                            microchipNumber, minWeight, maxWeight, dailyFeedingAmountInCups, trainingSessionInMinutes, exerciseNeedsInMinutes,
+                            breedHighlights, breedPersonality, breedHealth, breedCare, breedFeeding, breedHistory};
                     petId = dbHelper.insetRecord(MyPetFriendContract.PetsEntry.TABLE_NAME, columnNamesPets, columnValuesPets);
                     dbHelper.close();
 
@@ -237,7 +241,8 @@ public class AddEditPetActivity extends AppCompatActivity {
                         dbHelper.open();
                         String[] columnNames = dbHelper.getColumnNames(MyPetFriendContract.PetsEntry.TABLE_NAME);
                         Object[] columnValues = {petId, ownerId, petCreateDate, name, birthDate, gender, type, breed, weight, isNeutered,
-                                microchipNumber, minWeight, maxWeight, dailyFeedingAmountInCups, trainingSessionInMinutes, exerciseNeedsInMinutes};
+                                microchipNumber, minWeight, maxWeight, dailyFeedingAmountInCups, trainingSessionInMinutes, exerciseNeedsInMinutes,
+                                breedHighlights, breedPersonality, breedHealth, breedCare, breedFeeding, breedHistory};
                         dbHelper.updateRecord(MyPetFriendContract.PetsEntry.TABLE_NAME, columnNames, columnValues, MyPetFriendContract.PetsEntry._ID, petId);
                         dbHelper.close();
 
@@ -261,6 +266,12 @@ public class AddEditPetActivity extends AppCompatActivity {
                         myPet.setDailyFeedingAmountInCups(dailyFeedingAmountInCups);
                         myPet.setTrainingSessionInMinutes(trainingSessionInMinutes);
                         myPet.setExerciseNeedsInMinutes(exerciseNeedsInMinutes);
+                        myPet.setBreedHighlights(breedHighlights);
+                        myPet.setBreedPersonality(breedPersonality);
+                        myPet.setBreedHealth(breedHealth);
+                        myPet.setBreedCare(breedCare);
+                        myPet.setBreedFeeding(breedFeeding);
+                        myPet.setBreedHistory(breedHistory);
 
                         Intent intent = new Intent();
                         intent.putExtra("petModified", myPet);
@@ -295,8 +306,8 @@ public class AddEditPetActivity extends AppCompatActivity {
             Toast.makeText(this, "Pet breed is missing", Toast.LENGTH_SHORT).show();
         } else {
             //assigning values
-            Calendar calendar = Calendar.getInstance();
             name = petName_etxt.getText().toString().trim();
+            Calendar calendar = Calendar.getInstance();
             calendar.set(Integer.parseInt(yearPick_etxt.getText().toString()),
                     monthPick_spnr.getSelectedItemPosition(), Integer.parseInt(dayPick_etxt.getText().toString()));
             birthDate = calendar.getTimeInMillis();
@@ -307,8 +318,7 @@ public class AddEditPetActivity extends AppCompatActivity {
             isNeutered = isNeutered_rgrp.getCheckedRadioButtonId() == R.id.neutered_rbtn ? Pet.NEUTERED : Pet.NOT_NEUTERED;
             microchipNumber = microchipNumber_etxt.getText().toString().trim();
 
-            //if we're updating pet
-            if (myPet != null) {
+            if (myPet != null) {  //if we're updating pet
                 petId = myPet.getPetId();
                 ownerId = myPet.getOwnerId();
                 petCreateDate = myPet.getCreateDate();
@@ -317,12 +327,19 @@ public class AddEditPetActivity extends AppCompatActivity {
                 dailyFeedingAmountInCups = myPet.getDailyFeedingAmountInCups();
                 trainingSessionInMinutes = myPet.getTrainingSessionInMinutes();
                 exerciseNeedsInMinutes = myPet.getExerciseNeedsInMinutes();
-            }
-            //if we're creating new pet
-            else {
+                breedHighlights = myPet.getBreedHighlights();
+                breedPersonality = myPet.getBreedPersonality();
+                breedHealth = myPet.getBreedHealth();
+                breedCare = myPet.getBreedCare();
+                breedFeeding = myPet.getBreedFeeding();
+                breedHistory = myPet.getBreedHistory();
+            } else { //if we're creating new pet
                 petId = 0;
                 ownerId = 0; //TODO change this to take real petOwner id
-                petCreateDate = calendar.getTimeInMillis();
+                petCreateDate = System.currentTimeMillis();
+            }
+
+            if(myPet == null || !breed.equals(previousSelectedBreed)) {
                 dbHelper.open();
                 if (type.equals(Pet.TYPE_CAT)) {
                     cursor = dbHelper.getRecord(MyPetFriendContract.StoredCatBreedsEntry.TABLE_NAME, null, MyPetFriendContract.StoredCatBreedsEntry.NAME, breed);
@@ -333,7 +350,16 @@ public class AddEditPetActivity extends AppCompatActivity {
                         maxWeight = cursor.getInt(6);
                         trainingSessionInMinutes = 0;
                         exerciseNeedsInMinutes = 0;
+                        breedHighlights = "";
+                        breedPersonality = cursor.getString(7);
+                        breedHealth = cursor.getString(8);
+                        breedCare = cursor.getString(9);
+                        breedFeeding = "";
+                        breedHistory = cursor.getString(10);
                         cursor.close();
+                    } else {
+                        dailyFeedingAmountInCups = minWeight = maxWeight = trainingSessionInMinutes = exerciseNeedsInMinutes = 0;
+                        breedHighlights = breedPersonality = breedHealth = breedCare = breedFeeding = breedHistory = "";
                     }
                 } else if (type.equals(Pet.TYPE_DOG)) {
                     cursor = dbHelper.getRecord(MyPetFriendContract.StoredDogBreedsEntry.TABLE_NAME, null, MyPetFriendContract.StoredDogBreedsEntry.NAME, breed);
@@ -343,10 +369,20 @@ public class AddEditPetActivity extends AppCompatActivity {
                         exerciseNeedsInMinutes = cursor.getInt(6) * 30; //either 30 or 60 or 90 minutes based on dog's exercise needs
                         minWeight = cursor.getInt(7);
                         maxWeight = cursor.getInt(8);
+                        breedHighlights = cursor.getString(9);
+                        breedPersonality = cursor.getString(10);
+                        breedHealth = cursor.getString(11);
+                        breedCare = cursor.getString(12);
+                        breedFeeding = cursor.getString(13);
+                        breedHistory = cursor.getString(14);
                         cursor.close();
+                    } else {
+                        dailyFeedingAmountInCups = minWeight = maxWeight = trainingSessionInMinutes = exerciseNeedsInMinutes = 0;
+                        breedHighlights = breedPersonality = breedHealth = breedCare = breedFeeding = breedHistory = "";
                     }
                 } else {
                     dailyFeedingAmountInCups = minWeight = maxWeight = trainingSessionInMinutes = exerciseNeedsInMinutes = 0;
+                    breedHighlights = breedPersonality = breedHealth = breedCare = breedFeeding = breedHistory = "";
                 }
                 dbHelper.close();
             }
@@ -505,7 +541,8 @@ public class AddEditPetActivity extends AppCompatActivity {
             if(dbHelper.insetRecord(MyPetFriendContract.PetVaccinesEntry.TABLE_NAME, columnNamesVaccines,
                     new Object[]{0, petId, cursor.getString(2), cursor.getInt(3), birthDate, (cursor.getInt(4) * 365), cursor.getString(5)}) == -1
                     || dbHelper.insetRecord(MyPetFriendContract.PetScheduleActivitiesEntry.TABLE_NAME, columnNamesScheduleActivities,
-                    new Object[]{0, petId, TYPE_VACCINATION, birthDate, (cursor.getInt(4) * 365), 11, 0, cursor.getString(5), NOTIFICATION_STATUS_ON}) == -1){
+                    new Object[]{0, petId, TYPE_VACCINATION + " - " + cursor.getString(2), birthDate,
+                            (cursor.getInt(4) * 365), 11, 0, cursor.getString(5), NOTIFICATION_STATUS_ON}) == -1){
                 dbHelper.close();
                 return false;
             }

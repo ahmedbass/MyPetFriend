@@ -19,7 +19,6 @@
 
     <style name="myTextViewStyle.myTitleStyle">
         <item name="android:textSize">20sp</item>
-        <item name="android:textStyle">italic</item>
         <item name="android:textColor">@color/colorPrimary</item>
     </style>
 

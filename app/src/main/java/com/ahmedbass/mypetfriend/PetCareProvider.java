@@ -4,15 +4,16 @@ import java.util.ArrayList;
 
 class PetCareProvider extends PetOwner {
 
+    final static String AVAILABILITY_FULL_TIME = "FULL-TIME";
+    final static String AVAILABILITY_PART_TIME = "PART-TIME";
+
     //only for pet care provider
-    private String profileBio;
+    private String profileDescription;
+    private int availability; //FULL-TIME, PART-TIME
     private int yearsOfExperience;
-    private int averageSalary;
-    private int availability; //1=FULL-TIME, 2=PART-TIME
-    private int distanceWillingToTravel;
-    private ArrayList<String> servicesProvidedFor = new ArrayList<>();
+    private int averageRatePerHour;
     private ArrayList<String> servicesProvided = new ArrayList<>();
-    //private ArrayList reviews; //this will be of type review? which contains the review message, date, rating, and sender?
+    private ArrayList<String> servicesProvidedFor = new ArrayList<>();
 
     public PetCareProvider() {
     }
@@ -24,24 +25,20 @@ class PetCareProvider extends PetOwner {
         setUserType(USER_TYPE_PET_CARE_PROVIDER);
     }
 
-    public String getProfileBio() {
-        return profileBio;
+    public String getProfileDescription() {
+        return profileDescription;
     }
 
     public int getYearsOfExperience() {
         return yearsOfExperience;
     }
 
-    public int getAverageSalary() {
-        return averageSalary;
+    public int getAverageRatePerHour() {
+        return averageRatePerHour;
     }
 
     public int getAvailability() {
         return availability;
-    }
-
-    public int getDistanceWillingToTravel() {
-        return distanceWillingToTravel;
     }
 
     public ArrayList<String> getServicesProvidedFor() {
@@ -52,24 +49,20 @@ class PetCareProvider extends PetOwner {
         return servicesProvided;
     }
 
-    public void setProfileBio(String profileBio) {
-        this.profileBio = profileBio;
+    public void setProfileDescription(String profileDescription) {
+        this.profileDescription = profileDescription;
     }
 
     public void setYearsOfExperience(int yearsOfExperience) {
         this.yearsOfExperience = yearsOfExperience;
     }
 
-    public void setAverageSalary(int averageSalary) {
-        this.averageSalary = averageSalary;
+    public void setAverageRatePerHour(int averageRatePerHour) {
+        this.averageRatePerHour = averageRatePerHour;
     }
 
     public void setAvailability(int availability) {
         this.availability = availability;
-    }
-
-    public void setDistanceWillingToTravel(int distanceWillingToTravel) {
-        this.distanceWillingToTravel = distanceWillingToTravel;
     }
 
     public void setServicesProvidedFor(ArrayList<String> servicesProvidedFor) {

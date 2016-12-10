@@ -2,6 +2,7 @@ package com.ahmedbass.mypetfriend;
 
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -32,12 +33,20 @@ class Pet implements Serializable {
     private int currentWeight;
     private boolean isNeutered;
     private String microchipNumber;
+    private byte[] currentPhoto;
 
     private int minWeight;
     private int maxWeight;
     private double dailyFeedingAmountInCups;
     private int trainingSessionInMinutes;
     private int exerciseNeedsInMinutes;
+
+    private String breedHighlights;
+    private String breedPersonality;
+    private String breedHealth;
+    private String breedCare;
+    private String breedFeeding;
+    private String breedHistory;
 
     private ArrayList<ScheduleActivity> petScheduleActivities = new ArrayList<>();
     private ArrayList<Vaccine> petVaccines = new ArrayList<>();
@@ -46,7 +55,7 @@ class Pet implements Serializable {
 
     public Pet() {}
 
-    public Pet(long petId, long ownerId, long createDate, String name, long birthDate, String gender, String type, String breed, int currentWeight, boolean isNeutered, String microchipNumber, int minWeight, int maxWeight, double dailyFeedingAmountInCups, int trainingSessionInMinutes, int exerciseNeedsInMinutes) {
+    public Pet(long petId, long ownerId, long createDate, String name, long birthDate, String gender, String type, String breed, int currentWeight, boolean isNeutered, String microchipNumber, int minWeight, int maxWeight, double dailyFeedingAmountInCups, int trainingSessionInMinutes, int exerciseNeedsInMinutes, String breedHighlights, String breedPersonality, String breedHealth, String breedCare, String breedFeeding, String breedHistory) {
         this.petId = petId;
         this.ownerId = ownerId;
         this.createDate = createDate;
@@ -58,11 +67,19 @@ class Pet implements Serializable {
         this.currentWeight = currentWeight;
         this.isNeutered = isNeutered;
         this.microchipNumber = microchipNumber;
+
         this.minWeight = minWeight;
         this.maxWeight = maxWeight;
         this.dailyFeedingAmountInCups = dailyFeedingAmountInCups;
         this.trainingSessionInMinutes = trainingSessionInMinutes;
         this.exerciseNeedsInMinutes = exerciseNeedsInMinutes;
+
+        this.breedHighlights = breedHighlights;
+        this.breedPersonality = breedPersonality;
+        this.breedHealth = breedHealth;
+        this.breedCare = breedCare;
+        this.breedFeeding = breedFeeding;
+        this.breedHistory = breedHistory;
     }
 
     public int getPetAgeInYear(long birthDate) {
@@ -131,12 +148,12 @@ class Pet implements Serializable {
         return petPhotos;
     }
 
-    public ArrayList<Bitmap> getPetPhotosExtract() {
-        ArrayList<Bitmap> petPhotosExtract = new ArrayList<>();
+    public ArrayList<Bitmap> getPetPhotosExtracted() {
+        ArrayList<Bitmap> petPhotosExtracted = new ArrayList<>();
         for (PetPhoto petPhoto : petPhotos) {
-            petPhotosExtract.add(petPhoto.getPhoto());
+            petPhotosExtracted.add(BitmapFactory.decodeByteArray(petPhoto.getPhoto(), 0, petPhoto.getPhoto().length));
         }
-        return petPhotosExtract;
+        return petPhotosExtracted;
     }
 
     public ArrayList<ScheduleActivity> getPetScheduleActivities() {
@@ -180,7 +197,7 @@ class Pet implements Serializable {
         this.microchipNumber = microchipNumber;
     }
 
-    public void addPetPhoto(long id, long petId, Bitmap photo, long photoDate, String photoDescription) {
+    public void addPetPhoto(long id, long petId, byte[] photo, long photoDate, String photoDescription) {
         petPhotos.add(new PetPhoto(id, petId, photo, photoDate, photoDescription));
     }
 
@@ -241,6 +258,62 @@ class Pet implements Serializable {
         this.exerciseNeedsInMinutes = exerciseNeedsInMinutes;
     }
 
+    public String getBreedHighlights() {
+        return breedHighlights;
+    }
+
+    public String getBreedPersonality() {
+        return breedPersonality;
+    }
+
+    public String getBreedHealth() {
+        return breedHealth;
+    }
+
+    public String getBreedCare() {
+        return breedCare;
+    }
+
+    public String getBreedFeeding() {
+        return breedFeeding;
+    }
+
+    public String getBreedHistory() {
+        return breedHistory;
+    }
+
+    public void setBreedHighlights(String breedHighlights) {
+        this.breedHighlights = breedHighlights;
+    }
+
+    public void setBreedPersonality(String breedPersonality) {
+        this.breedPersonality = breedPersonality;
+    }
+
+    public void setBreedHealth(String breedHealth) {
+        this.breedHealth = breedHealth;
+    }
+
+    public void setBreedCare(String breedCare) {
+        this.breedCare = breedCare;
+    }
+
+    public void setBreedFeeding(String breedFeeding) {
+        this.breedFeeding = breedFeeding;
+    }
+
+    public void setBreedHistory(String breedHistory) {
+        this.breedHistory = breedHistory;
+    }
+
+    public byte[] getCurrentPhoto() {
+        return currentPhoto;
+    }
+
+    public void setCurrentPhoto(byte[] currentPhoto) {
+        this.currentPhoto = currentPhoto;
+    }
+
     //----------------------------------------------------------------------------------------------
 
     class ScheduleActivity implements Serializable{
@@ -258,11 +331,6 @@ class Pet implements Serializable {
         final static String TYPE_VACCINATION = "Vaccination";
         final static String TYPE_MEDICAL_CHECKUP = "Medical Checkup";
         final static String TYPE_BIRTHDAY = "Birthday";
-
-//        private final String[] catScheduleActivityTypes = {TYPE_BREAKFAST, TYPE_DINNER, TYPE_BATHING, TYPE_GROOMING, TYPE_TEETH_BRUSHING,
-//                TYPE_NAIL_TRIMMING, TYPE_WEIGHING, TYPE_VACCINATION, TYPE_MEDICAL_CHECKUP, TYPE_BIRTHDAY};
-//        private final String[] dogScheduleActivityTypes = {TYPE_BREAKFAST, TYPE_DINNER, TYPE_BATHING, TYPE_GROOMING, TYPE_TEETH_BRUSHING,
-//                TYPE_NAIL_TRIMMING, TYPE_EXERCISING, TYPE_TRAINING, TYPE_WEIGHING, TYPE_VACCINATION, TYPE_MEDICAL_CHECKUP, TYPE_BIRTHDAY};
 
         final static int NOTIFICATION_STATUS_OFF = 0;
         final static int NOTIFICATION_STATUS_ON = 1;
@@ -441,6 +509,9 @@ class Pet implements Serializable {
                     icon = R.drawable.paw_default;
                     break;
             }
+            if (type.contains(TYPE_VACCINATION)) {
+                icon = R.drawable.vaccination;
+            }
         }
     }
 
@@ -528,11 +599,11 @@ class Pet implements Serializable {
     class PetPhoto implements Serializable{
         private long id;
         private long petId;
-        private Bitmap photo;
+        private byte[] photo;
         private long photoDate;
         private String photoDescription;
 
-        public PetPhoto(long id, long petId, Bitmap photo, long photoDate, String photoDescription) {
+        public PetPhoto(long id, long petId, byte[] photo, long photoDate, String photoDescription) {
             this.id = id;
             this.petId = petId;
             this.photo = photo;
@@ -548,7 +619,7 @@ class Pet implements Serializable {
             return petId;
         }
 
-        public Bitmap getPhoto() {
+        public byte[] getPhoto() {
             return photo;
         }
 

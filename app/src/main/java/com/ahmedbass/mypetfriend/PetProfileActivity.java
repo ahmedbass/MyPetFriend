@@ -1,11 +1,11 @@
 package com.ahmedbass.mypetfriend;
 
 import android.app.ActivityOptions;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -23,12 +23,10 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.ContextThemeWrapper;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.PopupMenu;
 import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
@@ -48,7 +46,7 @@ public class PetProfileActivity extends AppCompatActivity {
     CollapsingToolbarLayout collapsingToolbarLayout;
     Toolbar toolbar;
     ImageView petProfilePic_img1, petProfilePic_img2;
-    FloatingActionButton add_fab;
+    FloatingActionButton addNewPhoto_fab;
     ViewSwitcher viewSwitcher;
     Timer repeatTask;
 
@@ -66,33 +64,15 @@ public class PetProfileActivity extends AppCompatActivity {
         if (getIntent() != null && getIntent().getSerializableExtra("petInfo") != null) {
             myPet = (Pet) getIntent().getSerializableExtra("petInfo");
             setViewPager();
-            createMySlideShow();
+            createMySlideShow(true);
         } else {
             Toast.makeText(this, "Error: Cannot Retrieve Pet Information", Toast.LENGTH_SHORT).show();
         }
 
-        add_fab.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.M)
+        addNewPhoto_fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Context wrapper = new ContextThemeWrapper(getBaseContext(), R.style.myPopupMenuStyle);
-                PopupMenu popupMenu = new PopupMenu(wrapper, add_fab);
-                popupMenu.getMenuInflater().inflate(R.menu.button_add_pet_stuff, popupMenu.getMenu());
-                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    public boolean onMenuItemClick(MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.action_add_photo:
-                                addNewPhoto();
-                                break;
-                            case R.id.action_add_schedule_activity:
-                                break;
-                            case R.id.action_add_timeline_event:
-                                break;
-                        }
-                        return true;
-                    }
-                });
-                popupMenu.show();
+                addNewPhoto();
             }
         });
     }
@@ -130,11 +110,11 @@ public class PetProfileActivity extends AppCompatActivity {
         dbHelper.open();
         String[] columnNames = dbHelper.getColumnNames(MyPetFriendContract.PetPhotosEntry.TABLE_NAME);
         Object[] columnValues = {0, myPet.getPetId(), byteArray, System.currentTimeMillis(), ""};
-        dbHelper.insetRecord(MyPetFriendContract.PetPhotosEntry.TABLE_NAME, columnNames, columnValues);
+        long photoId = dbHelper.insetRecord(MyPetFriendContract.PetPhotosEntry.TABLE_NAME, columnNames, columnValues);
         dbHelper.close();
 
-        myPet.addPetPhoto(0, myPet.getPetId(), bitmap, System.currentTimeMillis(), "");
-        petPhotos = myPet.getPetPhotosExtract();
+        myPet.addPetPhoto(photoId, myPet.getPetId(), byteArray, System.currentTimeMillis(), "");
+        createMySlideShow(false);
     }
 
     private void setViewPager() {
@@ -169,8 +149,20 @@ public class PetProfileActivity extends AppCompatActivity {
     }
 
     //make slideshow of pet pictures using ViewSwitcher with just two ImageViews by scheduling the switch through background thread. perfect!
-    private void createMySlideShow() {
-        petPhotos = myPet.getPetPhotosExtract();
+    private void createMySlideShow(boolean isFirstLaunching) {
+        if (isFirstLaunching) {
+            MyDBHelper dbHelper = new MyDBHelper(this);
+            dbHelper.open();
+            Cursor petPhotosCursor = dbHelper.getRecord(MyPetFriendContract.PetPhotosEntry.TABLE_NAME, null,
+                    MyPetFriendContract.PetPhotosEntry.PET_ID, String.valueOf(myPet.getPetId()));
+            while (petPhotosCursor.moveToNext()) {
+                myPet.addPetPhoto(petPhotosCursor.getLong(0), petPhotosCursor.getLong(1),
+                                petPhotosCursor.getBlob(2), petPhotosCursor.getLong(3), petPhotosCursor.getString(4));
+            }
+            petPhotosCursor.close();
+            dbHelper.close();
+        }
+        petPhotos = myPet.getPetPhotosExtracted();
 
         //switch between two ImageViews (with nice fading animation)
         viewSwitcher = (ViewSwitcher) this.findViewById(R.id.viewSwitcher);
@@ -257,7 +249,7 @@ public class PetProfileActivity extends AppCompatActivity {
 
         petProfilePic_img1 = (ThreeFourImageView) findViewById(R.id.petProfilePic_img1);
         petProfilePic_img2 = (ThreeFourImageView) findViewById(R.id.petProfilePic_img2);
-        add_fab = (FloatingActionButton) findViewById(R.id.add_fab);
+        addNewPhoto_fab = (FloatingActionButton) findViewById(R.id.add_fab);
     }
 
     @Override
@@ -274,6 +266,7 @@ public class PetProfileActivity extends AppCompatActivity {
                 Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
                 Intent intent = new Intent(this, AddEditPetActivity.class);
                 intent.putExtra("EditPetProfile", true);
+                myPet.getPetPhotos().clear();
                 intent.putExtra("petInfo", myPet);
                 startActivityForResult(intent, REQUEST_CODE_EDIT_PET, bundle);
                 return true;

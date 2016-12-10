@@ -146,6 +146,13 @@ public class MyPetFriendContract {
         public final static String COLUMN_PET_FEEDING_AMOUNT = "dailyFeedingAmountInCups";
         public final static String COLUMN_PET_TRAINING_SESSION = "trainingSessionInMinutes";
         public final static String COLUMN_PET_EXERCISE_NEEDS = "exerciseNeedsInMinutes";
+        public final static String BREED_OVERVIEW = "breedOverview";
+        public final static String BREED_HIGHLIGHTS = "breedHighLights";
+        public final static String BREED_PERSONALITY = "breedPersonality";
+        public final static String BREED_HEALTH = "breedHealth";
+        public final static String BREED_CARE = "breedCare";
+        public final static String BREED_FEEDING = "breedFeeding";
+        public final static String BREED_HISTORY = "breedHistory";
 
         public final static String COLUMN_PET_WEIGHTS = "weightList";
         public final static String COLUMN_PET_PHOTOS = "photos";
@@ -222,6 +229,13 @@ public class MyPetFriendContract {
         public final static String EXERCISE_NEEDS_LEVEL = "exerciseNeedsLevel"; //for exercise
         public final static String MIN_WEIGHT = "minWeight"; //in kg
         public final static String MAX_WEIGHT = "maxWeight"; //in kg
+        public final static String BREED_OVERVIEW = "breedOverview";
+        public final static String BREED_HIGHLIGHTS = "breedHighLights";
+        public final static String BREED_PERSONALITY = "breedPersonality";
+        public final static String BREED_HEALTH = "breedHealth";
+        public final static String BREED_CARE = "breedCare";
+        public final static String BREED_FEEDING = "breedFeeding";
+        public final static String BREED_HISTORY = "breedHistory";
     }
 
     public static final class StoredCatBreedsEntry implements BaseColumns {
@@ -233,6 +247,10 @@ public class MyPetFriendContract {
         public final static String GENERAL_HEALTH_LEVEL = "generalHealthLevel";
         public final static String MIN_WEIGHT = "minWeight";
         public final static String MAX_WEIGHT = "maxWeight";
+        public final static String BREED_PERSONALITY = "breedPersonality";
+        public final static String BREED_HEALTH = "breedHealth";
+        public final static String BREED_CARE = "breedCare";
+        public final static String BREED_HISTORY = "breedHistory";
     }
 }
 
