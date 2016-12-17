@@ -58,19 +58,13 @@
                 android:textColor="@color/colorPrimaryDark" />
 
             <EditText
-                android:id="@+id/profileTitle_etxt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Profile Title (e.g. Part-time pet sitter)" />
-
-            <EditText
                 android:id="@+id/profileDescription_etxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textMultiLine"
                 android:gravity="bottom"
                 android:layout_marginTop="5dp"
-                android:hint="Description: tell a little about yourself and describe your pet care experience and qualifications."
+                android:hint="Tell a little about yourself and describe your pet care experience and qualifications."
                 android:selectAllOnFocus="true" />
 
             <TextView
@@ -81,25 +75,12 @@
                 android:fontFamily="serif"
                 android:layout_marginTop="15dp" />
 
-            <LinearLayout
+            <EditText
+                android:id="@+id/phoneNumber_etxt"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <EditText
-                    android:id="@+id/phoneNumber_etxt"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:hint="Phone Number"
-                    android:inputType="phone"
-                    android:selectAllOnFocus="true" />
-
-                <Switch
-                    android:id="@+id/hidePhone_swch"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Hide it " />
-            </LinearLayout>
+                android:layout_height="wrap_content"
+                android:hint="Phone Number"
+                android:inputType="phone" />
         </LinearLayout>
 
         <LinearLayout
@@ -126,49 +107,16 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Years of experience:" />
+                    android:text="Availability:" />
 
                 <Spinner
-                    android:id="@+id/experienceYears_spnr"
+                    android:id="@+id/availability_spnr"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:entries="@array/x_years"
+                    android:entries="@array/availability"
                     android:layout_marginStart="10dp"
                     android:layout_marginLeft="10dp" />
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="$ Average rate/hour:"
-                android:layout_marginTop="15dp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <Spinner
-                    android:id="@+id/salaryFrom_spnr"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:entries="@array/salary_range"
-                    android:layout_weight="1" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="to:"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp" />
-
-                <Spinner
-                    android:id="@+id/salaryTo_spnr"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:entries="@array/salary_range"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal" />
             </LinearLayout>
 
             <LinearLayout
@@ -179,14 +127,33 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Availability:" />
+                    android:text="Years of experience:" />
 
                 <Spinner
-                    android:id="@+id/availability_spnr"
+                    android:id="@+id/experienceYears_spnr"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:entries="@array/availability"
+                    android:entries="@array/xp_years"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="$ Average rate/hour:"/>
+
+                <Spinner
+                    android:id="@+id/averageRatePerHour_spnr"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/average_rate_per_hour_range"
+                    android:layout_weight="1"
                     android:layout_marginStart="10dp"
                     android:layout_marginLeft="10dp" />
             </LinearLayout>
@@ -204,41 +171,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Aditional Information"
+                android:text="Additional Information"
                 android:fontFamily="serif"
                 android:textColor="@color/colorPrimaryDark" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Distance you're willing to travel from home:"
-                    android:layout_weight="1"
-                    android:ems="10" />
-
-                <EditText
-                    android:id="@+id/travelDistance_etxt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:hint="e.g. 30"
-                    android:ems="4"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginEnd="5dp"
-                    android:gravity="center"
-                    android:layout_gravity="bottom" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="km"
-                    android:textColor="@color/primaryText"
-                    android:layout_gravity="bottom" />
-            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -266,24 +201,17 @@
                     android:layout_weight="1" />
 
                 <CheckBox
-                    android:id="@+id/farmAnimalService_chk"
+                    android:id="@+id/horseService_chk"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Small Animals"
-                    android:layout_weight="1.3" />
+                    android:layout_weight="1"
+                    android:text="Horses" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center">
-
-                <CheckBox
-                    android:id="@+id/horseService_chk"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Horses" />
 
                 <CheckBox
                     android:id="@+id/birdService_chk"
@@ -296,8 +224,15 @@
                     android:id="@+id/fishService_chk"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Other Animals"
-                    android:layout_weight="1.3" />
+                    android:text="Fish"
+                    android:layout_weight="1" />
+
+                <CheckBox
+                    android:id="@+id/smallAnimalService_chk"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Small Animals"
+                    android:layout_weight="1" />
             </LinearLayout>
 
             <TextView
@@ -366,6 +301,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Save"
+            android:onClick="saveExtendedRegistration"
             android:layout_margin="10dp" />
 
     </LinearLayout>

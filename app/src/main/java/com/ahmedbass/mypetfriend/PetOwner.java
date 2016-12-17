@@ -1,34 +1,23 @@
 package com.ahmedbass.mypetfriend;
 
-import android.graphics.Bitmap;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 
 public class PetOwner implements Serializable {
 
-    final static int USER_TYPE_PET_OWNER = 1;
-    final static int USER_TYPE_PET_CARE_PROVIDER = 2;
-    final static int USER_TYPE_ADMIN = 3;
-    final static String GENDER_MALE = "Male";
-    final static String GENDER_FEMALE = "Female";
-
     private int userId;
     private long createDate;
+    private String userType;
     private String firstName;
     private String lastName;
     private String email;
     private String password;
     private long birthDate; //in milliseconds
     private String gender;
-    private String city;
     private String country;
-    private double latitudeLocation;
-    private double longitudeLocation;
-    private String phoneNumber;
-    private boolean isHidePhone;
-    private Bitmap profilePicture;
-    private int userType;
+    private String city;
+    private String phone;
+    private String profilePhoto;
 
     private ArrayList<Pet> myPets = new ArrayList<>();
     private ArrayList<Advert> myAdverts = new ArrayList<>();
@@ -37,42 +26,22 @@ public class PetOwner implements Serializable {
 
     public PetOwner() {}
 
-    //half-way registration constructor (can set remaining information later e.g. phoneNumber, profilePicture)
-    public PetOwner(int userId, String firstName, String lastName, String email, String password,
-                    long birthDate, String gender, String city, String country) {
+    public PetOwner(int userId, long createDate, String userType, String firstName, String lastName,
+                    String email, String password, long birthDate, String gender, String country, String city,
+                    String phone, String profilePhoto) {
         this.userId = userId;
+        this.createDate = createDate;
+        this.userType = userType;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.birthDate = birthDate;
         this.gender = gender;
-        this.city = city;
         this.country = country;
-        createDate = System.currentTimeMillis();
-        setUserType(USER_TYPE_PET_OWNER);
-    }
-
-    public PetOwner(int userId, String firstName, String lastName, String email, String password,
-                    long birthDate, String gender, String city, String country, String phoneNumber,
-                    boolean isHidePhone, Bitmap profilePicture, ArrayList<Pet> myPets, ArrayList<Advert> myAdverts) {
-        this.userId = userId;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
-        this.birthDate = birthDate;
-        this.gender = gender;
         this.city = city;
-        this.country = country;
-        this.phoneNumber = phoneNumber;
-        this.isHidePhone = isHidePhone;
-        this.profilePicture = profilePicture;
-        this.myPets = myPets;
-        this.myAdverts = myAdverts;
-
-        createDate = System.currentTimeMillis();
-        setUserType(USER_TYPE_PET_OWNER);
+        this.phone = phone;
+        this.profilePhoto = profilePhoto; //TODO see about this profilePhoto thing
     }
 
     public int getUserId() {
@@ -111,31 +80,19 @@ public class PetOwner implements Serializable {
         return country;
     }
 
-    public double getLatitudeLocation() {
-        return latitudeLocation;
+    public String getPhone() {
+        return phone;
     }
 
-    public double getLongitudeLocation() {
-        return longitudeLocation;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public boolean isHidePhone() {
-        return isHidePhone;
-    }
-
-    public Bitmap getProfilePicture() {
-        return profilePicture;
+    public String getProfilePhoto() {
+        return profilePhoto;
     }
 
     public long getCreateDate() {
         return createDate;
     }
 
-    public int getUserType() {
+    public String getUserType() {
         return userType;
     }
 
@@ -183,27 +140,15 @@ public class PetOwner implements Serializable {
         this.country = country;
     }
 
-    public void setLatitudeLocation(double latitudeLocation) {
-        this.latitudeLocation = latitudeLocation;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public void setLongitudeLocation(double longitudeLocation) {
-        this.longitudeLocation = longitudeLocation;
+    public void setProfilePhoto(String profilePhoto) {
+        this.profilePhoto = profilePhoto;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public void setHidePhone(boolean hidePhone) {
-        isHidePhone = hidePhone;
-    }
-
-    public void setProfilePicture(Bitmap profilePicture) {
-        this.profilePicture = profilePicture;
-    }
-
-    void setUserType(int userType) {
+    void setUserType(String userType) {
         this.userType = userType;
     }
 

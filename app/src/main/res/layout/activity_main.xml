@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:rowCount="3"
     android:columnCount="2"
     android:padding="16dp"
+    android:background="@drawable/my_app_background1"
     android:layout_gravity="center_vertical|center_horizontal"
     tools:context="com.ahmedbass.mypetfriend.MainActivity">
 
@@ -31,7 +31,7 @@
         android:layout_gravity="center">
 
         <ImageButton
-            android:id="@+id/my_pets_btn"
+            android:id="@+id/myPets_btn"
             style="@style/iconStyle_MainScreen"
             android:src="@drawable/ic_my_pets"
             android:layout_gravity="center"
@@ -65,7 +65,7 @@
         android:layout_gravity="center">
 
         <ImageButton
-            android:id="@+id/pet_places_btn"
+            android:id="@+id/petPlaces_btn"
             style="@style/iconStyle_MainScreen"
             android:src="@drawable/ic_find_pet_places"
             android:layout_gravity="center"
@@ -133,7 +133,7 @@
         android:layout_gravity="center">
 
         <ImageButton
-            android:id="@+id/pet_shop_btn"
+            android:id="@+id/petMarket_btn"
             style="@style/iconStyle_MainScreen"
             android:src="@drawable/ic_pet_shop"
             android:layout_gravity="center"

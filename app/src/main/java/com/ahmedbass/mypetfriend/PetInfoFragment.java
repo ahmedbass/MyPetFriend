@@ -1,8 +1,11 @@
 package com.ahmedbass.mypetfriend;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
+import android.transition.TransitionManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,7 +41,7 @@ public class PetInfoFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View rootView = inflater.inflate(R.layout.fragment_pet_info, container, false);
         this.rootView = rootView;
@@ -64,13 +67,17 @@ public class PetInfoFragment extends Fragment {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MMM/yyyy", Locale.getDefault());
         //calculating the age in years and months
         ageInYear = myPet.getPetAgeInYear(0);
-        ageInMonth = myPet.getPetAgeInMonth(0) * 10 / 12;
+        ageInMonth = myPet.getPetAgeInMonth(0) * 10 / 12; // *10/12 is to get a decimal percent e.g. 0.7
         birthDate_txtv.setText(sdf.format(myPet.getBirthDate()) +
                 "\n(" + ageInYear + (ageInMonth == 0 ? "" : "." + ageInMonth) + " years old)");
         gender_txtv.setText(myPet.getGender());
         type_txtv.setText(myPet.getType());
         breed_txtv.setText( myPet.getBreed());
         weight_txtv.setText(myPet.getCurrentWeight() == -1 ? "Not set" : myPet.getCurrentWeight() + " kg");
+        if(myPet.getCurrentWeight() != -1) { //if there's a weight set, do the color effect
+            weight_txtv.setTextColor((myPet.getCurrentWeight() < myPet.getMinWeight() || myPet.getCurrentWeight() > myPet.getMaxWeight()) ?
+                    getResources().getColor(R.color.nice_red) : getResources().getColor(R.color.nice_green));
+        }
         isNeutered_txtv.setText(myPet.isNeutered() ? "Yes" : "No");
         microchipNumber_txtv.setText(myPet.getMicrochipNumber().isEmpty() ? "Not set" : myPet.getMicrochipNumber());
 
@@ -83,8 +90,10 @@ public class PetInfoFragment extends Fragment {
 
         personalInformation_txtv.setOnClickListener(new View.OnClickListener() {
             boolean isDetailsShown;
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onClick(View view) {
+                TransitionManager.beginDelayedTransition(container);
                 if (isDetailsShown) {
                     personalInformation_gridLout.setVisibility(View.GONE);
                     isDetailsShown = false;
@@ -105,11 +114,13 @@ public class PetInfoFragment extends Fragment {
         return rootView;
     }
 
-    //for showing/hiding different pet information
+    //for showing/hiding different pet information (set onClickListener for views above)
     class HandleMyViewsClicks implements View.OnClickListener {
         boolean isDetailsShown;
+        @RequiresApi(api = Build.VERSION_CODES.KITKAT)
         @Override
         public void onClick(View view) {
+            TransitionManager.beginDelayedTransition((ViewGroup) view.getParent());
             switch (view.getId()) {
                 case R.id.breedHighlights_txtv:
                     if (isDetailsShown) {
@@ -118,7 +129,7 @@ public class PetInfoFragment extends Fragment {
                         isDetailsShown = false;
                     } else {
                         breedHighlights_txtv.setText(myPet.getBreedHighlights());
-                        breedHighlights_txtv.setTextSize(16);
+                        breedHighlights_txtv.setTextSize(18);
                         breedHighlights_txtv.setTextColor(getResources().getColor(R.color.primaryText));
                         isDetailsShown = true;
                     }
@@ -130,7 +141,7 @@ public class PetInfoFragment extends Fragment {
                         isDetailsShown = false;
                     } else {
                         breedPersonality_txtv.setText(myPet.getBreedPersonality());
-                        breedPersonality_txtv.setTextSize(16);
+                        breedPersonality_txtv.setTextSize(18);
                         breedPersonality_txtv.setTextColor(getResources().getColor(R.color.primaryText));
                         isDetailsShown = true;
                     }
@@ -142,7 +153,7 @@ public class PetInfoFragment extends Fragment {
                         isDetailsShown = false;
                     } else {
                         breedHealth_txtv.setText(myPet.getBreedHealth());
-                        breedHealth_txtv.setTextSize(16);
+                        breedHealth_txtv.setTextSize(18);
                         breedHealth_txtv.setTextColor(getResources().getColor(R.color.primaryText));
                         isDetailsShown = true;
                     }
@@ -154,7 +165,7 @@ public class PetInfoFragment extends Fragment {
                         isDetailsShown = false;
                     } else {
                         breedCare_txtv.setText(myPet.getBreedCare());
-                        breedCare_txtv.setTextSize(16);
+                        breedCare_txtv.setTextSize(18);
                         breedCare_txtv.setTextColor(getResources().getColor(R.color.primaryText));
                         isDetailsShown = true;
                     }
@@ -166,7 +177,7 @@ public class PetInfoFragment extends Fragment {
                         isDetailsShown = false;
                     } else {
                         breedFeeding_txtv.setText(myPet.getBreedFeeding());
-                        breedFeeding_txtv.setTextSize(16);
+                        breedFeeding_txtv.setTextSize(18);
                         breedFeeding_txtv.setTextColor(getResources().getColor(R.color.primaryText));
                         isDetailsShown = true;
                     }
@@ -178,7 +189,7 @@ public class PetInfoFragment extends Fragment {
                         isDetailsShown = false;
                     } else {
                         breedHistory_txtv.setText(myPet.getBreedHistory());
-                        breedHistory_txtv.setTextSize(16);
+                        breedHistory_txtv.setTextSize(18);
                         breedHistory_txtv.setTextColor(getResources().getColor(R.color.primaryText));
                         isDetailsShown = true;
                     }

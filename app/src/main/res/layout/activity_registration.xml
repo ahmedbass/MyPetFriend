@@ -23,21 +23,19 @@
             <EditText
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName"
+                android:inputType="textPersonName|textCapWords"
                 android:ems="10"
-                android:id="@+id/firstname_etxt"
+                android:id="@+id/firstName_etxt"
                 android:hint="First name"
-                android:layout_weight="1"
-                android:selectAllOnFocus="false" />
+                android:layout_weight="1" />
 
             <EditText
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:id="@+id/lastname_etxt"
+                android:inputType="textPersonName|textCapWords"
+                android:id="@+id/lastName_etxt"
                 android:hint="Last name"
-                android:layout_weight="1"
-                android:selectAllOnFocus="false" />
+                android:layout_weight="1" />
         </LinearLayout>
 
         <EditText
@@ -46,8 +44,7 @@
             android:inputType="textEmailAddress"
             android:id="@+id/email_etxt"
             android:hint="Email"
-            android:layout_marginTop="10dp"
-            android:selectAllOnFocus="false" />
+            android:layout_marginTop="10dp"/>
 
         <EditText
             android:layout_width="match_parent"
@@ -59,14 +56,28 @@
             android:layout_marginTop="10dp"
             android:selectAllOnFocus="true" />
 
-        <AutoCompleteTextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textAutoComplete"
-            android:id="@+id/location_etxt"
-            android:hint="Location: City, Country"
-            android:layout_marginTop="10dp"
-            android:selectAllOnFocus="true" />
+            android:layout_marginTop="10dp">
+
+            <AutoCompleteTextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="textAutoComplete"
+                android:id="@+id/country_etxt"
+                android:hint="Country" />
+
+            <AutoCompleteTextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="textAutoComplete"
+                android:id="@+id/city_etxt"
+                android:hint="City" />
+
+            </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -95,7 +106,7 @@
                 android:text="/" />
 
             <Spinner
-                android:id="@+id/monthPick_spr"
+                android:id="@+id/monthPick_spnr"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:entries="@array/months"
@@ -135,18 +146,21 @@
                 android:layout_weight="1" />
 
             <RadioGroup
+                android:id="@+id/gender_rgrp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_weight="2.5">
 
                 <RadioButton
+                    android:id="@+id/genderMale_rbtn"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="Male"
                     android:layout_weight="1" />
 
                 <RadioButton
+                    android:id="@+id/genderFemale_rbtn"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="Female"
@@ -171,7 +185,7 @@
                 android:layout_weight="1" />
 
             <RadioGroup
-                android:id="@+id/usertype_rgrp"
+                android:id="@+id/userType_rgrp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"

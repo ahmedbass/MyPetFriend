@@ -1,14 +1,13 @@
 package com.ahmedbass.mypetfriend;
 
 import android.graphics.Bitmap;
-import android.location.Location;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 
 class Advert implements Serializable {
 
-    //TODO see if this class needs modifications (specially with location, and other category than pets)
+    //TODO see if this class needs modifications (specially with country, and other category than pets)
 
     final static String CATEGORY_PETS = "Pets";
     final static String CATEGORY_TOOLS = "Tools";
@@ -17,77 +16,64 @@ class Advert implements Serializable {
     final static String TYPE_BREEDING = "For Breeding";
     final static String TYPE_WANTED = "Wanted";
 
-    private int advertId;
-    private PetOwner seller;
+    private long advertId;
+    private long sellerId;
     private long createDate; //in milliseconds
     private boolean isSold;
     private int viewCount;
-    private String title;
-    private double price;
     private String category;
     private String type;
+    private String title;
+    private double price;
     private String details;
-    private Location location;
-    private String city;
     private String country;
+    private String city;
+    private String email;
+    private String phone;
+    private String petType;
+    private String petBreed;
+    private long petBirthDate;
+    private String petGender;
+    private boolean isPetMicroChipped;
+    private boolean isNeutered;
+    private boolean isPetVaccinated;
+    private String photo;
     private ArrayList<Bitmap> photos = new ArrayList<>();
 
-    private String petType; //1=cats, 2=dogs, 3=horses, 4=rabbits, 5=birds, 6=fish;
-    private String petBreed; //each pet has different breeds obv.
-    private int petAgeInMonths;
-    private String petGender;
-    private boolean isMicroChipped;
-    private boolean isNeutered;
-    private boolean isVaccinated;
-
-    public Advert(int advertId, PetOwner seller, String title, double price, String category,
-                  String type, String details, ArrayList<Bitmap> photos, Location location, String city, String country) {
+    public Advert(long advertId, long sellerId, long createDate, boolean isSold, int viewCount, String category, String type,
+                  String title, double price, String details, String country, String city, String email, String phone,
+                  String petType, String petBreed, long petBirthDate, String petGender,
+                  boolean isPetMicroChipped, boolean isNeutered, boolean isPetVaccinated, String photo) {
         this.advertId = advertId;
-        this.seller = seller;
-        this.title = title;
-        this.price = price;
-        this.createDate = System.currentTimeMillis();
-        this.category = category;
-        this.type = type;
-        this.details = details;
-        this.photos = photos;
-        this.location = location;
-        this.city = city;
-        this.country = country;
-    }
-
-    public Advert(int advertId, PetOwner seller, String title, double price, long createDate, String category,
-                  String type, String details, ArrayList<Bitmap> photos, Location location, String city,
-                  String country, String petType, String petBreed, int petAgeInMonths, String petGender,
-                  boolean isMicroChipped, boolean isNeutered, boolean isVaccinated, boolean isSold) {
-        this.advertId = advertId;
-        this.seller = seller;
-        this.title = title;
-        this.price = price;
+        this.sellerId = sellerId;
         this.createDate = createDate;
+        this.isSold = isSold;
+        this.viewCount = viewCount;
         this.category = category;
         this.type = type;
+        this.title = title;
+        this.price = price;
         this.details = details;
-        this.photos = photos;
-        this.location = location;
-        this.city = city;
         this.country = country;
+        this.city = city;
+        this.email = email;
+        this.phone = phone;
         this.petType = petType;
         this.petBreed = petBreed;
-        this.petAgeInMonths = petAgeInMonths;
+        this.petBirthDate = petBirthDate;
         this.petGender = petGender;
-        this.isMicroChipped = isMicroChipped;
+        this.isPetMicroChipped = isPetMicroChipped;
         this.isNeutered = isNeutered;
-        this.isVaccinated = isVaccinated;
-        this.isSold = isSold;
+        this.isPetVaccinated = isPetVaccinated;
+        this.photo = photo;
     }
 
-    public int getAdvertId() {
+    public long getAdvertId() {
         return advertId;
     }
 
-    public PetOwner getSeller() {
-        return seller;
+    public long getSellerId() {
+        return sellerId;
     }
 
     public String getTitle() {
@@ -118,10 +104,6 @@ class Advert implements Serializable {
         return photos;
     }
 
-    public Location getLocation() {
-        return location;
-    }
-
     public String getCity() {
         return city;
     }
@@ -138,27 +120,67 @@ class Advert implements Serializable {
         return petBreed;
     }
 
-    public int getPetAgeInMonths() {
-        return petAgeInMonths;
-    }
-
     public String getPetGender() {
         return petGender;
     }
 
-    public boolean isMicroChipped() {
-        return isMicroChipped;
+    public boolean isPetMicroChipped() {
+        return isPetMicroChipped;
     }
 
     public boolean isNeutered() {
         return isNeutered;
     }
 
-    public boolean isVaccinated() {
-        return isVaccinated;
+    public boolean isPetVaccinated() {
+        return isPetVaccinated;
     }
 
     public boolean isSold() {
         return isSold;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public long getPetBirthDate() {
+        return petBirthDate;
+    }
+
+    public void setPetBirthDate(long petBirthDate) {
+        this.petBirthDate = petBirthDate;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    public int getViewCount() {
+        return viewCount;
+    }
+
+    public void setViewCount(int viewCount) {
+        this.viewCount = viewCount;
+    }
+
+    public void incrementViewCount(){
+        this.viewCount++;
     }
 }

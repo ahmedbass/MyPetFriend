@@ -16,7 +16,7 @@
         app:srcCompat="@drawable/pet_paw"
         android:background="@color/white"
         android:padding="1.5dp"
-        android:scaleType="centerCrop"
+        android:scaleType="centerInside"
         android:adjustViewBounds="true"
         android:cropToPadding="true"
         android:layout_marginRight="2dp"
@@ -31,7 +31,7 @@
         android:paddingEnd="5dp">
 
         <TextView
-            android:id="@+id/list_deal_title"
+            android:id="@+id/advertTitle_txtv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:maxLines="2"
@@ -40,7 +40,7 @@
             android:textColor="@color/colorPrimaryDark" />
 
         <TextView
-            android:id="@+id/list_deal_location"
+            android:id="@+id/advertLocation_txtv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="City, Country"
@@ -62,7 +62,7 @@
             android:paddingEnd="5dp">
 
             <TextView
-                android:id="@+id/list_deal_price"
+                android:id="@+id/advertPrice_txtv"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 tools:text="$5,000"
@@ -70,7 +70,7 @@
                 android:layout_weight="1" />
 
             <TextView
-                android:id="@+id/list_deal_date"
+                android:id="@+id/advertCreateDate_txtv"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 tools:text="01/12/2016"

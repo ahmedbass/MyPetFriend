@@ -64,8 +64,8 @@ public class PetScheduleFragment extends Fragment {
         final CalendarView calendarView = (CalendarView) rootView.findViewById(R.id.calendarview);
         activitiesOfDay_lv = (ListView) rootView.findViewById(activitiesOfDay_listview);
 
-        //set Calendar Min Date to choose from (starts from pet create date, max is no limits)
-        calendarView.setMinDate(myPet.getCreateDate());
+        //set Calendar Min Date to choose from (starts from pet birth date, max is no limits)
+        calendarView.setMinDate(myPet.getBirthDate());
         currentDate = Calendar.getInstance();
 
         myAdapter = new MyAdapter(getContext(), getActivitiesOfSelectedDate(currentDate));
@@ -142,7 +142,7 @@ public class PetScheduleFragment extends Fragment {
     public ArrayList<Pet.ScheduleActivity> getActivitiesOfSelectedDate(Calendar currentDate) {
         activitiesOfTheDay.clear(); //clear so it displays only the activities of that day (rather than accumulate on old replicate entries)
         Calendar createDate = Calendar.getInstance();
-        createDate.setTimeInMillis(myPet.getCreateDate());
+        createDate.setTimeInMillis(myPet.getBirthDate());
 
         //count the difference of days between the two dates
         int createDay = createDate.get(Calendar.DAY_OF_YEAR);
@@ -199,13 +199,30 @@ public class PetScheduleFragment extends Fragment {
             }
 
             // Get the scheduleActivity located at this position in the list
-            Pet.ScheduleActivity currentScheduleActivity = getItem(position);
+            final Pet.ScheduleActivity currentScheduleActivity = getItem(position);
 
             ImageView activityIcon = (ImageView) listItemView.findViewById(R.id.scheduleActivityIcon_img);
             activityIcon.setImageResource(currentScheduleActivity.getIcon());
 
-            TextView activityType_txtv = (TextView) listItemView.findViewById(R.id.scheduleActivityType_txtv);
+            final TextView activityType_txtv = (TextView) listItemView.findViewById(R.id.scheduleActivityType_txtv);
             activityType_txtv.setText(currentScheduleActivity.getType());
+            if(!currentScheduleActivity.getNotes().isEmpty()) {
+                activityType_txtv.setOnClickListener(new View.OnClickListener() {
+                    boolean isNotesShown;
+                    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+                    @Override
+                    public void onClick(View view) {
+                        TransitionManager.beginDelayedTransition((ViewGroup) view.getParent());
+                        if (isNotesShown) {
+                            activityType_txtv.setText(currentScheduleActivity.getType());
+                            isNotesShown = false;
+                        } else {
+                            activityType_txtv.setText(currentScheduleActivity.getType() + "\n(" + currentScheduleActivity.getNotes() + ")");
+                            isNotesShown = true;
+                        }
+                    }
+                });
+            }
 
             TextView activityTime_txtv = (TextView) listItemView.findViewById(R.id.scheduleActivityTime_txtv);
             activityTime_txtv.setText(currentScheduleActivity.getDisplayTime());

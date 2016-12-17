@@ -13,10 +13,10 @@
         android:layout_width="0dp"
         android:layout_height="80dp"
         android:layout_weight="1"
-        android:src="@drawable/pet_paw"
+        android:src="@drawable/user_profile"
         android:background="@color/white"
         android:padding="2dp"
-        android:scaleType="centerCrop"
+        android:scaleType="centerInside"
         android:adjustViewBounds="true"
         android:cropToPadding="true"
         android:layout_marginRight="2dp"
@@ -31,7 +31,7 @@
         android:paddingEnd="5dp">
 
         <TextView
-            android:id="@+id/petCareProvider_name_txtv"
+            android:id="@+id/petCareProviderName_txtv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:maxLines="1"
@@ -41,7 +41,7 @@
             android:layout_margin="2dp" />
 
         <TextView
-            android:id="@+id/petCareProvider_location_txtv"
+            android:id="@+id/petCareProviderLocation_txtv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="city, country"
@@ -106,7 +106,7 @@
             android:paddingEnd="5dp">
 
             <TextView
-                android:id="@+id/petCareProvider_availability_txtv"
+                android:id="@+id/petCareProviderAvailability_txtv"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="FULL-TIME"
@@ -120,7 +120,7 @@
                 android:background="@android:color/darker_gray" />
 
             <TextView
-                android:id="@+id/petCareProvider_experienceYears_txtv"
+                android:id="@+id/petCareProviderExperienceYears_txtv"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="0"
@@ -134,12 +134,12 @@
                 android:background="@android:color/darker_gray" />
 
             <TextView
-                android:id="@+id/petCareProvider_payRate_txtv"
+                android:id="@+id/petCareProviderAverageRatePerHour_txtv"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="$10-15/hr"
+                android:text="$15/hr"
                 android:gravity="center" />
         </LinearLayout>
     </LinearLayout>

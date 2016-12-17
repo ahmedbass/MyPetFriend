@@ -9,7 +9,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,14 +17,25 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.Gallery;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.text.NumberFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
 public class AdvertActivity extends AppCompatActivity {
 
-    Advert advert;
-    ImageView advertImage;
+    ImageView advertPhoto_img;
+    TextView advertType_txtv, price_txtv, petType_txtv, petBreed_txtv, petAge_txtv, isPetMicrochipped_txtv, isPetNeutered_txtv, isPetVaccinated_txtv,
+            advertDetails_txtv, sellerName_txtv, advertLocation_txtv;
+    Button sellerPhone_btn, sellerEmail_btn;
+
+    Advert currentAdvert;
     int[] advertPhotos = {
             R.drawable.dog_img,
             R.drawable.pic,
@@ -39,26 +49,108 @@ public class AdvertActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_advert);
 
-        //get advert information from intent with advert object
-        advert = (Advert) getIntent().getSerializableExtra("advertInfo");
+        //get currentAdvert information from intent with currentAdvert object
+        if (getIntent() != null && getIntent().getSerializableExtra("advertInfo") != null) {
+            currentAdvert = (Advert) getIntent().getSerializableExtra("advertInfo");
+        } else {
+            Toast.makeText(this, "Error: Cannot Retrieve Advert Information", Toast.LENGTH_SHORT).show();
+        }
 
-        //set the title of the advert on the actionbar
-        ActionBar actionBar = getSupportActionBar();
-        assert actionBar != null;
-        actionBar.setTitle(advert.getTitle());
+        initializeMyViews();
+        setAdvertInfoInViews();
 
         handleAdvertImages();
 
     }
 
+    private void setAdvertInfoInViews() {
+        //set the title of the currentAdvert on the actionbar
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(currentAdvert.getTitle());
+        }
+        advertType_txtv.setText(currentAdvert.getType().isEmpty() ? "Not Available" : currentAdvert.getType());
+        price_txtv.setText(String.valueOf(currentAdvert.getPrice()).isEmpty() ?
+                "Not Available" : NumberFormat.getCurrencyInstance(Locale.getDefault()).format(currentAdvert.getPrice()));
+        petType_txtv.setText(currentAdvert.getPetType().isEmpty() ? "Not Available" : currentAdvert.getPetType());
+        petBreed_txtv.setText(currentAdvert.getPetBreed().isEmpty() ? "Not Available" : currentAdvert.getPetBreed());
+        petAge_txtv.setText(getDisplayedPetAge(currentAdvert.getPetBirthDate()));
+        isPetMicrochipped_txtv.setText(currentAdvert.isPetMicroChipped() ? "Yes" : "No");
+        isPetNeutered_txtv.setText(currentAdvert.isNeutered() ? "Yes" : "No");
+        isPetVaccinated_txtv.setText(currentAdvert.isPetVaccinated() ? "Yes" : "No");
+        advertDetails_txtv.setText(currentAdvert.getDetails().isEmpty() ? "Details Not Available" : currentAdvert.getDetails());
+        advertLocation_txtv.setText((currentAdvert.getCity().isEmpty() && currentAdvert.getCountry().isEmpty()) ?
+                "Location Not Available" : currentAdvert.getCity() + ", " + currentAdvert.getCountry());
+        if (currentAdvert.getPhone().isEmpty()) {
+            sellerPhone_btn.setEnabled(false);
+            sellerPhone_btn.setText("Phone Number Unavailable");
+        } else {
+            sellerPhone_btn.setText("Phone: " + currentAdvert.getPhone());
+        }
+        if(currentAdvert.getEmail().isEmpty()) {
+            sellerEmail_btn.setEnabled(false);
+            sellerEmail_btn.setText("Email Unavailable");
+        } else {
+            sellerEmail_btn.setText("Email: " + currentAdvert.getEmail());
+        }
+    }
+
+    public String getDisplayedPetAge(long birthDate) {
+        int ageInYear, ageInMonth;
+        Calendar birthCalender = Calendar.getInstance();
+        birthCalender.setTimeInMillis(birthDate);
+        ageInYear = Calendar.getInstance().get(Calendar.YEAR) - birthCalender.get(Calendar.YEAR);
+        ageInMonth = (Calendar.getInstance().get(Calendar.MONTH) - birthCalender.get(Calendar.MONTH)) * 10 / 12;
+
+        return ageInYear + (ageInMonth > 0 ? "." + ageInMonth : "") + " years old";
+    }
+
+    private void initializeMyViews() {
+        advertPhoto_img = (ImageView) findViewById(R.id.advertPhoto_img);
+        advertType_txtv = (TextView) findViewById(R.id.advertType_txtv);
+        price_txtv = (TextView) findViewById(R.id.price_txtv);
+        petType_txtv = (TextView) findViewById(R.id.petType_txtv);
+        petBreed_txtv = (TextView) findViewById(R.id.petBreed_txtv);
+        petAge_txtv = (TextView) findViewById(R.id.petAge_txtv);
+        isPetMicrochipped_txtv = (TextView) findViewById(R.id.isPetMicrochipped_txtv);
+        isPetNeutered_txtv = (TextView) findViewById(R.id.isPetNeutered_txtv);
+        isPetVaccinated_txtv = (TextView) findViewById(R.id.isPetVaccinated_txtv);
+        advertDetails_txtv = (TextView) findViewById(R.id.advertDetails_txtv);
+        advertLocation_txtv = (TextView) findViewById(R.id.advertLocation_txtv);
+        sellerPhone_btn = (Button) findViewById(R.id.sellerPhone_btn);
+        sellerEmail_btn = (Button) findViewById(R.id.sellerEmail_btn);
+    }
+
+    //possible ways of contacting the seller (phone call, email)
+    public void contactSeller(View view) {
+        switch (view.getId()) {
+            case R.id.sellerPhone_btn:
+                String sellerPhoneNumber = currentAdvert.getPhone();
+                Intent phoneIntent = new Intent(Intent.ACTION_DIAL);
+                phoneIntent.setData(Uri.parse("tel:" + sellerPhoneNumber));
+                if (phoneIntent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(phoneIntent);
+                }
+                break;
+            case R.id.sellerEmail_btn:
+                String sellerEmail = currentAdvert.getEmail();
+                Intent emailIntent = new Intent(Intent.ACTION_SEND);
+                emailIntent.setType("message/rfc822");
+                emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{sellerEmail});
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "My PetFriend Advert: " + currentAdvert.getTitle());
+                if (emailIntent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(emailIntent);
+                }
+                break;
+        }
+    }
+
     private void handleAdvertImages() {
-        advertImage = (ImageView) findViewById(R.id.advert_images);
-        advertImage.setImageResource(advertPhotos[0]);
-        advertImage.setOnClickListener(new View.OnClickListener() {
+        advertPhoto_img.setImageResource(advertPhotos[0]);
+        advertPhoto_img.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT_WATCH)
             @Override
             public void onClick(View v) {
-                showImage();
+                showPhoto();
             }
         });
         Gallery gallery = (Gallery) findViewById(R.id.gallery);
@@ -67,48 +159,23 @@ public class AdvertActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //---display the images selected---
-                advertImage.setImageResource(advertPhotos[position]);
+                advertPhoto_img.setImageResource(advertPhotos[position]);
             }
         });
     }
 
-    // when user clicks on the advert image, it opens this dialog to show it bigger
-    public void showImage() {
+    // when user clicks on the currentAdvert image, it opens this dialog to show it bigger
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT_WATCH)
+    public void showPhoto() {
         Dialog builder = new Dialog(this);
         builder.requestWindowFeature(Window.FEATURE_SWIPE_TO_DISMISS);
         builder.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         builder.setCanceledOnTouchOutside(true);
 
         ImageView imageView = new ImageView(this);
-        imageView.setImageDrawable(advertImage.getDrawable());
-        builder.addContentView(imageView, new RelativeLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT));
+        imageView.setImageDrawable(advertPhoto_img.getDrawable());
+        builder.addContentView(imageView, new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         builder.show();
-    }
-
-    //possible ways of contacting the seller (phone call, email)
-    public void contactSeller(View view) {
-        switch (view.getId()) {
-            case R.id.call_seller_btn:
-                String sellerPhoneNumber = "+966123456789";
-                Intent phoneIntent = new Intent(Intent.ACTION_DIAL);
-                phoneIntent.setData(Uri.parse("tel:" + sellerPhoneNumber));
-                if (phoneIntent.resolveActivity(getPackageManager()) != null) {
-                    startActivity(phoneIntent);
-                }
-                break;
-            case R.id.email_seller_btn:
-                String sellerEmail = "jon@example.com";
-                Intent emailIntent = new Intent(Intent.ACTION_SEND);
-                emailIntent.setType("message/rfc822");
-                emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{sellerEmail});
-                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "My PetFriend Advert: " + advert.getTitle());
-                if (emailIntent.resolveActivity(getPackageManager()) != null) {
-                    startActivity(emailIntent);
-                }
-                break;
-        }
     }
 
     //adapter for the gallery

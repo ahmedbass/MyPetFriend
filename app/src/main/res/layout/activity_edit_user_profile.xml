@@ -1,0 +1,535 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_add_edit_advert"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context="com.ahmedbass.mypetfriend.EditUserProfileActivity">
+
+    <LinearLayout
+        android:id="@+id/container_lout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:orientation="vertical">
+
+        <ImageButton
+            android:id="@+id/uploadPhoto_btn"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:src="@drawable/user1"
+            android:scaleType="centerInside"
+            android:padding="15dp"
+            android:layout_gravity="center_horizontal" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/white"
+            android:elevation="2dp"
+            android:padding="10dp"
+            android:layout_marginTop="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:ems="10"
+                    android:id="@+id/firstName_etxt"
+                    android:hint="First name"
+                    android:layout_weight="1"
+                    android:enabled="false"
+                    android:textColor="@color/primaryText"/>
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:id="@+id/lastName_etxt"
+                    android:hint="Last name"
+                    android:layout_weight="1"
+                    android:enabled="false"
+                    android:textColor="@color/primaryText"/>
+            </LinearLayout>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:id="@+id/email_etxt"
+                android:hint="Email"
+                android:layout_marginTop="10dp"
+                android:focusable="false"
+                android:enabled="false"
+                android:textColor="@color/primaryText"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:fontFamily="sans-serif"
+                android:id="@+id/password_etxt"
+                android:hint="Password (at least 6 characters)"
+                android:layout_marginTop="10dp"
+                android:enabled="false"
+                android:textColor="@color/primaryText"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <AutoCompleteTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:inputType="textAutoComplete"
+                    android:id="@+id/country_etxt"
+                    android:hint="Country"
+                    android:enabled="false"
+                    android:textColor="@color/primaryText"/>
+
+                <AutoCompleteTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:inputType="textAutoComplete"
+                    android:id="@+id/city_etxt"
+                    android:hint="City"
+                    android:enabled="false"
+                    android:textColor="@color/primaryText"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Birth Date: " />
+
+                <EditText
+                    android:id="@+id/dayPick_etxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:hint="Day"
+                    android:ems="2"
+                    android:gravity="center"
+                    android:selectAllOnFocus="true"
+                    android:layout_weight="1"
+                    android:enabled="false"
+                    android:textColor="@color/primaryText"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="/" />
+
+                <Spinner
+                    android:id="@+id/monthPick_spnr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:entries="@array/months"
+                    android:layout_weight="1"
+                    style="@android:style/Widget.Material.Spinner.Underlined"
+                    tools:targetApi="lollipop"
+                    android:clickable="false" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="/" />
+
+                <EditText
+                    android:id="@+id/yearPick_etxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:hint="Year"
+                    android:ems="3"
+                    android:gravity="center"
+                    android:selectAllOnFocus="true"
+                    android:layout_weight="1"
+                    android:enabled="false"
+                    android:textColor="@color/primaryText"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Gender: "
+                    android:layout_marginRight="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1" />
+
+                <RadioGroup
+                    android:id="@+id/gender_rgrp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_weight="2.5">
+
+                    <RadioButton
+                        android:id="@+id/genderMale_rbtn"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Male"
+                        android:layout_weight="1"
+                        android:enabled="false"
+                        android:textColor="@color/primaryText"/>
+
+                    <RadioButton
+                        android:id="@+id/genderFemale_rbtn"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Female"
+                        android:layout_weight="1"
+                        android:enabled="false"
+                        android:textColor="@color/primaryText"/>
+                </RadioGroup>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="10dp"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="User Type: "
+                    android:layout_marginRight="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1" />
+
+                <RadioGroup
+                    android:id="@+id/userType_rgrp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_weight="2.5">
+
+                    <RadioButton
+                        android:id="@+id/petOwner_rbtn"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Pet Owner"
+                        android:layout_weight="1"
+                        android:layout_gravity="center"
+                        android:enabled="false"
+                        android:textColor="@color/primaryText"/>
+
+                    <RadioButton
+                        android:id="@+id/petCareProvider_rbtn"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Pet Care Provider"
+                        android:layout_weight="1"
+                        android:enabled="false"
+                        android:textColor="@color/primaryText"/>
+                </RadioGroup>
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/phoneNumber_etxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Phone Number"
+                android:inputType="phone"
+                android:enabled="false"
+                android:textColor="@color/primaryText"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/profileDescription_lout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/white"
+            android:elevation="2dp"
+            android:padding="10dp"
+            android:layout_marginTop="20dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Your Bio"
+                android:fontFamily="serif"
+                android:textColor="@color/colorPrimaryDark"/>
+
+            <EditText
+                android:id="@+id/profileDescription_etxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:gravity="top"
+                android:background="@color/white"
+                android:padding="10dp"
+                android:layout_marginTop="5dp"
+                android:hint="Tell a little about yourself and describe your pet care experience and qualifications."
+                android:enabled="false"
+                android:textColor="@color/primaryText"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ExperienceAndSalary_lout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/white"
+            android:elevation="2dp"
+            android:padding="10dp"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Experience and Salary"
+                android:fontFamily="serif"
+                android:textColor="@color/colorPrimaryDark" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Availability:" />
+
+                <Spinner
+                    android:id="@+id/availability_spnr"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:entries="@array/availability"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Years of experience:" />
+
+                <Spinner
+                    android:id="@+id/experienceYears_spnr"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:entries="@array/xp_years"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="$ Average rate/hour:"/>
+
+                <Spinner
+                    android:id="@+id/averageRatePerHour_spnr"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/average_rate_per_hour_range"
+                    android:layout_weight="1"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/additionalInformation_lout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/white"
+            android:elevation="2dp"
+            android:padding="10dp"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Additional Information"
+                android:fontFamily="serif"
+                android:textColor="@color/colorPrimaryDark" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="Service provided for:" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <CheckBox
+                    android:id="@+id/catService_chk"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Cats"
+                    android:layout_weight="1"
+                    android:enabled="false"
+                    android:textColor="@color/primaryText" />
+
+                <CheckBox
+                    android:id="@+id/dogService_chk"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Dogs"
+                    android:layout_weight="1"
+                    android:enabled="false"
+                    android:textColor="@color/primaryText" />
+
+                <CheckBox
+                    android:id="@+id/horseService_chk"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Horses"
+                    android:enabled="false"
+                    android:textColor="@color/primaryText" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <CheckBox
+                    android:id="@+id/birdService_chk"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Birds"
+                    android:layout_weight="1"
+                    android:enabled="false"
+                    android:textColor="@color/primaryText"  />
+
+                <CheckBox
+                    android:id="@+id/fishService_chk"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Fish"
+                    android:layout_weight="1"
+                    android:enabled="false"
+                    android:textColor="@color/primaryText" />
+
+                <CheckBox
+                    android:id="@+id/smallAnimalService_chk"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Small Animals"
+                    android:layout_weight="1"
+                    android:enabled="false"
+                    android:textColor="@color/primaryText" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Services provided:"
+                android:enabled="false"
+                android:textColor="@color/primaryText"  />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <CheckBox
+                    android:id="@+id/petSitting_chk"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Pet Sitting"
+                    android:layout_weight="1"
+                    android:enabled="false"
+                    android:textColor="@color/primaryText" />
+
+                <CheckBox
+                    android:id="@+id/petWalking_chk"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Pet Walking"
+                    android:layout_weight="1.1"
+                    android:enabled="false"
+                    android:textColor="@color/primaryText" />
+
+                <CheckBox
+                    android:id="@+id/petGrooming_chk"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Grooming"
+                    android:enabled="false"
+                    android:textColor="@color/primaryText" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <CheckBox
+                    android:id="@+id/petTraining_chk"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Training"
+                    android:layout_weight="1"
+                    android:enabled="false"
+                    android:textColor="@color/primaryText" />
+
+                <CheckBox
+                    android:id="@+id/petVeterinary_chk"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Veterinary"
+                    android:layout_weight="1.1"
+                    android:enabled="false"
+                    android:textColor="@color/primaryText" />
+
+                <CheckBox
+                    android:id="@+id/petBoarding_chk"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Boarding"
+                    android:layout_weight="1"
+                    android:enabled="false"
+                    android:textColor="@color/primaryText" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

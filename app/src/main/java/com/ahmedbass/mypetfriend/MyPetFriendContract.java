@@ -15,24 +15,33 @@ public class MyPetFriendContract {
         public final static String _ID = BaseColumns._ID;
         public final static String COLUMN_CREATE_DATE = "createDate";
         public final static String COLUMN_USER_TYPE = "userType";
-        public final static String COLUMN_EMAIL = "email";
-        public final static String COLUMN_PASSWORD = "password";
         public final static String COLUMN_FIRST_NAME = "firstName";
         public final static String COLUMN_LAST_NAME = "lastName";
+        public final static String COLUMN_EMAIL = "email";
+        public final static String COLUMN_PASSWORD = "password";
         public final static String COLUMN_BIRTH_DATE = "birthDate";
         public final static String COLUMN_GENDER = "gender";
-        public final static String COLUMN_CITY = "city";
         public final static String COLUMN_COUNTRY = "country";
-        public final static String COLUMN_PROFILE_PICTURE = "profilePicture";
-        public final static String COLUMN_PHONE_NUMBER = "phoneNumber";
+        public final static String COLUMN_CITY = "city";
+        public final static String COLUMN_PHONE = "phone";
+        public final static String COLUMN_PROFILE_PHOTO = "profilePhoto";
 
-        public final static String COLUMN_PROFILE_BIO = "profileBio";
+        public final static String COLUMN_PROFILE_DESCRIPTION = "profileDescription";
+        public final static String COLUMN_AVAILABILITY = "availability";
         public final static String COLUMN_YEARS_OF_EXPERIENCE = "yearsOfExperience";
         public final static String COLUMN_AVERAGE_RATE_PER_HOUR = "averageRatePerHour";
-        public final static String COLUMN_AVAILABILITY = "availability";
-        public final static String COLUMN_TRAVEL_DISTANCE = "travelDistance";
         public final static String COLUMN_SERVICE_PROVIDED_FOR = "serviceProvidedFor";
         public final static String COLUMN_SERVICE_PROVIDED = "serviceProvided";
+
+        //static values
+        final static String USER_TYPE_PET_OWNER = "PetOwner";
+        final static String USER_TYPE_PET_CARE_PROVIDER = "PetCareProvider";
+        final static String USER_TYPE_ADMIN = "Admin";
+        final static String GENDER_MALE = "Male";
+        final static String GENDER_FEMALE = "Female";
+
+        final static String AVAILABILITY_FULL_TIME = "FULL-TIME";
+        final static String AVAILABILITY_PART_TIME = "PART-TIME";
     }
 
     public static final class UserOfferedAdvertsEntry implements BaseColumns {

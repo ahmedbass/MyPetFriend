@@ -81,7 +81,7 @@ public class MyDBHelper extends SQLiteOpenHelper {
     }
 
     //---update a record---
-    public int updateRecord(String table, String[] columnsNames, Object[] columnsValues, String selection, long rowId) {
+    public int updateRecord(String table, String[] columnsNames, Object[] columnsValues, String selection, String selectionArg) {
         ContentValues values = new ContentValues();
         for(int i = 1; i < columnsNames.length; i++) {
             if(columnsValues[i] instanceof String) {
@@ -99,8 +99,9 @@ public class MyDBHelper extends SQLiteOpenHelper {
             } else if (columnsValues[i] instanceof Byte[]) {
                 values.put(columnsNames[i], ((byte[]) columnsValues[i]));
             }
+//            Toast.makeText(context, values.getAsString(columnsNames[i]), Toast.LENGTH_SHORT).show();
         }
-        return db.update(table, values, selection + "=" + rowId, null);
+        return db.update(table, values, selection + "=" + selectionArg, null);
     }
 
     //---delete a particular record---

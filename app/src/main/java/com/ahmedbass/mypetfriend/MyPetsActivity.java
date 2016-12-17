@@ -21,6 +21,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import static com.ahmedbass.mypetfriend.ItemPetFragment.REQUEST_CODE_OPEN_PET_PROFILE;
+import static com.ahmedbass.mypetfriend.LauncherActivity.CURRENT_USER_INFO_PREFS;
 
 public class MyPetsActivity extends AppCompatActivity {
 
@@ -29,12 +30,17 @@ public class MyPetsActivity extends AppCompatActivity {
 
     private ArrayList<Pet> myListOfPets;
     ViewPager myPetsViewPager;
+    int petOwnerId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_pets);
 
+        petOwnerId = getSharedPreferences(CURRENT_USER_INFO_PREFS, MODE_PRIVATE).getInt(MyPetFriendContract.UsersEntry._ID, -1);
+        if (petOwnerId == -1) {
+            Toast.makeText(this, "Error: User Information Cannot Be Found", Toast.LENGTH_SHORT).show();
+        }
         getPetListFromDB();
         setViewPager();
     }
@@ -45,9 +51,10 @@ public class MyPetsActivity extends AppCompatActivity {
             //read pets from database and create pet objects from it
             MyDBHelper dbHelper = new MyDBHelper(this);
             dbHelper.open();
-            //TODO read only pets owned by current pet owner (where petOwnerId)
-            Cursor petsCursor = dbHelper.getAllRecords(MyPetFriendContract.PetsEntry.TABLE_NAME, null);
+            Cursor petsCursor = dbHelper.getRecord(MyPetFriendContract.PetsEntry.TABLE_NAME, null,
+                    MyPetFriendContract.PetsEntry.COLUMN_OWNER_ID, String.valueOf(petOwnerId));
             Cursor petScheduleActivitiesCursor, petVaccinesCursor, petWeightListCursor;
+            //get pets of current user from database, and nested whiles are for adding that pet's multi data (data that are stored in arrays)
             while(petsCursor.moveToNext()) {
                 myListOfPets.add(new Pet(petsCursor.getLong(0), petsCursor.getLong(1), petsCursor.getLong(2), petsCursor.getString(3),
                         petsCursor.getLong(4),petsCursor.getString(5), petsCursor.getString(6), petsCursor.getString(7),
@@ -58,13 +65,13 @@ public class MyPetsActivity extends AppCompatActivity {
 
                 Cursor petPhotosCursor = dbHelper.getRecord(MyPetFriendContract.PetPhotosEntry.TABLE_NAME,
                         new String[]{MyPetFriendContract.PetPhotosEntry.PHOTO},
-                        MyPetFriendContract.PetPhotosEntry.PET_ID, String.valueOf(petsCursor.getInt(0)));
+                        MyPetFriendContract.PetPhotosEntry.PET_ID, String.valueOf(petsCursor.getLong(0)));
                 if (petPhotosCursor.moveToLast()) {
-                    myListOfPets.get(myListOfPets.size() - 1).setCurrentPhoto(petPhotosCursor.getBlob(0));
+                    myListOfPets.get(petsCursor.getPosition()).setCurrentPhoto(petPhotosCursor.getBlob(0));
                 }
 
                 petScheduleActivitiesCursor = dbHelper.getRecord(MyPetFriendContract.PetScheduleActivitiesEntry.TABLE_NAME, null,
-                        MyPetFriendContract.PetPhotosEntry.PET_ID, String.valueOf(petsCursor.getInt(0)));
+                        MyPetFriendContract.PetPhotosEntry.PET_ID, String.valueOf(petsCursor.getLong(0)));
                 while (petScheduleActivitiesCursor.moveToNext()) {
                     myListOfPets.get(petsCursor.getPosition()).
                             addNewScheduleActivity(petScheduleActivitiesCursor.getInt(0), petScheduleActivitiesCursor.getInt(1),
@@ -74,18 +81,18 @@ public class MyPetsActivity extends AppCompatActivity {
                 }
 
                 petVaccinesCursor = dbHelper.getRecord(MyPetFriendContract.PetVaccinesEntry.TABLE_NAME, null,
-                        MyPetFriendContract.PetVaccinesEntry.PET_ID, String.valueOf(petsCursor.getInt(0)));
+                        MyPetFriendContract.PetVaccinesEntry.PET_ID, String.valueOf(petsCursor.getLong(0)));
                 while (petVaccinesCursor.moveToNext()) {
-                    myListOfPets.get(myListOfPets.size() - 1).
+                    myListOfPets.get(petsCursor.getPosition()).
                             addNewVaccine(petVaccinesCursor.getInt(0), petVaccinesCursor.getInt(1), petVaccinesCursor.getString(2),
                                     petVaccinesCursor.getInt(3), petVaccinesCursor.getInt(4), petVaccinesCursor.getInt(5),
                                     petVaccinesCursor.getString(6));
                 }
 
                 petWeightListCursor = dbHelper.getRecord(MyPetFriendContract.PetWeightListEntry.TABLE_NAME, null,
-                        MyPetFriendContract.PetWeightListEntry.PET_ID, String.valueOf(petsCursor.getInt(0)));
+                        MyPetFriendContract.PetWeightListEntry.PET_ID, String.valueOf(petsCursor.getLong(0)));
                 while (petWeightListCursor.moveToNext()) {
-                    myListOfPets.get(myListOfPets.size() - 1).setCurrentWeight(petWeightListCursor.getInt(2));
+                    myListOfPets.get(petsCursor.getPosition()).setCurrentWeight(petWeightListCursor.getInt(2));
                 }
             }
             dbHelper.close();
@@ -133,6 +140,7 @@ public class MyPetsActivity extends AppCompatActivity {
                     Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
                     Intent intent = new Intent(this, AddEditPetActivity.class);
                     intent.putExtra("AddPetProfile", true);
+                    intent.putExtra("userId", petOwnerId);
                     startActivityForResult(intent, REQUEST_CODE_ADD_PET, bundle);
                     return true;
                 } catch (Exception e) {

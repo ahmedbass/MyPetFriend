@@ -16,58 +16,34 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class PetCareServiceActivity extends AppCompatActivity {
 
-    private ArrayList<PetCareProvider> listOfPetCareProviders = new ArrayList<>();
+    private ArrayList<PetCareProvider> listOfAllPetCareProviders = new ArrayList<>();
+    private ArrayList<PetCareProvider> listOfFilteredPetCareProviders = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_petcare_service);
+        setContentView(R.layout.activity_pet_care_service);
 
-        generateList();
+        if (getIntent() != null && getIntent().getSerializableExtra("petCareProvidersInfo") != null) {
+            listOfAllPetCareProviders = (ArrayList<PetCareProvider>)getIntent().getSerializableExtra("petCareProvidersInfo");
+            //we'll keep listOfAllPetCareProviders as backup in case user doesn't make any filters, but we'll use listOfFilteredPetCareProviders to show results
+            listOfFilteredPetCareProviders = listOfAllPetCareProviders;
+        }
+        setupListOfPetCareProviders();
     }
 
-    private void generateList() {
-        //generate fake list
-        listOfPetCareProviders.add(new PetCareProvider());
-        listOfPetCareProviders.add(new PetCareProvider());
-        listOfPetCareProviders.add(new PetCareProvider());
-        listOfPetCareProviders.add(new PetCareProvider());
-        listOfPetCareProviders.add(new PetCareProvider());
-        listOfPetCareProviders.add(new PetCareProvider());
-        listOfPetCareProviders.add(new PetCareProvider());
-        listOfPetCareProviders.add(new PetCareProvider());
-        listOfPetCareProviders.add(new PetCareProvider());
-        listOfPetCareProviders.add(new PetCareProvider());
-        listOfPetCareProviders.add(new PetCareProvider());
-        listOfPetCareProviders.add(new PetCareProvider());
-        listOfPetCareProviders.add(new PetCareProvider());
-        listOfPetCareProviders.add(new PetCareProvider());
-        listOfPetCareProviders.add(new PetCareProvider());
-        listOfPetCareProviders.add(new PetCareProvider());
-        listOfPetCareProviders.add(new PetCareProvider());
-        listOfPetCareProviders.add(new PetCareProvider());
-        listOfPetCareProviders.add(new PetCareProvider());
-        listOfPetCareProviders.add(new PetCareProvider());
-        listOfPetCareProviders.add(new PetCareProvider());
-        listOfPetCareProviders.add(new PetCareProvider());
-        listOfPetCareProviders.add(new PetCareProvider());
-        listOfPetCareProviders.add(new PetCareProvider());
-        listOfPetCareProviders.add(new PetCareProvider());
-        listOfPetCareProviders.add(new PetCareProvider());
-
-        //instantiate custom adapter
-        final MyPetCareProviderListAdapter adapter = new MyPetCareProviderListAdapter(this, listOfPetCareProviders);
-
-        //handle listview and assign adapter
+    private void setupListOfPetCareProviders() {
         ListView petCareProvidersList = (ListView) findViewById(R.id.petCareService_listview);
+        final MyPetCareProvidersListAdapter adapter = new MyPetCareProvidersListAdapter(this, listOfFilteredPetCareProviders);
         petCareProvidersList.setAdapter(adapter);
-        //when click on existing pet, move to its profile
+        //when click on petCareProvider at that position in list, move to its profile
         petCareProvidersList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
@@ -77,6 +53,7 @@ public class PetCareServiceActivity extends AppCompatActivity {
                 startActivity(moveToPetCareProviderProfile, ActivityOptions.makeSceneTransitionAnimation(PetCareServiceActivity.this).toBundle());
             }
         });
+        petCareProvidersList.setEmptyView(findViewById(R.id.emptyView_txtv));
     }
 
     @Override
@@ -104,9 +81,9 @@ public class PetCareServiceActivity extends AppCompatActivity {
     }
 
     //---------------------------------------------------------------------
-    class MyPetCareProviderListAdapter extends ArrayAdapter<PetCareProvider> {
+    class MyPetCareProvidersListAdapter extends ArrayAdapter<PetCareProvider> {
 
-        MyPetCareProviderListAdapter(Activity context, ArrayList<PetCareProvider> petCareProviders) {
+        MyPetCareProvidersListAdapter(Activity context, ArrayList<PetCareProvider> petCareProviders) {
             super(context, 0, petCareProviders);
         }
 
@@ -122,8 +99,24 @@ public class PetCareServiceActivity extends AppCompatActivity {
             // Get the PetCareProvider object located at this position in the list
             PetCareProvider currentPetCareProvider = getItem(position);
 
-//            TextView petCareProviderName = (TextView) listItemView.findViewById(R.id.list_pet_name);
-//            petName_txtv.setText(currentPetCareProvider.getName());
+            TextView petCareProviderName_txtv = (TextView) listItemView.findViewById(R.id.petCareProviderName_txtv);
+            assert currentPetCareProvider != null;
+            petCareProviderName_txtv.setText(currentPetCareProvider.getFirstName() + " " + currentPetCareProvider.getLastName().charAt(0) + ".");
+
+            TextView petCareProviderLocation_txtv = (TextView) listItemView.findViewById(R.id.petCareProviderLocation_txtv);
+            petCareProviderLocation_txtv.setText(currentPetCareProvider.getCity() + ", " + currentPetCareProvider.getCountry());
+
+            TextView petCareProviderAvailability_txtv = (TextView) listItemView.findViewById(R.id.petCareProviderAvailability_txtv);
+            petCareProviderAvailability_txtv.setText((currentPetCareProvider.getAvailability().isEmpty() ?
+                    "?" : currentPetCareProvider.getAvailability()));
+
+            TextView petCareProviderExperienceYears_txtv = (TextView) listItemView.findViewById(R.id.petCareProviderExperienceYears_txtv);
+            petCareProviderExperienceYears_txtv.setText((currentPetCareProvider.getYearsOfExperience().isEmpty() ?
+                    "?" : currentPetCareProvider.getYearsOfExperience()));
+
+            TextView petCareProviderAvergeRatePerHour_txtv = (TextView) listItemView.findViewById(R.id.petCareProviderAverageRatePerHour_txtv);
+            petCareProviderAvergeRatePerHour_txtv.setText( currentPetCareProvider.getAverageRatePerHour().isEmpty() ?
+                    "?" : "$" + currentPetCareProvider.getAverageRatePerHour() + "/hr");
 
             return listItemView;
         }

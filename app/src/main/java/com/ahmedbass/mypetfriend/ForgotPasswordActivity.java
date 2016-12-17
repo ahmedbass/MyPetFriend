@@ -114,7 +114,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                 Log.e("SendMailTask", e.getMessage(), e);
                 return e.getMessage();
             }
-//            return null;
         }
 
         @Override

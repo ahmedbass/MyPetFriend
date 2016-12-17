@@ -77,6 +77,37 @@ public class PetProfileActivity extends AppCompatActivity {
         });
     }
 
+    private void setViewPager() {
+        collapsingToolbarLayout.setTitle(myPet.getName());
+        //set viewpager for the 3 different sections of pet information
+        ViewPager myPager = (ViewPager) findViewById(R.id.pager);
+        myPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
+            String[] tabTitles = {"Overview", "Schedule", "Vaccinations"};
+            @Override
+            public Fragment getItem(int position) {
+                switch (position) {
+                    case 0:
+                        return PetInfoFragment.newInstance(myPet);
+                    case 1:
+                        return PetScheduleFragment.newInstance(myPet);
+                    default:
+                        return PetInfoFragment.newInstance(myPet);
+                }
+            }
+            @Override
+            public int getCount() {
+                return tabTitles.length;
+            }
+            @Override
+            public String getPageTitle(int position) {
+                return tabTitles[position];
+            }
+        });
+        //set the tabs title
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
+        tabLayout.setupWithViewPager(myPager);
+    }
+
     private void addNewPhoto() {
         //set dialog Items
         final String[] items = {"Take Photo", "Choose From Gallery"};
@@ -115,37 +146,6 @@ public class PetProfileActivity extends AppCompatActivity {
 
         myPet.addPetPhoto(photoId, myPet.getPetId(), byteArray, System.currentTimeMillis(), "");
         createMySlideShow(false);
-    }
-
-    private void setViewPager() {
-        collapsingToolbarLayout.setTitle(myPet.getName());
-        //set viewpager for the 3 different sections of pet information
-        ViewPager myPager = (ViewPager) findViewById(R.id.pager);
-        myPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
-            String[] tabTitles = {"Overview", "Schedule", "Vaccinations"};
-            @Override
-            public Fragment getItem(int position) {
-                switch (position) {
-                    case 0:
-                        return PetInfoFragment.newInstance(myPet);
-                    case 1:
-                        return PetScheduleFragment.newInstance(myPet);
-                    default:
-                        return PetInfoFragment.newInstance(myPet);
-                }
-            }
-            @Override
-            public int getCount() {
-                return tabTitles.length;
-            }
-            @Override
-            public String getPageTitle(int position) {
-                return tabTitles[position];
-            }
-        });
-        //set the tabs title
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
-        tabLayout.setupWithViewPager(myPager);
     }
 
     //make slideshow of pet pictures using ViewSwitcher with just two ImageViews by scheduling the switch through background thread. perfect!
@@ -241,7 +241,7 @@ public class PetProfileActivity extends AppCompatActivity {
     }
 
     private void initializeMyViews() {
-        //set the title of the advert on the actionbar
+        //set the title of the currentAdvert on the actionbar
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsingToolbar);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

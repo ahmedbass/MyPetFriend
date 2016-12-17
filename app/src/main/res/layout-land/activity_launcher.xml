@@ -18,7 +18,7 @@
         android:id="@+id/app_logo_img"
         android:layout_gravity="center"
         android:layout_margin="10dp"
-        android:src="@drawable/mypetfriend_logo" />
+        android:src="@drawable/mypetfriend_logo"/>
 
     <LinearLayout
         android:layout_width="match_parent"

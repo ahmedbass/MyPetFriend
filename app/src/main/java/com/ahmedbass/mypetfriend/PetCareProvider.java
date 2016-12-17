@@ -1,51 +1,52 @@
 package com.ahmedbass.mypetfriend;
 
-import java.util.ArrayList;
-
 class PetCareProvider extends PetOwner {
-
-    final static String AVAILABILITY_FULL_TIME = "FULL-TIME";
-    final static String AVAILABILITY_PART_TIME = "PART-TIME";
 
     //only for pet care provider
     private String profileDescription;
-    private int availability; //FULL-TIME, PART-TIME
-    private int yearsOfExperience;
-    private int averageRatePerHour;
-    private ArrayList<String> servicesProvided = new ArrayList<>();
-    private ArrayList<String> servicesProvidedFor = new ArrayList<>();
+    private String availability; //FULL-TIME, PART-TIME
+    private String yearsOfExperience;
+    private String averageRatePerHour;
+    private String servicesProvidedFor;
+    private String servicesProvided;
 
     public PetCareProvider() {
     }
 
-    //half-way registration constructor (can set remaining information later)
-    public PetCareProvider(int userId, String firstName, String lastName, String email, String password,
-                           long birthDate, String gender, String city, String country) {
-        super(userId, firstName, lastName, email, password, birthDate, gender, city, country);
-        setUserType(USER_TYPE_PET_CARE_PROVIDER);
+    public PetCareProvider(int userId, long createDate, String userType, String firstName, String lastName, String email, String password,
+                           long birthDate, String gender, String country, String city, String phone, String profilePhoto,
+                           String profileDescription, String availability, String yearsOfExperience, String averageRatePerHour,
+                           String servicesProvidedFor, String servicesProvided) {
+        super(userId, createDate, userType, firstName, lastName, email, password, birthDate, gender, country, city, phone, profilePhoto);
+        this.profileDescription = profileDescription;
+        this.availability = availability;
+        this.yearsOfExperience = yearsOfExperience;
+        this.averageRatePerHour = averageRatePerHour;
+        this.servicesProvidedFor = servicesProvidedFor;
+        this.servicesProvided = servicesProvided;
     }
 
     public String getProfileDescription() {
         return profileDescription;
     }
 
-    public int getYearsOfExperience() {
+    public String getYearsOfExperience() {
         return yearsOfExperience;
     }
 
-    public int getAverageRatePerHour() {
+    public String getAverageRatePerHour() {
         return averageRatePerHour;
     }
 
-    public int getAvailability() {
+    public String getAvailability() {
         return availability;
     }
 
-    public ArrayList<String> getServicesProvidedFor() {
+    public String getServicesProvidedFor() {
         return servicesProvidedFor;
     }
 
-    public ArrayList<String> getServicesProvided() {
+    public String getServicesProvided() {
         return servicesProvided;
     }
 
@@ -53,23 +54,23 @@ class PetCareProvider extends PetOwner {
         this.profileDescription = profileDescription;
     }
 
-    public void setYearsOfExperience(int yearsOfExperience) {
+    public void setYearsOfExperience(String yearsOfExperience) {
         this.yearsOfExperience = yearsOfExperience;
     }
 
-    public void setAverageRatePerHour(int averageRatePerHour) {
+    public void setAverageRatePerHour(String averageRatePerHour) {
         this.averageRatePerHour = averageRatePerHour;
     }
 
-    public void setAvailability(int availability) {
+    public void setAvailability(String availability) {
         this.availability = availability;
     }
 
-    public void setServicesProvidedFor(ArrayList<String> servicesProvidedFor) {
+    public void setServicesProvidedFor(String servicesProvidedFor) {
         this.servicesProvidedFor = servicesProvidedFor;
     }
 
-    public void setServicesProvided(ArrayList<String> servicesProvided) {
+    public void setServicesProvided(String servicesProvided) {
         this.servicesProvided = servicesProvided;
     }
 }

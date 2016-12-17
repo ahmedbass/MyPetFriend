@@ -13,6 +13,11 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
     <string name="title_activity_login2">login screen</string>
 
+    <string-array name="genders">
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+
     <string-array name="pet_types">
         <item>Cat</item>
         <item>Dog</item>
@@ -39,7 +44,7 @@
         <item>December</item>
     </string-array>
 
-    <string-array name="x_years">
+    <string-array name="xp_years">
         <item>0</item>
         <item>1</item>
         <item>2</item>
@@ -52,7 +57,7 @@
         <item>9</item>
         <item>10+</item>
     </string-array>
-    <string-array name="salary_range">
+    <string-array name="average_rate_per_hour_range">
         <item>10</item>
         <item>15</item>
         <item>20</item>
@@ -67,8 +72,10 @@
         <item>FULL-TIME</item>
         <item>PART-TIME</item>
     </string-array>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
+    <string-array name="advert_types">
+        <item>For Sale</item>
+        <item>For Adoption</item>
+        <item>For Breeding</item>
+        <item>Wanted</item>
+    </string-array>
 </resources>

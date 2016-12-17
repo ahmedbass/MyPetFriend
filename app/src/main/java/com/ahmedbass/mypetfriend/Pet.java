@@ -83,14 +83,14 @@ class Pet implements Serializable {
     }
 
     public int getPetAgeInYear(long birthDate) {
-        birthDate = birthDate == 0 ? this.birthDate : birthDate;
+        birthDate = (birthDate == 0 ? this.birthDate : birthDate);
         Calendar birth = Calendar.getInstance();
         birth.setTimeInMillis(birthDate);
         return Calendar.getInstance().get(Calendar.YEAR) - birth.get(Calendar.YEAR);
     }
 
     public int getPetAgeInMonth(long birthDate) {
-        birthDate = birthDate == 0 ? this.birthDate : birthDate;
+        birthDate = (birthDate == 0 ? this.birthDate : birthDate);
         Calendar birth = Calendar.getInstance();
         birth.setTimeInMillis(birthDate);
         return Calendar.getInstance().get(Calendar.MONTH) - birth.get(Calendar.MONTH);
@@ -459,11 +459,10 @@ class Pet implements Serializable {
 
         public void setNotes(String notes) {
             switch (type) {
-                case TYPE_BREAKFAST:
-                    this.notes = "some valuable information about food for our beloved users";
-                    break;
+//                case TYPE_BREAKFAST:
+//                    this.notes = "some valuable information about food for our beloved users";
+//                    break;
                 //...
-
                 default:
                     this.notes = notes;
             }
@@ -506,7 +505,7 @@ class Pet implements Serializable {
                     icon = R.drawable.birthday;
                     break;
                 default:
-                    icon = R.drawable.paw_default;
+                    icon = R.drawable.paw_symbol;
                     break;
             }
             if (type.contains(TYPE_VACCINATION)) {
