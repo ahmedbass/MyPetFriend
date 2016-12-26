@@ -16,8 +16,8 @@ class PetCareProvider extends PetOwner {
     public PetCareProvider(int userId, long createDate, String userType, String firstName, String lastName, String email, String password,
                            long birthDate, String gender, String country, String city, String phone, String profilePhoto,
                            String profileDescription, String availability, String yearsOfExperience, String averageRatePerHour,
-                           String servicesProvidedFor, String servicesProvided) {
-        super(userId, createDate, userType, firstName, lastName, email, password, birthDate, gender, country, city, phone, profilePhoto);
+                           String servicesProvidedFor, String servicesProvided, double latitude, double longitude) {
+        super(userId, createDate, userType, firstName, lastName, email, password, birthDate, gender, country, city, phone, profilePhoto, latitude, longitude);
         this.profileDescription = profileDescription;
         this.availability = availability;
         this.yearsOfExperience = yearsOfExperience;

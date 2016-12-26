@@ -3,6 +3,7 @@ package com.ahmedbass.mypetfriend;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
@@ -19,7 +20,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import static com.ahmedbass.mypetfriend.LauncherActivity.CURRENT_USER_INFO_PREFS;
 import static com.ahmedbass.mypetfriend.LauncherActivity.MY_APP_PREFS;
+import static com.ahmedbass.mypetfriend.LauncherActivity.PREF_LOGGED_IN;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -52,12 +55,9 @@ public class LoginActivity extends AppCompatActivity {
             NetworkInfo networkInfo;
             @Override
             public void onClick(View v) {
-                connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
-                networkInfo = connectivityManager.getActiveNetworkInfo();
-                if(networkInfo != null && networkInfo.isConnected()) {
-                    email = email_etxt.getText().toString().trim();
-                    password = password_etxt.getText().toString().trim();
-                    taskType = "login";
+                email = email_etxt.getText().toString().trim();
+                password = password_etxt.getText().toString().trim();
+                if (!email.isEmpty() && !password.isEmpty()) {
                     if (isRememberMe) { //if "remember me" is checked, save the login info
                         getSharedPreferences(MY_APP_PREFS, MODE_PRIVATE).edit()
                                 .putString(PREF_EMAIL, email)
@@ -67,15 +67,26 @@ public class LoginActivity extends AppCompatActivity {
                     } else { //else clear login info
                         getSharedPreferences(MY_APP_PREFS, MODE_PRIVATE).edit().clear().apply();
                     }
-
-                    if (!email.isEmpty() && !password.isEmpty()) {
-                        BackgroundWorker backgroundWorker = new BackgroundWorker(LoginActivity.this);
-                        backgroundWorker.execute(taskType, email, password);
+                    connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+                    networkInfo = connectivityManager.getActiveNetworkInfo();
+                    if(networkInfo != null && networkInfo.isConnected()) {
+                            taskType = "login";
+                            BackgroundWorker backgroundWorker = new BackgroundWorker(LoginActivity.this);
+                            backgroundWorker.execute(taskType, email, password);
                     } else {
-                        Toast.makeText(LoginActivity.this, "Please enter username and password", Toast.LENGTH_SHORT).show();
+                        //if no internet connection, try to find user in the local database
+                        PetOwner petOwner = getUserInfoFromLocalDatabase();
+                        if (petOwner != null) {
+                            Intent intent = new Intent(getBaseContext(), MainActivity.class);
+                            intent.putExtra("userInfo", petOwner);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(getBaseContext(), "No Internet Connection", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 } else {
-                    Toast.makeText(LoginActivity.this, "No Internet Connection", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), "Please enter username and password", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -93,6 +104,40 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(new Intent(getBaseContext(), ForgotPasswordActivity.class), bundle);
             }
         });
+    }
+
+    private PetOwner getUserInfoFromLocalDatabase() {
+        MyDBHelper dbHelper = new MyDBHelper(getBaseContext());
+        dbHelper.open();
+        Cursor cursor = dbHelper.getRecord(MyPetFriendContract.UsersEntry.TABLE_NAME, null,
+                new String[]{MyPetFriendContract.UsersEntry.COLUMN_EMAIL, MyPetFriendContract.UsersEntry.COLUMN_PASSWORD}, new String[]{email, password});
+
+        if (cursor.moveToFirst()) {
+            Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show();
+            getSharedPreferences(CURRENT_USER_INFO_PREFS, MODE_PRIVATE).edit().putBoolean(PREF_LOGGED_IN, true).apply();
+            if (cursor.getString(2).equals(MyPetFriendContract.UsersEntry.USER_TYPE_PET_CARE_PROVIDER)) {
+                PetCareProvider petCareProvider = new PetCareProvider(cursor.getInt(0), cursor.getLong(1), cursor.getString(2), cursor.getString(3),
+                        cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getLong(7), cursor.getString(8),
+                        cursor.getString(9), cursor.getString(10), cursor.getString(11), cursor.getString(12), cursor.getString(13),
+                        cursor.getString(14), cursor.getString(15), cursor.getString(16), cursor.getString(17), cursor.getString(18), 0, 0);
+                cursor.close();
+                dbHelper.close();
+                return petCareProvider;
+            } else {
+                //if userType != PetCareProvider, assume it's PetOwner
+                PetOwner petOwner = new PetOwner(cursor.getInt(0), cursor.getLong(1), cursor.getString(2), cursor.getString(3),
+                        cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getLong(7), cursor.getString(8),
+                        cursor.getString(9), cursor.getString(10), cursor.getString(11), cursor.getString(12), 0, 0);
+                cursor.close();
+                dbHelper.close();
+                return petOwner;
+            }
+        } else {
+            Toast.makeText(this, "Login Failed: Wrong user name or password", Toast.LENGTH_SHORT).show();
+            cursor.close();
+            dbHelper.close();
+            return null;
+        }
     }
 
     private void initializeMyViews() {

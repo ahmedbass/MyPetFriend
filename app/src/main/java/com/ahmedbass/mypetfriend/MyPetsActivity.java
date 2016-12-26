@@ -37,7 +37,7 @@ public class MyPetsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_pets);
 
-        petOwnerId = getSharedPreferences(CURRENT_USER_INFO_PREFS, MODE_PRIVATE).getInt(MyPetFriendContract.UsersEntry._ID, -1);
+        petOwnerId = getSharedPreferences(CURRENT_USER_INFO_PREFS, MODE_PRIVATE).getInt(MyPetFriendContract.UsersEntry.USER_ID, -1);
         if (petOwnerId == -1) {
             Toast.makeText(this, "Error: User Information Cannot Be Found", Toast.LENGTH_SHORT).show();
         }
@@ -52,7 +52,7 @@ public class MyPetsActivity extends AppCompatActivity {
             MyDBHelper dbHelper = new MyDBHelper(this);
             dbHelper.open();
             Cursor petsCursor = dbHelper.getRecord(MyPetFriendContract.PetsEntry.TABLE_NAME, null,
-                    MyPetFriendContract.PetsEntry.COLUMN_OWNER_ID, String.valueOf(petOwnerId));
+                    new String[]{MyPetFriendContract.PetsEntry.COLUMN_OWNER_ID}, new String[]{String.valueOf(petOwnerId)});
             Cursor petScheduleActivitiesCursor, petVaccinesCursor, petWeightListCursor;
             //get pets of current user from database, and nested whiles are for adding that pet's multi data (data that are stored in arrays)
             while(petsCursor.moveToNext()) {
@@ -65,13 +65,13 @@ public class MyPetsActivity extends AppCompatActivity {
 
                 Cursor petPhotosCursor = dbHelper.getRecord(MyPetFriendContract.PetPhotosEntry.TABLE_NAME,
                         new String[]{MyPetFriendContract.PetPhotosEntry.PHOTO},
-                        MyPetFriendContract.PetPhotosEntry.PET_ID, String.valueOf(petsCursor.getLong(0)));
+                        new String[]{MyPetFriendContract.PetPhotosEntry.PET_ID}, new String[]{String.valueOf(petsCursor.getLong(0))});
                 if (petPhotosCursor.moveToLast()) {
                     myListOfPets.get(petsCursor.getPosition()).setCurrentPhoto(petPhotosCursor.getBlob(0));
                 }
 
                 petScheduleActivitiesCursor = dbHelper.getRecord(MyPetFriendContract.PetScheduleActivitiesEntry.TABLE_NAME, null,
-                        MyPetFriendContract.PetPhotosEntry.PET_ID, String.valueOf(petsCursor.getLong(0)));
+                        new String[]{MyPetFriendContract.PetPhotosEntry.PET_ID}, new String[]{String.valueOf(petsCursor.getLong(0))});
                 while (petScheduleActivitiesCursor.moveToNext()) {
                     myListOfPets.get(petsCursor.getPosition()).
                             addNewScheduleActivity(petScheduleActivitiesCursor.getInt(0), petScheduleActivitiesCursor.getInt(1),
@@ -81,7 +81,7 @@ public class MyPetsActivity extends AppCompatActivity {
                 }
 
                 petVaccinesCursor = dbHelper.getRecord(MyPetFriendContract.PetVaccinesEntry.TABLE_NAME, null,
-                        MyPetFriendContract.PetVaccinesEntry.PET_ID, String.valueOf(petsCursor.getLong(0)));
+                        new String[]{MyPetFriendContract.PetVaccinesEntry.PET_ID}, new String[]{String.valueOf(petsCursor.getLong(0))});
                 while (petVaccinesCursor.moveToNext()) {
                     myListOfPets.get(petsCursor.getPosition()).
                             addNewVaccine(petVaccinesCursor.getInt(0), petVaccinesCursor.getInt(1), petVaccinesCursor.getString(2),
@@ -90,7 +90,7 @@ public class MyPetsActivity extends AppCompatActivity {
                 }
 
                 petWeightListCursor = dbHelper.getRecord(MyPetFriendContract.PetWeightListEntry.TABLE_NAME, null,
-                        MyPetFriendContract.PetWeightListEntry.PET_ID, String.valueOf(petsCursor.getLong(0)));
+                        new String[]{MyPetFriendContract.PetWeightListEntry.PET_ID}, new String[]{String.valueOf(petsCursor.getLong(0))});
                 while (petWeightListCursor.moveToNext()) {
                     myListOfPets.get(petsCursor.getPosition()).setCurrentWeight(petWeightListCursor.getInt(2));
                 }
@@ -135,7 +135,7 @@ public class MyPetsActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_add_pet:
+            case R.id.action_add_advert:
                 try {
                     Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
                     Intent intent = new Intent(this, AddEditPetActivity.class);

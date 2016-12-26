@@ -8,11 +8,11 @@ public class MyPetFriendContract {
 
     private MyPetFriendContract() {} // Empty constructor to prevent accidental instantiation.
 
-    public static final class UsersEntry implements BaseColumns {
+    public static final class UsersEntry {
 
         public final static String TABLE_NAME = "Users";
 
-        public final static String _ID = BaseColumns._ID;
+        public final static String USER_ID = "userId";
         public final static String COLUMN_CREATE_DATE = "createDate";
         public final static String COLUMN_USER_TYPE = "userType";
         public final static String COLUMN_FIRST_NAME = "firstName";
@@ -46,7 +46,7 @@ public class MyPetFriendContract {
 
     public static final class UserOfferedAdvertsEntry implements BaseColumns {
 
-        public final static String TABLE_NAME = "UserFavoriteAdverts";
+        public final static String TABLE_NAME = "UserOfferedAdverts";
 
         public final static String _ID = BaseColumns._ID;
         public final static String SELLER_ID = "sellerId";

@@ -12,6 +12,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -118,7 +119,7 @@ public class RegistrationActivity extends AppCompatActivity {
                                     userType, firstName, lastName, email, password, String.valueOf(birthDate), gender, country, city,
                                     "", "", "", "", "", "", "", "");
                         } else if (userType.equals("PetCareProvider")) {
-                            Intent intent = new Intent(getBaseContext(), PetCareProviderRegisterationActivity.class);
+                            Intent intent = new Intent(getBaseContext(), PetCareProviderRegistrationActivity.class);
                             intent.putExtra("firstName", firstName);
                             intent.putExtra("lastName", lastName);
                             intent.putExtra("email", email);
@@ -144,7 +145,7 @@ public class RegistrationActivity extends AppCompatActivity {
             Toast.makeText(getBaseContext(), "Please fill-in all fields", Toast.LENGTH_SHORT).show();
         } else if (firstName.length() < 3 || lastName.length() < 3) {
             Toast.makeText(this, "Please enter your real name", Toast.LENGTH_SHORT).show();
-        } else if (!email.contains("@") || email.startsWith("@") || !(email.endsWith(".com")
+        } else if (email.contains(" ") || !email.contains("@") || email.startsWith("@") || !(email.endsWith(".com")
                 || email.endsWith(".net") || email.endsWith(".edu") || email.endsWith(".org") || email.endsWith(".gov"))) {
             Toast.makeText(this, "Please enter a valid email address", Toast.LENGTH_SHORT).show();
         } else if (password.length() < 6 || password.length() > 20) {
@@ -156,7 +157,7 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     private void initializeMyViews() {
-        register_btn = (Button) findViewById(R.id.register_btn);
+        register_btn = (Button) findViewById(R.id.myProfile_btn);
         firstName_etxt = (EditText) findViewById(R.id.firstName_etxt);
         lastName_etxt = (EditText) findViewById(R.id.lastName_etxt);
         email_etxt = (EditText) findViewById(R.id.email_etxt);
@@ -172,6 +173,11 @@ public class RegistrationActivity extends AppCompatActivity {
         usertype_rgrp = (RadioGroup) findViewById(R.id.userType_rgrp);
         petOwner_rbtn = (RadioButton) findViewById(R.id.petOwner_rbtn);
         petCareProvider_rbtn = (RadioButton) findViewById(R.id.petCareProvider_rbtn);
+
+        ArrayAdapter<String> countriesAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line,
+                getResources().getStringArray(R.array.countries_array));
+        country_etxt.setAdapter(countriesAdapter);
+        country_etxt.setThreshold(1);
     }
 
     public void moveToSignIn(View view) {

@@ -11,7 +11,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 
-public class PetCareProviderRegisterationActivity extends AppCompatActivity {
+public class PetCareProviderRegistrationActivity extends AppCompatActivity {
 
     ImageButton uploadPhoto_btn;
     EditText profileDescription_etxt, phoneNumber_etxt;
@@ -62,7 +62,7 @@ public class PetCareProviderRegisterationActivity extends AppCompatActivity {
 
     private void register() {
         String taskType = "register";
-        BackgroundWorker backgroundWorker = new BackgroundWorker(PetCareProviderRegisterationActivity.this);
+        BackgroundWorker backgroundWorker = new BackgroundWorker(PetCareProviderRegistrationActivity.this);
         backgroundWorker.execute(taskType, String.valueOf(System.currentTimeMillis()),
                 getIntent().getStringExtra("userType"), getIntent().getStringExtra("firstName"), getIntent().getStringExtra("lastName"),
                 getIntent().getStringExtra("email"), getIntent().getStringExtra("password"), String.valueOf(getIntent().getLongExtra("birthDate", 0)),
@@ -146,6 +146,6 @@ public class PetCareProviderRegisterationActivity extends AppCompatActivity {
         petTraining_chk = (CheckBox)findViewById(R.id.petTraining_chk);
         petVeterinary_chk = (CheckBox)findViewById(R.id.petVeterinary_chk);
         petBoarding_chk = (CheckBox)findViewById(R.id.petBoarding_chk);
-        saveProfile_btn = (Button) findViewById(R.id.saveProfile_btn);
+        saveProfile_btn = (Button) findViewById(R.id.publishAdvert_btn);
     }
 }

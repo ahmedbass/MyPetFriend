@@ -18,6 +18,8 @@ public class PetOwner implements Serializable {
     private String city;
     private String phone;
     private String profilePhoto;
+    private double latitude;
+    private double longitude;
 
     private ArrayList<Pet> myPets = new ArrayList<>();
     private ArrayList<Advert> myAdverts = new ArrayList<>();
@@ -28,7 +30,7 @@ public class PetOwner implements Serializable {
 
     public PetOwner(int userId, long createDate, String userType, String firstName, String lastName,
                     String email, String password, long birthDate, String gender, String country, String city,
-                    String phone, String profilePhoto) {
+                    String phone, String profilePhoto, double latitude, double longitude) {
         this.userId = userId;
         this.createDate = createDate;
         this.userType = userType;
@@ -42,6 +44,8 @@ public class PetOwner implements Serializable {
         this.city = city;
         this.phone = phone;
         this.profilePhoto = profilePhoto; //TODO see about this profilePhoto thing
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public int getUserId() {
@@ -166,6 +170,22 @@ public class PetOwner implements Serializable {
 
     public void removeAdvert(int advertIndex) {
         this.myAdverts.remove(advertIndex);
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 }
 

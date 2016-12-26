@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_add_edit_advert"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context="com.ahmedbass.mypetfriend.AddEditAdvertActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,7 +13,6 @@
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
-        tools:context="com.ahmedbass.mypetfriend.AddEditAdvertActivity"
         android:orientation="vertical">
 
         <TextView
@@ -33,6 +33,7 @@
                 android:text="Advert Type: "/>
 
             <Spinner
+                android:id="@+id/advertType_spnr"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:entries="@array/advert_types"
@@ -40,14 +41,25 @@
                 android:layout_marginLeft="10dp"/>
         </LinearLayout>
 
-        <EditText
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Advert Title"
-            android:maxLines="2"
-            android:ellipsize="start"
-            android:inputType="textAutoCorrect|textCapWords"
-            android:layout_margin="10dp"/>
+            android:layout_margin="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Title:"/>
+            <EditText
+                android:id="@+id/advertTitle_etxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Advert Title"
+                android:maxLines="2"
+                android:ellipsize="start"
+                android:inputType="textAutoCorrect|textCapWords"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"/>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -65,13 +77,15 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginLeft="10dp"/>
             <EditText
+                android:id="@+id/advertPrice_etxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="price in dollars"
-                />
+                android:inputType="numberDecimal"/>
         </LinearLayout>
 
        <EditText
+           android:id="@+id/advertDetails_etxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Advert Full Details"
@@ -88,6 +102,7 @@
                 android:text="Pet Type: "/>
 
             <Spinner
+                android:id="@+id/petType_spnr"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:entries="@array/pet_types"
@@ -105,28 +120,65 @@
                 android:text="Pet Type: "/>
 
             <AutoCompleteTextView
+                android:id="@+id/petBreed_atxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Pet Breed"
                 android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp"/>
+                android:layout_marginLeft="10dp"
+                android:inputType="textAutoComplete|textCapWords"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp">
+            android:layout_marginTop="12dp">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Pet Birth Date: "/>
+                android:text="Birth Date: " />
 
             <EditText
-                android:layout_width="match_parent"
+                android:id="@+id/dayPick_etxt"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Pet Birth Date"
-                android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp"/>
+                android:inputType="number"
+                android:hint="Day"
+                android:ems="2"
+                android:gravity="center"
+                android:selectAllOnFocus="true"
+                android:layout_weight="1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="/" />
+
+            <Spinner
+                android:id="@+id/monthPick_spnr"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:entries="@array/months"
+                android:layout_weight="1"
+                style="@android:style/Widget.Material.Spinner.Underlined"
+                tools:targetApi="lollipop" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="/" />
+
+            <EditText
+                android:id="@+id/yearPick_etxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:hint="Year"
+                android:ems="3"
+                android:gravity="center"
+                android:selectAllOnFocus="true"
+                android:layout_weight="1" />
         </LinearLayout>
 
         <LinearLayout
@@ -139,6 +191,7 @@
                 android:text="Pet Gender: "/>
 
             <Spinner
+                android:id="@+id/petGender_spnr"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:entries="@array/genders"
@@ -261,27 +314,27 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp">
             <AutoCompleteTextView
+                android:id="@+id/country_etxt"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:inputType="textAutoComplete"
-                android:id="@+id/country_etxt"
                 android:hint="Country" />
 
             <AutoCompleteTextView
+                android:id="@+id/city_etxt"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:inputType="textAutoComplete"
-                android:id="@+id/city_etxt"
                 android:hint="City" />
         </LinearLayout>
 
         <EditText
+            android:id="@+id/email_etxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
-            android:id="@+id/email_etxt"
             android:hint="Email"
             android:layout_margin="10dp"/>
 
@@ -294,10 +347,11 @@
             android:layout_margin="10dp"/>
 
         <Button
-            android:id="@+id/saveProfile_btn"
+            android:id="@+id/publishAdvert_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Publish Advert"
-            android:layout_margin="10dp" />
+            android:layout_margin="10dp"
+            android:onClick="publishAdvert"/>
     </LinearLayout>
 </ScrollView>

@@ -1,5 +1,7 @@
 package com.ahmedbass.mypetfriend;
 
+import android.app.Dialog;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -19,7 +21,6 @@ public class PetInfoFragment extends Fragment {
     private static final String ARG_PET = "myPet";
     Pet myPet;
 
-    View rootView;
     TextView birthDate_txtv, gender_txtv, type_txtv, breed_txtv, weight_txtv, isNeutered_txtv, microchipNumber_txtv;
     TextView personalInformation_txtv, breedHighlights_txtv, breedPersonality_txtv, breedHealth_txtv,breedCare_txtv, breedFeeding_txtv, breedHistory_txtv;
     GridLayout personalInformation_gridLout;
@@ -44,7 +45,6 @@ public class PetInfoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View rootView = inflater.inflate(R.layout.fragment_pet_info, container, false);
-        this.rootView = rootView;
 
         personalInformation_gridLout = (GridLayout) rootView.findViewById(R.id.personalInformation_gridLout);
         personalInformation_txtv = (TextView) rootView.findViewById(R.id.personalInformation_txtv);
@@ -78,6 +78,23 @@ public class PetInfoFragment extends Fragment {
             weight_txtv.setTextColor((myPet.getCurrentWeight() < myPet.getMinWeight() || myPet.getCurrentWeight() > myPet.getMaxWeight()) ?
                     getResources().getColor(R.color.nice_red) : getResources().getColor(R.color.nice_green));
         }
+        weight_txtv.setOnClickListener(new View.OnClickListener() {
+            Dialog dialog;
+            TextView textView;
+            @Override
+            public void onClick(View view) {
+                dialog = new Dialog(getContext());
+                dialog.setTitle("Current Weight " + myPet.getCurrentWeight() + " kg");
+                textView = new TextView(getContext());
+                textView.setPadding(20, 20, 20, 30);
+                textView.setTextColor(Color.BLACK);
+                textView.setText("Make sure to keep your pet in a healthy weight to avoid health problems." +
+                        "\n\nMinimum Weight: " + myPet.getMinWeight() + " kg" +
+                        "\nMaximum Weight: " + myPet.getMaxWeight() + " kg");
+                dialog.setContentView(textView);
+                dialog.show();
+            }
+        });
         isNeutered_txtv.setText(myPet.isNeutered() ? "Yes" : "No");
         microchipNumber_txtv.setText(myPet.getMicrochipNumber().isEmpty() ? "Not set" : myPet.getMicrochipNumber());
 

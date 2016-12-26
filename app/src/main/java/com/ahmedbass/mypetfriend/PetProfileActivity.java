@@ -91,7 +91,7 @@ public class PetProfileActivity extends AppCompatActivity {
                     case 1:
                         return PetScheduleFragment.newInstance(myPet);
                     default:
-                        return PetInfoFragment.newInstance(myPet);
+                        return PetVaccinationsFragment.newInstance(myPet);
                 }
             }
             @Override
@@ -154,7 +154,7 @@ public class PetProfileActivity extends AppCompatActivity {
             MyDBHelper dbHelper = new MyDBHelper(this);
             dbHelper.open();
             Cursor petPhotosCursor = dbHelper.getRecord(MyPetFriendContract.PetPhotosEntry.TABLE_NAME, null,
-                    MyPetFriendContract.PetPhotosEntry.PET_ID, String.valueOf(myPet.getPetId()));
+                    new String[]{MyPetFriendContract.PetPhotosEntry.PET_ID}, new String[]{String.valueOf(myPet.getPetId())});
             while (petPhotosCursor.moveToNext()) {
                 myPet.addPetPhoto(petPhotosCursor.getLong(0), petPhotosCursor.getLong(1),
                                 petPhotosCursor.getBlob(2), petPhotosCursor.getLong(3), petPhotosCursor.getString(4));

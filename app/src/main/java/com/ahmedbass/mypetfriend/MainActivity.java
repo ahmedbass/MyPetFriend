@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.ahmedbass.mypetfriend.MyPetFriendContract.UsersEntry;
 
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         if (getIntent() != null && getIntent().getSerializableExtra("userInfo") != null) {
             petOwner = ((PetOwner) getIntent().getSerializableExtra("userInfo"));
             preferences.edit()
-                    .putInt(UsersEntry._ID, petOwner.getUserId())
+                    .putInt(UsersEntry.USER_ID, petOwner.getUserId())
                     .putLong(UsersEntry.COLUMN_CREATE_DATE, petOwner.getCreateDate())
                     .putString(UsersEntry.COLUMN_USER_TYPE, petOwner.getUserType())
                     .putString(UsersEntry.COLUMN_FIRST_NAME, petOwner.getFirstName())
@@ -77,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent, bundle);
                 break;
             case R.id.petPlaces_btn:
-                intent = new Intent(this, PetPlacesActivity.class);
+                intent = new Intent(this, PetPlacesMapActivity.class);
                 startActivity(intent, bundle);
                 break;
             case R.id.petServices_btn:
@@ -87,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
                     backgroundWorker = new BackgroundWorker(this);
                     backgroundWorker.execute("getPetCareProviders");
                 } else {
+                    Toast.makeText(this, "No Internet Connection", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(this, PetCareServiceActivity.class), bundle);
                 }
                 break;
@@ -97,7 +99,8 @@ public class MainActivity extends AppCompatActivity {
                     backgroundWorker = new BackgroundWorker(this);
                     backgroundWorker.execute("getAdverts");
                 } else {
-                startActivity(new Intent(this, PetMarketActivity.class), bundle);
+                    Toast.makeText(this, "No Internet Connection", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(this, PetMarketActivity.class), bundle);
                 }
                 break;
         }
@@ -106,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu. this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.settings_menu, menu);
+        getMenuInflater().inflate(R.menu.main_activity_menu, menu);
         return true;
     }
 
@@ -115,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_settings:
-                Intent intent = new Intent(this, SettingsActivity.class);
+                Intent intent = new Intent(this, MyAccountActivity.class);
                 startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
                 return true;
 

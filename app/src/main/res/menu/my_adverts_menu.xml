@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_add_advert"
-        android:title="Add new pet"
-        app:showAsAction="never" />
+        android:title="Add new advert"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/add"/>
 </menu>

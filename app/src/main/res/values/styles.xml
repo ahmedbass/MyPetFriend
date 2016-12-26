@@ -8,8 +8,8 @@
 
         <item name="editTextColor">@color/primaryText</item>
         <item name="android:textViewStyle">@style/myTextViewStyle</item>
-        <item name="colorButtonNormal">@color/colorAccent</item>
         <item name="buttonStyle">@style/myButtonStyle</item>
+        <item name="colorButtonNormal">@color/colorAccent</item>
         <item name="popupMenuStyle">@style/myPopupMenuStyle</item>
     </style>
 
@@ -35,6 +35,12 @@
 
     <style name="myDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
+    <style name="mySearchDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowNoTitle">false</item>
+        <item name="buttonStyle">@style/myButtonStyle</item>
+        <item name="colorButtonNormal">@color/colorAccent</item>
     </style>
 
     <style name="iconStyle_MainScreen">

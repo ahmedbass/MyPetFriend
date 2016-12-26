@@ -1,158 +1,173 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:rowCount="3"
-    android:columnCount="2"
-    android:padding="16dp"
-    android:background="@drawable/my_app_background1"
-    android:layout_gravity="center_vertical|center_horizontal"
     tools:context="com.ahmedbass.mypetfriend.MainActivity">
 
-    <View
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_rowWeight=".5"
-        android:layout_columnSpan="2"
-        android:layout_row="0"
-        android:layout_column="0"
-        android:layout_gravity="center" />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/my_app_background1"
+        android:alpha=".7"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true"/>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_rowWeight="1"
-        android:layout_columnWeight="1"
-        android:layout_row="1"
-        android:layout_column="0"
-        android:orientation="vertical"
-        android:layout_gravity="center">
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:rowCount="3"
+        android:columnCount="2"
+        android:padding="16dp"
+        android:layout_gravity="center_vertical|center_horizontal">
 
-        <ImageButton
-            android:id="@+id/myPets_btn"
-            style="@style/iconStyle_MainScreen"
-            android:src="@drawable/ic_my_pets"
-            android:layout_gravity="center"
-            android:paddingTop="8dp"
-            android:paddingBottom="12dp"
-            android:layout_marginBottom="2dp"
-            android:onClick="moveToActivity"
-            android:elevation="4dp"
-            android:adjustViewBounds="true"
-            android:cropToPadding="true"
-            android:contentDescription="My Pets" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_rowWeight=".5"
+            android:layout_columnSpan="2"
+            android:layout_row="0"
+            android:layout_column="0"
+            android:layout_gravity="center" />
 
-        <TextView
-            android:text="My Pets"
-            android:typeface="serif"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textView1"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:layout_gravity="center|bottom" />
-    </LinearLayout>
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_row="1"
+            android:layout_column="0"
+            android:orientation="vertical"
+            android:layout_gravity="center">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_rowWeight="1"
-        android:layout_columnWeight="1"
-        android:layout_row="1"
-        android:layout_column="1"
-        android:orientation="vertical"
-        android:layout_gravity="center">
+            <ImageButton
+                android:id="@+id/myPets_btn"
+                style="@style/iconStyle_MainScreen"
+                android:src="@drawable/ic_my_pets"
+                android:layout_gravity="center"
+                android:paddingTop="8dp"
+                android:paddingBottom="12dp"
+                android:layout_marginBottom="2dp"
+                android:onClick="moveToActivity"
+                android:elevation="4dp"
+                android:adjustViewBounds="true"
+                android:cropToPadding="true"
+                android:contentDescription="My Pets" />
 
-        <ImageButton
-            android:id="@+id/petPlaces_btn"
-            style="@style/iconStyle_MainScreen"
-            android:src="@drawable/ic_find_pet_places"
-            android:layout_gravity="center"
-            android:paddingTop="12dp"
-            android:paddingBottom="12dp"
-            android:layout_marginBottom="2dp"
-            android:onClick="moveToActivity"
-            android:elevation="4dp"
-            android:adjustViewBounds="true"
-            android:cropToPadding="true"
-            android:contentDescription="Pet Places" />
+            <TextView
+                android:text="My Pets"
+                android:typeface="serif"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView1"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:layout_gravity="center|bottom"
+                android:textColor="@android:color/black"/>
+        </LinearLayout>
 
-        <TextView
-            android:text="Pet Places"
-            android:typeface="serif"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textView2"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:layout_gravity="center|bottom" />
-    </LinearLayout>
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_row="1"
+            android:layout_column="1"
+            android:orientation="vertical"
+            android:layout_gravity="center">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_rowWeight="1"
-        android:layout_columnWeight="1"
-        android:layout_row="2"
-        android:layout_column="0"
-        android:orientation="vertical"
-        android:layout_gravity="center">
+            <ImageButton
+                android:id="@+id/petPlaces_btn"
+                style="@style/iconStyle_MainScreen"
+                android:src="@drawable/ic_find_pet_places"
+                android:layout_gravity="center"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:layout_marginBottom="2dp"
+                android:onClick="moveToActivity"
+                android:elevation="4dp"
+                android:adjustViewBounds="true"
+                android:cropToPadding="true"
+                android:contentDescription="Pet Places" />
 
-        <ImageButton
-            android:id="@+id/petServices_btn"
-            style="@style/iconStyle_MainScreen"
-            android:src="@drawable/ic_pet_services"
-            android:layout_gravity="center"
-            android:paddingTop="10dp"
-            android:paddingBottom="15dp"
-            android:layout_marginBottom="2dp"
-            android:onClick="moveToActivity"
-            android:elevation="4dp"
-            android:adjustViewBounds="true"
-            android:cropToPadding="true"
-            android:contentDescription="Pet Care Services" />
+            <TextView
+                android:text="Pet Places"
+                android:typeface="serif"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView2"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:layout_gravity="center|bottom"
+                android:textColor="@android:color/black" />
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/textView3"
-            android:typeface="serif"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Pet Care Service"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:layout_gravity="center|bottom" />
-    </LinearLayout>
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_row="2"
+            android:layout_column="0"
+            android:orientation="vertical"
+            android:layout_gravity="center">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_rowWeight="1"
-        android:layout_columnWeight="1"
-        android:layout_row="2"
-        android:layout_column="1"
-        android:orientation="vertical"
-        android:layout_gravity="center">
+            <ImageButton
+                android:id="@+id/petServices_btn"
+                style="@style/iconStyle_MainScreen"
+                android:src="@drawable/ic_pet_services"
+                android:layout_gravity="center"
+                android:paddingTop="10dp"
+                android:paddingBottom="15dp"
+                android:layout_marginBottom="2dp"
+                android:onClick="moveToActivity"
+                android:elevation="4dp"
+                android:adjustViewBounds="true"
+                android:cropToPadding="true"
+                android:contentDescription="Pet Care Services" />
 
-        <ImageButton
-            android:id="@+id/petMarket_btn"
-            style="@style/iconStyle_MainScreen"
-            android:src="@drawable/ic_pet_shop"
-            android:layout_gravity="center"
-            android:padding="15dp"
-            android:layout_marginBottom="2dp"
-            android:onClick="moveToActivity"
-            android:elevation="4dp"
-            android:adjustViewBounds="true"
-            android:cropToPadding="true"
-            android:contentDescription="Pet Market" />
+            <TextView
+                android:id="@+id/textView3"
+                android:typeface="serif"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pet Care Service"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:layout_gravity="center|bottom"
+                android:textColor="@android:color/black" />
+        </LinearLayout>
 
-        <TextView
-            android:text="Pet Market"
-            android:typeface="serif"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textView4"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:layout_gravity="center|bottom" />
-    </LinearLayout>
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_row="2"
+            android:layout_column="1"
+            android:orientation="vertical"
+            android:layout_gravity="center">
 
-</GridLayout>
+            <ImageButton
+                android:id="@+id/petMarket_btn"
+                style="@style/iconStyle_MainScreen"
+                android:src="@drawable/ic_pet_shop"
+                android:layout_gravity="center"
+                android:padding="15dp"
+                android:layout_marginBottom="2dp"
+                android:onClick="moveToActivity"
+                android:elevation="4dp"
+                android:adjustViewBounds="true"
+                android:cropToPadding="true"
+                android:contentDescription="Pet Market" />
+
+            <TextView
+                android:text="Pet Market"
+                android:typeface="serif"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView4"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:layout_gravity="center|bottom"
+                android:textColor="@android:color/black" />
+        </LinearLayout>
+    </GridLayout>
+</FrameLayout>

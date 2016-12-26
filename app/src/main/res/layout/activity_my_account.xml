@@ -4,7 +4,7 @@
     android:id="@+id/activity_settings"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ahmedbass.mypetfriend.SettingsActivity">
+    tools:context="com.ahmedbass.mypetfriend.MyAccountActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,9 +24,9 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Account"
-                    android:id="@+id/register_btn"
-                    android:onClick="moveToEditUserProfile"/>
+                    android:text="My Profile"
+                    android:id="@+id/myProfile_btn"
+                    android:onClick="moveToActivity"/>
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
@@ -38,11 +38,34 @@
                     android:elevation="6dp"/>
             </FrameLayout>
 
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp">
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="My Adverts"
+                android:id="@+id/myAdverts_btn"
+                android:onClick="moveToActivity"/>
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/coin"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:padding="5dp"
+                android:elevation="6dp"/>
+        </FrameLayout>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/nice_dark_gray"
-            android:layout_marginTop="300dp"/>
+            android:layout_marginTop="200dp"/>
 
         <FrameLayout
             android:id="@+id/frame_layout"

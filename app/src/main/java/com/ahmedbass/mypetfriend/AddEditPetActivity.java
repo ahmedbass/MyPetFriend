@@ -343,7 +343,7 @@ public class AddEditPetActivity extends AppCompatActivity {
             if(myPet == null || !breed.equals(previousSelectedBreed)) {
                 dbHelper.open();
                 if (type.equals(Pet.TYPE_CAT)) {
-                    cursor = dbHelper.getRecord(MyPetFriendContract.StoredCatBreedsEntry.TABLE_NAME, null, MyPetFriendContract.StoredCatBreedsEntry.NAME, breed);
+                    cursor = dbHelper.getRecord(MyPetFriendContract.StoredCatBreedsEntry.TABLE_NAME, null, new String[]{MyPetFriendContract.StoredCatBreedsEntry.NAME}, new String[]{breed});
                     if (cursor.moveToFirst()) {
                         //---Retrieve and calculate frequencies and needed values---
                         dailyFeedingAmountInCups = cursor.getInt(2);
@@ -363,7 +363,7 @@ public class AddEditPetActivity extends AppCompatActivity {
                         breedHighlights = breedPersonality = breedHealth = breedCare = breedFeeding = breedHistory = "";
                     }
                 } else if (type.equals(Pet.TYPE_DOG)) {
-                    cursor = dbHelper.getRecord(MyPetFriendContract.StoredDogBreedsEntry.TABLE_NAME, null, MyPetFriendContract.StoredDogBreedsEntry.NAME, breed);
+                    cursor = dbHelper.getRecord(MyPetFriendContract.StoredDogBreedsEntry.TABLE_NAME, null, new String[]{MyPetFriendContract.StoredDogBreedsEntry.NAME}, new String[]{breed});
                     if (cursor.moveToFirst()) {
                         dailyFeedingAmountInCups = cursor.getInt(2);
                         trainingSessionInMinutes = 30 / cursor.getInt(5); //either 30 or 15 or 10 minutes based on dog's trainability
@@ -409,7 +409,7 @@ public class AddEditPetActivity extends AppCompatActivity {
         String[] columnNamesScheduleActivities = dbHelper.getColumnNames(MyPetFriendContract.PetScheduleActivitiesEntry.TABLE_NAME);
         if (type.equals(Pet.TYPE_CAT)) {
             //first read from storedCatBreeds data related to chosen breed
-            cursor = dbHelper.getRecord(MyPetFriendContract.StoredCatBreedsEntry.TABLE_NAME, null, MyPetFriendContract.StoredCatBreedsEntry.NAME, breed);
+            cursor = dbHelper.getRecord(MyPetFriendContract.StoredCatBreedsEntry.TABLE_NAME, null, new String[]{MyPetFriendContract.StoredCatBreedsEntry.NAME}, new String[]{breed});
             if (cursor.moveToFirst()) {
                 //---Retrieve and calculate frequencies and needed values---
                 int breakfastFrequency = 1, dinnerFrequency = 1, birthdayFrequency = 365,
@@ -464,7 +464,7 @@ public class AddEditPetActivity extends AppCompatActivity {
             }
 
         } else if (type.equals(Pet.TYPE_DOG)) {
-            cursor = dbHelper.getRecord(MyPetFriendContract.StoredDogBreedsEntry.TABLE_NAME, null, MyPetFriendContract.StoredDogBreedsEntry.NAME, breed);
+            cursor = dbHelper.getRecord(MyPetFriendContract.StoredDogBreedsEntry.TABLE_NAME, null, new String[]{MyPetFriendContract.StoredDogBreedsEntry.NAME}, new String[]{breed});
             if (cursor.moveToFirst()) {
                 //---Retrieve and calculate frequencies and needed values---
                 int breakfastFrequency = 1, dinnerFrequency = 1, birthdayFrequency = 365,
@@ -539,7 +539,7 @@ public class AddEditPetActivity extends AppCompatActivity {
 
         String[] columnNamesVaccines = dbHelper.getColumnNames(MyPetFriendContract.PetVaccinesEntry.TABLE_NAME);
         String[] columnNamesScheduleActivities = dbHelper.getColumnNames(MyPetFriendContract.PetScheduleActivitiesEntry.TABLE_NAME);
-        cursor = dbHelper.getRecord(MyPetFriendContract.StoredVaccinesEntry.TABLE_NAME, null, MyPetFriendContract.StoredVaccinesEntry.PET_TYPE, type);
+        cursor = dbHelper.getRecord(MyPetFriendContract.StoredVaccinesEntry.TABLE_NAME, null, new String[]{MyPetFriendContract.StoredVaccinesEntry.PET_TYPE}, new String[]{type});
         if (!cursor.moveToFirst()) {
             dbHelper.close();
             return false;

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_my_adverts"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.ahmedbass.mypetfriend.MyAdvertsActivity">
+
+
+    <ListView
+        android:id="@+id/myAdverts_lstv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="10dp"
+        android:paddingLeft="7dp"
+        android:paddingRight="7dp"
+        android:paddingBottom="10dp"
+        android:drawSelectorOnTop="true"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="10dp"/>
+
+    <TextView
+        android:id="@+id/emptyView_txtv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="You don't have any adverts.\nClick '+' to create a new advert."
+        android:padding="16dp"
+        android:visibility="gone"/>
+</FrameLayout>

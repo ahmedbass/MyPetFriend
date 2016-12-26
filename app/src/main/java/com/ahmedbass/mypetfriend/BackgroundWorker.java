@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ActivityOptions;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
@@ -25,6 +26,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
+import static android.app.Activity.RESULT_OK;
 import static android.content.Context.MODE_PRIVATE;
 import static com.ahmedbass.mypetfriend.LauncherActivity.CURRENT_USER_INFO_PREFS;
 import static com.ahmedbass.mypetfriend.LauncherActivity.PREF_LOGGED_IN;
@@ -34,8 +36,9 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
     private Activity activity;
     private ProgressDialog progressDialog;
 
-    static String serverDomain = "http://192.168.1.4/"; //192.168.1.4 - 10.22.136.239 - 10.22.139.249
+    public static String serverDomain = "http://192.168.1.4/"; //192.168.1.4 - 10.22.136.239 - 10.22.139.249
     private String type;
+    private String email, password;
 
     BackgroundWorker(Activity activity){
         this.activity = activity;
@@ -66,8 +69,8 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
         type = params[0];
         if (type.equals("login")) {
             String login_url = serverDomain + "login.php";
-            String email = params[1];
-            String password = params[2];
+            email = params[1];
+            password = params[2];
             try {
                 //set the http connection
                 HttpURLConnection httpURLConnection = setHttpConnection(login_url);
@@ -104,7 +107,7 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
                 //set the http connection
                 HttpURLConnection httpURLConnection = setHttpConnection(register_url);
                 //post data to the server
-                String postData = "&" + URLEncoder.encode("createDate", "UTF-8") + "=" + URLEncoder.encode(createDate, "UTF-8") +
+                String postData = URLEncoder.encode("createDate", "UTF-8") + "=" + URLEncoder.encode(createDate, "UTF-8") +
                         "&" + URLEncoder.encode("userType", "UTF-8") + "=" + URLEncoder.encode(userType, "UTF-8") +
                         "&" + URLEncoder.encode("email", "UTF-8") + "=" + URLEncoder.encode(email, "UTF-8") +
                         "&" + URLEncoder.encode("password", "UTF-8") + "=" + URLEncoder.encode(password, "UTF-8") +
@@ -152,7 +155,7 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
                 //set the http connection
                 HttpURLConnection httpURLConnection = setHttpConnection(updateUserInfo_url);
                 //post data to the server
-                String postData = "&" + URLEncoder.encode("userId", "UTF-8") + "=" + URLEncoder.encode(userId, "UTF-8") +
+                String postData = URLEncoder.encode("userId", "UTF-8") + "=" + URLEncoder.encode(userId, "UTF-8") +
                         "&" + URLEncoder.encode("userType", "UTF-8") + "=" + URLEncoder.encode(userType, "UTF-8") +
                         "&" + URLEncoder.encode("email", "UTF-8") + "=" + URLEncoder.encode(email, "UTF-8") +
                         "&" + URLEncoder.encode("password", "UTF-8") + "=" + URLEncoder.encode(password, "UTF-8") +
@@ -176,8 +179,62 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
             } catch (IOException e) {
                 return "Error: Cannot Connect To The Server";
             }
+        }  else if (type.equals("addNewAdvert")) {
+            String register_url = serverDomain + "add_new_advert.php";
+            String sellerId = params[1];
+            String createDate = params[2];
+            String isSold = params[3];
+            String viewCount = params[4];
+            String category = params[5];
+            String type = params[6];
+            String title = params[7];
+            String price = params[8];
+            String details = params[9];
+            String country = params[10];
+            String city = params[11];
+            String email = params[12];
+            String phone = params[13];
+            String petType = params[14];
+            String petBreed = params[15];;
+            String petBirthDate = params[16];
+            String petGender = params[17];
+            String isPetNeutered = params[18];
+            String isPetMicrochipped = params[19];
+            String isPetVaccinated = params[20];
+            String photo = params[21];
+            try {
+                //set the http connection
+                HttpURLConnection httpURLConnection = setHttpConnection(register_url);
+                //post data to the server
+                String postData = URLEncoder.encode("sellerId", "UTF-8") + "=" + URLEncoder.encode(sellerId, "UTF-8") +
+                        "&" + URLEncoder.encode("createDate", "UTF-8") + "=" + URLEncoder.encode(createDate, "UTF-8") +
+                        "&" + URLEncoder.encode("isSold", "UTF-8") + "=" + URLEncoder.encode(isSold, "UTF-8") +
+                        "&" + URLEncoder.encode("viewCount", "UTF-8") + "=" + URLEncoder.encode(viewCount, "UTF-8") +
+                        "&" + URLEncoder.encode("category", "UTF-8") + "=" + URLEncoder.encode(category, "UTF-8") +
+                        "&" + URLEncoder.encode("type", "UTF-8") + "=" + URLEncoder.encode(type, "UTF-8") +
+                        "&" + URLEncoder.encode("title", "UTF-8") + "=" + URLEncoder.encode(title, "UTF-8") +
+                        "&" + URLEncoder.encode("price", "UTF-8") + "=" + URLEncoder.encode(price, "UTF-8") +
+                        "&" + URLEncoder.encode("details", "UTF-8") + "=" + URLEncoder.encode(details, "UTF-8") +
+                        "&" + URLEncoder.encode("country", "UTF-8") + "=" + URLEncoder.encode(country, "UTF-8") +
+                        "&" + URLEncoder.encode("city", "UTF-8") + "=" + URLEncoder.encode(city, "UTF-8") +
+                        "&" + URLEncoder.encode("email", "UTF-8") + "=" + URLEncoder.encode(email, "UTF-8") +
+                        "&" + URLEncoder.encode("phone", "UTF-8") + "=" + URLEncoder.encode(phone, "UTF-8") +
+                        "&" + URLEncoder.encode("petType", "UTF-8") + "=" + URLEncoder.encode(petType, "UTF-8") +
+                        "&" + URLEncoder.encode("petBreed", "UTF-8") + "=" + URLEncoder.encode(petBreed, "UTF-8") +
+                        "&" + URLEncoder.encode("petBirthDate", "UTF-8") + "=" + URLEncoder.encode(petBirthDate, "UTF-8") +
+                        "&" + URLEncoder.encode("petGender", "UTF-8") + "=" + URLEncoder.encode(petGender, "UTF-8") +
+                        "&" + URLEncoder.encode("isPetNeutered", "UTF-8") + "=" + URLEncoder.encode(isPetNeutered, "UTF-8") +
+                        "&" + URLEncoder.encode("isPetMicrochipped", "UTF-8") + "=" + URLEncoder.encode(isPetMicrochipped, "UTF-8") +
+                        "&" + URLEncoder.encode("isPetVaccinated", "UTF-8") + "=" + URLEncoder.encode(isPetVaccinated, "UTF-8") +
+                        "&" + URLEncoder.encode("photo", "UTF-8") + "=" + URLEncoder.encode(photo, "UTF-8");
+                postDataToServer(httpURLConnection, postData);
+                //get response result from the server
+                return readServerResponse(httpURLConnection);
+            } catch (IOException e) {
+                return "Error: Cannot Connect To The Server";
+            }
         }
-        //-----------------------------------------------------------------------------------------
+
         else if (type.equals("getPetCareProviders")) {
             String getPetCareProviders_url = serverDomain + "get_pet_care_providers.php";
             try {
@@ -238,6 +295,7 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
         return result;
     }
 
+    //----------------------------------------------------------------------------------------------
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onPostExecute(String result) {
@@ -247,7 +305,15 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
 
         if (type.equals("login")) {
             if (result.trim().equals("Error: Cannot Connect To The Server")) {
-                Toast.makeText(activity, result, Toast.LENGTH_SHORT).show();
+                PetOwner petOwner = getUserInfoFromLocalDatabase();
+                if (petOwner != null) {
+                    Intent intent = new Intent(activity, MainActivity.class);
+                    intent.putExtra("userInfo", petOwner);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    activity.startActivity(intent);
+                } else {
+                    Toast.makeText(activity, result, Toast.LENGTH_SHORT).show();
+                }
             } else if (result.trim().equals("Login Failed")) {
                 Toast.makeText(activity, "Login Failed: Wrong Username or Password", Toast.LENGTH_SHORT).show();
             } else {
@@ -288,14 +354,26 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
                 activity.startActivity(intent);
             }
 
-        }//-----------------------------------------------------------------------------------------
+        }  else if (type.equals("addNewAdvert")) {
+            if (result.trim().equals("Error: Cannot Connect To The Server")) {
+                Toast.makeText(activity, result, Toast.LENGTH_SHORT).show();
+            } else if (result.trim().equals("Upload Failed")) {
+                Toast.makeText(activity, "Advert Publish Failed. Please Try Again Later.", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(activity, "Advert Publish Successful", Toast.LENGTH_SHORT).show();
+                saveMyAdvertToLocalDatabase(result);
+                activity.setResult(RESULT_OK);
+                activity.finish();
+            }
+        }
+
         else if (type.equals("getPetCareProviders")) {
             if (result.trim().equals("Error: Cannot Connect To The Server")) {
                 Toast.makeText(activity, result, Toast.LENGTH_SHORT).show();
                 activity.startActivity(new Intent(activity, PetCareServiceActivity.class), ActivityOptions.makeSceneTransitionAnimation(activity).toBundle());
             } else {
                 Intent intent = new Intent(activity, PetCareServiceActivity.class);
-                intent.putExtra("petCareProvidersInfo", getPetCareProvidersFromJson(result)); //form PetOwner object from the json result and send it with intent
+                intent.putExtra("petCareProvidersInfo", getPetCareProvidersFromJson(result)); //form PetCareProvider objects from the json result and send it with intent
                 activity.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(activity).toBundle());
             }
 
@@ -305,11 +383,10 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
                 activity.startActivity(new Intent(activity, PetMarketActivity.class), ActivityOptions.makeSceneTransitionAnimation(activity).toBundle());
             } else {
                 Intent intent = new Intent(activity, PetMarketActivity.class);
-                intent.putExtra("advertsInfo", getAdvertsFromJson(result)); //form PetOwner object from the json result and send it with intent
+                intent.putExtra("advertsInfo", getAdvertsFromJson(result)); //form Advert objects from the json result and send it with intent
                 activity.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(activity).toBundle());
             }
         }
-
     }
 
     private PetOwner getUserInfoFromJson(String jsonResult) {
@@ -318,7 +395,33 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
                 JSONObject jsonObject = new JSONObject(jsonResult);
                 JSONArray jsonArray = jsonObject.getJSONArray("server_response");
                 if(jsonArray.length() > 0) {
-                    JSONObject innerJsonObject = jsonArray.getJSONObject(jsonArray.length() - 1);
+                    JSONObject innerJsonObject = jsonArray.getJSONObject(0);
+
+                    //------------------------------------------------------------------------------
+                    //insert/update user record in the local database too
+                    if (type.equals("register") || type.equals("updateUserInfo")) {
+                        MyDBHelper dbHelper = new MyDBHelper(activity);
+                        dbHelper.open();
+                        String[] columnNames = dbHelper.getColumnNames(MyPetFriendContract.UsersEntry.TABLE_NAME);
+                        Object[] columnValues = new Object[]{innerJsonObject.getInt("_id"), innerJsonObject.getLong("createDate"),
+                                innerJsonObject.getString("userType"), innerJsonObject.getString("firstName"), innerJsonObject.getString("lastName"),
+                                innerJsonObject.getString("email"), innerJsonObject.getString("password"), innerJsonObject.getLong("birthDate"),
+                                innerJsonObject.getString("gender"), innerJsonObject.getString("country"), innerJsonObject.getString("city"),
+                                innerJsonObject.getString("phone"), innerJsonObject.getString("profilePhoto"),
+                                innerJsonObject.getString("profileDescription"), innerJsonObject.getString("availability"),
+                                innerJsonObject.getString("yearsOfExperience"), innerJsonObject.getString("averageRatePerHour"),
+                                innerJsonObject.getString("serviceProvidedFor"), innerJsonObject.getString("serviceProvided")};
+                        if (type.equals("register")) {
+                            dbHelper.insetRecord(MyPetFriendContract.UsersEntry.TABLE_NAME, columnNames, columnValues);
+                            dbHelper.close();
+                        } else if (type.equals("updateUserInfo")) {
+                            dbHelper.updateRecord(MyPetFriendContract.UsersEntry.TABLE_NAME, columnNames, columnValues,
+                                    MyPetFriendContract.UsersEntry.USER_ID, innerJsonObject.getString("_id"));
+                        }
+                        dbHelper.close();
+                    }
+                    //------------------------------------------------------------------------------
+
                     if (innerJsonObject.getString("userType").equals(MyPetFriendContract.UsersEntry.USER_TYPE_PET_CARE_PROVIDER)) {
                         return new PetCareProvider(innerJsonObject.getInt("_id"), innerJsonObject.getLong("createDate"),
                                 innerJsonObject.getString("userType"), innerJsonObject.getString("firstName"), innerJsonObject.getString("lastName"),
@@ -327,72 +430,147 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
                                 innerJsonObject.getString("phone"), innerJsonObject.getString("profilePhoto"),
                                 innerJsonObject.getString("profileDescription"), innerJsonObject.getString("availability"),
                                 innerJsonObject.getString("yearsOfExperience"), innerJsonObject.getString("averageRatePerHour"),
-                                innerJsonObject.getString("serviceProvidedFor"), innerJsonObject.getString("serviceProvided"));
+                                innerJsonObject.getString("serviceProvidedFor"), innerJsonObject.getString("serviceProvided"),
+                                (innerJsonObject.getString("latitude").isEmpty() ? 0 : innerJsonObject.getDouble("latitude")),
+                                (innerJsonObject.getString("longitude").isEmpty() ? 0 : innerJsonObject.getDouble("longitude")));
                     } else {
                         //if userType != PetCareProvider, assume it's PetOwner
                         return new PetOwner(innerJsonObject.getInt("_id"), innerJsonObject.getLong("createDate"),
                                 innerJsonObject.getString("userType"), innerJsonObject.getString("firstName"), innerJsonObject.getString("lastName"),
                                 innerJsonObject.getString("email"), innerJsonObject.getString("password"), innerJsonObject.getLong("birthDate"),
                                 innerJsonObject.getString("gender"), innerJsonObject.getString("country"), innerJsonObject.getString("city"),
-                                innerJsonObject.getString("phone"), innerJsonObject.getString("profilePhoto"));
+                                innerJsonObject.getString("phone"), innerJsonObject.getString("profilePhoto"),
+                                (innerJsonObject.getString("latitude").isEmpty() ? 0 : innerJsonObject.getDouble("latitude")),
+                                (innerJsonObject.getString("longitude").isEmpty() ? 0 : innerJsonObject.getDouble("longitude")));
                     }
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
-                Toast.makeText(activity, "Error: User Cannot Be Found", Toast.LENGTH_SHORT).show();
+                Toast.makeText(activity, "Error: Cannot Get User Information " + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }
         return null;
     }
 
-    private ArrayList<PetCareProvider> getPetCareProvidersFromJson(String jsonResult){
-        ArrayList<PetCareProvider> petCareProviders = new ArrayList<>();
+    //for if we couldn't get user information online (using above method), try to find it in the local database
+    private PetOwner getUserInfoFromLocalDatabase() {
+        MyDBHelper dbHelper = new MyDBHelper(activity);
+        dbHelper.open();
+        Cursor cursor = dbHelper.getRecord(MyPetFriendContract.UsersEntry.TABLE_NAME, null,
+                new String[]{MyPetFriendContract.UsersEntry.COLUMN_EMAIL, MyPetFriendContract.UsersEntry.COLUMN_PASSWORD}, new String[]{email, password});
+        if (cursor.moveToFirst()) {
+            Toast.makeText(activity, "Login Successful", Toast.LENGTH_SHORT).show();
+            activity.getSharedPreferences(CURRENT_USER_INFO_PREFS, MODE_PRIVATE).edit().putBoolean(PREF_LOGGED_IN, true).apply();
+            if (cursor.getString(2).equals(MyPetFriendContract.UsersEntry.USER_TYPE_PET_CARE_PROVIDER)) {
+                PetCareProvider petCareProvider = new PetCareProvider(cursor.getInt(0), cursor.getLong(1), cursor.getString(2), cursor.getString(3),
+                        cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getLong(7), cursor.getString(8),
+                        cursor.getString(9), cursor.getString(10), cursor.getString(11), cursor.getString(12), cursor.getString(13),
+                        cursor.getString(14), cursor.getString(15), cursor.getString(16), cursor.getString(17), cursor.getString(18), 0, 0);
+                cursor.close();
+                dbHelper.close();
+                return petCareProvider;
+            } else {
+                //if userType != PetCareProvider, assume it's PetOwner
+                PetOwner petOwner = new PetOwner(cursor.getInt(0), cursor.getLong(1), cursor.getString(2), cursor.getString(3),
+                        cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getLong(7), cursor.getString(8),
+                        cursor.getString(9), cursor.getString(10), cursor.getString(11), cursor.getString(12), 0, 0);
+                cursor.close();
+                dbHelper.close();
+                return petOwner;
+            }
+        } else {
+            Toast.makeText(activity, "Login Failed: Wrong user name or password", Toast.LENGTH_SHORT).show();
+            cursor.close();
+            dbHelper.close();
+            return null;
+        }
+    }
+
+    private void saveMyAdvertToLocalDatabase(String jsonResult) {
         try {
             JSONObject jsonObject = new JSONObject(jsonResult);
             JSONArray jsonArray = jsonObject.getJSONArray("server_response");
-            for (int i = 0 ; i < jsonArray.length(); i++) {
-                JSONObject innerJsonObject = jsonArray.getJSONObject(i);
-                petCareProviders.add(new PetCareProvider(innerJsonObject.getInt("_id"), innerJsonObject.getLong("createDate"),
-                        innerJsonObject.getString("userType"), innerJsonObject.getString("firstName"), innerJsonObject.getString("lastName"),
-                        innerJsonObject.getString("email"), innerJsonObject.getString("password"), innerJsonObject.getLong("birthDate"),
-                        innerJsonObject.getString("gender"), innerJsonObject.getString("country"), innerJsonObject.getString("city"),
-                        innerJsonObject.getString("phone"), innerJsonObject.getString("profilePhoto"),
-                        innerJsonObject.getString("profileDescription"), innerJsonObject.getString("availability"),
-                        innerJsonObject.getString("yearsOfExperience"), innerJsonObject.getString("averageRatePerHour"),
-                        innerJsonObject.getString("serviceProvidedFor"), innerJsonObject.getString("serviceProvided")));
-
+            if(jsonArray.length() > 0) {
+                JSONObject innerJsonObject = jsonArray.getJSONObject(0);
+                Object[] columnValues = new Object[]{innerJsonObject.getLong("_id"), innerJsonObject.getLong("sellerId"),
+                        innerJsonObject.getLong("createDate"), innerJsonObject.getInt("isSold"), innerJsonObject.getInt("viewCount"),
+                        innerJsonObject.getString("category"), innerJsonObject.getString("type"), innerJsonObject.getString("title"),
+                        innerJsonObject.getDouble("price"), innerJsonObject.getString("details"), innerJsonObject.getString("country"),
+                        innerJsonObject.getString("city"), innerJsonObject.getString("email"), innerJsonObject.getString("phone"),
+                        innerJsonObject.getString("petType"), innerJsonObject.getString("petBreed"), innerJsonObject.getLong("petBirthDate"),
+                        innerJsonObject.getString("petGender"), innerJsonObject.getString("isPetNeutered"),
+                        innerJsonObject.getString("isPetMicrochipped"), innerJsonObject.getString("isPetVaccinated")};
+                MyDBHelper dbHelper = new MyDBHelper(activity);
+                dbHelper.open();
+                String[] columnNames = dbHelper.getColumnNames(MyPetFriendContract.UserOfferedAdvertsEntry.TABLE_NAME);
+                dbHelper.insetRecord(MyPetFriendContract.UserOfferedAdvertsEntry.TABLE_NAME, columnNames, columnValues);
+                dbHelper.close();
             }
         } catch (JSONException e) {
             e.printStackTrace();
-            Toast.makeText(activity, "Error: Data Cannot Be Retrieved", Toast.LENGTH_SHORT).show();
+            Toast.makeText(activity, "Error: Cannot Get User Information :" + e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private ArrayList<PetCareProvider> getPetCareProvidersFromJson(String jsonResult){
+        ArrayList<PetCareProvider> petCareProviders = new ArrayList<>();
+        JSONArray jsonArray = null;
+        try {
+            JSONObject jsonObject = new JSONObject(jsonResult);
+            jsonArray = jsonObject.getJSONArray("server_response");
+        } catch (JSONException e) {
+                e.printStackTrace();
+                Toast.makeText(activity, "Error: Data Cannot Be Retrieved", Toast.LENGTH_SHORT).show();
+        }
+        for (int i = 0; i < (jsonArray != null ? jsonArray.length() : 0); i++) {
+            try {
+            JSONObject innerJsonObject = jsonArray.getJSONObject(i);
+            petCareProviders.add(new PetCareProvider(innerJsonObject.getInt("_id"), innerJsonObject.getLong("createDate"),
+                    innerJsonObject.getString("userType"), innerJsonObject.getString("firstName"), innerJsonObject.getString("lastName"),
+                    innerJsonObject.getString("email"), innerJsonObject.getString("password"), innerJsonObject.getLong("birthDate"),
+                    innerJsonObject.getString("gender"), innerJsonObject.getString("country"), innerJsonObject.getString("city"),
+                    innerJsonObject.getString("phone"), innerJsonObject.getString("profilePhoto"),
+                    innerJsonObject.getString("profileDescription"), innerJsonObject.getString("availability"),
+                    innerJsonObject.getString("yearsOfExperience"), innerJsonObject.getString("averageRatePerHour"),
+                    innerJsonObject.getString("serviceProvidedFor"), innerJsonObject.getString("serviceProvided"),
+                    innerJsonObject.getDouble("latitude"), innerJsonObject.getDouble("longitude")));
+            } catch (JSONException e) {
+                e.printStackTrace();
+                Toast.makeText(activity, "Error: Some Data Cannot Be Retrieved", Toast.LENGTH_SHORT).show();
+            }
         }
         return petCareProviders;
     }
 
     private ArrayList<Advert> getAdvertsFromJson(String jsonResult) {
         ArrayList<Advert> adverts = new ArrayList<>();
+        JSONArray jsonArray = null;
         try {
             JSONObject jsonObject = new JSONObject(jsonResult);
-            JSONArray jsonArray = jsonObject.getJSONArray("server_response");
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject innerJsonObject = jsonArray.getJSONObject(i);
-                adverts.add(new Advert(innerJsonObject.getLong("_id"), Long.parseLong(innerJsonObject.getString("sellerId")),
-                        innerJsonObject.getLong("createDate"), (innerJsonObject.getString("isSold").equals("Yes")),
-                        innerJsonObject.getInt("viewCount"), innerJsonObject.getString("category"),
-                        innerJsonObject.getString("type"), innerJsonObject.getString("title"),
-                        Double.parseDouble(innerJsonObject.getString("price")), innerJsonObject.getString("details"),
-                        innerJsonObject.getString("country"), innerJsonObject.getString("city"), innerJsonObject.getString("email"),
-                        innerJsonObject.getString("phone"), innerJsonObject.getString("petType"),
-                        innerJsonObject.getString("petBreed"), innerJsonObject.getLong("petBirthDate"),
-                        innerJsonObject.getString("petGender"), (innerJsonObject.getString("isPetNetuered").equals("Yes")),
-                        (innerJsonObject.getString("isPetMicrochipped").equals("Yes")),
-                        (innerJsonObject.getString("isPetVaccinated").equals("Yes")), innerJsonObject.getString("photo")));
-            }
+            jsonArray = jsonObject.getJSONArray("server_response");
         } catch (JSONException e) {
-            e.printStackTrace();
-            Toast.makeText(activity, "Error: Data Cannot Be Retrieved", Toast.LENGTH_SHORT).show();
-        } catch (NumberFormatException e) {
-            Toast.makeText(activity, "Data Conversion Error", Toast.LENGTH_SHORT).show();
+                e.printStackTrace();
+        }
+        for (int i = 0; i < (jsonArray != null ? jsonArray.length() : 0); i++) {
+            try {
+            JSONObject innerJsonObject = jsonArray.getJSONObject(i);
+            adverts.add(new Advert(innerJsonObject.getLong("_id"), Long.parseLong(innerJsonObject.getString("sellerId")),
+                    innerJsonObject.getLong("createDate"), (innerJsonObject.getString("isSold").equals("1")),
+                    innerJsonObject.getInt("viewCount"), innerJsonObject.getString("category"),
+                    innerJsonObject.getString("type"), innerJsonObject.getString("title"),
+                    Double.parseDouble(innerJsonObject.getString("price")), innerJsonObject.getString("details"),
+                    innerJsonObject.getString("country"), innerJsonObject.getString("city"), innerJsonObject.getString("email"),
+                    innerJsonObject.getString("phone"), innerJsonObject.getString("petType"),
+                    innerJsonObject.getString("petBreed"), innerJsonObject.getLong("petBirthDate"),
+                    innerJsonObject.getString("petGender"), (innerJsonObject.getString("isPetNetuered").equals("1")),
+                    (innerJsonObject.getString("isPetMicrochipped").equals("1")),
+                    (innerJsonObject.getString("isPetVaccinated").equals("1")), innerJsonObject.getString("photo")));
+            } catch (JSONException e) {
+                e.printStackTrace();
+                Toast.makeText(activity, "Error: Some Data Cannot Be Retrieved", Toast.LENGTH_SHORT).show();
+            } catch (NumberFormatException e) {
+                Toast.makeText(activity, "Data Conversion Error", Toast.LENGTH_SHORT).show();
+            }
         }
 
         return adverts;

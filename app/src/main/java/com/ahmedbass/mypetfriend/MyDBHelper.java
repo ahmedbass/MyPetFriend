@@ -53,9 +53,10 @@ public class MyDBHelper extends SQLiteOpenHelper {
 
     //---insert a record into the database---
     public long insetRecord(String table, String[] columnNames, Object[] columnValues) {
+        int i = (table.trim().equals(MyPetFriendContract.UsersEntry.TABLE_NAME) ? 0 : 1);
         //using a ContentValues object to store key/value pairs
         ContentValues values = new ContentValues();
-        for (int i = 1; i < columnNames.length; i++) {
+        for (; i < columnNames.length; i++) {
             try {
                 if (columnValues[i] instanceof String) {
                     values.put(columnNames[i], columnValues[i].toString());
@@ -74,7 +75,7 @@ public class MyDBHelper extends SQLiteOpenHelper {
                 }
             }
             catch (Exception e) {
-                Toast.makeText(context, columnValues[i].toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Error: " + columnValues[i].toString(), Toast.LENGTH_SHORT).show();
             }
         }
         return db.insert(table, null, values);
@@ -82,8 +83,9 @@ public class MyDBHelper extends SQLiteOpenHelper {
 
     //---update a record---
     public int updateRecord(String table, String[] columnsNames, Object[] columnsValues, String selection, String selectionArg) {
+        int i = (table.trim().equals(MyPetFriendContract.UsersEntry.TABLE_NAME) ? 0 : 1);
         ContentValues values = new ContentValues();
-        for(int i = 1; i < columnsNames.length; i++) {
+        for(; i < columnsNames.length; i++) {
             if(columnsValues[i] instanceof String) {
                 values.put(columnsNames[i], columnsValues[i].toString());
             } else if (columnsValues[i] instanceof Integer) {
@@ -101,7 +103,7 @@ public class MyDBHelper extends SQLiteOpenHelper {
             }
 //            Toast.makeText(context, values.getAsString(columnsNames[i]), Toast.LENGTH_SHORT).show();
         }
-        return db.update(table, values, selection + "=" + selectionArg, null);
+        return db.update(table, values, selection + "=?" , new String[]{selectionArg});
     }
 
     //---delete a particular record---
@@ -115,8 +117,17 @@ public class MyDBHelper extends SQLiteOpenHelper {
     }
 
     //---retrieve a particular record(s)---
-    public Cursor getRecord(String table, String[] columns, String selection, String selectionArg) {
-        return db.query(true, table, columns, selection + "=?", new String[]{selectionArg}, null, null, null, null);
+    public Cursor getRecord(String table, String[] columns, String[] selection, String[] selectionArg) {
+        String selectionString = "";
+        if(selection != null) {
+            for (int i = 0; i < selection.length; i++) {
+                selectionString += selection[i] + "=?";
+                if (i < selection.length - 1) {
+                    selectionString += " and ";
+                }
+            }
+        }
+        return db.query(true, table, columns, selectionString, selectionArg, null, null, null, null);
     }
 
     public String[] getColumnNames(String table) {

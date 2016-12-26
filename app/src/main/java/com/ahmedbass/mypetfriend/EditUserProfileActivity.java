@@ -143,7 +143,7 @@ public class EditUserProfileActivity extends AppCompatActivity {
                 }
                 if (!isFocused) {
                     isPasswordEditing = false;
-                    if(!password_etxt.getText().toString().equals(oldPassword)) {
+                    if (!password_etxt.getText().toString().equals(oldPassword)) {
                         confirmNewPasswordDialog(oldPassword);
                     }
                 }
@@ -160,7 +160,12 @@ public class EditUserProfileActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         if (password_etxt.getText().toString().equals(newPassword_etxt.getText().toString())) {
-                            password_etxt.setText(newPassword_etxt.getText());
+                            if (password_etxt.getText().toString().length() < 6 || password_etxt.getText().toString().length() > 20) {
+                                Toast.makeText(getBaseContext(), "Please enter password between 6 and 20 characters", Toast.LENGTH_SHORT).show();
+                                password_etxt.setText(oldPassword);
+                            } else {
+                                password_etxt.setText(newPassword_etxt.getText());
+                            }
                         } else {
                             Toast.makeText(EditUserProfileActivity.this, "Password is not matching. Please try again", Toast.LENGTH_SHORT).show();
                             password_etxt.setText(oldPassword);
@@ -229,6 +234,7 @@ public class EditUserProfileActivity extends AppCompatActivity {
         }
     }
 
+    //method for checking the checkboxes based on what petCareProvider has set in their serviceProvided/For
     private boolean arrayContains(String[] array, String key) {
         for (String arrayElement : array) {
             if (arrayElement.contains(key)) {
@@ -332,6 +338,11 @@ public class EditUserProfileActivity extends AppCompatActivity {
         experienceAndSalary_lout = (LinearLayout) findViewById(R.id.ExperienceAndSalary_lout);
         additionalInformation_lout = (LinearLayout) findViewById(R.id.additionalInformation_lout);
 
+        ArrayAdapter<String> countriesAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line,
+                getResources().getStringArray(R.array.countries_array));
+        country_etxt.setAdapter(countriesAdapter);
+        country_etxt.setThreshold(1);
+
         availabilityAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(availability));
         availability_spnr.setAdapter(availabilityAdapter);
         averageRateAdpter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.average_rate_per_hour_range));
@@ -343,7 +354,7 @@ public class EditUserProfileActivity extends AppCompatActivity {
         averageRatePerHour_spnr.setEnabled(false);
     }
 
-    private void saveUpdateUserInfo(){
+    private void saveUpdatedUserInfo(){
         ConnectivityManager connectivityManager;
         NetworkInfo networkInfo;
         String taskType, firstName, lastName, email, password, country, city, gender, userType, phone;
@@ -380,7 +391,7 @@ public class EditUserProfileActivity extends AppCompatActivity {
             }
 
             BackgroundWorker backgroundWorker = new BackgroundWorker(EditUserProfileActivity.this);
-            backgroundWorker.execute(taskType, String.valueOf(preferences.getInt(UsersEntry._ID, -1)),
+            backgroundWorker.execute(taskType, String.valueOf(preferences.getInt(UsersEntry.USER_ID, -1)),
                     userType, firstName, lastName, email, password, String.valueOf(birthDate), gender, country, city, phone,
                     profilePhoto, profileDescription, availability, yearsOfExperience, averageRatePerHour, setServiceProvidedFor(), setServiceProvided());
         } else {
@@ -399,13 +410,13 @@ public class EditUserProfileActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_edit_user_profile:
+            case R.id.action_edit:
                 if (isClickedEditButton) {
                     new AlertDialog.Builder(this).setTitle("Save Changes?")
                             .setPositiveButton("Save", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
-                                    saveUpdateUserInfo();
+                                    saveUpdatedUserInfo();
                                 }
                             })
                             .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

@@ -13,18 +13,28 @@ import android.view.View;
 
 import static com.ahmedbass.mypetfriend.LauncherActivity.CURRENT_USER_INFO_PREFS;
 
-public class SettingsActivity extends AppCompatActivity {
+public class MyAccountActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings);
+        setContentView(R.layout.activity_my_account);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public void moveToEditUserProfile(View view) {
-        Intent intent = new Intent(this, EditUserProfileActivity.class);
-        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+    public void moveToActivity(View view) {
+        Intent intent;
+        Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
+        switch (view.getId()) {
+            case R.id.myProfile_btn:
+                intent = new Intent(this, EditUserProfileActivity.class);
+                startActivity(intent, bundle);
+                break;
+            case R.id.myAdverts_btn:
+                intent = new Intent(this, MyAdvertsActivity.class);
+                startActivity(intent, bundle);
+                break;
+        }
     }
 
     public void logout(View view) {

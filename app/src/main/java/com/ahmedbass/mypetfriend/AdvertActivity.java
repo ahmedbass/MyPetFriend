@@ -1,5 +1,6 @@
 package com.ahmedbass.mypetfriend;
 
+import android.app.ActivityOptions;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -27,6 +28,8 @@ import android.widget.Toast;
 import java.text.NumberFormat;
 import java.util.Calendar;
 import java.util.Locale;
+
+import static com.ahmedbass.mypetfriend.LauncherActivity.CURRENT_USER_INFO_PREFS;
 
 public class AdvertActivity extends AppCompatActivity {
 
@@ -104,22 +107,6 @@ public class AdvertActivity extends AppCompatActivity {
         return ageInYear + (ageInMonth > 0 ? "." + ageInMonth : "") + " years old";
     }
 
-    private void initializeMyViews() {
-        advertPhoto_img = (ImageView) findViewById(R.id.advertPhoto_img);
-        advertType_txtv = (TextView) findViewById(R.id.advertType_txtv);
-        price_txtv = (TextView) findViewById(R.id.price_txtv);
-        petType_txtv = (TextView) findViewById(R.id.petType_txtv);
-        petBreed_txtv = (TextView) findViewById(R.id.petBreed_txtv);
-        petAge_txtv = (TextView) findViewById(R.id.petAge_txtv);
-        isPetMicrochipped_txtv = (TextView) findViewById(R.id.isPetMicrochipped_txtv);
-        isPetNeutered_txtv = (TextView) findViewById(R.id.isPetNeutered_txtv);
-        isPetVaccinated_txtv = (TextView) findViewById(R.id.isPetVaccinated_txtv);
-        advertDetails_txtv = (TextView) findViewById(R.id.advertDetails_txtv);
-        advertLocation_txtv = (TextView) findViewById(R.id.advertLocation_txtv);
-        sellerPhone_btn = (Button) findViewById(R.id.sellerPhone_btn);
-        sellerEmail_btn = (Button) findViewById(R.id.sellerEmail_btn);
-    }
-
     //possible ways of contacting the seller (phone call, email)
     public void contactSeller(View view) {
         switch (view.getId()) {
@@ -178,6 +165,51 @@ public class AdvertActivity extends AppCompatActivity {
         builder.show();
     }
 
+    private void initializeMyViews() {
+        advertPhoto_img = (ImageView) findViewById(R.id.advertPhoto_img);
+        advertType_txtv = (TextView) findViewById(R.id.advertType_txtv);
+        price_txtv = (TextView) findViewById(R.id.price_txtv);
+        petType_txtv = (TextView) findViewById(R.id.petType_txtv);
+        petBreed_txtv = (TextView) findViewById(R.id.petBreed_txtv);
+        petAge_txtv = (TextView) findViewById(R.id.petAge_txtv);
+        isPetMicrochipped_txtv = (TextView) findViewById(R.id.isPetMicrochipped_txtv);
+        isPetNeutered_txtv = (TextView) findViewById(R.id.isPetNeutered_txtv);
+        isPetVaccinated_txtv = (TextView) findViewById(R.id.isPetVaccinated_txtv);
+        advertDetails_txtv = (TextView) findViewById(R.id.advertDetails_txtv);
+        advertLocation_txtv = (TextView) findViewById(R.id.advertLocation_txtv);
+        sellerPhone_btn = (Button) findViewById(R.id.sellerPhone_btn);
+        sellerEmail_btn = (Button) findViewById(R.id.sellerEmail_btn);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        if ((getIntent() != null && getIntent().getBooleanExtra("calledFromMyAdverts", false)) ||
+                currentAdvert.getSellerId() == getSharedPreferences(CURRENT_USER_INFO_PREFS, MODE_PRIVATE).getInt(MyPetFriendContract.UsersEntry.USER_ID, -1)) {
+            getMenuInflater().inflate(R.menu.user_profile_toolbar, menu);
+        } else {
+            getMenuInflater().inflate(R.menu.user_actions_menu, menu);
+        }
+        return true;
+    }
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_edit:
+                Intent intent = new Intent(this, AddEditAdvertActivity.class);
+                intent.putExtra("editAdvert", currentAdvert);
+                startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+                return true;
+            case android.R.id.home: // Respond to the action bar's Up/Home button
+                supportFinishAfterTransition();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    //----------------------------------------------------------------------------------------------
     //adapter for the gallery
     public class ImageAdapter extends BaseAdapter {
 
@@ -216,22 +248,5 @@ public class AdvertActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.user_actions_menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home: // Respond to the action bar's Up/Home button
-                supportFinishAfterTransition();
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
 }
 
