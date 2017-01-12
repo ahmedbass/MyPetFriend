@@ -21,6 +21,7 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -60,7 +61,7 @@ public class AddEditPetActivity extends AppCompatActivity {
     double dailyFeedingAmountInCups;
 
     String previousSelectedBreed, receivedBreedFromEditing;
-    private int previousCurrentWeight;
+    private int previousSelectedWeight;
 
     //to be filled on choosing pet type
     ArrayList<String> availableCatBreeds = new ArrayList<>();
@@ -233,7 +234,7 @@ public class AddEditPetActivity extends AppCompatActivity {
             isNeutered_rgrp.check(myPet.isNeutered() ? R.id.neutered_rbtn : R.id.notNeutered_rbtn);
             microchipNumber_etxt.setText(myPet.getMicrochipNumber());
             receivedBreedFromEditing = previousSelectedBreed = myPet.getBreed();
-            previousCurrentWeight = myPet.getCurrentWeight();
+            previousSelectedWeight = myPet.getCurrentWeight();
 
             savePet_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -398,7 +399,7 @@ public class AddEditPetActivity extends AppCompatActivity {
         //if we're editing current pet, first we delete its saved schedule, and then set the new schedule  for the new situation like normal
         if (isEditedRecord) {
             //if user didn't change type & breed, stop from doing all the following stuff
-            if (previousSelectedBreed.equals(breed)) {
+            if (previousSelectedBreed.equals(breed) && previousSelectedWeight == weight) {
                 dbHelper.close();
                 return true;
             }
@@ -435,8 +436,14 @@ public class AddEditPetActivity extends AppCompatActivity {
                     weighingFrequency = 21;
                     dailyFeedingAmountInCups *= .8;
                 } else {
+                    Cursor cursor1 = dbHelper.getRecord(MyPetFriendContract.StoredCatBreedsEntry.TABLE_NAME, null, new String[]{MyPetFriendContract.StoredCatBreedsEntry.NAME}, new String[]{breed});
+                    if (cursor1.moveToFirst()) {
+                        dailyFeedingAmountInCups = cursor1.getInt(2);
+                    }
+                    cursor1.close();
                     weighingFrequency = 90;
                 }
+                dailyFeedingAmountInCups = Double.parseDouble(new DecimalFormat("##.##").format(dailyFeedingAmountInCups));
 
                 //set the pet schedule activities after getting required values (vaccines are added in next method)
                 String[] catScheduleActivityTypes = {TYPE_BREAKFAST, TYPE_DINNER, TYPE_GROOMING, TYPE_BATHING,
@@ -444,9 +451,9 @@ public class AddEditPetActivity extends AppCompatActivity {
                 int[] catScheduleActivityFrequencies = {breakfastFrequency, dinnerFrequency, groomingFrequency, bathingFrequency,
                         teethBrushingFrequency, nailTrimmingFrequency, weighingFrequency, medicalCheckupFrequency, birthdayFrequency};
                 int[] catScheduleActivityTimes = {8, 20, 15, 15, 21, 21, 9, 11, 0};
-                String[] catScheduleActivityNotes = {dailyFeedingAmountInCups > 0 ? "Feeding amount: around " + (dailyFeedingAmountInCups / 2) + " cups" : "",
-                        dailyFeedingAmountInCups > 0 ? "Feeding amount: around " + (dailyFeedingAmountInCups / 2) + " cups" : "", "", "", "", "",
-                        name + " should be between " + minWeight + " kg and " + maxWeight + " kg to keep being healthy", "",
+                String[] catScheduleActivityNotes = {dailyFeedingAmountInCups > 0 ? "Feeding amount: about " + (dailyFeedingAmountInCups / 2) + " cups" : "",
+                        dailyFeedingAmountInCups > 0 ? "Feeding amount: about " + (dailyFeedingAmountInCups / 2) + " cups" : "", "", "", "", "",
+                        "weigh " + name + " every " + weighingFrequency + " days", "",
                         "Happy Birthday " + name+ "!"};
                 for(int i = 0; i < catScheduleActivityTypes.length; i++) {
                     dbHelper.insetRecord(MyPetFriendContract.PetScheduleActivitiesEntry.TABLE_NAME, columnNamesScheduleActivities,
@@ -491,8 +498,14 @@ public class AddEditPetActivity extends AppCompatActivity {
                     weighingFrequency = 14;
                     dailyFeedingAmountInCups *= .75;
                 } else {
+                    Cursor cursor1 = dbHelper.getRecord(MyPetFriendContract.StoredDogBreedsEntry.TABLE_NAME, null, new String[]{MyPetFriendContract.StoredDogBreedsEntry.NAME}, new String[]{breed});
+                    if (cursor1.moveToFirst()) {
+                        dailyFeedingAmountInCups = cursor1.getInt(2);
+                    }
+                    cursor1.close();
                     weighingFrequency = 45;
                 }
+                dailyFeedingAmountInCups = Double.parseDouble(new DecimalFormat("##.##").format(dailyFeedingAmountInCups));
 
                 //set the pet schedule activities after getting required values (vaccines are added in next method)
                 String[] dogScheduleActivityTypes = {TYPE_BREAKFAST, TYPE_DINNER, TYPE_GROOMING, TYPE_BATHING, TYPE_TEETH_BRUSHING,
@@ -500,9 +513,10 @@ public class AddEditPetActivity extends AppCompatActivity {
                 int[] dogScheduleActivityFrequencies = {breakfastFrequency, dinnerFrequency, groomingFrequency, bathingFrequency, teethBrushingFrequency,
                         nailTrimmingFrequency, exerciseFrequency, trainingFrequency, weighingFrequency, medicalCheckupFrequency, birthdayFrequency};
                 int[] dogScheduleActivityTimes = {8, 20, 15, 15, 21, 21, 18, 17, 9, 11, 0};
-                String[] dogScheduleActivityNotes = {"Feeding amount: around " + (dailyFeedingAmountInCups / 2) + " cups",
-                        "Feeding amount: around " + (dailyFeedingAmountInCups / 2) + " cups", "", "", "", "", "", "",
-                        name + " should be between " + minWeight + " kg and " + maxWeight + " kg to keep being healthy", "",
+                String[] dogScheduleActivityNotes = {"Feeding amount: about " + (dailyFeedingAmountInCups / 2) + " cups",
+                        "Feeding amount: about " + (dailyFeedingAmountInCups / 2) + " cups", "", "", "", "",
+                        "about " + exerciseNeedsInMinutes + " minutes", "about " + trainingSessionInMinutes + " minutes",
+                        "weigh " + name + " every " + weighingFrequency + " days", "",
                         "Happy Birthday " + name+ "!"};
                 for(int i = 0; i < dogScheduleActivityTypes.length; i++) {
                     dbHelper.insetRecord(MyPetFriendContract.PetScheduleActivitiesEntry.TABLE_NAME, columnNamesScheduleActivities,

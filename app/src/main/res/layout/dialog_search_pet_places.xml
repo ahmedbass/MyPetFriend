@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:gravity="center_horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Care Service Type:"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <CheckBox
+                    android:id="@+id/petSitting_chk"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Pet Sitting"
+                    android:layout_weight="1" />
+
+                <CheckBox
+                    android:id="@+id/petWalking_chk"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Pet Walking"
+                    android:layout_weight="1.1" />
+
+                <CheckBox
+                    android:id="@+id/petGrooming_chk"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Grooming" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <CheckBox
+                    android:id="@+id/petTraining_chk"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Training"
+                    android:layout_weight="1" />
+
+                <CheckBox
+                    android:id="@+id/petVeterinary_chk"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Veterinary"
+                    android:layout_weight="1.1" />
+
+                <CheckBox
+                    android:id="@+id/petBoarding_chk"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Boarding"
+                    android:layout_weight="1" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Care Service For:"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <CheckBox
+                    android:id="@+id/catService_chk"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Cats"
+                    android:layout_weight="1" />
+
+                <CheckBox
+                    android:id="@+id/dogService_chk"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Dogs"
+                    android:layout_weight="1" />
+
+                <CheckBox
+                    android:id="@+id/horseService_chk"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Horses" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <CheckBox
+                    android:id="@+id/birdService_chk"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Birds"
+                    android:layout_weight="1" />
+
+                <CheckBox
+                    android:id="@+id/fishService_chk"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Fish"
+                    android:layout_weight="1" />
+
+                <CheckBox
+                    android:id="@+id/smallAnimalService_chk"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Small Animals"
+                    android:layout_weight="1" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1.5dp"
+            android:background="@color/nice_gray"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Place type:"
+            android:layout_gravity="start"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_margin="5dp"
+            android:baselineAligned="false">
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="102dp"
+                android:layout_weight="1"
+                android:layout_margin="5dp"
+                android:background="@drawable/mypets_list_background">
+                <ImageButton
+                    android:id="@+id/petStore_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/pet_store"
+                    android:scaleType="centerInside"
+                    android:paddingBottom="22dp"
+                    android:paddingTop="5dp"
+                    android:background="?android:attr/selectableItemBackground" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pet Stores"
+                    android:layout_gravity="bottom|center"
+                    android:textColor="@color/white"/>
+            </FrameLayout>
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="102dp"
+                android:layout_weight="1"
+                android:layout_margin="5dp"
+                android:background="@drawable/mypets_list_background">
+                <ImageButton
+                    android:id="@+id/veterinaryCare_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/veterinary_care"
+                    android:scaleType="centerInside"
+                    android:paddingBottom="22dp"
+                    android:paddingTop="5dp"
+                    android:background="?android:attr/selectableItemBackground"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Veterinary Care"
+                    android:layout_gravity="bottom|center"
+                    android:textColor="@color/white"/>
+            </FrameLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1.5dp"
+            android:background="@color/nice_gray"
+            android:layout_marginTop="10dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+            <Button
+                android:id="@+id/cancel_btn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Cancel"
+                android:layout_margin="5dp"/>
+
+            <Button
+                android:id="@+id/search_btn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Search"
+                android:layout_margin="5dp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

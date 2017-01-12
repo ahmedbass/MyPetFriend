@@ -58,8 +58,23 @@ public class RegistrationActivity extends AppCompatActivity {
                 if (!dayPick_etxt.getText().toString().isEmpty()) {
                     if (Integer.parseInt(dayPick_etxt.getText().toString()) < 1) {
                         dayPick_etxt.setText("1");
-                    } else if (Integer.parseInt(dayPick_etxt.getText().toString()) > 31) {
-                        dayPick_etxt.setText("31");
+                    }
+                    if(monthPick_spnr.getSelectedItemPosition() == 1 || monthPick_spnr.getSelectedItemPosition() == 3 ||
+                            monthPick_spnr.getSelectedItemPosition() == 5 || monthPick_spnr.getSelectedItemPosition() == 7 ||
+                            monthPick_spnr.getSelectedItemPosition() == 8 || monthPick_spnr.getSelectedItemPosition() == 10 ||
+                            monthPick_spnr.getSelectedItemPosition() == 12) {
+                        if (Integer.parseInt(dayPick_etxt.getText().toString()) > 31) {
+                            dayPick_etxt.setText("31");
+                        }
+                    } else if (monthPick_spnr.getSelectedItemPosition() == 4 || monthPick_spnr.getSelectedItemPosition() == 6 ||
+                            monthPick_spnr.getSelectedItemPosition() == 9 || monthPick_spnr.getSelectedItemPosition() == 11) {
+                        if (Integer.parseInt(dayPick_etxt.getText().toString()) > 30) {
+                            dayPick_etxt.setText("30");
+                        }
+                    } else if (monthPick_spnr.getSelectedItemPosition() == 2) {
+                        if (Integer.parseInt(dayPick_etxt.getText().toString()) > 29) {
+                            dayPick_etxt.setText("29");
+                        }
                     }
                 }
             }
@@ -73,7 +88,7 @@ public class RegistrationActivity extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
                 if (!yearPick_etxt.getText().toString().isEmpty()) {
                     if (Integer.parseInt(yearPick_etxt.getText().toString()) > Calendar.getInstance().get(Calendar.YEAR)) {
-                        yearPick_etxt.setText(String.valueOf(Calendar.getInstance().get(Calendar.YEAR)));
+                        yearPick_etxt.setText(String.valueOf(Calendar.getInstance().get(Calendar.YEAR) - 1));
                     }
                 }
             }
@@ -140,20 +155,81 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     private boolean validateFields() {
-        if (country.isEmpty() || city.isEmpty() || yearPick_etxt.getText().toString().trim().isEmpty() ||
-                dayPick_etxt.getText().toString().trim().isEmpty() || gender.isEmpty() || userType.isEmpty()) {
-            Toast.makeText(getBaseContext(), "Please fill-in all fields", Toast.LENGTH_SHORT).show();
-        } else if (firstName.length() < 3 || lastName.length() < 3) {
-            Toast.makeText(this, "Please enter your real name", Toast.LENGTH_SHORT).show();
-        } else if (email.contains(" ") || !email.contains("@") || email.startsWith("@") || !(email.endsWith(".com")
-                || email.endsWith(".net") || email.endsWith(".edu") || email.endsWith(".org") || email.endsWith(".gov"))) {
-            Toast.makeText(this, "Please enter a valid email address", Toast.LENGTH_SHORT).show();
-        } else if (password.length() < 6 || password.length() > 20) {
-            Toast.makeText(this, "Please enter password between 6 and 20 characters", Toast.LENGTH_SHORT).show();
+        String allowedNameCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz ";
+        String[] availableCountries = getResources().getStringArray(R.array.countries_array);
+        boolean flagCorrectCountry = false;
+
+        if (firstName.length() < 3 || lastName.length() < 3) {
+            Toast.makeText(this, "name must be at least three characters", Toast.LENGTH_SHORT).show();
+            return false;
         } else {
-            return true;
+            for (int i = 0; i < firstName.length(); i++) {
+                if (!allowedNameCharacters.contains(String.valueOf(firstName.charAt(i)))) {
+                    Toast.makeText(this, "Please enter your first name correctly. only letters allowed", Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+            }
+            for (int i = 0; i < lastName.length(); i++) {
+                if (!allowedNameCharacters.contains(String.valueOf(lastName.charAt(i)))) {
+                    Toast.makeText(this, "Please enter your last name correctly. only letters allowed", Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+            }
         }
-        return false;
+
+        if (email.startsWith(".") || email.endsWith(".") || email.contains(" ") ||
+                !email.contains("@") || email.startsWith("@") ||  email.endsWith("@") ||
+                !(email.endsWith(".com") || email.endsWith(".net") || email.endsWith(".edu") || email.endsWith(".org") || email.endsWith(".gov"))) {
+            Toast.makeText(this, "Please enter a valid email address", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (password.length() < 6 || password.length() > 20) {
+            Toast.makeText(this, "Please enter password between 6 and 20 characters", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (country.isEmpty()) {
+            Toast.makeText(this, "Please enter your country", Toast.LENGTH_SHORT).show();
+            return false;
+        } else {
+            for (String availableCountry : availableCountries) {
+                if (availableCountry.equalsIgnoreCase(country.trim())) {
+                    flagCorrectCountry = true;
+                    break;
+                }
+            }
+            if (!flagCorrectCountry) {
+                Toast.makeText(this, "Please select an available country", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        }
+        if (city.isEmpty()) {
+            Toast.makeText(this, "Please enter your city", Toast.LENGTH_SHORT).show();
+            return false;
+        } else {
+            for (int i = 0; i < city.length(); i++) {
+                if (!allowedNameCharacters.contains(String.valueOf(city.charAt(i)))) {
+                    Toast.makeText(this, "Please enter your city correctly. only letters allowed", Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+            }
+        }
+        if (yearPick_etxt.getText().toString().trim().isEmpty() || dayPick_etxt.getText().toString().trim().isEmpty()) {
+            Toast.makeText(getBaseContext(), "Please enter your birth date correctly", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (gender.isEmpty()) {
+            Toast.makeText(this, "Please select a gender", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (userType.isEmpty()) {
+            Toast.makeText(this, "Please select a user type", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
     }
 
     private void initializeMyViews() {

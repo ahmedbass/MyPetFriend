@@ -104,7 +104,11 @@ public class AdvertActivity extends AppCompatActivity {
         ageInYear = Calendar.getInstance().get(Calendar.YEAR) - birthCalender.get(Calendar.YEAR);
         ageInMonth = (Calendar.getInstance().get(Calendar.MONTH) - birthCalender.get(Calendar.MONTH)) * 10 / 12;
 
-        return ageInYear + (ageInMonth > 0 ? "." + ageInMonth : "") + " years old";
+        if (ageInYear < 1) {
+            return (Calendar.getInstance().get(Calendar.MONTH) - birthCalender.get(Calendar.MONTH)) + " months old";
+        } else {
+            return ageInYear + (ageInMonth > 0 ? "." + ageInMonth : "") + " years old";
+        }
     }
 
     //possible ways of contacting the seller (phone call, email)

@@ -88,7 +88,6 @@ class Pet implements Serializable {
         birth.setTimeInMillis(birthDate);
         return Calendar.getInstance().get(Calendar.YEAR) - birth.get(Calendar.YEAR);
     }
-
     public int getPetAgeInMonth(long birthDate) {
         birthDate = (birthDate == 0 ? this.birthDate : birthDate);
         Calendar birth = Calendar.getInstance();

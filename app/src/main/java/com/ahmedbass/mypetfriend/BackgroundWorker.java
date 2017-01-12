@@ -36,7 +36,7 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
     private Activity activity;
     private ProgressDialog progressDialog;
 
-    public static String serverDomain = "http://192.168.1.4/"; //192.168.1.4 - 10.22.136.239 - 10.22.139.249
+    public static String serverDomain = "http://ahmedbass.eu.pn/"; //192.168.1.4 - 10.22.136.239 - 10.22.139.249
     private String type;
     private String email, password;
 

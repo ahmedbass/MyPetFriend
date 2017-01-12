@@ -73,8 +73,13 @@ public class ItemPetFragment extends Fragment {
         }
         petName_txtv.setText(currentPet.getName());
         petBreedAndType_txtv.setText(currentPet.getBreed() + " " + (currentPet.getType()));
+        int ageInYear = currentPet.getPetAgeInYear(0);
         int ageInMonth = currentPet.getPetAgeInMonth(0) * 10 /12;
-        petAge_txtv.setText(currentPet.getPetAgeInYear(0) + (ageInMonth == 0 ? "" : "." + +ageInMonth) + " years old");
+        if (ageInMonth < 0) {
+            ageInYear--;
+            ageInMonth += 10;
+        }
+        petAge_txtv.setText(ageInYear + (ageInMonth == 0 ? "" : "." + ageInMonth) + " years old");
         petWeight_txtv.setText(currentPet.getCurrentWeight() == -1 ? "Weigh not set" : currentPet.getCurrentWeight() + " kg");
 
         //set onclick listener

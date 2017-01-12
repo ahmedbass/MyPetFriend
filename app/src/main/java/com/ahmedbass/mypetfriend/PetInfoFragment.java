@@ -68,6 +68,10 @@ public class PetInfoFragment extends Fragment {
         //calculating the age in years and months
         ageInYear = myPet.getPetAgeInYear(0);
         ageInMonth = myPet.getPetAgeInMonth(0) * 10 / 12; // *10/12 is to get a decimal percent e.g. 0.7
+        if (ageInMonth < 0) {
+            ageInYear--;
+            ageInMonth += 10;
+        }
         birthDate_txtv.setText(sdf.format(myPet.getBirthDate()) +
                 "\n(" + ageInYear + (ageInMonth == 0 ? "" : "." + ageInMonth) + " years old)");
         gender_txtv.setText(myPet.getGender());
