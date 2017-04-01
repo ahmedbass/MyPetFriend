@@ -53,7 +53,7 @@ public class MyAdvertsActivity extends AppCompatActivity {
         Cursor cursor = dbHelper.getRecord(MyPetFriendContract.UserOfferedAdvertsEntry.TABLE_NAME, null,
                 new String[]{MyPetFriendContract.UserOfferedAdvertsEntry.SELLER_ID},
                 new String[]{String.valueOf(preferences.getInt(MyPetFriendContract.UsersEntry.USER_ID, -1))});
-        if(cursor.moveToLast()) {
+        if (cursor.moveToLast()) {
             do {
                 listOfMyAdverts.add(new Advert(cursor.getLong(0), cursor.getLong(1), cursor.getLong(2), (cursor.getInt(3) == 1),
                         cursor.getInt(4), cursor.getString(5), cursor.getString(6), cursor.getString(7),
@@ -118,10 +118,53 @@ public class MyAdvertsActivity extends AppCompatActivity {
         }
     }
 
-    private class MyAdvertsAdapter extends ArrayAdapter<Advert>{
+    private String setDisplayAdvertCreateDate(long createDate) {
+        String displayedAdvertCreateDate;
+        Calendar calendarCreate = Calendar.getInstance();
+        Calendar calendarCurrent = Calendar.getInstance();
+        calendarCreate.setTimeInMillis(createDate);
+
+        int differenceInYears = calendarCurrent.get(Calendar.YEAR) - calendarCreate.get(Calendar.YEAR);
+        int differenceInMonths = calendarCurrent.get(Calendar.MONTH) - calendarCreate.get(Calendar.MONTH);
+        int differenceInWeeks = calendarCurrent.get(Calendar.WEEK_OF_YEAR) - calendarCreate.get(Calendar.WEEK_OF_YEAR);
+        int differenceInDays = calendarCurrent.get(Calendar.DAY_OF_YEAR) - calendarCreate.get(Calendar.DAY_OF_YEAR);
+        int differenceInHours = calendarCurrent.get(Calendar.HOUR_OF_DAY) - calendarCreate.get(Calendar.HOUR_OF_DAY);
+
+        if (differenceInYears == 0) {
+            if (differenceInMonths == 0) {
+                if (differenceInWeeks == 0) {
+                    if (differenceInDays == 0) {
+                        if (differenceInHours == 0) {
+                            if (calendarCurrent.get(Calendar.MINUTE) - calendarCreate.get(Calendar.MINUTE) == 0) {
+                                displayedAdvertCreateDate = "Now";
+                            } else {
+                                displayedAdvertCreateDate = calendarCurrent.get(Calendar.MINUTE) - calendarCreate.get(Calendar.MINUTE) + " minutes ago";
+                            }
+                        } else {
+                            displayedAdvertCreateDate = differenceInHours + (differenceInHours == 1 ? " hour ago" : " hours ago");
+                        }
+                    } else {
+                        displayedAdvertCreateDate = differenceInDays + (differenceInDays == 1 ? " day ago" : " days ago");
+                    }
+                } else {
+                    displayedAdvertCreateDate = differenceInWeeks + (differenceInWeeks == 1 ? " week ago" : " weeks ago");
+                }
+            } else {
+                displayedAdvertCreateDate = differenceInMonths + (differenceInMonths == 1 ? " month ago" : " months ago");
+            }
+        } else {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+            displayedAdvertCreateDate = sdf.format(createDate);
+        }
+
+        return displayedAdvertCreateDate;
+    }
+
+    private class MyAdvertsAdapter extends ArrayAdapter<Advert> {
         public MyAdvertsAdapter(Context context, ArrayList<Advert> myAdverts) {
             super(context, 0, myAdverts);
         }
+
         @NonNull
         @Override
         public View getView(int position, View convertView, @NonNull ViewGroup parent) {
@@ -152,47 +195,5 @@ public class MyAdvertsActivity extends AppCompatActivity {
 
             return listItemView;
         }
-    }
-
-    private String setDisplayAdvertCreateDate(long createDate) {
-        String displayedAdvertCreateDate;
-        Calendar calendarCreate = Calendar.getInstance();
-        Calendar calendarCurrent = Calendar.getInstance();
-        calendarCreate.setTimeInMillis(createDate);
-
-        int differenceInYears = calendarCurrent.get(Calendar.YEAR) - calendarCreate.get(Calendar.YEAR);
-        int differenceInMonths = calendarCurrent.get(Calendar.MONTH) - calendarCreate.get(Calendar.MONTH);
-        int differenceInWeeks = calendarCurrent.get(Calendar.WEEK_OF_YEAR) - calendarCreate.get(Calendar.WEEK_OF_YEAR);
-        int differenceInDays = calendarCurrent.get(Calendar.DAY_OF_YEAR) - calendarCreate.get(Calendar.DAY_OF_YEAR);
-        int differenceInHours = calendarCurrent.get(Calendar.HOUR_OF_DAY) - calendarCreate.get(Calendar.HOUR_OF_DAY);
-
-        if(differenceInYears == 0) {
-            if (differenceInMonths == 0) {
-                if (differenceInWeeks == 0) {
-                    if (differenceInDays == 0) {
-                        if (differenceInHours == 0) {
-                            if (calendarCurrent.get(Calendar.MINUTE) - calendarCreate.get(Calendar.MINUTE) == 0) {
-                                displayedAdvertCreateDate = "Now";
-                            } else {
-                                displayedAdvertCreateDate = calendarCurrent.get(Calendar.MINUTE) - calendarCreate.get(Calendar.MINUTE) + " minutes ago";
-                            }
-                        } else {
-                            displayedAdvertCreateDate = differenceInHours + (differenceInHours == 1 ? " hour ago" : " hours ago");
-                        }
-                    } else {
-                        displayedAdvertCreateDate = differenceInDays + (differenceInDays == 1 ? " day ago" : " days ago");
-                    }
-                } else {
-                    displayedAdvertCreateDate = differenceInWeeks + (differenceInWeeks == 1 ? " week ago" : " weeks ago");
-                }
-            } else {
-                displayedAdvertCreateDate = differenceInMonths + (differenceInMonths == 1 ? " month ago" : " months ago");
-            }
-        } else {
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-            displayedAdvertCreateDate = sdf.format(createDate);
-        }
-
-        return displayedAdvertCreateDate;
     }
 }

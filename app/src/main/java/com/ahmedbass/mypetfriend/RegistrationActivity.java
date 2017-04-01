@@ -31,7 +31,7 @@ public class RegistrationActivity extends AppCompatActivity {
     RadioGroup gender_rgrp, usertype_rgrp;
     RadioButton male_rbtn, female_rbtn, petOwner_rbtn, petCareProvider_rbtn;
     Button register_btn;
-    String firstName, lastName, email, password, country, city,  gender, userType;
+    String firstName, lastName, email, password, country, city, gender, userType;
     long birthDate;
 
     ConnectivityManager connectivityManager;
@@ -50,16 +50,20 @@ public class RegistrationActivity extends AppCompatActivity {
 
         dayPick_etxt.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
             @Override
             public void afterTextChanged(Editable editable) {
                 if (!dayPick_etxt.getText().toString().isEmpty()) {
                     if (Integer.parseInt(dayPick_etxt.getText().toString()) < 1) {
                         dayPick_etxt.setText("1");
                     }
-                    if(monthPick_spnr.getSelectedItemPosition() == 1 || monthPick_spnr.getSelectedItemPosition() == 3 ||
+                    if (monthPick_spnr.getSelectedItemPosition() == 1 || monthPick_spnr.getSelectedItemPosition() == 3 ||
                             monthPick_spnr.getSelectedItemPosition() == 5 || monthPick_spnr.getSelectedItemPosition() == 7 ||
                             monthPick_spnr.getSelectedItemPosition() == 8 || monthPick_spnr.getSelectedItemPosition() == 10 ||
                             monthPick_spnr.getSelectedItemPosition() == 12) {
@@ -81,9 +85,13 @@ public class RegistrationActivity extends AppCompatActivity {
         });
         yearPick_etxt.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
             @Override
             public void afterTextChanged(Editable editable) {
                 if (!yearPick_etxt.getText().toString().isEmpty()) {
@@ -178,7 +186,7 @@ public class RegistrationActivity extends AppCompatActivity {
         }
 
         if (email.startsWith(".") || email.endsWith(".") || email.contains(" ") ||
-                !email.contains("@") || email.startsWith("@") ||  email.endsWith("@") ||
+                !email.contains("@") || email.startsWith("@") || email.endsWith("@") ||
                 !(email.endsWith(".com") || email.endsWith(".net") || email.endsWith(".edu") || email.endsWith(".org") || email.endsWith(".gov"))) {
             Toast.makeText(this, "Please enter a valid email address", Toast.LENGTH_SHORT).show();
             return false;

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_pet_care_provider_profile"
     android:layout_width="match_parent"
@@ -14,11 +13,10 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
-
+            android:orientation="horizontal"
             android:padding="2dp"
             android:paddingBottom="@dimen/activity_vertical_margin"
             android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -26,71 +24,71 @@
             android:paddingTop="@dimen/activity_vertical_margin">
 
             <ImageView
+                android:id="@+id/petCareProviderPhoto_img"
                 android:layout_width="130dp"
                 android:layout_height="130dp"
-                android:src="@drawable/user1"
-                android:id="@+id/petCareProviderPhoto_img"
-                android:background="@color/colorAccent"
-                android:padding="10dp"
-                android:cropToPadding="true"
-                android:scaleType="centerCrop"
                 android:layout_margin="10dp"
-                android:onClick="showProfilePhoto"/>
+                android:background="@color/colorAccent"
+                android:cropToPadding="true"
+                android:onClick="showProfilePhoto"
+                android:padding="10dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/user1" />
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
+                android:layout_gravity="center"
                 android:layout_margin="5dp"
-                android:layout_gravity="center">
+                android:layout_weight="1"
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/petCareProviderLocation_txtv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="City, Country"
-                    android:textColor="@color/primaryText"
                     android:layout_marginTop="5dp"
+                    android:drawableLeft="@drawable/ic_location_on_black_24dp"
+                    android:drawableStart="@drawable/ic_location_on_black_24dp"
                     android:scaleX=".9"
                     android:scaleY=".9"
-                    android:drawableStart="@drawable/ic_location_on_black_24dp"
-                    android:drawableLeft="@drawable/ic_location_on_black_24dp" />
+                    android:text="City, Country"
+                    android:textColor="@color/primaryText" />
 
                 <TextView
                     android:id="@+id/petCareProviderAvailability_txtv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
                     android:text="PART-TIME pet sitter"
                     android:textColor="@color/primaryText"
-                    android:layout_marginTop="5dp"
                     android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/petCareProviderExperienceYears_txtv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
                     android:text="5 YRS EXP."
                     android:textColor="@color/primaryText"
-                    android:layout_marginTop="5dp"
                     android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/petCareProviderAverageRatePerHour_txtv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
                     android:text="$10-15 HOURLY RATE"
                     android:textColor="@color/primaryText"
-                    android:layout_marginTop="5dp"
                     android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/petCareProviderCreateDate_txtv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
                     android:text="Member Since Jan 2012"
                     android:textColor="@color/primaryText"
-                    android:layout_marginTop="5dp"
                     android:textSize="16sp" />
             </LinearLayout>
         </LinearLayout>
@@ -103,22 +101,24 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@color/white"
-            android:layout_marginTop="15dp"
-            android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-            android:elevation="2dp">
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/white"
+            android:elevation="2dp"
+            android:orientation="vertical">
+
             <TextView
                 android:id="@+id/petCareProviderName_txtv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:fontFamily="serif"
                 android:text="Meet 'Name'"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="20sp"
-                android:fontFamily="serif"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"/>
+                android:textSize="20sp" />
+
             <TextView
                 android:id="@+id/petCareProviderProfileDescription_txtv"
                 android:layout_width="match_parent"
@@ -131,69 +131,73 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@color/white"
-            android:layout_marginTop="15dp"
-            android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-            android:elevation="2dp">
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/white"
+            android:elevation="2dp"
+            android:orientation="vertical">
+
             <TextView
                 android:id="@+id/petCareProvider_serviceProvidedFor_txtv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:fontFamily="serif"
                 android:text="Provides Care For"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="20sp"
-                android:fontFamily="serif"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"/>
+                android:textSize="20sp" />
+
             <TextView
                 android:id="@+id/petCareProviderServiceProvidedFor_txtv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
-                android:padding="8dp"
-                android:text="Cats, Dogs, Birds, Horses, Small Animals, Other pets"
-                android:drawableStart="@drawable/checkmark"
                 android:drawableLeft="@drawable/checkmark"
-                android:drawablePadding="8dp" />
+                android:drawablePadding="8dp"
+                android:drawableStart="@drawable/checkmark"
+                android:padding="8dp"
+                android:text="Cats, Dogs, Birds, Horses, Small Animals, Other pets" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@color/white"
-            android:layout_marginTop="15dp"
-            android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-            android:elevation="2dp">
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/white"
+            android:elevation="2dp"
+            android:orientation="vertical">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:fontFamily="serif"
                 android:text="Care Services Provided"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="20sp"
-                android:fontFamily="serif"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"/>
+                android:textSize="20sp" />
+
             <TextView
                 android:id="@+id/petCareProviderServiceProvided_txtv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
-                android:padding="8dp"
-                android:text="Pet Sitting, Pet Walking, Grooming, Training"
-                android:drawableStart="@drawable/checkmark"
                 android:drawableLeft="@drawable/checkmark"
-                android:drawablePadding="8dp"/>
+                android:drawablePadding="8dp"
+                android:drawableStart="@drawable/checkmark"
+                android:padding="8dp"
+                android:text="Pet Sitting, Pet Walking, Grooming, Training" />
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1.5dp"
-            android:background="@android:color/darker_gray"
-            android:layout_marginTop="15dp" />
+            android:layout_marginTop="15dp"
+            android:background="@android:color/darker_gray" />
 
 
         <LinearLayout
@@ -203,33 +207,35 @@
             android:background="@android:color/background_light"
             android:elevation="2dp"
             android:orientation="vertical">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:fontFamily="serif"
                 android:text="Contact Pet Care Provider"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="20sp"
-                android:fontFamily="serif"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"/>
+                android:textSize="20sp" />
+
             <Button
                 android:id="@+id/petCareProviderPhone_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="contactPetCareProvider"
-                android:text="Phone: +966123456789"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginTop="10dp" />
+                android:layout_marginTop="10dp"
+                android:onClick="contactPetCareProvider"
+                android:text="Phone: +966123456789" />
 
             <Button
                 android:id="@+id/petCareProviderEmail_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:onClick="contactPetCareProvider"
-                android:text="Email: selleremail@email.com"
-                android:layout_margin="10dp" />
+                android:text="Email: selleremail@email.com" />
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

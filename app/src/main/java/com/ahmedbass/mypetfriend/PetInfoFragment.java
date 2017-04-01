@@ -22,7 +22,7 @@ public class PetInfoFragment extends Fragment {
     Pet myPet;
 
     TextView birthDate_txtv, gender_txtv, type_txtv, breed_txtv, weight_txtv, isNeutered_txtv, microchipNumber_txtv;
-    TextView personalInformation_txtv, breedHighlights_txtv, breedPersonality_txtv, breedHealth_txtv,breedCare_txtv, breedFeeding_txtv, breedHistory_txtv;
+    TextView personalInformation_txtv, breedHighlights_txtv, breedPersonality_txtv, breedHealth_txtv, breedCare_txtv, breedFeeding_txtv, breedHistory_txtv;
     GridLayout personalInformation_gridLout;
     int ageInMonth, ageInYear;
 
@@ -33,10 +33,11 @@ public class PetInfoFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(getArguments() != null) {
+        if (getArguments() != null) {
             myPet = (Pet) getArguments().getSerializable(ARG_PET);
         }
     }
@@ -76,15 +77,16 @@ public class PetInfoFragment extends Fragment {
                 "\n(" + ageInYear + (ageInMonth == 0 ? "" : "." + ageInMonth) + " years old)");
         gender_txtv.setText(myPet.getGender());
         type_txtv.setText(myPet.getType());
-        breed_txtv.setText( myPet.getBreed());
+        breed_txtv.setText(myPet.getBreed());
         weight_txtv.setText(myPet.getCurrentWeight() == -1 ? "Not set" : myPet.getCurrentWeight() + " kg");
-        if(myPet.getCurrentWeight() != -1) { //if there's a weight set, do the color effect
+        if (myPet.getCurrentWeight() != -1) { //if there's a weight set, do the color effect
             weight_txtv.setTextColor((myPet.getCurrentWeight() < myPet.getMinWeight() || myPet.getCurrentWeight() > myPet.getMaxWeight()) ?
                     getResources().getColor(R.color.nice_red) : getResources().getColor(R.color.nice_green));
         }
         weight_txtv.setOnClickListener(new View.OnClickListener() {
             Dialog dialog;
             TextView textView;
+
             @Override
             public void onClick(View view) {
                 dialog = new Dialog(getContext());
@@ -111,6 +113,7 @@ public class PetInfoFragment extends Fragment {
 
         personalInformation_txtv.setOnClickListener(new View.OnClickListener() {
             boolean isDetailsShown;
+
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onClick(View view) {
@@ -138,6 +141,7 @@ public class PetInfoFragment extends Fragment {
     //for showing/hiding different pet information (set onClickListener for views above)
     class HandleMyViewsClicks implements View.OnClickListener {
         boolean isDetailsShown;
+
         @RequiresApi(api = Build.VERSION_CODES.KITKAT)
         @Override
         public void onClick(View view) {

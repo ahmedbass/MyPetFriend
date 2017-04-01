@@ -13,47 +13,47 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <EditText
+                android:id="@+id/firstName_etxt"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName|textCapWords"
+                android:layout_weight="1"
                 android:ems="10"
-                android:id="@+id/firstName_etxt"
                 android:hint="First name"
-                android:layout_weight="1" />
+                android:inputType="textPersonName|textCapWords" />
 
             <EditText
+                android:id="@+id/lastName_etxt"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName|textCapWords"
-                android:id="@+id/lastName_etxt"
+                android:layout_weight="1"
                 android:hint="Last name"
-                android:layout_weight="1" />
+                android:inputType="textPersonName|textCapWords" />
         </LinearLayout>
 
         <EditText
+            android:id="@+id/email_etxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
-            android:id="@+id/email_etxt"
+            android:layout_marginTop="10dp"
             android:hint="Email"
-            android:layout_marginTop="10dp"/>
+            android:inputType="textEmailAddress" />
 
         <EditText
+            android:id="@+id/password_etxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:fontFamily="sans-serif"
-            android:id="@+id/password_etxt"
-            android:hint="Password (at least 6 characters)"
             android:layout_marginTop="10dp"
+            android:fontFamily="sans-serif"
+            android:hint="Password (at least 6 characters)"
+            android:inputType="textPassword"
             android:selectAllOnFocus="true" />
 
         <LinearLayout
@@ -62,22 +62,22 @@
             android:layout_marginTop="10dp">
 
             <AutoCompleteTextView
+                android:id="@+id/country_etxt"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:inputType="textAutoComplete"
-                android:id="@+id/country_etxt"
-                android:hint="Country" />
+                android:hint="Country"
+                android:inputType="textAutoComplete" />
 
             <AutoCompleteTextView
+                android:id="@+id/city_etxt"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:inputType="textAutoComplete"
-                android:id="@+id/city_etxt"
-                android:hint="City" />
+                android:hint="City"
+                android:inputType="textAutoComplete" />
 
-            </LinearLayout>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -93,12 +93,12 @@
                 android:id="@+id/dayPick_etxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="number"
-                android:hint="Day"
+                android:layout_weight="1"
                 android:ems="2"
                 android:gravity="center"
-                android:selectAllOnFocus="true"
-                android:layout_weight="1" />
+                android:hint="Day"
+                android:inputType="number"
+                android:selectAllOnFocus="true" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -107,11 +107,11 @@
 
             <Spinner
                 android:id="@+id/monthPick_spnr"
+                style="@android:style/Widget.Material.Spinner.Underlined"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:entries="@array/months"
                 android:layout_weight="1"
-                style="@android:style/Widget.Material.Spinner.Underlined"
+                android:entries="@array/months"
                 tools:targetApi="lollipop" />
 
             <TextView
@@ -123,12 +123,12 @@
                 android:id="@+id/yearPick_etxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="number"
-                android:hint="Year"
+                android:layout_weight="1"
                 android:ems="3"
                 android:gravity="center"
-                android:selectAllOnFocus="true"
-                android:layout_weight="1" />
+                android:hint="Year"
+                android:inputType="number"
+                android:selectAllOnFocus="true" />
         </LinearLayout>
 
         <LinearLayout
@@ -140,90 +140,90 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Gender: "
-                android:layout_marginRight="5dp"
                 android:layout_marginEnd="5dp"
-                android:layout_weight="1" />
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:text="Gender: " />
 
             <RadioGroup
                 android:id="@+id/gender_rgrp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_weight="2.5">
+                android:layout_weight="2.5"
+                android:orientation="horizontal">
 
                 <RadioButton
                     android:id="@+id/genderMale_rbtn"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Male"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:text="Male" />
 
                 <RadioButton
                     android:id="@+id/genderFemale_rbtn"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Female"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:text="Female" />
             </RadioGroup>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
             android:layout_marginBottom="10dp"
+            android:layout_marginTop="12dp"
             android:gravity="center">
 
             <TextView
+                android:id="@+id/usertype_txt"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="User Type: "
-                android:id="@+id/usertype_txt"
-                android:layout_marginRight="5dp"
                 android:layout_marginEnd="5dp"
-                android:layout_weight="1" />
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:text="User Type: " />
 
             <RadioGroup
                 android:id="@+id/userType_rgrp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_weight="2.5">
+                android:layout_weight="2.5"
+                android:orientation="horizontal">
 
                 <RadioButton
                     android:id="@+id/petOwner_rbtn"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Pet Owner"
+                    android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:layout_gravity="center" />
+                    android:text="Pet Owner" />
 
                 <RadioButton
                     android:id="@+id/petCareProvider_rbtn"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Pet Care Provider"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:text="Pet Care Provider" />
             </RadioGroup>
         </LinearLayout>
 
         <Button
+            android:id="@+id/myProfile_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Sign Up"
-            android:id="@+id/myProfile_btn"
-            android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
+            android:layout_marginEnd="20dp"
             android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp" />
+            android:layout_marginTop="10dp"
+            android:text="Sign Up" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Already have an account?"
             android:layout_margin="5dp"
             android:onClick="moveToSignIn"
+            android:text="Already have an account?"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@color/colorAccentDark" />
     </LinearLayout>

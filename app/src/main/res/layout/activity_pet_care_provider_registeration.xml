@@ -13,67 +13,67 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
         <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/colorAccent"
             android:layout_marginBottom="10dp"
+            android:background="@color/colorAccent"
             android:elevation="2dp">
 
             <ImageButton
                 android:id="@+id/uploadPhoto_btn"
                 android:layout_width="110dp"
                 android:layout_height="110dp"
-                android:src="@drawable/camera"
-                android:scaleType="centerInside"
+                android:background="?android:attr/selectableItemBackground"
                 android:padding="30dp"
-                android:background="?android:attr/selectableItemBackground" />
+                android:scaleType="centerInside"
+                android:src="@drawable/camera" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal|bottom"
                 android:layout_marginBottom="5dp"
-                android:text="Upload photo"
                 android:fontFamily="sans-serif-condensed"
+                android:text="Upload photo"
                 android:textColor="@color/white" />
         </FrameLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:background="@color/white"
             android:elevation="2dp"
+            android:orientation="vertical"
             android:padding="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Your Bio"
                 android:fontFamily="serif"
+                android:text="Your Bio"
                 android:textColor="@color/colorPrimaryDark" />
 
             <EditText
                 android:id="@+id/profileDescription_etxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textMultiLine"
-                android:gravity="top"
                 android:layout_marginTop="5dp"
+                android:gravity="top"
                 android:hint="Tell a little about yourself and describe your pet care experience and qualifications."
+                android:inputType="textMultiLine"
                 android:selectAllOnFocus="true" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Contact Information"
-                android:textColor="@color/colorPrimaryDark"
+                android:layout_marginTop="15dp"
                 android:fontFamily="serif"
-                android:layout_marginTop="15dp" />
+                android:text="Contact Information"
+                android:textColor="@color/colorPrimaryDark" />
 
             <EditText
                 android:id="@+id/phoneNumber_etxt"
@@ -86,17 +86,17 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:layout_marginTop="20dp"
             android:background="@color/white"
             android:elevation="2dp"
-            android:padding="10dp"
-            android:layout_marginTop="20dp">
+            android:orientation="vertical"
+            android:padding="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Experience and Salary"
                 android:fontFamily="serif"
+                android:text="Experience and Salary"
                 android:textColor="@color/colorPrimaryDark" />
 
             <LinearLayout
@@ -113,10 +113,10 @@
                     android:id="@+id/availability_spnr"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:entries="@array/availability"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginStart="10dp"
-                    android:layout_marginLeft="10dp" />
+                    android:layout_weight="1"
+                    android:entries="@array/availability" />
             </LinearLayout>
 
             <LinearLayout
@@ -133,11 +133,12 @@
                     android:id="@+id/experienceYears_spnr"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:entries="@array/xp_years"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginStart="10dp"
-                    android:layout_marginLeft="10dp" />
+                    android:layout_weight="1"
+                    android:entries="@array/xp_years" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -146,33 +147,33 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="$ Average rate/hour:"/>
+                    android:text="$ Average rate/hour:" />
 
                 <Spinner
                     android:id="@+id/averageRatePerHour_spnr"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:entries="@array/average_rate_per_hour_range"
-                    android:layout_weight="1"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginStart="10dp"
-                    android:layout_marginLeft="10dp" />
+                    android:layout_weight="1"
+                    android:entries="@array/average_rate_per_hour_range" />
             </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:layout_marginTop="20dp"
             android:background="@color/white"
             android:elevation="2dp"
-            android:padding="10dp"
-            android:layout_marginTop="20dp">
+            android:orientation="vertical"
+            android:padding="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Additional Information"
                 android:fontFamily="serif"
+                android:text="Additional Information"
                 android:textColor="@color/colorPrimaryDark" />
 
             <TextView
@@ -190,15 +191,15 @@
                     android:id="@+id/catService_chk"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Cats"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:text="Cats" />
 
                 <CheckBox
                     android:id="@+id/dogService_chk"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Dogs"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:text="Dogs" />
 
                 <CheckBox
                     android:id="@+id/horseService_chk"
@@ -217,22 +218,22 @@
                     android:id="@+id/birdService_chk"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Birds"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:text="Birds" />
 
                 <CheckBox
                     android:id="@+id/fishService_chk"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Fish"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:text="Fish" />
 
                 <CheckBox
                     android:id="@+id/smallAnimalService_chk"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Small Animals"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:text="Small Animals" />
             </LinearLayout>
 
             <TextView
@@ -250,15 +251,15 @@
                     android:id="@+id/petSitting_chk"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Pet Sitting"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:text="Pet Sitting" />
 
                 <CheckBox
                     android:id="@+id/petWalking_chk"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Pet Walking"
-                    android:layout_weight="1.1" />
+                    android:layout_weight="1.1"
+                    android:text="Pet Walking" />
 
                 <CheckBox
                     android:id="@+id/petGrooming_chk"
@@ -277,22 +278,22 @@
                     android:id="@+id/petTraining_chk"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Training"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:text="Training" />
 
                 <CheckBox
                     android:id="@+id/petVeterinary_chk"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Veterinary"
-                    android:layout_weight="1.1" />
+                    android:layout_weight="1.1"
+                    android:text="Veterinary" />
 
                 <CheckBox
                     android:id="@+id/petBoarding_chk"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Boarding"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:text="Boarding" />
             </LinearLayout>
         </LinearLayout>
 
@@ -300,9 +301,9 @@
             android:id="@+id/publishAdvert_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Save"
+            android:layout_margin="10dp"
             android:onClick="saveExtendedRegistration"
-            android:layout_margin="10dp" />
+            android:text="Save" />
 
     </LinearLayout>
 </ScrollView>

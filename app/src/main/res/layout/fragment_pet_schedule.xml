@@ -10,30 +10,30 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:background="@color/white"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
         android:layout_marginBottom="5dp"
-        android:elevation="2dp">
+        android:background="@color/white"
+        android:elevation="2dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp">
 
         <ImageView
             android:layout_width="30dp"
             android:layout_height="32dp"
-            android:src="@drawable/calendar1"
-            android:layout_marginStart="10dp"
-            android:layout_marginLeft="10dp"
             android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp" />
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/calendar1" />
 
         <TextView
             android:id="@+id/scheduleDate_txtv"
+            style="@style/myTextViewStyle.myTitleStyle"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_vertical"
-            android:text="Activities of Today"
-            style="@style/myTextViewStyle.myTitleStyle"
-            android:padding="10dp" />
+            android:padding="10dp"
+            android:text="Activities of Today" />
     </LinearLayout>
     <!--color e64a19-->
 
@@ -47,9 +47,9 @@
         android:id="@+id/activitiesOfDay_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:drawSelectorOnTop="true"
         android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        android:drawSelectorOnTop="true" />
+        android:paddingRight="5dp" />
 
     <TextView
         android:id="@+id/emptyList_txtv"

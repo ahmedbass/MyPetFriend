@@ -4,30 +4,32 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
             android:gravity="center_vertical">
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/places_ic_search"/>
+                android:src="@drawable/places_ic_search" />
+
             <EditText
                 android:id="@+id/searchByKeyword_etxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Search by keyword"
                 android:layout_margin="5dp"
-                android:inputType="textShortMessage"/>
+                android:hint="Search by keyword"
+                android:inputType="textShortMessage" />
         </LinearLayout>
 
         <LinearLayout
@@ -36,10 +38,11 @@
             android:layout_margin="10dp"
             android:gravity="center_vertical"
             android:orientation="vertical">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Care Service Type:"/>
+                android:text="Care Service Type:" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -50,15 +53,15 @@
                     android:id="@+id/petSitting_chk"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Pet Sitting"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:text="Pet Sitting" />
 
                 <CheckBox
                     android:id="@+id/petWalking_chk"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Pet Walking"
-                    android:layout_weight="1.1" />
+                    android:layout_weight="1.1"
+                    android:text="Pet Walking" />
 
                 <CheckBox
                     android:id="@+id/petGrooming_chk"
@@ -77,22 +80,22 @@
                     android:id="@+id/petTraining_chk"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Training"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:text="Training" />
 
                 <CheckBox
                     android:id="@+id/petVeterinary_chk"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Veterinary"
-                    android:layout_weight="1.1" />
+                    android:layout_weight="1.1"
+                    android:text="Veterinary" />
 
                 <CheckBox
                     android:id="@+id/petBoarding_chk"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Boarding"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:text="Boarding" />
             </LinearLayout>
         </LinearLayout>
 
@@ -102,10 +105,11 @@
             android:layout_margin="10dp"
             android:gravity="center_vertical"
             android:orientation="vertical">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Care Service For:"/>
+                android:text="Care Service For:" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -116,15 +120,15 @@
                     android:id="@+id/catService_chk"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Cats"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:text="Cats" />
 
                 <CheckBox
                     android:id="@+id/dogService_chk"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Dogs"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:text="Dogs" />
 
                 <CheckBox
                     android:id="@+id/horseService_chk"
@@ -143,22 +147,22 @@
                     android:id="@+id/birdService_chk"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Birds"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:text="Birds" />
 
                 <CheckBox
                     android:id="@+id/fishService_chk"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Fish"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:text="Fish" />
 
                 <CheckBox
                     android:id="@+id/smallAnimalService_chk"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Small Animals"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:text="Small Animals" />
             </LinearLayout>
         </LinearLayout>
 
@@ -167,37 +171,40 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:gravity="center_vertical">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Pay Rate:"/>
+                android:text="Pay Rate:" />
 
             <EditText
                 android:id="@+id/minPrice_etxt"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:padding="10dp"
                 android:hint="$ Min Rate"
-                android:inputType="numberDecimal"/>
+                android:inputType="numberDecimal"
+                android:padding="10dp" />
+
             <EditText
                 android:id="@+id/maxPrice_etxt"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:padding="10dp"
                 android:hint="$ Max Rate"
-                android:inputType="numberDecimal"/>
+                android:inputType="numberDecimal"
+                android:padding="10dp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Location:"/>
+                android:text="Location:" />
 
             <AutoCompleteTextView
                 android:id="@+id/country_atxt"
@@ -205,41 +212,43 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="Country"
-                android:inputType="textShortMessage"/>
+                android:inputType="textShortMessage" />
+
             <AutoCompleteTextView
                 android:id="@+id/city_etxt"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="City"
-                android:inputType="textShortMessage"/>
+                android:inputType="textShortMessage" />
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1.5dp"
-            android:background="@color/nice_gray"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="10dp"
+            android:background="@color/nice_gray" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center">
+
             <Button
                 android:id="@+id/cancel_btn"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:text="Cancel"
-                android:layout_margin="5dp"/>
+                android:text="Cancel" />
 
             <Button
                 android:id="@+id/search_btn"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:text="Search"
-                android:layout_margin="5dp"/>
+                android:text="Search" />
         </LinearLayout>
 
         <TextView
@@ -247,9 +256,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Clear"
             android:padding="5dp"
-            android:textColor="@color/colorAccentDark"/>
+            android:text="Clear"
+            android:textColor="@color/colorAccentDark" />
 
     </LinearLayout>
 </ScrollView>

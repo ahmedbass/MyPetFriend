@@ -11,77 +11,77 @@
         android:id="@+id/container_lout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:paddingBottom="@dimen/activity_vertical_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"
-        android:orientation="vertical">
+        android:paddingTop="@dimen/activity_vertical_margin">
 
         <ImageButton
             android:id="@+id/uploadPhoto_btn"
             android:layout_width="110dp"
             android:layout_height="110dp"
-            android:src="@drawable/user1"
-            android:scaleType="centerInside"
+            android:layout_gravity="center_horizontal"
             android:padding="15dp"
-            android:layout_gravity="center_horizontal" />
+            android:scaleType="centerInside"
+            android:src="@drawable/user1" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:layout_marginTop="20dp"
             android:background="@color/white"
             android:elevation="2dp"
-            android:padding="10dp"
-            android:layout_marginTop="20dp">
+            android:orientation="vertical"
+            android:padding="10dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <EditText
+                    android:id="@+id/firstName_etxt"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
-                    android:ems="10"
-                    android:id="@+id/firstName_etxt"
-                    android:hint="First name"
                     android:layout_weight="1"
+                    android:ems="10"
                     android:enabled="false"
-                    android:textColor="@color/primaryText"/>
+                    android:hint="First name"
+                    android:inputType="textPersonName"
+                    android:textColor="@color/primaryText" />
 
                 <EditText
+                    android:id="@+id/lastName_etxt"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
-                    android:id="@+id/lastName_etxt"
-                    android:hint="Last name"
                     android:layout_weight="1"
                     android:enabled="false"
-                    android:textColor="@color/primaryText"/>
+                    android:hint="Last name"
+                    android:inputType="textPersonName"
+                    android:textColor="@color/primaryText" />
             </LinearLayout>
 
             <EditText
+                android:id="@+id/email_etxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
-                android:id="@+id/email_etxt"
-                android:hint="Email"
                 android:layout_marginTop="10dp"
-                android:focusable="false"
                 android:enabled="false"
-                android:textColor="@color/primaryText"/>
+                android:focusable="false"
+                android:hint="Email"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/primaryText" />
 
             <EditText
+                android:id="@+id/password_etxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:fontFamily="sans-serif"
-                android:id="@+id/password_etxt"
-                android:hint="Password (at least 6 characters)"
                 android:layout_marginTop="10dp"
                 android:enabled="false"
-                android:textColor="@color/primaryText"/>
+                android:fontFamily="sans-serif"
+                android:hint="Password (at least 6 characters)"
+                android:inputType="textPassword"
+                android:textColor="@color/primaryText" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -89,24 +89,24 @@
                 android:layout_marginTop="10dp">
 
                 <AutoCompleteTextView
+                    android:id="@+id/country_etxt"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:inputType="textAutoComplete"
-                    android:id="@+id/country_etxt"
-                    android:hint="Country"
                     android:enabled="false"
-                    android:textColor="@color/primaryText"/>
+                    android:hint="Country"
+                    android:inputType="textAutoComplete"
+                    android:textColor="@color/primaryText" />
 
                 <AutoCompleteTextView
+                    android:id="@+id/city_etxt"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:inputType="textAutoComplete"
-                    android:id="@+id/city_etxt"
-                    android:hint="City"
                     android:enabled="false"
-                    android:textColor="@color/primaryText"/>
+                    android:hint="City"
+                    android:inputType="textAutoComplete"
+                    android:textColor="@color/primaryText" />
 
             </LinearLayout>
 
@@ -124,14 +124,14 @@
                     android:id="@+id/dayPick_etxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:hint="Day"
-                    android:ems="2"
-                    android:gravity="center"
-                    android:selectAllOnFocus="true"
                     android:layout_weight="1"
+                    android:ems="2"
                     android:enabled="false"
-                    android:textColor="@color/primaryText"/>
+                    android:gravity="center"
+                    android:hint="Day"
+                    android:inputType="number"
+                    android:selectAllOnFocus="true"
+                    android:textColor="@color/primaryText" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -140,13 +140,13 @@
 
                 <Spinner
                     android:id="@+id/monthPick_spnr"
+                    style="@android:style/Widget.Material.Spinner.Underlined"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:entries="@array/months"
                     android:layout_weight="1"
-                    style="@android:style/Widget.Material.Spinner.Underlined"
-                    tools:targetApi="lollipop"
-                    android:clickable="false" />
+                    android:clickable="false"
+                    android:entries="@array/months"
+                    tools:targetApi="lollipop" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -157,14 +157,14 @@
                     android:id="@+id/yearPick_etxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:hint="Year"
-                    android:ems="3"
-                    android:gravity="center"
-                    android:selectAllOnFocus="true"
                     android:layout_weight="1"
+                    android:ems="3"
                     android:enabled="false"
-                    android:textColor="@color/primaryText"/>
+                    android:gravity="center"
+                    android:hint="Year"
+                    android:inputType="number"
+                    android:selectAllOnFocus="true"
+                    android:textColor="@color/primaryText" />
             </LinearLayout>
 
             <LinearLayout
@@ -176,78 +176,78 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Gender: "
-                    android:layout_marginRight="5dp"
                     android:layout_marginEnd="5dp"
-                    android:layout_weight="1" />
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1"
+                    android:text="Gender: " />
 
                 <RadioGroup
                     android:id="@+id/gender_rgrp"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_weight="2.5">
+                    android:layout_weight="2.5"
+                    android:orientation="horizontal">
 
                     <RadioButton
                         android:id="@+id/genderMale_rbtn"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Male"
                         android:layout_weight="1"
                         android:enabled="false"
-                        android:textColor="@color/primaryText"/>
+                        android:text="Male"
+                        android:textColor="@color/primaryText" />
 
                     <RadioButton
                         android:id="@+id/genderFemale_rbtn"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Female"
                         android:layout_weight="1"
                         android:enabled="false"
-                        android:textColor="@color/primaryText"/>
+                        android:text="Female"
+                        android:textColor="@color/primaryText" />
                 </RadioGroup>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
                 android:layout_marginBottom="10dp"
+                android:layout_marginTop="12dp"
                 android:gravity="center">
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="User Type: "
-                    android:layout_marginRight="5dp"
                     android:layout_marginEnd="5dp"
-                    android:layout_weight="1" />
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1"
+                    android:text="User Type: " />
 
                 <RadioGroup
                     android:id="@+id/userType_rgrp"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_weight="2.5">
+                    android:layout_weight="2.5"
+                    android:orientation="horizontal">
 
                     <RadioButton
                         android:id="@+id/petOwner_rbtn"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Pet Owner"
-                        android:layout_weight="1"
                         android:layout_gravity="center"
+                        android:layout_weight="1"
                         android:enabled="false"
-                        android:textColor="@color/primaryText"/>
+                        android:text="Pet Owner"
+                        android:textColor="@color/primaryText" />
 
                     <RadioButton
                         android:id="@+id/petCareProvider_rbtn"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Pet Care Provider"
                         android:layout_weight="1"
                         android:enabled="false"
-                        android:textColor="@color/primaryText"/>
+                        android:text="Pet Care Provider"
+                        android:textColor="@color/primaryText" />
                 </RadioGroup>
             </LinearLayout>
 
@@ -255,57 +255,58 @@
                 android:id="@+id/phoneNumber_etxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:enabled="false"
                 android:hint="Phone Number"
                 android:inputType="phone"
-                android:enabled="false"
-                android:textColor="@color/primaryText"/>
+                android:textColor="@color/primaryText" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/profileDescription_lout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:layout_marginTop="20dp"
             android:background="@color/white"
             android:elevation="2dp"
-            android:padding="10dp"
-            android:layout_marginTop="20dp">
+            android:orientation="vertical"
+            android:padding="10dp">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Your Bio"
                 android:fontFamily="serif"
-                android:textColor="@color/colorPrimaryDark"/>
+                android:text="Your Bio"
+                android:textColor="@color/colorPrimaryDark" />
 
             <EditText
                 android:id="@+id/profileDescription_etxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textMultiLine"
-                android:gravity="top"
-                android:background="@color/white"
-                android:padding="10dp"
                 android:layout_marginTop="5dp"
-                android:hint="Tell a little about yourself and describe your pet care experience and qualifications."
+                android:background="@color/white"
                 android:enabled="false"
-                android:textColor="@color/primaryText"/>
+                android:gravity="top"
+                android:hint="Tell a little about yourself and describe your pet care experience and qualifications."
+                android:inputType="textMultiLine"
+                android:padding="10dp"
+                android:textColor="@color/primaryText" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/ExperienceAndSalary_lout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:layout_marginTop="20dp"
             android:background="@color/white"
             android:elevation="2dp"
-            android:padding="10dp"
-            android:layout_marginTop="20dp">
+            android:orientation="vertical"
+            android:padding="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Experience and Salary"
                 android:fontFamily="serif"
+                android:text="Experience and Salary"
                 android:textColor="@color/colorPrimaryDark" />
 
             <LinearLayout
@@ -322,10 +323,10 @@
                     android:id="@+id/availability_spnr"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:entries="@array/availability"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginStart="10dp"
-                    android:layout_marginLeft="10dp" />
+                    android:layout_weight="1"
+                    android:entries="@array/availability" />
             </LinearLayout>
 
             <LinearLayout
@@ -342,11 +343,12 @@
                     android:id="@+id/experienceYears_spnr"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:entries="@array/xp_years"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginStart="10dp"
-                    android:layout_marginLeft="10dp" />
+                    android:layout_weight="1"
+                    android:entries="@array/xp_years" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -355,16 +357,16 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="$ Average rate/hour:"/>
+                    android:text="$ Average rate/hour:" />
 
                 <Spinner
                     android:id="@+id/averageRatePerHour_spnr"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:entries="@array/average_rate_per_hour_range"
-                    android:layout_weight="1"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginStart="10dp"
-                    android:layout_marginLeft="10dp" />
+                    android:layout_weight="1"
+                    android:entries="@array/average_rate_per_hour_range" />
             </LinearLayout>
         </LinearLayout>
 
@@ -372,17 +374,17 @@
             android:id="@+id/additionalInformation_lout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:layout_marginTop="20dp"
             android:background="@color/white"
             android:elevation="2dp"
-            android:padding="10dp"
-            android:layout_marginTop="20dp">
+            android:orientation="vertical"
+            android:padding="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Additional Information"
                 android:fontFamily="serif"
+                android:text="Additional Information"
                 android:textColor="@color/colorPrimaryDark" />
 
             <TextView
@@ -400,18 +402,18 @@
                     android:id="@+id/catService_chk"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Cats"
                     android:layout_weight="1"
                     android:enabled="false"
+                    android:text="Cats"
                     android:textColor="@color/primaryText" />
 
                 <CheckBox
                     android:id="@+id/dogService_chk"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Dogs"
                     android:layout_weight="1"
                     android:enabled="false"
+                    android:text="Dogs"
                     android:textColor="@color/primaryText" />
 
                 <CheckBox
@@ -419,8 +421,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Horses"
                     android:enabled="false"
+                    android:text="Horses"
                     android:textColor="@color/primaryText" />
             </LinearLayout>
 
@@ -433,27 +435,27 @@
                     android:id="@+id/birdService_chk"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Birds"
                     android:layout_weight="1"
                     android:enabled="false"
-                    android:textColor="@color/primaryText"  />
+                    android:text="Birds"
+                    android:textColor="@color/primaryText" />
 
                 <CheckBox
                     android:id="@+id/fishService_chk"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Fish"
                     android:layout_weight="1"
                     android:enabled="false"
+                    android:text="Fish"
                     android:textColor="@color/primaryText" />
 
                 <CheckBox
                     android:id="@+id/smallAnimalService_chk"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Small Animals"
                     android:layout_weight="1"
                     android:enabled="false"
+                    android:text="Small Animals"
                     android:textColor="@color/primaryText" />
             </LinearLayout>
 
@@ -461,9 +463,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Services provided:"
                 android:enabled="false"
-                android:textColor="@color/primaryText"  />
+                android:text="Services provided:"
+                android:textColor="@color/primaryText" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -474,18 +476,18 @@
                     android:id="@+id/petSitting_chk"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Pet Sitting"
                     android:layout_weight="1"
                     android:enabled="false"
+                    android:text="Pet Sitting"
                     android:textColor="@color/primaryText" />
 
                 <CheckBox
                     android:id="@+id/petWalking_chk"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Pet Walking"
                     android:layout_weight="1.1"
                     android:enabled="false"
+                    android:text="Pet Walking"
                     android:textColor="@color/primaryText" />
 
                 <CheckBox
@@ -493,8 +495,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Grooming"
                     android:enabled="false"
+                    android:text="Grooming"
                     android:textColor="@color/primaryText" />
             </LinearLayout>
 
@@ -507,27 +509,27 @@
                     android:id="@+id/petTraining_chk"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Training"
                     android:layout_weight="1"
                     android:enabled="false"
+                    android:text="Training"
                     android:textColor="@color/primaryText" />
 
                 <CheckBox
                     android:id="@+id/petVeterinary_chk"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Veterinary"
                     android:layout_weight="1.1"
                     android:enabled="false"
+                    android:text="Veterinary"
                     android:textColor="@color/primaryText" />
 
                 <CheckBox
                     android:id="@+id/petBoarding_chk"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Boarding"
                     android:layout_weight="1"
                     android:enabled="false"
+                    android:text="Boarding"
                     android:textColor="@color/primaryText" />
             </LinearLayout>
         </LinearLayout>

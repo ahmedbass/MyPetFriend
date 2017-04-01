@@ -10,21 +10,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingTop="10dp"
         android:paddingBottom="@dimen/activity_vertical_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin">
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="10dp">
 
         <ImageView
             android:id="@+id/advertPhoto_img"
             android:layout_width="wrap_content"
             android:layout_height="200dp"
-            android:src="@drawable/dog_img"
+            android:layout_margin="5dp"
             android:background="@color/nice_light_gray"
-            android:padding="2dp"
             android:cropToPadding="true"
+            android:padding="2dp"
             android:scaleType="centerInside"
-            android:layout_margin="5dp" />
+            android:src="@drawable/dog_img" />
 
         <Gallery
             android:id="@+id/gallery"
@@ -36,262 +36,262 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1.5dp"
-            android:background="@android:color/darker_gray"
+            android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp" />
+            android:background="@android:color/darker_gray" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:fontFamily="serif"
             android:text="Key Information"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="20sp"
-            android:fontFamily="serif"
-            android:layout_marginTop="5dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp" />
+            android:textSize="20sp" />
 
         <GridLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:rowCount="8"
-            android:columnCount="2"
             android:layout_gravity="center"
+            android:layout_margin="5dp"
             android:background="@android:color/background_light"
+            android:columnCount="2"
             android:elevation="2dp"
             android:padding="10dp"
-            android:layout_margin="5dp">
+            android:rowCount="8">
 
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Advert Type: "
+                android:layout_column="0"
                 android:layout_margin="5dp"
                 android:layout_row="0"
-                android:layout_column="0" />
+                android:text="Advert Type: " />
 
             <TextView
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Price: "
+                android:layout_column="0"
                 android:layout_margin="5dp"
                 android:layout_row="1"
-                android:layout_column="0" />
+                android:text="Price: " />
 
             <TextView
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Pet Type: "
+                android:layout_column="0"
                 android:layout_margin="5dp"
                 android:layout_row="2"
-                android:layout_column="0" />
+                android:text="Pet Type: " />
 
             <TextView
+                android:id="@+id/textView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Pet Breed:"
-                android:id="@+id/textView5"
+                android:layout_column="0"
                 android:layout_margin="5dp"
                 android:layout_row="3"
-                android:layout_column="0" />
+                android:text="Pet Breed:" />
 
             <TextView
+                android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Pets Age:"
-                android:id="@+id/textView6"
+                android:layout_column="0"
                 android:layout_margin="5dp"
                 android:layout_row="4"
-                android:layout_column="0" />
+                android:text="Pets Age:" />
 
 
             <TextView
+                android:id="@+id/textView7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Microchipped:"
-                android:id="@+id/textView7"
+                android:layout_column="0"
                 android:layout_margin="5dp"
                 android:layout_row="5"
-                android:layout_column="0" />
+                android:text="Microchipped:" />
 
             <TextView
+                android:id="@+id/textView8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Neutered:"
-                android:id="@+id/textView8"
+                android:layout_column="0"
                 android:layout_margin="5dp"
                 android:layout_row="6"
-                android:layout_column="0" />
+                android:text="Neutered:" />
 
             <TextView
+                android:id="@+id/textView9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Vaccinated:"
-                android:id="@+id/textView9"
+                android:layout_column="0"
                 android:layout_margin="5dp"
                 android:layout_row="7"
-                android:layout_column="0" />
+                android:text="Vaccinated:" />
 
             <TextView
+                android:id="@+id/advertType_txtv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/advertType_txtv"
-                android:text="Enter Advert Type"
+                android:layout_column="1"
                 android:layout_margin="5dp"
                 android:layout_row="0"
-                android:layout_column="1"
-                android:ellipsize="end" />
+                android:ellipsize="end"
+                android:text="Enter Advert Type" />
 
             <TextView
+                android:id="@+id/price_txtv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/price_txtv"
-                android:text="Enter Price"
+                android:layout_column="1"
                 android:layout_margin="5dp"
                 android:layout_row="1"
-                android:layout_column="1"
-                android:ellipsize="end" />
+                android:ellipsize="end"
+                android:text="Enter Price" />
 
             <TextView
+                android:id="@+id/petType_txtv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/petType_txtv"
-                android:text="Enter Pet Type"
+                android:layout_column="1"
                 android:layout_margin="5dp"
                 android:layout_row="2"
-                android:layout_column="1"
-                android:ellipsize="end" />
+                android:ellipsize="end"
+                android:text="Enter Pet Type" />
 
             <TextView
+                android:id="@+id/petBreed_txtv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/petBreed_txtv"
-                android:text="Enter Pet Breed"
+                android:layout_column="1"
                 android:layout_margin="5dp"
                 android:layout_row="3"
-                android:layout_column="1" />
+                android:text="Enter Pet Breed" />
 
             <TextView
+                android:id="@+id/petAge_txtv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/petAge_txtv"
-                android:text="Enter Pets Age"
+                android:layout_column="1"
                 android:layout_margin="5dp"
                 android:layout_row="4"
-                android:layout_column="1" />
+                android:text="Enter Pets Age" />
 
             <TextView
+                android:id="@+id/isPetMicrochipped_txtv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/isPetMicrochipped_txtv"
-                android:text="Is Microchipped?"
+                android:layout_column="1"
                 android:layout_margin="5dp"
                 android:layout_row="5"
-                android:layout_column="1" />
+                android:text="Is Microchipped?" />
 
             <TextView
+                android:id="@+id/isPetNeutered_txtv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/isPetNeutered_txtv"
-                android:text="Is Neutered?"
+                android:layout_column="1"
                 android:layout_margin="5dp"
                 android:layout_row="6"
-                android:layout_column="1" />
+                android:text="Is Neutered?" />
 
             <TextView
+                android:id="@+id/isPetVaccinated_txtv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/isPetVaccinated_txtv"
-                android:text="Is Vaccinated?"
+                android:layout_column="1"
                 android:layout_margin="5dp"
                 android:layout_row="7"
-                android:layout_column="1" />
+                android:text="Is Vaccinated?" />
         </GridLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="serif"
             android:text="Full Advert Details"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="20sp"
-            android:fontFamily="serif"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp" />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/advertDetails_txtv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
             android:layout_margin="5dp"
             android:background="@android:color/background_light"
+            android:elevation="2dp"
+            android:padding="10dp"
             android:text="Long or short paragraph to describe
             \ncomprehensively the deal and the available pets and/or tools offered
              \nin it. it can be as long as the user wants, they can
-              \nwrite anything here, really it's a long paragraph."
-            android:elevation="2dp" />
+              \nwrite anything here, really it's a long paragraph." />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1.5dp"
-            android:background="@android:color/darker_gray"
+            android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp" />
+            android:background="@android:color/darker_gray" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:fontFamily="serif"
             android:text="Contact the Seller"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="20sp"
-            android:fontFamily="serif"
-            android:layout_marginTop="5dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp" />
+            android:textSize="20sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
             android:layout_margin="5dp"
             android:background="@android:color/background_light"
             android:elevation="2dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="10dp">
 
             <TextView
                 android:id="@+id/advertLocation_txtv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="City, Country"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:drawableStart="@drawable/ic_location_on_black_24dp"
                 android:drawableLeft="@drawable/ic_location_on_black_24dp"
-                android:drawablePadding="3dp" />
+                android:drawablePadding="3dp"
+                android:drawableStart="@drawable/ic_location_on_black_24dp"
+                android:text="City, Country"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <Button
                 android:id="@+id/sellerPhone_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="contactSeller"
-                android:text="Phone: +966123456789"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginTop="10dp" />
+                android:layout_marginTop="10dp"
+                android:onClick="contactSeller"
+                android:text="Phone: +966123456789" />
 
             <Button
                 android:id="@+id/sellerEmail_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:onClick="contactSeller"
-                android:text="Email: selleremail@email.com"
-                android:layout_margin="10dp" />
+                android:text="Email: selleremail@email.com" />
         </LinearLayout>
 
     </LinearLayout>

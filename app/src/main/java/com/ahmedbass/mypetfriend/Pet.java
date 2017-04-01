@@ -53,7 +53,8 @@ class Pet implements Serializable {
     private ArrayList<PetPhoto> petPhotos = new ArrayList<>();
     private ArrayList<Integer> petWeightList = new ArrayList<>();
 
-    public Pet() {}
+    public Pet() {
+    }
 
     public Pet(long petId, long ownerId, long createDate, String name, long birthDate, String gender, String type, String breed, int currentWeight, boolean isNeutered, String microchipNumber, int minWeight, int maxWeight, double dailyFeedingAmountInCups, int trainingSessionInMinutes, int exerciseNeedsInMinutes, String breedHighlights, String breedPersonality, String breedHealth, String breedCare, String breedFeeding, String breedHistory) {
         this.petId = petId;
@@ -88,6 +89,7 @@ class Pet implements Serializable {
         birth.setTimeInMillis(birthDate);
         return Calendar.getInstance().get(Calendar.YEAR) - birth.get(Calendar.YEAR);
     }
+
     public int getPetAgeInMonth(long birthDate) {
         birthDate = (birthDate == 0 ? this.birthDate : birthDate);
         Calendar birth = Calendar.getInstance();
@@ -111,24 +113,49 @@ class Pet implements Serializable {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public long getBirthDate() {
         return birthDate;
+    }
+
+    public void setBirthDate(long birthDate) {
+        this.birthDate = birthDate;
     }
 
     public String getGender() {
         return gender;
     }
 
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
     public String getType() {
         return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getBreed() {
         return breed;
     }
 
+    public void setBreed(String breed) {
+        this.breed = breed;
+    }
+
     public int getCurrentWeight() {
         return currentWeight;
+    }
+
+    public void setCurrentWeight(int weight) {
+        currentWeight = weight;
+        this.petWeightList.add(weight);
     }
 
     public ArrayList<Integer> getPetWeightList() {
@@ -141,6 +168,10 @@ class Pet implements Serializable {
 
     public String getMicrochipNumber() {
         return microchipNumber;
+    }
+
+    public void setMicrochipNumber(String microchipNumber) {
+        this.microchipNumber = microchipNumber;
     }
 
     public ArrayList<PetPhoto> getPetPhotos() {
@@ -163,37 +194,8 @@ class Pet implements Serializable {
         return petVaccines;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setBirthDate(long birthDate) {
-        this.birthDate = birthDate;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public void setBreed(String breed) {
-        this.breed = breed;
-    }
-
-    public void setCurrentWeight(int weight) {
-        currentWeight = weight;
-        this.petWeightList.add(weight);
-    }
-
     public void setIsNeutered(boolean isNeutered) {
         this.isNeutered = isNeutered;
-    }
-
-    public void setMicrochipNumber(String microchipNumber) {
-        this.microchipNumber = microchipNumber;
     }
 
     public void addPetPhoto(long id, long petId, byte[] photo, long photoDate, String photoDescription) {
@@ -221,8 +223,16 @@ class Pet implements Serializable {
         return minWeight;
     }
 
+    public void setMinWeight(int minWeight) {
+        this.minWeight = minWeight;
+    }
+
     public int getMaxWeight() {
         return maxWeight;
+    }
+
+    public void setMaxWeight(int maxWeight) {
+        this.maxWeight = maxWeight;
     }
 
     public double getDailyFeedingAmountInCups() {
@@ -237,20 +247,12 @@ class Pet implements Serializable {
         return trainingSessionInMinutes;
     }
 
-    public int getExerciseNeedsInMinutes() {
-        return exerciseNeedsInMinutes;
-    }
-
-    public void setMinWeight(int minWeight) {
-        this.minWeight = minWeight;
-    }
-
-    public void setMaxWeight(int maxWeight) {
-        this.maxWeight = maxWeight;
-    }
-
     public void setTrainingSessionInMinutes(int trainingSessionInMinutes) {
         this.trainingSessionInMinutes = trainingSessionInMinutes;
+    }
+
+    public int getExerciseNeedsInMinutes() {
+        return exerciseNeedsInMinutes;
     }
 
     public void setExerciseNeedsInMinutes(int exerciseNeedsInMinutes) {
@@ -261,44 +263,44 @@ class Pet implements Serializable {
         return breedHighlights;
     }
 
-    public String getBreedPersonality() {
-        return breedPersonality;
-    }
-
-    public String getBreedHealth() {
-        return breedHealth;
-    }
-
-    public String getBreedCare() {
-        return breedCare;
-    }
-
-    public String getBreedFeeding() {
-        return breedFeeding;
-    }
-
-    public String getBreedHistory() {
-        return breedHistory;
-    }
-
     public void setBreedHighlights(String breedHighlights) {
         this.breedHighlights = breedHighlights;
+    }
+
+    public String getBreedPersonality() {
+        return breedPersonality;
     }
 
     public void setBreedPersonality(String breedPersonality) {
         this.breedPersonality = breedPersonality;
     }
 
+    public String getBreedHealth() {
+        return breedHealth;
+    }
+
     public void setBreedHealth(String breedHealth) {
         this.breedHealth = breedHealth;
+    }
+
+    public String getBreedCare() {
+        return breedCare;
     }
 
     public void setBreedCare(String breedCare) {
         this.breedCare = breedCare;
     }
 
+    public String getBreedFeeding() {
+        return breedFeeding;
+    }
+
     public void setBreedFeeding(String breedFeeding) {
         this.breedFeeding = breedFeeding;
+    }
+
+    public String getBreedHistory() {
+        return breedHistory;
     }
 
     public void setBreedHistory(String breedHistory) {
@@ -315,7 +317,7 @@ class Pet implements Serializable {
 
     //----------------------------------------------------------------------------------------------
 
-    class ScheduleActivity implements Serializable{
+    class ScheduleActivity implements Serializable {
 
         //these are all types of schedule activities that are supported in our app. in the future, we may allow user to add their own.
         final static String TYPE_BREAKFAST = "Breakfast";
@@ -372,101 +374,6 @@ class Pet implements Serializable {
             return icon;
         }
 
-        public String getType() {
-            return type;
-        }
-
-        public long getCreateDate() {
-            return createDate;
-        }
-
-        public int getHourOfDay() {
-            return hourOfDay;
-        }
-
-        public int getMinuteOfDay() {
-            return minuteOfDay;
-        }
-
-        public String getDisplayTime() {
-            String displayTime = "";
-            if (getHourOfDay() > 12) {
-                displayTime += (getHourOfDay() - 12) + ":";
-            } else {
-                displayTime += getHourOfDay() + ":";
-            }
-            if (getMinuteOfDay() < 10) {
-                displayTime += "0" + getMinuteOfDay();
-            } else {
-                displayTime += getMinuteOfDay();
-            }
-            if (getHourOfDay() < 12) {
-                displayTime += " AM";
-            } else {
-                displayTime += " PM";
-            }
-
-            return displayTime;
-        }
-
-        public int getFrequency() {
-            return frequency;
-        }
-
-        public String getNotes() {
-            return notes;
-        }
-
-        public int getNotificationStatus() {
-            return notificationStatus;
-        }
-
-        public int getNotificationStatusIcon() {
-            return notificationStatusIcon;
-        }
-
-        public void setCreateDate(long createDate) {
-            this.createDate = createDate;
-        }
-
-        public void setHourOfDay(int hourOfDay) {
-            this.hourOfDay = hourOfDay;
-        }
-
-        public void setMinuteOfDay(int minuteOfDay) {
-            this.minuteOfDay = minuteOfDay;
-        }
-
-        public void setFrequency(int frequency) {
-            this.frequency = frequency;
-        }
-
-        public void setNotificationStatus(int notificationStatus) {
-            this.notificationStatus = notificationStatus;
-            switch (notificationStatus) {
-                case NOTIFICATION_STATUS_OFF:
-                    notificationStatusIcon = R.drawable.notification_off;
-                    break;
-                case NOTIFICATION_STATUS_ON:
-                    notificationStatusIcon = R.drawable.notification_on;
-                    break;
-                case NOTIFICATION_STATUS_ALARM:
-                    notificationStatusIcon = R.drawable.notification_alarm;
-                    break;
-            }
-        }
-
-        public void setNotes(String notes) {
-            switch (type) {
-//                case TYPE_BREAKFAST:
-//                    this.notes = "some valuable information about food for our beloved users";
-//                    break;
-                //...
-                default:
-                    this.notes = notes;
-            }
-        }
-
         private void setIcon(String type) {
             switch (type) {
                 case TYPE_BREAKFAST:
@@ -511,11 +418,106 @@ class Pet implements Serializable {
                 icon = R.drawable.vaccination;
             }
         }
+
+        public String getType() {
+            return type;
+        }
+
+        public long getCreateDate() {
+            return createDate;
+        }
+
+        public void setCreateDate(long createDate) {
+            this.createDate = createDate;
+        }
+
+        public int getHourOfDay() {
+            return hourOfDay;
+        }
+
+        public void setHourOfDay(int hourOfDay) {
+            this.hourOfDay = hourOfDay;
+        }
+
+        public int getMinuteOfDay() {
+            return minuteOfDay;
+        }
+
+        public void setMinuteOfDay(int minuteOfDay) {
+            this.minuteOfDay = minuteOfDay;
+        }
+
+        public String getDisplayTime() {
+            String displayTime = "";
+            if (getHourOfDay() > 12) {
+                displayTime += (getHourOfDay() - 12) + ":";
+            } else {
+                displayTime += getHourOfDay() + ":";
+            }
+            if (getMinuteOfDay() < 10) {
+                displayTime += "0" + getMinuteOfDay();
+            } else {
+                displayTime += getMinuteOfDay();
+            }
+            if (getHourOfDay() < 12) {
+                displayTime += " AM";
+            } else {
+                displayTime += " PM";
+            }
+
+            return displayTime;
+        }
+
+        public int getFrequency() {
+            return frequency;
+        }
+
+        public void setFrequency(int frequency) {
+            this.frequency = frequency;
+        }
+
+        public String getNotes() {
+            return notes;
+        }
+
+        public void setNotes(String notes) {
+            switch (type) {
+//                case TYPE_BREAKFAST:
+//                    this.notes = "some valuable information about food for our beloved users";
+//                    break;
+                //...
+                default:
+                    this.notes = notes;
+            }
+        }
+
+        public int getNotificationStatus() {
+            return notificationStatus;
+        }
+
+        public void setNotificationStatus(int notificationStatus) {
+            this.notificationStatus = notificationStatus;
+            switch (notificationStatus) {
+                case NOTIFICATION_STATUS_OFF:
+                    notificationStatusIcon = R.drawable.notification_off;
+                    break;
+                case NOTIFICATION_STATUS_ON:
+                    notificationStatusIcon = R.drawable.notification_on;
+                    break;
+                case NOTIFICATION_STATUS_ALARM:
+                    notificationStatusIcon = R.drawable.notification_alarm;
+                    break;
+            }
+        }
+
+        public int getNotificationStatusIcon() {
+            return notificationStatusIcon;
+        }
     }
 
     //----------------------------------------------------------------------------------------------
 
-    class Vaccine implements Serializable{
+    class Vaccine implements Serializable {
 
         final static int CATEGORY_CORE = 1; //core petVaccines should be given to every dog
         //noncore petVaccines are recommended only for some dogs, depending on the dog situation:
@@ -594,7 +596,7 @@ class Pet implements Serializable {
 
     //----------------------------------------------------------------------------------------------
 
-    class PetPhoto implements Serializable{
+    class PetPhoto implements Serializable {
         private long id;
         private long petId;
         private byte[] photo;

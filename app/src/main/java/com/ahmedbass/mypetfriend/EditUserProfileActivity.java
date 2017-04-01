@@ -51,9 +51,9 @@ public class EditUserProfileActivity extends AppCompatActivity {
     Calendar calendarBirthDate;
 
     SharedPreferences preferences;
-    private Menu menu;
     boolean isClickedEditButton, isPasswordEditing;
     String oldPassword;
+    private Menu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,9 +66,13 @@ public class EditUserProfileActivity extends AppCompatActivity {
 
         dayPick_etxt.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
             @Override
             public void afterTextChanged(Editable editable) {
                 if (!dayPick_etxt.getText().toString().isEmpty()) {
@@ -82,9 +86,13 @@ public class EditUserProfileActivity extends AppCompatActivity {
         });
         yearPick_etxt.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
             @Override
             public void afterTextChanged(Editable editable) {
                 if (!yearPick_etxt.getText().toString().isEmpty()) {
@@ -109,7 +117,7 @@ public class EditUserProfileActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
-                TransitionManager.beginDelayedTransition((ViewGroup)radioGroup.getRootView());
+                TransitionManager.beginDelayedTransition((ViewGroup) radioGroup.getRootView());
                 switch (checkedId) {
                     case R.id.petOwner_rbtn:
                         profileDescription_lout.setVisibility(View.GONE);
@@ -265,7 +273,7 @@ public class EditUserProfileActivity extends AppCompatActivity {
             serviceProvidedFor += "Small Animals, ";
         }
 
-        if(serviceProvidedFor.trim().length() > 0) {
+        if (serviceProvidedFor.trim().length() > 0) {
             return serviceProvidedFor.substring(0, serviceProvidedFor.length() - 2); //this substring just to remove the last ', '
         } else {
             return serviceProvidedFor.trim();
@@ -293,7 +301,7 @@ public class EditUserProfileActivity extends AppCompatActivity {
             serviceProvided += "Pet Boarding, ";
         }
 
-        if(serviceProvided.trim().length() > 0) {
+        if (serviceProvided.trim().length() > 0) {
             return serviceProvided.substring(0, serviceProvided.length() - 2); //this substring just to remove the last ', '
         } else {
             return serviceProvided.trim();
@@ -354,7 +362,7 @@ public class EditUserProfileActivity extends AppCompatActivity {
         averageRatePerHour_spnr.setEnabled(false);
     }
 
-    private void saveUpdatedUserInfo(){
+    private void saveUpdatedUserInfo() {
         ConnectivityManager connectivityManager;
         NetworkInfo networkInfo;
         String taskType, firstName, lastName, email, password, country, city, gender, userType, phone;
@@ -434,7 +442,7 @@ public class EditUserProfileActivity extends AppCompatActivity {
                         confirmNewPasswordDialog(password_etxt.getText().toString());
                     }
                 }
-                if(!firstName_etxt.isEnabled()) {
+                if (!firstName_etxt.isEnabled()) {
                     isClickedEditButton = true;
                     TransitionManager.beginDelayedTransition((ViewGroup) findViewById(R.id.container_lout));
                     menu.getItem(0).setIcon(getResources().getDrawable(R.drawable.save));

@@ -3,49 +3,49 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.ahmedbass.mypetfriend.LauncherActivity"
-    android:background="@color/white"
-    android:orientation="vertical">
+    tools:context="com.ahmedbass.mypetfriend.LauncherActivity">
 
     <ImageView
+        android:id="@+id/app_logo_img"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:id="@+id/app_logo_img"
         android:layout_gravity="center"
         android:layout_margin="10dp"
-        android:src="@drawable/mypetfriend_logo"/>
+        android:layout_weight="1"
+        android:src="@drawable/mypetfriend_logo" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
         android:gravity="center"
-        android:layout_marginTop="10dp">
+        android:orientation="horizontal">
 
         <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Register"
             android:id="@+id/moveToRegister_btn"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:onClick="moveToActivity" />
-
-        <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Login"
-            android:id="@+id/moveToLogin_btn"
-            android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-            android:onClick="moveToActivity" />
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:onClick="moveToActivity"
+            android:text="Register" />
+
+        <Button
+            android:id="@+id/moveToLogin_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:onClick="moveToActivity"
+            android:text="Login" />
     </LinearLayout>
 
 </LinearLayout>

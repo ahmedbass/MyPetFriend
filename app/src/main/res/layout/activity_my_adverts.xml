@@ -11,13 +11,13 @@
         android:id="@+id/myAdverts_lstv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="10dp"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="10dp"
+        android:drawSelectorOnTop="true"
+        android:paddingBottom="10dp"
         android:paddingLeft="7dp"
         android:paddingRight="7dp"
-        android:paddingBottom="10dp"
-        android:drawSelectorOnTop="true"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="10dp"/>
+        android:paddingTop="10dp" />
 
     <TextView
         android:id="@+id/emptyView_txtv"
@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
-        android:text="You don't have any adverts.\nClick '+' to create a new advert."
         android:padding="16dp"
-        android:visibility="gone"/>
+        android:text="You don't have any adverts.\nClick '+' to create a new advert."
+        android:visibility="gone" />
 </FrameLayout>

@@ -29,11 +29,10 @@ import static com.ahmedbass.mypetfriend.LauncherActivity.CURRENT_USER_INFO_PREFS
 
 public class PetCareServiceActivity extends AppCompatActivity {
 
-    private ArrayList<PetCareProvider> listOfAllPetCareProviders = new ArrayList<>();
-    private ArrayList<PetCareProvider> listOfFilteredPetCareProviders = new ArrayList<>();
-
     MyPetCareProvidersListAdapter myListAdapter;
     ListView petCareProvidersList;
+    private ArrayList<PetCareProvider> listOfAllPetCareProviders = new ArrayList<>();
+    private ArrayList<PetCareProvider> listOfFilteredPetCareProviders = new ArrayList<>();
     private String keyword, country, city;
     private int minPrice, maxPrice;
     private ArrayList<String> serviceProvided = new ArrayList<>();
@@ -45,7 +44,7 @@ public class PetCareServiceActivity extends AppCompatActivity {
         setContentView(R.layout.activity_pet_care_service);
 
         if (getIntent() != null && getIntent().getSerializableExtra("petCareProvidersInfo") != null) {
-            listOfAllPetCareProviders = (ArrayList<PetCareProvider>)getIntent().getSerializableExtra("petCareProvidersInfo");
+            listOfAllPetCareProviders = (ArrayList<PetCareProvider>) getIntent().getSerializableExtra("petCareProvidersInfo");
             //we'll keep listOfAllPetCareProviders as backup in case user doesn't make any filters, but we'll use listOfFilteredPetCareProviders to show results
             listOfFilteredPetCareProviders = new ArrayList<>(listOfAllPetCareProviders); //equaling by constructor is to create new list with new reference
         }
@@ -160,13 +159,13 @@ public class PetCareServiceActivity extends AppCompatActivity {
                 serviceProvided = new ArrayList<>();
                 serviceProvidedFor = new ArrayList<>();
                 CheckBox[] serviceProvidedChk = {petSitting_chk, petWalking_chk, petGrooming_chk, petTraining_chk, petVeterinary_chk, petBoarding_chk};
-                for(CheckBox itemServiceProvidedChk : serviceProvidedChk) {
+                for (CheckBox itemServiceProvidedChk : serviceProvidedChk) {
                     if (itemServiceProvidedChk.isChecked()) { //adding which services to search for
                         serviceProvided.add(itemServiceProvidedChk.getText().toString());
                     }
                 }
                 CheckBox[] serviceProvidedForChk = {catService_chk, dogService_chk, horseService_chk, birdService_chk, fishService_chk, smallAnimalService_chk};
-                for(CheckBox itemServiceProvidedForChk : serviceProvidedForChk) {
+                for (CheckBox itemServiceProvidedForChk : serviceProvidedForChk) {
                     if (itemServiceProvidedForChk.isChecked()) {//adding which serviceFor to search for
                         serviceProvidedFor.add(itemServiceProvidedForChk.getText().toString());
                     }
@@ -313,7 +312,7 @@ public class PetCareServiceActivity extends AppCompatActivity {
                     "?" : currentPetCareProvider.getYearsOfExperience()));
 
             TextView petCareProviderAvergeRatePerHour_txtv = (TextView) listItemView.findViewById(R.id.petCareProviderAverageRatePerHour_txtv);
-            petCareProviderAvergeRatePerHour_txtv.setText( currentPetCareProvider.getAverageRatePerHour().isEmpty() ?
+            petCareProviderAvergeRatePerHour_txtv.setText(currentPetCareProvider.getAverageRatePerHour().isEmpty() ?
                     "?" : "$" + currentPetCareProvider.getAverageRatePerHour() + "/hr");
 
             return listItemView;

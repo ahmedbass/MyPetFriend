@@ -60,18 +60,15 @@ public class PetPlacesMapActivity extends AppCompatActivity implements
 
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     private static final int DEFAULT_ZOOM = 15;
-
-    // The geographical location where the device is currently located.
-    private Location mCurrentLocation;
-    private GoogleMap mMap;
-    protected GoogleApiClient mGoogleApiClient;
-
     private final LatLng mDefaultLocation = new LatLng(0, 0);
-    private boolean mLocationPermissionGranted;
-
+    protected GoogleApiClient mGoogleApiClient;
     ArrayList<PetCareProvider> listOfPetCareProviders = new ArrayList<>();
     ArrayList<String> serviceProvided = new ArrayList<>();
     ArrayList<String> serviceProvidedFor = new ArrayList<>();
+    // The geographical location where the device is currently located.
+    private Location mCurrentLocation;
+    private GoogleMap mMap;
+    private boolean mLocationPermissionGranted;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -352,108 +349,6 @@ public class PetPlacesMapActivity extends AppCompatActivity implements
         setMarkersOnMap(listOfFilteredPetCareProviders);
     }
 
-    //----------------------------------------------------------------------------------------------
-    private class BackgroundWorker extends AsyncTask<Double, Void, String> {
-        @Override
-        protected String doInBackground(Double... params) {
-            String update_and_get_user_location_url = serverDomain + "update_and_get_user_location.php";
-            int _id = getSharedPreferences(CURRENT_USER_INFO_PREFS, MODE_PRIVATE).getInt(MyPetFriendContract.UsersEntry.USER_ID, -1);
-            double latitude = params[0];
-            double longitude = params[1];
-            try {
-                //set the http connection
-                HttpURLConnection httpURLConnection = setHttpConnection(update_and_get_user_location_url);
-                //post data to the server
-                String postData = URLEncoder.encode("_id", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(_id), "UTF-8") +
-                        "&" + URLEncoder.encode("latitude", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(latitude), "UTF-8") +
-                        "&" + URLEncoder.encode("longitude", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(longitude), "UTF-8");
-                postDataToServer(httpURLConnection, postData);
-                //read response back from server
-                return readServerResponse(httpURLConnection);
-            } catch (IOException e) {
-                return "Error: Cannot Connect To The Server";
-            }
-        }
-        private HttpURLConnection setHttpConnection(String _url) throws IOException{
-            URL url = new URL(_url);
-            HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-            httpURLConnection.setRequestMethod("POST");
-            httpURLConnection.setReadTimeout(10000);
-            httpURLConnection.setConnectTimeout(10000);
-            httpURLConnection.setDoOutput(true);
-            httpURLConnection.setDoInput(true);
-            return httpURLConnection;
-        }
-
-        private void postDataToServer(HttpURLConnection httpURLConnection, String postData) throws IOException {
-            OutputStream outputStream = httpURLConnection.getOutputStream();
-            BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-            bufferedWriter.write(postData);
-            bufferedWriter.flush();
-            bufferedWriter.close();
-            outputStream.close();
-        }
-
-        private String readServerResponse(HttpURLConnection httpURLConnection) throws IOException {
-            InputStream inputStream = httpURLConnection.getInputStream();
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
-            String result = "";
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                result += line;
-            }
-            bufferedReader.close();
-            inputStream.close();
-            httpURLConnection.disconnect();
-            return result;
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            if (result.trim().equals("Error: Cannot Connect To The Server")) {
-                Toast.makeText(PetPlacesMapActivity.this, result, Toast.LENGTH_SHORT).show();
-            } else {
-                listOfPetCareProviders = getPetCareProvidersFromJson(result);
-                setMarkersOnMap(listOfPetCareProviders);
-            }
-        }
-
-        private ArrayList<PetCareProvider> getPetCareProvidersFromJson(String jsonResult){
-            ArrayList<PetCareProvider> petCareProviders = new ArrayList<>();
-            JSONArray jsonArray = null;
-            try {
-                JSONObject jsonObject = new JSONObject(jsonResult);
-                jsonArray = jsonObject.getJSONArray("server_response");
-            } catch (JSONException e) {
-                e.printStackTrace();
-                Toast.makeText(PetPlacesMapActivity.this, "Error: Data Cannot Be Retrieved", Toast.LENGTH_SHORT).show();
-            }
-            int n = 0;
-            for (int i = 0; i < (jsonArray != null ? jsonArray.length() : 0); i++) {
-                try {
-                    JSONObject innerJsonObject = jsonArray.getJSONObject(i);
-                    petCareProviders.add(new PetCareProvider(innerJsonObject.getInt("_id"), innerJsonObject.getLong("createDate"),
-                            innerJsonObject.getString("userType"), innerJsonObject.getString("firstName"), innerJsonObject.getString("lastName"),
-                            innerJsonObject.getString("email"), innerJsonObject.getString("password"), innerJsonObject.getLong("birthDate"),
-                            innerJsonObject.getString("gender"), innerJsonObject.getString("country"), innerJsonObject.getString("city"),
-                            innerJsonObject.getString("phone"), innerJsonObject.getString("profilePhoto"),
-                            innerJsonObject.getString("profileDescription"), innerJsonObject.getString("availability"),
-                            innerJsonObject.getString("yearsOfExperience"), innerJsonObject.getString("averageRatePerHour"),
-                            innerJsonObject.getString("serviceProvidedFor"), innerJsonObject.getString("serviceProvided"),
-                            innerJsonObject.getDouble("latitude"), innerJsonObject.getDouble("longitude")));
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    n = 1;
-                }
-            }
-            if (n == 1) {
-                Toast.makeText(PetPlacesMapActivity.this, "Some Data Could Not Be Retrieved", Toast.LENGTH_SHORT).show();
-            }
-            return petCareProviders;
-        }
-    }
-
     private void setMarkersOnMap(ArrayList<PetCareProvider> listOfPetCareProviders) {
         mMap.clear();
         for (PetCareProvider petCareProvider : listOfPetCareProviders) {
@@ -499,6 +394,109 @@ public class PetPlacesMapActivity extends AppCompatActivity implements
                             .snippet(snippet));
                 }
             }
+        }
+    }
+
+    //----------------------------------------------------------------------------------------------
+    private class BackgroundWorker extends AsyncTask<Double, Void, String> {
+        @Override
+        protected String doInBackground(Double... params) {
+            String update_and_get_user_location_url = serverDomain + "update_and_get_user_location.php";
+            int _id = getSharedPreferences(CURRENT_USER_INFO_PREFS, MODE_PRIVATE).getInt(MyPetFriendContract.UsersEntry.USER_ID, -1);
+            double latitude = params[0];
+            double longitude = params[1];
+            try {
+                //set the http connection
+                HttpURLConnection httpURLConnection = setHttpConnection(update_and_get_user_location_url);
+                //post data to the server
+                String postData = URLEncoder.encode("_id", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(_id), "UTF-8") +
+                        "&" + URLEncoder.encode("latitude", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(latitude), "UTF-8") +
+                        "&" + URLEncoder.encode("longitude", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(longitude), "UTF-8");
+                postDataToServer(httpURLConnection, postData);
+                //read response back from server
+                return readServerResponse(httpURLConnection);
+            } catch (IOException e) {
+                return "Error: Cannot Connect To The Server";
+            }
+        }
+
+        private HttpURLConnection setHttpConnection(String _url) throws IOException {
+            URL url = new URL(_url);
+            HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+            httpURLConnection.setRequestMethod("POST");
+            httpURLConnection.setReadTimeout(10000);
+            httpURLConnection.setConnectTimeout(10000);
+            httpURLConnection.setDoOutput(true);
+            httpURLConnection.setDoInput(true);
+            return httpURLConnection;
+        }
+
+        private void postDataToServer(HttpURLConnection httpURLConnection, String postData) throws IOException {
+            OutputStream outputStream = httpURLConnection.getOutputStream();
+            BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+            bufferedWriter.write(postData);
+            bufferedWriter.flush();
+            bufferedWriter.close();
+            outputStream.close();
+        }
+
+        private String readServerResponse(HttpURLConnection httpURLConnection) throws IOException {
+            InputStream inputStream = httpURLConnection.getInputStream();
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
+            String result = "";
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                result += line;
+            }
+            bufferedReader.close();
+            inputStream.close();
+            httpURLConnection.disconnect();
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            if (result.trim().equals("Error: Cannot Connect To The Server")) {
+                Toast.makeText(PetPlacesMapActivity.this, result, Toast.LENGTH_SHORT).show();
+            } else {
+                listOfPetCareProviders = getPetCareProvidersFromJson(result);
+                setMarkersOnMap(listOfPetCareProviders);
+            }
+        }
+
+        private ArrayList<PetCareProvider> getPetCareProvidersFromJson(String jsonResult) {
+            ArrayList<PetCareProvider> petCareProviders = new ArrayList<>();
+            JSONArray jsonArray = null;
+            try {
+                JSONObject jsonObject = new JSONObject(jsonResult);
+                jsonArray = jsonObject.getJSONArray("server_response");
+            } catch (JSONException e) {
+                e.printStackTrace();
+                Toast.makeText(PetPlacesMapActivity.this, "Error: Data Cannot Be Retrieved", Toast.LENGTH_SHORT).show();
+            }
+            int n = 0;
+            for (int i = 0; i < (jsonArray != null ? jsonArray.length() : 0); i++) {
+                try {
+                    JSONObject innerJsonObject = jsonArray.getJSONObject(i);
+                    petCareProviders.add(new PetCareProvider(innerJsonObject.getInt("_id"), innerJsonObject.getLong("createDate"),
+                            innerJsonObject.getString("userType"), innerJsonObject.getString("firstName"), innerJsonObject.getString("lastName"),
+                            innerJsonObject.getString("email"), innerJsonObject.getString("password"), innerJsonObject.getLong("birthDate"),
+                            innerJsonObject.getString("gender"), innerJsonObject.getString("country"), innerJsonObject.getString("city"),
+                            innerJsonObject.getString("phone"), innerJsonObject.getString("profilePhoto"),
+                            innerJsonObject.getString("profileDescription"), innerJsonObject.getString("availability"),
+                            innerJsonObject.getString("yearsOfExperience"), innerJsonObject.getString("averageRatePerHour"),
+                            innerJsonObject.getString("serviceProvidedFor"), innerJsonObject.getString("serviceProvided"),
+                            innerJsonObject.getDouble("latitude"), innerJsonObject.getDouble("longitude")));
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    n = 1;
+                }
+            }
+            if (n == 1) {
+                Toast.makeText(PetPlacesMapActivity.this, "Some Data Could Not Be Retrieved", Toast.LENGTH_SHORT).show();
+            }
+            return petCareProviders;
         }
     }
 

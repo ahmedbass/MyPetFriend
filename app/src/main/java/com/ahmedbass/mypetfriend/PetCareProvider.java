@@ -30,44 +30,44 @@ class PetCareProvider extends PetOwner {
         return profileDescription;
     }
 
-    public String getYearsOfExperience() {
-        return yearsOfExperience;
-    }
-
-    public String getAverageRatePerHour() {
-        return averageRatePerHour;
-    }
-
-    public String getAvailability() {
-        return availability;
-    }
-
-    public String getServicesProvidedFor() {
-        return servicesProvidedFor;
-    }
-
-    public String getServicesProvided() {
-        return servicesProvided;
-    }
-
     public void setProfileDescription(String profileDescription) {
         this.profileDescription = profileDescription;
+    }
+
+    public String getYearsOfExperience() {
+        return yearsOfExperience;
     }
 
     public void setYearsOfExperience(String yearsOfExperience) {
         this.yearsOfExperience = yearsOfExperience;
     }
 
+    public String getAverageRatePerHour() {
+        return averageRatePerHour;
+    }
+
     public void setAverageRatePerHour(String averageRatePerHour) {
         this.averageRatePerHour = averageRatePerHour;
+    }
+
+    public String getAvailability() {
+        return availability;
     }
 
     public void setAvailability(String availability) {
         this.availability = availability;
     }
 
+    public String getServicesProvidedFor() {
+        return servicesProvidedFor;
+    }
+
     public void setServicesProvidedFor(String servicesProvidedFor) {
         this.servicesProvidedFor = servicesProvidedFor;
+    }
+
+    public String getServicesProvided() {
+        return servicesProvided;
     }
 
     public void setServicesProvided(String servicesProvided) {

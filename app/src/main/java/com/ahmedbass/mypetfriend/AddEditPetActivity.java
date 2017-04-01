@@ -61,12 +61,10 @@ public class AddEditPetActivity extends AppCompatActivity {
     double dailyFeedingAmountInCups;
 
     String previousSelectedBreed, receivedBreedFromEditing;
-    private int previousSelectedWeight;
-
     //to be filled on choosing pet type
     ArrayList<String> availableCatBreeds = new ArrayList<>();
     ArrayList<String> availableDogBreeds = new ArrayList<>();
-
+    private int previousSelectedWeight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +75,7 @@ public class AddEditPetActivity extends AppCompatActivity {
         dbHelper = new MyDBHelper(getBaseContext());
         initializeMyViews();
 
-        if(getIntent() != null && getIntent().getBooleanExtra("AddPetProfile", false)) {
+        if (getIntent() != null && getIntent().getBooleanExtra("AddPetProfile", false)) {
             forAddProfile();
         } else if (getIntent() != null && getIntent().getBooleanExtra("EditPetProfile", false)) {
             forEditProfile();
@@ -86,9 +84,13 @@ public class AddEditPetActivity extends AppCompatActivity {
         //listeners for instant data validation for date, weight
         dayPick_etxt.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
             @Override
             public void afterTextChanged(Editable editable) {
                 if (!dayPick_etxt.getText().toString().isEmpty()) {
@@ -102,9 +104,13 @@ public class AddEditPetActivity extends AppCompatActivity {
         });
         yearPick_etxt.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
             @Override
             public void afterTextChanged(Editable editable) {
                 if (!yearPick_etxt.getText().toString().isEmpty()) {
@@ -118,9 +124,13 @@ public class AddEditPetActivity extends AppCompatActivity {
         });
         petWeight_etxt.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
             @Override
             public void afterTextChanged(Editable editable) {
                 if (!petWeight_etxt.getText().toString().isEmpty() && Integer.parseInt(petWeight_etxt.getText().toString()) < 0) {
@@ -131,6 +141,7 @@ public class AddEditPetActivity extends AppCompatActivity {
 
         typePick_spnr.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             int previousItemSelected;
+
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
                 //when selecting different pet type do the following (if selecting same type, no need to do all that again)
@@ -180,8 +191,10 @@ public class AddEditPetActivity extends AppCompatActivity {
                     receivedBreedFromEditing = null;
                 }
             }
+
             @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {}
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
         });
     }
 
@@ -191,7 +204,7 @@ public class AddEditPetActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //first validate and set values to variables then come back and write them to database
-                if(validatePetData()) {
+                if (validatePetData()) {
                     dbHelper.open();
                     String[] columnNamesPets = dbHelper.getColumnNames(MyPetFriendContract.PetsEntry.TABLE_NAME);
                     Object[] columnValuesPets = {petId, ownerId, petCreateDate, name, birthDate, gender, type, breed, weight, isNeutered,
@@ -239,7 +252,7 @@ public class AddEditPetActivity extends AppCompatActivity {
             savePet_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(validatePetData()) {
+                    if (validatePetData()) {
                         dbHelper.open();
                         String[] columnNames = dbHelper.getColumnNames(MyPetFriendContract.PetsEntry.TABLE_NAME);
                         Object[] columnValues = {petId, ownerId, petCreateDate, name, birthDate, gender, type, breed, weight, isNeutered,
@@ -341,7 +354,7 @@ public class AddEditPetActivity extends AppCompatActivity {
                 petCreateDate = System.currentTimeMillis();
             }
 
-            if(myPet == null || !breed.equals(previousSelectedBreed)) {
+            if (myPet == null || !breed.equals(previousSelectedBreed)) {
                 dbHelper.open();
                 if (type.equals(Pet.TYPE_CAT)) {
                     cursor = dbHelper.getRecord(MyPetFriendContract.StoredCatBreedsEntry.TABLE_NAME, null, new String[]{MyPetFriendContract.StoredCatBreedsEntry.NAME}, new String[]{breed});
@@ -429,10 +442,10 @@ public class AddEditPetActivity extends AppCompatActivity {
                     medicalCheckupFrequency = generalHealthLevel * 244; //either once in 0.6 year / once in 1.3 year / once in 2 years
                 }
                 //---Calculate weighing frequency and daily feeding amount---
-                if(weight < minWeight){
+                if (weight < minWeight) {
                     weighingFrequency = 21;
                     dailyFeedingAmountInCups *= 1.2;
-                } else if(weight > maxWeight){
+                } else if (weight > maxWeight) {
                     weighingFrequency = 21;
                     dailyFeedingAmountInCups *= .8;
                 } else {
@@ -454,8 +467,8 @@ public class AddEditPetActivity extends AppCompatActivity {
                 String[] catScheduleActivityNotes = {dailyFeedingAmountInCups > 0 ? "Feeding amount: about " + (dailyFeedingAmountInCups / 2) + " cups" : "",
                         dailyFeedingAmountInCups > 0 ? "Feeding amount: about " + (dailyFeedingAmountInCups / 2) + " cups" : "", "", "", "", "",
                         "weigh " + name + " every " + weighingFrequency + " days", "",
-                        "Happy Birthday " + name+ "!"};
-                for(int i = 0; i < catScheduleActivityTypes.length; i++) {
+                        "Happy Birthday " + name + "!"};
+                for (int i = 0; i < catScheduleActivityTypes.length; i++) {
                     dbHelper.insetRecord(MyPetFriendContract.PetScheduleActivitiesEntry.TABLE_NAME, columnNamesScheduleActivities,
                             new Object[]{0, petId, catScheduleActivityTypes[i], birthDate, catScheduleActivityFrequencies[i],
                                     catScheduleActivityTimes[i], 0, catScheduleActivityNotes[i], NOTIFICATION_STATUS_ON});
@@ -491,10 +504,10 @@ public class AddEditPetActivity extends AppCompatActivity {
                     medicalCheckupFrequency = generalHealthLevel * 244; //either once in 0.6 year / once in 1.3 year / once in 2 years
                 }
                 //---Calculate weighing frequency and daily feeding amount---
-                if(weight < minWeight){
+                if (weight < minWeight) {
                     weighingFrequency = 14;
                     dailyFeedingAmountInCups *= 1.25;
-                } else if(weight > maxWeight){
+                } else if (weight > maxWeight) {
                     weighingFrequency = 14;
                     dailyFeedingAmountInCups *= .75;
                 } else {
@@ -517,8 +530,8 @@ public class AddEditPetActivity extends AppCompatActivity {
                         "Feeding amount: about " + (dailyFeedingAmountInCups / 2) + " cups", "", "", "", "",
                         "about " + exerciseNeedsInMinutes + " minutes", "about " + trainingSessionInMinutes + " minutes",
                         "weigh " + name + " every " + weighingFrequency + " days", "",
-                        "Happy Birthday " + name+ "!"};
-                for(int i = 0; i < dogScheduleActivityTypes.length; i++) {
+                        "Happy Birthday " + name + "!"};
+                for (int i = 0; i < dogScheduleActivityTypes.length; i++) {
                     dbHelper.insetRecord(MyPetFriendContract.PetScheduleActivitiesEntry.TABLE_NAME, columnNamesScheduleActivities,
                             new Object[]{0, petId, dogScheduleActivityTypes[i], birthDate, dogScheduleActivityFrequencies[i],
                                     dogScheduleActivityTimes[i], 0, dogScheduleActivityNotes[i], NOTIFICATION_STATUS_ON});
@@ -559,11 +572,11 @@ public class AddEditPetActivity extends AppCompatActivity {
             return false;
         }
         while (cursor.moveToNext()) {
-            if(dbHelper.insetRecord(MyPetFriendContract.PetVaccinesEntry.TABLE_NAME, columnNamesVaccines,
+            if (dbHelper.insetRecord(MyPetFriendContract.PetVaccinesEntry.TABLE_NAME, columnNamesVaccines,
                     new Object[]{0, petId, cursor.getString(2), cursor.getInt(3), birthDate, (cursor.getInt(4) * 365), cursor.getString(5)}) == -1
                     || dbHelper.insetRecord(MyPetFriendContract.PetScheduleActivitiesEntry.TABLE_NAME, columnNamesScheduleActivities,
                     new Object[]{0, petId, TYPE_VACCINATION + " - " + cursor.getString(2), birthDate,
-                            (cursor.getInt(4) * 365), 11, 0, cursor.getString(5), NOTIFICATION_STATUS_ON}) == -1){
+                            (cursor.getInt(4) * 365), 11, 0, cursor.getString(5), NOTIFICATION_STATUS_ON}) == -1) {
                 dbHelper.close();
                 return false;
             }
@@ -597,8 +610,8 @@ public class AddEditPetActivity extends AppCompatActivity {
                         finish();
                     }
                 })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
-                    public void onClick(DialogInterface dialog, int which){
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                     }
                 })
@@ -626,7 +639,7 @@ public class AddEditPetActivity extends AppCompatActivity {
         deletePet_btn = (Button) findViewById(R.id.deletePet_btn);
 
         typePick_spnr = (Spinner) findViewById(R.id.typePick_spnr);
-        typeAdapter = new ArrayAdapter<> (this, android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.pet_types));
+        typeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.pet_types));
         typePick_spnr.setAdapter(typeAdapter);
 
         petBreed_atxt = (AutoCompleteTextView) findViewById(R.id.petBreed_atxt);

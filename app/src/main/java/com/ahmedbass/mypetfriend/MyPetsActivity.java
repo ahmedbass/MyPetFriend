@@ -25,12 +25,11 @@ import static com.ahmedbass.mypetfriend.LauncherActivity.CURRENT_USER_INFO_PREFS
 
 public class MyPetsActivity extends AppCompatActivity {
 
-//    public static final String MY_PETS_PREFS = "com.ahmedbass.mypetfriend.PREFERENCE_KEY_PETS";
+    //    public static final String MY_PETS_PREFS = "com.ahmedbass.mypetfriend.PREFERENCE_KEY_PETS";
     final static int REQUEST_CODE_ADD_PET = 1;
-
-    private ArrayList<Pet> myListOfPets;
     ViewPager myPetsViewPager;
     int petOwnerId;
+    private ArrayList<Pet> myListOfPets;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,9 +54,9 @@ public class MyPetsActivity extends AppCompatActivity {
                     new String[]{MyPetFriendContract.PetsEntry.COLUMN_OWNER_ID}, new String[]{String.valueOf(petOwnerId)});
             Cursor petScheduleActivitiesCursor, petVaccinesCursor, petWeightListCursor;
             //get pets of current user from database, and nested whiles are for adding that pet's multi data (data that are stored in arrays)
-            while(petsCursor.moveToNext()) {
+            while (petsCursor.moveToNext()) {
                 myListOfPets.add(new Pet(petsCursor.getLong(0), petsCursor.getLong(1), petsCursor.getLong(2), petsCursor.getString(3),
-                        petsCursor.getLong(4),petsCursor.getString(5), petsCursor.getString(6), petsCursor.getString(7),
+                        petsCursor.getLong(4), petsCursor.getString(5), petsCursor.getString(6), petsCursor.getString(7),
                         petsCursor.getInt(8), (petsCursor.getInt(9) == 1), petsCursor.getString(10), petsCursor.getInt(11),
                         petsCursor.getInt(12), petsCursor.getInt(13), petsCursor.getInt(14), petsCursor.getInt(15),
                         petsCursor.getString(16), petsCursor.getString(17), petsCursor.getString(18), petsCursor.getString(19),
@@ -110,6 +109,7 @@ public class MyPetsActivity extends AppCompatActivity {
                 //make last created pets show first
                 return ItemPetFragment.newInstance(myListOfPets.get((myListOfPets.size() - 1) - position));
             }
+
             @Override
             public int getCount() {
                 return myListOfPets.size();

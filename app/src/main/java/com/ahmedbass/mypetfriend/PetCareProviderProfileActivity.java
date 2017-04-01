@@ -74,7 +74,7 @@ public class PetCareProviderProfileActivity extends AppCompatActivity {
         } else {
             petCareProviderPhone_btn.setText("Phone: " + currentPetCareProvider.getPhone());
         }
-        if(currentPetCareProvider.getEmail().isEmpty()) {
+        if (currentPetCareProvider.getEmail().isEmpty()) {
             petCareProviderEmail_btn.setEnabled(false);
             petCareProviderEmail_btn.setText("Email Unavailable");
         } else {

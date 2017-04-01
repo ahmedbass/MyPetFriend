@@ -6,25 +6,24 @@
     tools:context="com.ahmedbass.mypetfriend.PetCareServiceActivity">
 
     <ListView
+        android:id="@+id/petCareService_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/petCareService_listview"
-        android:paddingTop="10dp"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="10dp"
+        android:drawSelectorOnTop="true"
+        android:paddingBottom="10dp"
         android:paddingLeft="7dp"
         android:paddingRight="7dp"
-        android:paddingBottom="10dp"
-        android:drawSelectorOnTop="true"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="10dp">
-    </ListView>
+        android:paddingTop="10dp"></ListView>
 
     <TextView
         android:id="@+id/emptyView_txtv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="No Data Found"
         android:gravity="center"
         android:padding="16dp"
-        android:visibility="gone"/>
+        android:text="No Data Found"
+        android:visibility="gone" />
 
 </FrameLayout>

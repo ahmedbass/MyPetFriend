@@ -53,6 +53,51 @@ public class PetProfileActivity extends AppCompatActivity {
     Pet myPet;
     ArrayList<Bitmap> petPhotos = new ArrayList<>();
 
+    public static Bitmap decodeSampledBitmapFromResource(byte[] data, int reqWidth, int reqHeight) {
+        // First decode with inJustDecodeBounds=true to check dimensions, and pass the options
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeByteArray(data, 0, data.length, options);
+
+        // Calculate inSampleSize
+        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+
+        // Then decode bitmap again with inSampleSize set, and inJustDecodeBounds set to false
+        options.inJustDecodeBounds = false;
+        return BitmapFactory.decodeByteArray(data, 0, data.length, options);
+    }
+
+    public static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
+        //This method calculates a power of 2 SampleSize value based on target width and height:
+
+        // Raw width and height of image
+        final int width = options.outWidth;
+        final int height = options.outHeight;
+        int inSampleSize = 1;
+        if (width > reqWidth || height > reqHeight) {
+            final int halfWidth = width / 2;
+            final int halfHeight = height / 2;
+            // Calculate the largest power of 2 inSampleSize value and keep both w & h larger than requested w & h.
+            while ((halfWidth / inSampleSize) >= reqWidth && (halfHeight / inSampleSize) >= reqHeight) {
+                inSampleSize *= 2;
+            }
+        }
+        return inSampleSize;
+    }
+
+    //get width and height same as ThreeFourImageView manually, because Views width and height aren't yet calculated at onCreate
+    public static int getImageWidth() {
+        return Resources.getSystem().getDisplayMetrics().widthPixels;
+    }
+
+    public static int getImageHeight() {
+        if (Resources.getSystem().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            return (Resources.getSystem().getDisplayMetrics().widthPixels * 3 / 4);
+        } else {
+            return Resources.getSystem().getDisplayMetrics().heightPixels;
+        }
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +128,7 @@ public class PetProfileActivity extends AppCompatActivity {
         ViewPager myPager = (ViewPager) findViewById(R.id.pager);
         myPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             String[] tabTitles = {"Overview", "Schedule", "Vaccinations"};
+
             @Override
             public Fragment getItem(int position) {
                 switch (position) {
@@ -94,10 +140,12 @@ public class PetProfileActivity extends AppCompatActivity {
                         return PetVaccinationsFragment.newInstance(myPet);
                 }
             }
+
             @Override
             public int getCount() {
                 return tabTitles.length;
             }
+
             @Override
             public String getPageTitle(int position) {
                 return tabTitles[position];
@@ -124,7 +172,7 @@ public class PetProfileActivity extends AppCompatActivity {
                 } else if (items[which].equals("Choose From Gallery")) {
                     Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                     intent.setType("image/*");
-                    startActivityForResult(Intent.createChooser(intent,"Select File"), REQUEST_CODE_GALLERY);
+                    startActivityForResult(Intent.createChooser(intent, "Select File"), REQUEST_CODE_GALLERY);
                 }
             }
         });
@@ -157,7 +205,7 @@ public class PetProfileActivity extends AppCompatActivity {
                     new String[]{MyPetFriendContract.PetPhotosEntry.PET_ID}, new String[]{String.valueOf(myPet.getPetId())});
             while (petPhotosCursor.moveToNext()) {
                 myPet.addPetPhoto(petPhotosCursor.getLong(0), petPhotosCursor.getLong(1),
-                                petPhotosCursor.getBlob(2), petPhotosCursor.getLong(3), petPhotosCursor.getString(4));
+                        petPhotosCursor.getBlob(2), petPhotosCursor.getLong(3), petPhotosCursor.getString(4));
             }
             petPhotosCursor.close();
             dbHelper.close();
@@ -169,10 +217,11 @@ public class PetProfileActivity extends AppCompatActivity {
         viewSwitcher.setInAnimation(this, android.R.anim.fade_in);
         viewSwitcher.setOutAnimation(this, android.R.anim.fade_out);
 
-        if(petPhotos.size() > 1) {
+        if (petPhotos.size() > 1) {
             repeatTask = new Timer(); //timer repeating schedule for changing image
             repeatTask.scheduleAtFixedRate(new TimerTask() {
                 int index = 0;
+
                 @Override
                 public void run() {
                     if (petPhotos.size() > 5) {
@@ -184,10 +233,9 @@ public class PetProfileActivity extends AppCompatActivity {
                     loadBitmap(petPhotos.get(index), petProfilePic_img1, petProfilePic_img2);
                 }
             }, 0, 3000);
-        } else if (petPhotos.size() == 1){
+        } else if (petPhotos.size() == 1) {
             loadBitmap(petPhotos.get(0), petProfilePic_img1, petProfilePic_img2);
-        }
-        else if (petPhotos.size() <= 0) {
+        } else if (petPhotos.size() <= 0) {
             petProfilePic_img1.setImageResource(R.drawable.pet_paw);
             petProfilePic_img1.setBackgroundColor(getResources().getColor(R.color.white));
         }
@@ -196,48 +244,6 @@ public class PetProfileActivity extends AppCompatActivity {
     public void loadBitmap(Bitmap bitmap, ImageView imageView1, ImageView imageView2) {
         BitmapWorkerTask task = new BitmapWorkerTask(imageView1, imageView2);
         task.execute(bitmap);
-    }
-    public static Bitmap decodeSampledBitmapFromResource(byte[] data, int reqWidth, int reqHeight) {
-        // First decode with inJustDecodeBounds=true to check dimensions, and pass the options
-        final BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inJustDecodeBounds = true;
-        BitmapFactory.decodeByteArray(data,0, data.length, options);
-
-        // Calculate inSampleSize
-        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
-
-        // Then decode bitmap again with inSampleSize set, and inJustDecodeBounds set to false
-        options.inJustDecodeBounds = false;
-        return BitmapFactory.decodeByteArray(data, 0, data.length, options);
-    }
-    public static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
-        //This method calculates a power of 2 SampleSize value based on target width and height:
-
-        // Raw width and height of image
-        final int width = options.outWidth;
-        final int height = options.outHeight;
-        int inSampleSize = 1;
-        if (width > reqWidth || height > reqHeight) {
-            final int halfWidth = width / 2;
-            final int halfHeight = height / 2;
-            // Calculate the largest power of 2 inSampleSize value and keep both w & h larger than requested w & h.
-            while ((halfWidth / inSampleSize) >= reqWidth && (halfHeight / inSampleSize) >= reqHeight) {
-                inSampleSize *= 2;
-            }
-        }
-        return inSampleSize;
-    }
-
-    //get width and height same as ThreeFourImageView manually, because Views width and height aren't yet calculated at onCreate
-    public static int getImageWidth() {
-        return Resources.getSystem().getDisplayMetrics().widthPixels;
-    }
-    public static int getImageHeight() {
-        if (Resources.getSystem().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-            return (Resources.getSystem().getDisplayMetrics().widthPixels * 3 / 4);
-        } else {
-            return Resources.getSystem().getDisplayMetrics().heightPixels;
-        }
     }
 
     private void initializeMyViews() {
@@ -275,7 +281,8 @@ public class PetProfileActivity extends AppCompatActivity {
                 supportFinishAfterTransition();
                 return true;
 
-            default: return super.onOptionsItemSelected(item);
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 
@@ -284,7 +291,7 @@ public class PetProfileActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         //when modifying or deleting the pet profile, we close the profile, and go back to onActivityResult of the calling fragment in ViewPager 
-        if(requestCode == REQUEST_CODE_EDIT_PET && resultCode == RESULT_OK){
+        if (requestCode == REQUEST_CODE_EDIT_PET && resultCode == RESULT_OK) {
             if (data.getSerializableExtra("petModified") != null) {
                 setResult(RESULT_OK, data);
                 finish();

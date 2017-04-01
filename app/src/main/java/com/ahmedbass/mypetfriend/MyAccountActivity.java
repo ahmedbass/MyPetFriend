@@ -68,4 +68,23 @@ public class MyAccountActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    public void aboutApp_dialog(View view) {
+        new AlertDialog.Builder(this).setTitle("About 'MyPetFriend'")
+                .setMessage("Welcome to 'MyPetFriend' application. 'MyPetFriend' is aimed for pet owners to help them have a good care of their pets. 'MyPetFriend' currently has four main objectives:" +
+                        "\n\n*Create a profile for your pets and get automatically generated valuable information based on your pet situation to help you understand your pets better and how to take care for them properly." +
+                        "\n\n*Easily find pet-related services located around you on the map." +
+                        "\n\n*View pet care providers who are registered in our system and easily communicate with them via email or phone " +
+                        "\n\n*Market zone for offering pets for sale and view other users' offers, and easily communicate with them via email or phone." +
+                        "\n\nThank you for using my application." +
+                        "\n\n\n© All Rights Reserved for Ahmed Ashraf Mahmoud 2017")
+                .setCancelable(false)
+                .setPositiveButton("Dismiss", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                })
+                .show();
+    }
 }

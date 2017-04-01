@@ -57,7 +57,7 @@ public class AddEditAdvertActivity extends AppCompatActivity {
             yearPick_etxt.setText(String.valueOf(calendar.get(Calendar.YEAR)));
             isNeutered_rgrp.check(currentAdvert.isNeutered() ? neutered_rbtn.getId() : notNeutered_rbtn.getId());
             isMicrochipped_rgrp.check(currentAdvert.isPetMicroChipped() ? microchipped_rbtn.getId() : notMicrochipped_rbtn.getId());
-            isVaccinated_rgrp.check(currentAdvert.isPetVaccinated()? vaccinated_rbtn.getId() : notVaccinated_rbtn.getId());
+            isVaccinated_rgrp.check(currentAdvert.isPetVaccinated() ? vaccinated_rbtn.getId() : notVaccinated_rbtn.getId());
             country_etxt.setText(currentAdvert.getCountry());
             city_etxt.setText(currentAdvert.getCity());
             email_etxt.setText(currentAdvert.getEmail());
@@ -105,7 +105,7 @@ public class AddEditAdvertActivity extends AppCompatActivity {
     public void publishAdvert(View view) {
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-        if(networkInfo != null && networkInfo.isConnected()) {
+        if (networkInfo != null && networkInfo.isConnected()) {
             int sellerId = preferences.getInt(MyPetFriendContract.UsersEntry.USER_ID, -1);
             Long createDate = System.currentTimeMillis();
             int isSold = 0;
@@ -125,7 +125,7 @@ public class AddEditAdvertActivity extends AppCompatActivity {
             try {
                 Calendar calendarBirthDate = Calendar.getInstance();
                 calendarBirthDate.set(Integer.parseInt(yearPick_etxt.getText().toString()), monthPick_spnr.getSelectedItemPosition(), Integer.parseInt(dayPick_etxt.getText().toString()));
-                petBirthDate  = calendarBirthDate.getTimeInMillis();
+                petBirthDate = calendarBirthDate.getTimeInMillis();
             } catch (NumberFormatException e) {
                 Toast.makeText(this, "Pet Birth Date Was Not Set Properly", Toast.LENGTH_SHORT).show();
                 petBirthDate = 0;

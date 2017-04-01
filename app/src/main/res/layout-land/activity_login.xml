@@ -4,35 +4,35 @@
     android:id="@+id/activity_login"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:orientation="vertical"
-    android:gravity="center"
     tools:context="com.ahmedbass.mypetfriend.LoginActivity">
 
     <EditText
+        android:id="@+id/email_etxt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
-        android:ems="10"
-        android:id="@+id/email_etxt"
-        android:hint="Email"
         android:layout_margin="10dp"
+        android:drawableEnd="@drawable/ic_email_black_24dp"
         android:drawableRight="@drawable/ic_email_black_24dp"
-        android:drawableEnd="@drawable/ic_email_black_24dp" />
+        android:ems="10"
+        android:hint="Email"
+        android:inputType="textEmailAddress" />
 
     <EditText
+        android:id="@+id/password_etxt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:ems="10"
-        android:id="@+id/password_etxt"
         android:layout_margin="10dp"
-        android:hint="Password"
+        android:drawableEnd="@drawable/ic_lock_black_24dp"
         android:drawableRight="@drawable/ic_lock_black_24dp"
-        android:drawableEnd="@drawable/ic_lock_black_24dp" />
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -40,34 +40,34 @@
         android:layout_margin="10dp">
 
         <CheckBox
+            android:id="@+id/rememberMe_chk"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="start"
             android:layout_weight="1"
-            android:text="Remember me"
-            android:id="@+id/rememberMe_chk"
             android:checked="false"
-            android:layout_gravity="start" />
+            android:text="Remember me" />
 
         <TextView
+            android:id="@+id/moveToResetPassword_txtv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Forgot your password?"
-            android:id="@+id/moveToResetPassword_txtv"
-            android:textColor="@color/colorAccentDark"
-            android:clickable="true"
             android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:clickable="true"
             android:gravity="end"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            android:text="Forgot your password?"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/colorAccentDark" />
     </LinearLayout>
 
     <Button
+        android:id="@+id/login_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Log In"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
-        android:id="@+id/login_btn" />
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="10dp"
+        android:text="Log In" />
 
 </LinearLayout>

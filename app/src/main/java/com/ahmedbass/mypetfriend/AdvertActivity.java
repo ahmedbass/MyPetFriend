@@ -89,7 +89,7 @@ public class AdvertActivity extends AppCompatActivity {
         } else {
             sellerPhone_btn.setText("Phone: " + currentAdvert.getPhone());
         }
-        if(currentAdvert.getEmail().isEmpty()) {
+        if (currentAdvert.getEmail().isEmpty()) {
             sellerEmail_btn.setEnabled(false);
             sellerEmail_btn.setText("Email Unavailable");
         } else {
@@ -195,6 +195,7 @@ public class AdvertActivity extends AppCompatActivity {
         }
         return true;
     }
+
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -217,9 +218,9 @@ public class AdvertActivity extends AppCompatActivity {
     //adapter for the gallery
     public class ImageAdapter extends BaseAdapter {
 
+        ImageView imageview;
         private Context context;
         private int itemBackground;
-        ImageView imageview;
 
         ImageAdapter(Context c) {
             context = c;

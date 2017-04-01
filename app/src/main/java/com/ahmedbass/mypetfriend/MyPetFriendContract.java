@@ -6,7 +6,8 @@ import android.provider.BaseColumns;
 // This outer class represents the whole database, and each inner class represents a table
 public class MyPetFriendContract {
 
-    private MyPetFriendContract() {} // Empty constructor to prevent accidental instantiation.
+    private MyPetFriendContract() {
+    } // Empty constructor to prevent accidental instantiation.
 
     public static final class UsersEntry {
 

@@ -119,8 +119,8 @@ public class PetMarketActivity extends AppCompatActivity {
         Button cancel_btn = (Button) dialog.findViewById(R.id.cancel_btn);
         TextView clearFilter_txtv = (TextView) dialog.findViewById(R.id.clearFilter_txtv);
 
-        ArrayAdapter<String> advertTypeAdapter = new ArrayAdapter<> (this, android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.advert_types));
-        ArrayAdapter<String> petTypeAdapter = new ArrayAdapter<> (this, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.pet_types));
+        ArrayAdapter<String> advertTypeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.advert_types));
+        ArrayAdapter<String> petTypeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.pet_types));
 
         ArrayAdapter<String> countriesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line,
                 getResources().getStringArray(R.array.countries_array));

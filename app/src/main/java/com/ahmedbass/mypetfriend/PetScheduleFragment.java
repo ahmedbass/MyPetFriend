@@ -48,7 +48,7 @@ public class PetScheduleFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(getArguments() != null) {
+        if (getArguments() != null) {
             myPet = (Pet) getArguments().getSerializable(ARG_PET);
         }
     }
@@ -100,6 +100,7 @@ public class PetScheduleFragment extends Fragment {
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             Calendar today = Calendar.getInstance();
             int tomorrow, yesterday;
+
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
                 tomorrow = today.get(Calendar.DAY_OF_YEAR) + 1;
@@ -206,9 +207,10 @@ public class PetScheduleFragment extends Fragment {
 
             final TextView activityType_txtv = (TextView) listItemView.findViewById(R.id.scheduleActivityType_txtv);
             activityType_txtv.setText(currentScheduleActivity.getType());
-            if(!currentScheduleActivity.getNotes().isEmpty()) {
+            if (!currentScheduleActivity.getNotes().isEmpty()) {
                 activityType_txtv.setOnClickListener(new View.OnClickListener() {
                     boolean isNotesShown;
+
                     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
                     @Override
                     public void onClick(View view) {

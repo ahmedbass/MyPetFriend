@@ -17,9 +17,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class ItemPetFragment extends Fragment {
-    private static final String ARG_PET = "myPet";
     final static int REQUEST_CODE_OPEN_PET_PROFILE = 111;
-
+    private static final String ARG_PET = "myPet";
     CardView myPetItem_crdv;
     TextView petName_txtv;
     ImageButton petPicture_img;
@@ -40,6 +39,38 @@ public class ItemPetFragment extends Fragment {
         args.putSerializable(ARG_PET, pet);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    public static Bitmap decodeSampledBitmapFromResource(byte[] data, int reqWidth, int reqHeight) {
+        // First decode with inJustDecodeBounds=true to check dimensions, and pass the options
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeByteArray(data, 0, data.length, options);
+
+        // Calculate inSampleSize
+        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+
+        // Then decode bitmap again with inSampleSize set, and inJustDecodeBounds set to false
+        options.inJustDecodeBounds = false;
+        return BitmapFactory.decodeByteArray(data, 0, data.length, options);
+    }
+
+    public static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
+        //This method calculates a power of 2 SampleSize value based on target width and height:
+
+        // Raw width and height of image
+        final int width = options.outWidth;
+        final int height = options.outHeight;
+        int inSampleSize = 1;
+        if (width > reqWidth || height > reqHeight) {
+            final int halfWidth = width / 2;
+            final int halfHeight = height / 2;
+            // Calculate the largest power of 2 inSampleSize value and keep both w & h larger than requested w & h.
+            while ((halfWidth / inSampleSize) >= reqWidth && (halfHeight / inSampleSize) >= reqHeight) {
+                inSampleSize *= 2;
+            }
+        }
+        return inSampleSize;
     }
 
     @Override
@@ -64,7 +95,7 @@ public class ItemPetFragment extends Fragment {
         petWeight_txtv = (TextView) rootView.findViewById(R.id.pet_weight_txtv);
 
         //assign values to views
-        if(currentPet.getCurrentPhoto() != null) {
+        if (currentPet.getCurrentPhoto() != null) {
             petPicture_img.setScaleType(ImageView.ScaleType.CENTER_CROP);
             petPicture_img.setImageBitmap(decodeSampledBitmapFromResource(currentPet.getCurrentPhoto(), 800, 800));
         } else {
@@ -74,7 +105,7 @@ public class ItemPetFragment extends Fragment {
         petName_txtv.setText(currentPet.getName());
         petBreedAndType_txtv.setText(currentPet.getBreed() + " " + (currentPet.getType()));
         int ageInYear = currentPet.getPetAgeInYear(0);
-        int ageInMonth = currentPet.getPetAgeInMonth(0) * 10 /12;
+        int ageInMonth = currentPet.getPetAgeInMonth(0) * 10 / 12;
         if (ageInMonth < 0) {
             ageInYear--;
             ageInMonth += 10;
@@ -100,36 +131,5 @@ public class ItemPetFragment extends Fragment {
             moveToPetProfile.putExtra("petInfo", currentPet);
             getActivity().startActivityForResult(moveToPetProfile, REQUEST_CODE_OPEN_PET_PROFILE, bundle);
         }
-    }
-
-    public static Bitmap decodeSampledBitmapFromResource(byte[] data, int reqWidth, int reqHeight) {
-        // First decode with inJustDecodeBounds=true to check dimensions, and pass the options
-        final BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inJustDecodeBounds = true;
-        BitmapFactory.decodeByteArray(data,0, data.length, options);
-
-        // Calculate inSampleSize
-        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
-
-        // Then decode bitmap again with inSampleSize set, and inJustDecodeBounds set to false
-        options.inJustDecodeBounds = false;
-        return BitmapFactory.decodeByteArray(data, 0, data.length, options);
-    }
-    public static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
-        //This method calculates a power of 2 SampleSize value based on target width and height:
-
-        // Raw width and height of image
-        final int width = options.outWidth;
-        final int height = options.outHeight;
-        int inSampleSize = 1;
-        if (width > reqWidth || height > reqHeight) {
-            final int halfWidth = width / 2;
-            final int halfHeight = height / 2;
-            // Calculate the largest power of 2 inSampleSize value and keep both w & h larger than requested w & h.
-            while ((halfWidth / inSampleSize) >= reqWidth && (halfHeight / inSampleSize) >= reqHeight) {
-                inSampleSize *= 2;
-            }
-        }
-        return inSampleSize;
     }
 }

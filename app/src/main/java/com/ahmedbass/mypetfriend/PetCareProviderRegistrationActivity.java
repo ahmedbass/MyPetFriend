@@ -30,7 +30,7 @@ public class PetCareProviderRegistrationActivity extends AppCompatActivity {
 
     //when clicking save button
     public void saveExtendedRegistration(View view) {
-        if(profileDescription_etxt.getText().toString().isEmpty() || phoneNumber_etxt.getText().toString().isEmpty()
+        if (profileDescription_etxt.getText().toString().isEmpty() || phoneNumber_etxt.getText().toString().isEmpty()
                 || !(catService_chk.isChecked() || dogService_chk.isChecked() || horseService_chk.isChecked()
                 || birdService_chk.isChecked() || fishService_chk.isChecked() || smallAnimalService_chk.isChecked())
                 || !(petSitting_chk.isChecked() || petWalking_chk.isChecked() || petGrooming_chk.isChecked()
@@ -93,7 +93,7 @@ public class PetCareProviderRegistrationActivity extends AppCompatActivity {
             serviceProvidedFor += "Small Animals, ";
         }
 
-        if(serviceProvidedFor.trim().length() > 0) {
+        if (serviceProvidedFor.trim().length() > 0) {
             return serviceProvidedFor.substring(0, serviceProvidedFor.length() - 2); //this substring just to remove the last ', '
         } else {
             return serviceProvidedFor.trim();
@@ -121,7 +121,7 @@ public class PetCareProviderRegistrationActivity extends AppCompatActivity {
             serviceProvided += "Pet Boarding, ";
         }
 
-        if(serviceProvided.trim().length() > 0) {
+        if (serviceProvided.trim().length() > 0) {
             return serviceProvided.substring(0, serviceProvided.length() - 2); //this substring just to remove the last ', '
         } else {
             return serviceProvided.trim();
@@ -134,18 +134,18 @@ public class PetCareProviderRegistrationActivity extends AppCompatActivity {
         availability_spnr = (Spinner) findViewById(R.id.availability_spnr);
         experienceYears_spnr = (Spinner) findViewById(R.id.experienceYears_spnr);
         averageRatePerHour_spnr = (Spinner) findViewById(R.id.averageRatePerHour_spnr);
-        catService_chk = (CheckBox)findViewById(R.id.catService_chk);
-        dogService_chk = (CheckBox)findViewById(R.id.dogService_chk);
-        smallAnimalService_chk = (CheckBox)findViewById(R.id.smallAnimalService_chk);
-        horseService_chk = (CheckBox)findViewById(R.id.horseService_chk);
-        birdService_chk = (CheckBox)findViewById(R.id.birdService_chk);
-        fishService_chk = (CheckBox)findViewById(R.id.fishService_chk);
-        petSitting_chk = (CheckBox)findViewById(R.id.petSitting_chk);
-        petWalking_chk = (CheckBox)findViewById(R.id.petWalking_chk);
-        petGrooming_chk = (CheckBox)findViewById(R.id.petGrooming_chk);
-        petTraining_chk = (CheckBox)findViewById(R.id.petTraining_chk);
-        petVeterinary_chk = (CheckBox)findViewById(R.id.petVeterinary_chk);
-        petBoarding_chk = (CheckBox)findViewById(R.id.petBoarding_chk);
+        catService_chk = (CheckBox) findViewById(R.id.catService_chk);
+        dogService_chk = (CheckBox) findViewById(R.id.dogService_chk);
+        smallAnimalService_chk = (CheckBox) findViewById(R.id.smallAnimalService_chk);
+        horseService_chk = (CheckBox) findViewById(R.id.horseService_chk);
+        birdService_chk = (CheckBox) findViewById(R.id.birdService_chk);
+        fishService_chk = (CheckBox) findViewById(R.id.fishService_chk);
+        petSitting_chk = (CheckBox) findViewById(R.id.petSitting_chk);
+        petWalking_chk = (CheckBox) findViewById(R.id.petWalking_chk);
+        petGrooming_chk = (CheckBox) findViewById(R.id.petGrooming_chk);
+        petTraining_chk = (CheckBox) findViewById(R.id.petTraining_chk);
+        petVeterinary_chk = (CheckBox) findViewById(R.id.petVeterinary_chk);
+        petBoarding_chk = (CheckBox) findViewById(R.id.petBoarding_chk);
         saveProfile_btn = (Button) findViewById(R.id.publishAdvert_btn);
     }
 }

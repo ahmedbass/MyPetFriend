@@ -42,6 +42,7 @@ public class LauncherActivity extends AppCompatActivity {
         //when clicking logo_img 7 times, show dialog to set server domain url
         findViewById(R.id.app_logo_img).setOnClickListener(new View.OnClickListener() {
             int setDomainClickCount = 0;
+
             @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
             @Override
             public void onClick(View view) {

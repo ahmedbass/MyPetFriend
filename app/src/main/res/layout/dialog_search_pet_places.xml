@@ -4,11 +4,11 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -16,10 +16,11 @@
             android:layout_margin="10dp"
             android:gravity="center_vertical"
             android:orientation="vertical">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Care Service Type:"/>
+                android:text="Care Service Type:" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -30,15 +31,15 @@
                     android:id="@+id/petSitting_chk"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Pet Sitting"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:text="Pet Sitting" />
 
                 <CheckBox
                     android:id="@+id/petWalking_chk"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Pet Walking"
-                    android:layout_weight="1.1" />
+                    android:layout_weight="1.1"
+                    android:text="Pet Walking" />
 
                 <CheckBox
                     android:id="@+id/petGrooming_chk"
@@ -57,22 +58,22 @@
                     android:id="@+id/petTraining_chk"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Training"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:text="Training" />
 
                 <CheckBox
                     android:id="@+id/petVeterinary_chk"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Veterinary"
-                    android:layout_weight="1.1" />
+                    android:layout_weight="1.1"
+                    android:text="Veterinary" />
 
                 <CheckBox
                     android:id="@+id/petBoarding_chk"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Boarding"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:text="Boarding" />
             </LinearLayout>
         </LinearLayout>
 
@@ -82,10 +83,11 @@
             android:layout_margin="10dp"
             android:gravity="center_vertical"
             android:orientation="vertical">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Care Service For:"/>
+                android:text="Care Service For:" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -96,15 +98,15 @@
                     android:id="@+id/catService_chk"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Cats"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:text="Cats" />
 
                 <CheckBox
                     android:id="@+id/dogService_chk"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Dogs"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:text="Dogs" />
 
                 <CheckBox
                     android:id="@+id/horseService_chk"
@@ -123,115 +125,123 @@
                     android:id="@+id/birdService_chk"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Birds"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:text="Birds" />
 
                 <CheckBox
                     android:id="@+id/fishService_chk"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Fish"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:text="Fish" />
 
                 <CheckBox
                     android:id="@+id/smallAnimalService_chk"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Small Animals"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:text="Small Animals" />
             </LinearLayout>
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1.5dp"
-            android:background="@color/nice_gray"/>
+            android:background="@color/nice_gray" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Place type:"
             android:layout_gravity="start"
-            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"/>
+            android:layout_marginTop="10dp"
+            android:text="Place type:" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:layout_margin="5dp"
-            android:baselineAligned="false">
+            android:baselineAligned="false"
+            android:gravity="center">
+
             <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="102dp"
-                android:layout_weight="1"
                 android:layout_margin="5dp"
+                android:layout_weight="1"
                 android:background="@drawable/mypets_list_background">
+
                 <ImageButton
                     android:id="@+id/petStore_btn"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/pet_store"
-                    android:scaleType="centerInside"
+                    android:background="?android:attr/selectableItemBackground"
                     android:paddingBottom="22dp"
                     android:paddingTop="5dp"
-                    android:background="?android:attr/selectableItemBackground" />
+                    android:scaleType="centerInside"
+                    android:src="@drawable/pet_store" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Pet Stores"
                     android:layout_gravity="bottom|center"
-                    android:textColor="@color/white"/>
+                    android:text="Pet Stores"
+                    android:textColor="@color/white" />
             </FrameLayout>
+
             <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="102dp"
-                android:layout_weight="1"
                 android:layout_margin="5dp"
+                android:layout_weight="1"
                 android:background="@drawable/mypets_list_background">
+
                 <ImageButton
                     android:id="@+id/veterinaryCare_btn"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/veterinary_care"
-                    android:scaleType="centerInside"
+                    android:background="?android:attr/selectableItemBackground"
                     android:paddingBottom="22dp"
                     android:paddingTop="5dp"
-                    android:background="?android:attr/selectableItemBackground"/>
+                    android:scaleType="centerInside"
+                    android:src="@drawable/veterinary_care" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Veterinary Care"
                     android:layout_gravity="bottom|center"
-                    android:textColor="@color/white"/>
+                    android:text="Veterinary Care"
+                    android:textColor="@color/white" />
             </FrameLayout>
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1.5dp"
-            android:background="@color/nice_gray"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="10dp"
+            android:background="@color/nice_gray" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center">
+
             <Button
                 android:id="@+id/cancel_btn"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:text="Cancel"
-                android:layout_margin="5dp"/>
+                android:text="Cancel" />
 
             <Button
                 android:id="@+id/search_btn"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:text="Search"
-                android:layout_margin="5dp"/>
+                android:text="Search" />
         </LinearLayout>
 
     </LinearLayout>

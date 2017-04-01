@@ -33,18 +33,17 @@ import static com.ahmedbass.mypetfriend.LauncherActivity.PREF_LOGGED_IN;
 
 public class BackgroundWorker extends AsyncTask<String, Void, String> {
 
+    public static String serverDomain = "http://ahmedbass.eu.pn/";
     private Activity activity;
     private ProgressDialog progressDialog;
-
-    public static String serverDomain = "http://ahmedbass.eu.pn/"; //192.168.1.4 - 10.22.136.239 - 10.22.139.249
     private String type;
     private String email, password;
 
-    BackgroundWorker(Activity activity){
+    BackgroundWorker(Activity activity) {
         this.activity = activity;
     }
 
-    static void setServerDomainUrl(String domainUrl){
+    static void setServerDomainUrl(String domainUrl) {
         if (domainUrl.startsWith("http://")) {
             serverDomain = domainUrl;
         } else {
@@ -99,7 +98,7 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
             String profilePhoto = params[12];
             String profileDescription = params[13];
             String availability = params[14];
-            String yearsOfExperience = params[15];;
+            String yearsOfExperience = params[15];
             String averageRatePerHour = params[16];
             String serviceProvidedFor = params[17];
             String serviceProvided = params[18];
@@ -179,7 +178,7 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
             } catch (IOException e) {
                 return "Error: Cannot Connect To The Server";
             }
-        }  else if (type.equals("addNewAdvert")) {
+        } else if (type.equals("addNewAdvert")) {
             String register_url = serverDomain + "add_new_advert.php";
             String sellerId = params[1];
             String createDate = params[2];
@@ -195,7 +194,8 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
             String email = params[12];
             String phone = params[13];
             String petType = params[14];
-            String petBreed = params[15];;
+            String petBreed = params[15];
+            ;
             String petBirthDate = params[16];
             String petGender = params[17];
             String isPetNeutered = params[18];
@@ -233,9 +233,7 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
             } catch (IOException e) {
                 return "Error: Cannot Connect To The Server";
             }
-        }
-
-        else if (type.equals("getPetCareProviders")) {
+        } else if (type.equals("getPetCareProviders")) {
             String getPetCareProviders_url = serverDomain + "get_pet_care_providers.php";
             try {
                 //set the http connection
@@ -261,7 +259,7 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
         return null;
     }
 
-    private HttpURLConnection setHttpConnection(String _url) throws IOException{
+    private HttpURLConnection setHttpConnection(String _url) throws IOException {
         URL url = new URL(_url);
         HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
         httpURLConnection.setRequestMethod("POST");
@@ -354,7 +352,7 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
                 activity.startActivity(intent);
             }
 
-        }  else if (type.equals("addNewAdvert")) {
+        } else if (type.equals("addNewAdvert")) {
             if (result.trim().equals("Error: Cannot Connect To The Server")) {
                 Toast.makeText(activity, result, Toast.LENGTH_SHORT).show();
             } else if (result.trim().equals("Upload Failed")) {
@@ -365,9 +363,7 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
                 activity.setResult(RESULT_OK);
                 activity.finish();
             }
-        }
-
-        else if (type.equals("getPetCareProviders")) {
+        } else if (type.equals("getPetCareProviders")) {
             if (result.trim().equals("Error: Cannot Connect To The Server")) {
                 Toast.makeText(activity, result, Toast.LENGTH_SHORT).show();
                 activity.startActivity(new Intent(activity, PetCareServiceActivity.class), ActivityOptions.makeSceneTransitionAnimation(activity).toBundle());
@@ -394,7 +390,7 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
             try {
                 JSONObject jsonObject = new JSONObject(jsonResult);
                 JSONArray jsonArray = jsonObject.getJSONArray("server_response");
-                if(jsonArray.length() > 0) {
+                if (jsonArray.length() > 0) {
                     JSONObject innerJsonObject = jsonArray.getJSONObject(0);
 
                     //------------------------------------------------------------------------------
@@ -490,7 +486,7 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
         try {
             JSONObject jsonObject = new JSONObject(jsonResult);
             JSONArray jsonArray = jsonObject.getJSONArray("server_response");
-            if(jsonArray.length() > 0) {
+            if (jsonArray.length() > 0) {
                 JSONObject innerJsonObject = jsonArray.getJSONObject(0);
                 Object[] columnValues = new Object[]{innerJsonObject.getLong("_id"), innerJsonObject.getLong("sellerId"),
                         innerJsonObject.getLong("createDate"), innerJsonObject.getInt("isSold"), innerJsonObject.getInt("viewCount"),
@@ -512,28 +508,28 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
         }
     }
 
-    private ArrayList<PetCareProvider> getPetCareProvidersFromJson(String jsonResult){
+    private ArrayList<PetCareProvider> getPetCareProvidersFromJson(String jsonResult) {
         ArrayList<PetCareProvider> petCareProviders = new ArrayList<>();
         JSONArray jsonArray = null;
         try {
             JSONObject jsonObject = new JSONObject(jsonResult);
             jsonArray = jsonObject.getJSONArray("server_response");
         } catch (JSONException e) {
-                e.printStackTrace();
-                Toast.makeText(activity, "Error: Data Cannot Be Retrieved", Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+            Toast.makeText(activity, "Error: Data Cannot Be Retrieved", Toast.LENGTH_SHORT).show();
         }
         for (int i = 0; i < (jsonArray != null ? jsonArray.length() : 0); i++) {
             try {
-            JSONObject innerJsonObject = jsonArray.getJSONObject(i);
-            petCareProviders.add(new PetCareProvider(innerJsonObject.getInt("_id"), innerJsonObject.getLong("createDate"),
-                    innerJsonObject.getString("userType"), innerJsonObject.getString("firstName"), innerJsonObject.getString("lastName"),
-                    innerJsonObject.getString("email"), innerJsonObject.getString("password"), innerJsonObject.getLong("birthDate"),
-                    innerJsonObject.getString("gender"), innerJsonObject.getString("country"), innerJsonObject.getString("city"),
-                    innerJsonObject.getString("phone"), innerJsonObject.getString("profilePhoto"),
-                    innerJsonObject.getString("profileDescription"), innerJsonObject.getString("availability"),
-                    innerJsonObject.getString("yearsOfExperience"), innerJsonObject.getString("averageRatePerHour"),
-                    innerJsonObject.getString("serviceProvidedFor"), innerJsonObject.getString("serviceProvided"),
-                    innerJsonObject.getDouble("latitude"), innerJsonObject.getDouble("longitude")));
+                JSONObject innerJsonObject = jsonArray.getJSONObject(i);
+                petCareProviders.add(new PetCareProvider(innerJsonObject.getInt("_id"), innerJsonObject.getLong("createDate"),
+                        innerJsonObject.getString("userType"), innerJsonObject.getString("firstName"), innerJsonObject.getString("lastName"),
+                        innerJsonObject.getString("email"), innerJsonObject.getString("password"), innerJsonObject.getLong("birthDate"),
+                        innerJsonObject.getString("gender"), innerJsonObject.getString("country"), innerJsonObject.getString("city"),
+                        innerJsonObject.getString("phone"), innerJsonObject.getString("profilePhoto"),
+                        innerJsonObject.getString("profileDescription"), innerJsonObject.getString("availability"),
+                        innerJsonObject.getString("yearsOfExperience"), innerJsonObject.getString("averageRatePerHour"),
+                        innerJsonObject.getString("serviceProvidedFor"), innerJsonObject.getString("serviceProvided"),
+                        innerJsonObject.getDouble("latitude"), innerJsonObject.getDouble("longitude")));
             } catch (JSONException e) {
                 e.printStackTrace();
                 Toast.makeText(activity, "Error: Some Data Cannot Be Retrieved", Toast.LENGTH_SHORT).show();
@@ -549,22 +545,22 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
             JSONObject jsonObject = new JSONObject(jsonResult);
             jsonArray = jsonObject.getJSONArray("server_response");
         } catch (JSONException e) {
-                e.printStackTrace();
+            e.printStackTrace();
         }
         for (int i = 0; i < (jsonArray != null ? jsonArray.length() : 0); i++) {
             try {
-            JSONObject innerJsonObject = jsonArray.getJSONObject(i);
-            adverts.add(new Advert(innerJsonObject.getLong("_id"), Long.parseLong(innerJsonObject.getString("sellerId")),
-                    innerJsonObject.getLong("createDate"), (innerJsonObject.getString("isSold").equals("1")),
-                    innerJsonObject.getInt("viewCount"), innerJsonObject.getString("category"),
-                    innerJsonObject.getString("type"), innerJsonObject.getString("title"),
-                    Double.parseDouble(innerJsonObject.getString("price")), innerJsonObject.getString("details"),
-                    innerJsonObject.getString("country"), innerJsonObject.getString("city"), innerJsonObject.getString("email"),
-                    innerJsonObject.getString("phone"), innerJsonObject.getString("petType"),
-                    innerJsonObject.getString("petBreed"), innerJsonObject.getLong("petBirthDate"),
-                    innerJsonObject.getString("petGender"), (innerJsonObject.getString("isPetNetuered").equals("1")),
-                    (innerJsonObject.getString("isPetMicrochipped").equals("1")),
-                    (innerJsonObject.getString("isPetVaccinated").equals("1")), innerJsonObject.getString("photo")));
+                JSONObject innerJsonObject = jsonArray.getJSONObject(i);
+                adverts.add(new Advert(innerJsonObject.getLong("_id"), Long.parseLong(innerJsonObject.getString("sellerId")),
+                        innerJsonObject.getLong("createDate"), (innerJsonObject.getString("isSold").equals("1")),
+                        innerJsonObject.getInt("viewCount"), innerJsonObject.getString("category"),
+                        innerJsonObject.getString("type"), innerJsonObject.getString("title"),
+                        Double.parseDouble(innerJsonObject.getString("price")), innerJsonObject.getString("details"),
+                        innerJsonObject.getString("country"), innerJsonObject.getString("city"), innerJsonObject.getString("email"),
+                        innerJsonObject.getString("phone"), innerJsonObject.getString("petType"),
+                        innerJsonObject.getString("petBreed"), innerJsonObject.getLong("petBirthDate"),
+                        innerJsonObject.getString("petGender"), (innerJsonObject.getString("isPetNetuered").equals("1")),
+                        (innerJsonObject.getString("isPetMicrochipped").equals("1")),
+                        (innerJsonObject.getString("isPetVaccinated").equals("1")), innerJsonObject.getString("photo")));
             } catch (JSONException e) {
                 e.printStackTrace();
                 Toast.makeText(activity, "Error: Some Data Cannot Be Retrieved", Toast.LENGTH_SHORT).show();

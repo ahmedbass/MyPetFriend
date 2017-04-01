@@ -26,18 +26,16 @@ import static com.ahmedbass.mypetfriend.LauncherActivity.PREF_LOGGED_IN;
 
 public class LoginActivity extends AppCompatActivity {
 
+    public static final String PREF_REMEMBER_ME = "rememberMe";
+    //save login information in preferences when user checks "remember me"
+    private static final String PREF_EMAIL = "email";
+    private static final String PREF_PASSWORD = "password";
     Button login_btn;
     EditText email_etxt, password_etxt;
     TextView moveToResetPassword_txtv;
     CheckBox rememberMe_chk;
     String email, password, taskType;
     boolean isRememberMe;
-
-    //save login information in preferences when user checks "remember me"
-    private static final String PREF_EMAIL = "email";
-    private static final String PREF_PASSWORD = "password";
-    public static final String PREF_REMEMBER_ME = "rememberMe";
-
     SharedPreferences pref;
     Bundle bundle;
 
@@ -53,6 +51,7 @@ public class LoginActivity extends AppCompatActivity {
         login_btn.setOnClickListener(new View.OnClickListener() {
             ConnectivityManager connectivityManager;
             NetworkInfo networkInfo;
+
             @Override
             public void onClick(View v) {
                 email = email_etxt.getText().toString().trim();
@@ -69,10 +68,10 @@ public class LoginActivity extends AppCompatActivity {
                     }
                     connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
                     networkInfo = connectivityManager.getActiveNetworkInfo();
-                    if(networkInfo != null && networkInfo.isConnected()) {
-                            taskType = "login";
-                            BackgroundWorker backgroundWorker = new BackgroundWorker(LoginActivity.this);
-                            backgroundWorker.execute(taskType, email, password);
+                    if (networkInfo != null && networkInfo.isConnected()) {
+                        taskType = "login";
+                        BackgroundWorker backgroundWorker = new BackgroundWorker(LoginActivity.this);
+                        backgroundWorker.execute(taskType, email, password);
                     } else {
                         //if no internet connection, try to find user in the local database
                         PetOwner petOwner = getUserInfoFromLocalDatabase();

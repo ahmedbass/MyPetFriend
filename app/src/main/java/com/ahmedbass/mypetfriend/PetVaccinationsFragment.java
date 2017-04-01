@@ -83,7 +83,7 @@ public class PetVaccinationsFragment extends Fragment {
             currentDay += (currentDate.getActualMaximum(Calendar.DAY_OF_YEAR) * (currentDate.get(Calendar.YEAR) - createDate.get(Calendar.YEAR)));
         }
 
-        if(previousOrNextBooster.equals("next")) {
+        if (previousOrNextBooster.equals("next")) {
             return "after " + (frequency - ((currentDay - createDay) % frequency)) + " days";
         } else {
             return ((currentDay - createDay) % frequency) + " days ago";

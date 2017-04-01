@@ -26,6 +26,24 @@ public class MyDBHelper extends SQLiteOpenHelper {
         this.context = context;
     }
 
+    //---copy database file from the project(in assets folder) to android device---
+    public static void copyDB(Context context, String destPath) throws IOException {
+
+        // get destination path(passed), to copy database to it using OutputStream, by reading my pre-made database in assets using InputStream
+        InputStream inputStream = context.getAssets().open(DATABASE_NAME);
+        OutputStream outputStream = new FileOutputStream(destPath);
+
+        //---copy 1K bytes at a time---
+        byte[] buffer = new byte[1024];
+        int length;
+        while ((length = inputStream.read(buffer)) > 0) {
+            outputStream.write(buffer, 0, length);
+        }
+        outputStream.flush();
+        outputStream.close();
+        inputStream.close();
+    }
+
     // this method creates a new database if the required database is not present (by copying the ready database i put in the assets folder)
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -41,7 +59,7 @@ public class MyDBHelper extends SQLiteOpenHelper {
     }
 
     //---open the database---
-    public MyDBHelper open() throws SQLException{
+    public MyDBHelper open() throws SQLException {
         db = getWritableDatabase();
         return this;
     }
@@ -73,8 +91,7 @@ public class MyDBHelper extends SQLiteOpenHelper {
                 } else if (columnValues[i] instanceof Byte) {
                     values.put(columnNames[i], ((byte) columnValues[i]));
                 }
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 Toast.makeText(context, "Error: " + columnValues[i].toString(), Toast.LENGTH_SHORT).show();
             }
         }
@@ -85,8 +102,8 @@ public class MyDBHelper extends SQLiteOpenHelper {
     public int updateRecord(String table, String[] columnsNames, Object[] columnsValues, String selection, String selectionArg) {
         int i = (table.trim().equals(MyPetFriendContract.UsersEntry.TABLE_NAME) ? 0 : 1);
         ContentValues values = new ContentValues();
-        for(; i < columnsNames.length; i++) {
-            if(columnsValues[i] instanceof String) {
+        for (; i < columnsNames.length; i++) {
+            if (columnsValues[i] instanceof String) {
                 values.put(columnsNames[i], columnsValues[i].toString());
             } else if (columnsValues[i] instanceof Integer) {
                 values.put(columnsNames[i], ((int) columnsValues[i]));
@@ -103,7 +120,7 @@ public class MyDBHelper extends SQLiteOpenHelper {
             }
 //            Toast.makeText(context, values.getAsString(columnsNames[i]), Toast.LENGTH_SHORT).show();
         }
-        return db.update(table, values, selection + "=?" , new String[]{selectionArg});
+        return db.update(table, values, selection + "=?", new String[]{selectionArg});
     }
 
     //---delete a particular record---
@@ -112,14 +129,14 @@ public class MyDBHelper extends SQLiteOpenHelper {
     }
 
     //---retrieve all the records---
-    public Cursor getAllRecords(String table, String[] columns){
+    public Cursor getAllRecords(String table, String[] columns) {
         return db.query(table, columns, null, null, null, null, null);
     }
 
     //---retrieve a particular record(s)---
     public Cursor getRecord(String table, String[] columns, String[] selection, String[] selectionArg) {
         String selectionString = "";
-        if(selection != null) {
+        if (selection != null) {
             for (int i = 0; i < selection.length; i++) {
                 selectionString += selection[i] + "=?";
                 if (i < selection.length - 1) {
@@ -140,28 +157,10 @@ public class MyDBHelper extends SQLiteOpenHelper {
     public int[] getColumnTypes(String table) {
         Cursor cursor = db.query(table, null, null, null, null, null, null);
         int[] columnTypes = new int[cursor.getColumnCount()];
-        for(int i = 0 ; i < cursor.getColumnCount(); i++) {
-           columnTypes[i] = cursor.getType(i);
+        for (int i = 0; i < cursor.getColumnCount(); i++) {
+            columnTypes[i] = cursor.getType(i);
         }
         cursor.close();
         return columnTypes;
-    }
-
-    //---copy database file from the project(in assets folder) to android device---
-    public static void copyDB(Context context, String destPath) throws IOException {
-
-        // get destination path(passed), to copy database to it using OutputStream, by reading my pre-made database in assets using InputStream
-        InputStream inputStream = context.getAssets().open(DATABASE_NAME);
-        OutputStream outputStream = new FileOutputStream(destPath);
-
-        //---copy 1K bytes at a time---
-        byte[] buffer = new byte[1024];
-        int length;
-        while ((length = inputStream.read(buffer)) > 0) {
-            outputStream.write(buffer, 0, length);
-        }
-        outputStream.flush();
-        outputStream.close();
-        inputStream.close();
     }
 }

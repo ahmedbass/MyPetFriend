@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
                     .putString(UsersEntry.COLUMN_PROFILE_PHOTO, petOwner.getProfilePhoto())
                     .apply();
             //we know for sure the passed object is a petOwner, but if it's further more a petCareProvider, do the following
-            if (getIntent().getSerializableExtra("userInfo") instanceof PetCareProvider){
+            if (getIntent().getSerializableExtra("userInfo") instanceof PetCareProvider) {
                 petCareProvider = (PetCareProvider) getIntent().getSerializableExtra("userInfo");
                 preferences.edit()
                         .putString(UsersEntry.COLUMN_PROFILE_DESCRIPTION, petCareProvider.getProfileDescription())
@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.petServices_btn:
                 connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
                 networkInfo = connectivityManager.getActiveNetworkInfo();
-                if(networkInfo != null && networkInfo.isConnected()) {
+                if (networkInfo != null && networkInfo.isConnected()) {
                     backgroundWorker = new BackgroundWorker(this);
                     backgroundWorker.execute("getPetCareProviders");
                 } else {
@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.petMarket_btn:
                 connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
                 networkInfo = connectivityManager.getActiveNetworkInfo();
-                if(networkInfo != null && networkInfo.isConnected()) {
+                if (networkInfo != null && networkInfo.isConnected()) {
                     backgroundWorker = new BackgroundWorker(this);
                     backgroundWorker.execute("getAdverts");
                 } else {

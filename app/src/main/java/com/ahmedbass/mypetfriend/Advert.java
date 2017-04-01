@@ -180,7 +180,7 @@ class Advert implements Serializable {
         this.viewCount = viewCount;
     }
 
-    public void incrementViewCount(){
+    public void incrementViewCount() {
         this.viewCount++;
     }
 }
